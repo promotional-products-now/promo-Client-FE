@@ -24,13 +24,10 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
-       <NextUIProvider>
-          <Outlet />
-          <ScrollRestoration />
-          <Scripts />
-          <LiveReload />
-        </NextUIProvider>
+      <body className="text-sm leading-loose">
+        <Outlet />
+        <Scripts />
+        <LiveReload />
       </body>
     </html>
   );
