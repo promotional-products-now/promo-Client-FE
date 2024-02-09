@@ -11,10 +11,10 @@ import {
   NavbarMenuItem,
   Image,
 } from "@nextui-org/react";
-import logo from "../../assets/logo.svg";
 import { useLocation } from "@remix-run/react";
 import { MdOutlineLocalPhone, MdOutlineVerified } from "react-icons/md";
 import { HiOutlineShoppingBag } from "react-icons/hi";
+import logo from "app/assets/logo.svg";
 import { navLinks } from "./navLinks";
 
 // TODO REMOVE ARBITRARY VALUE
@@ -24,14 +24,14 @@ export function Header() {
   const location = useLocation();
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen} maxWidth="full">
+    <Navbar onMenuOpenChange={setIsMenuOpen} maxWidth="xl">
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           className="sm:hidden"
         />
         <NavbarBrand>
-          <Image src={logo} />
+          <Image src={logo} className="h-12" />
         </NavbarBrand>
       </NavbarContent>
 

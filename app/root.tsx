@@ -3,7 +3,8 @@ import type { LinksFunction } from "@remix-run/node";
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
 import { NextUIProvider } from "@nextui-org/react";
 import stylesheet from "./tailwind.css";
-import { Header } from "./components/Header";
+import { Header } from "app/components/Header";
+import { Footer } from "app/components/Footer";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: stylesheet }];
 
@@ -18,8 +19,13 @@ export default function App() {
       </head>
       <body>
         <NextUIProvider>
-          <Header />
-          <Outlet />
+          <div className="flex flex-col justify-between h-screen">
+            <Header />
+            <div className="flex-1 m-6 sm:mx-20 sm:px-8">
+              <Outlet />
+            </div>
+            <Footer />
+          </div>
           <ScrollRestoration />
           <Scripts />
           <LiveReload />
