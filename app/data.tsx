@@ -2,7 +2,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { MdVerified } from "react-icons/md";
 import { FaRegNewspaper } from "react-icons/fa";
 import { IoMdChatbubbles } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link } from "@remix-run/react";
 
 export const services = [
   {

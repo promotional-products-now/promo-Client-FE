@@ -1,4 +1,3 @@
-import Container from "app/components/Container";
 import { services } from "app/data";
 import { Link } from "@remix-run/react";
 
@@ -10,14 +9,14 @@ const route = () => {
       </div>
 
       <div className="flex flex-col text-center ">
-        <p className="text-textcolor p-2 text-16">
+        <p className="text-black p-2 text-base">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum hic. Quasi
           dicta, quo temporibus consequatur atque, ex ad natus commodi cum eius itaque excepturi
           voluptas qui numquam id? Saepe! Lorem ipsum dolor sit amet consectetur adipisicing elit.
           Accusamus, rerum hic. Quasi dicta,
         </p>
 
-        <p className="text-textcolor p-2 text-16">
+        <p className="text-black p-2 text-base">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum hic. Quasi
           dicta, quo temporibus consequatur atque, ex ad natus commodi cum eius itaque excepturi
           voluptas qui numquam id? Saepe! Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -25,7 +24,7 @@ const route = () => {
           elit. Accusamus, rerum hic. Quasi dicta,
         </p>
 
-        <p className="text-textcolor p-2 text-16">
+        <p className="text-black p-2 text-base">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum hic. Quasi
           dicta, quo temporibus consequatur atque, ex ad natus commodi cum eius itaque excepturi
           voluptas qui numquam id? Saepe!
@@ -40,7 +39,7 @@ const route = () => {
           >
             <div className="flex flex-col justify-around">
               <div className="text-blue-500 font-semibold text-sm text-start">{item.title}</div>
-              <Link to={`/${item.action}`} className="text-textcolor text-sm">
+              <Link to={`/${item.action}`} className="text-black text-sm">
                 Click here
               </Link>
             </div>
