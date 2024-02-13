@@ -24,7 +24,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="text-sm leading-loose">
+      <body className="leading-10">
         <Outlet />
         <Scripts />
         <LiveReload />

@@ -1,5 +1,4 @@
 import { Avatar } from "@nextui-org/avatar";
-import FaqsHeader from "../../components/Faqs_header/Header";
 
 // import type { MetaFunction } from "@remix-run/node";
 

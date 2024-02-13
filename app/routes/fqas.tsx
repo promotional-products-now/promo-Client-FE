@@ -1,26 +1,55 @@
-import { FaQuestion, FaAngleDown } from "react-icons/fa";
+interface Question {
+  title: string;
+  body: string;
+}
+
+interface QuestionsProps {
+  data: Question[];
+}
+
+const Questions: React.FC<QuestionsProps> = ({ data }) => {
+  return (
+    <>
+      {data.map((question, index) => (
+        <div key={index} className="w-full relative my-2">
+          <div className="flex justify-between gap-5 items-center border border-secondary-50 px-4 py-2 cursor-pointer">
+            <div className="flex gap-3 items-center">
+              <div className="w-[20px] h-[20px] flex items-center justify-center border border-primary rounded">
+                <img src="./images/icons/Vector.png" alt="" className="" />
+              </div>
+              <p className="text-sm font-bold">{question.title}</p>
+            </div>
+            <img src="./images/icons/arrow-up.png" alt="" className="" />
+          </div>
+          <div className="hidden w-full py-4 border border-t-0 border-secondary-50 px-10">
+            <p className="text-foreground-600 text-sm leading-loose">{question.body}</p>
+          </div>
+        </div>
+      ))}
+    </>
+  );
+};
 
 const Fqas = () => {
   const questions = [
     {
-      title: "What are PMS colour codes and why do I need to provide these to you ?",
+      title: "Search product catalogue",
+      body: "PMS codes are print code used to identify the exact shade of the print color needed to match the shade of the colour in your logo or artwork. ",
+    },
+    {
+      title: "Search product catalogue",
       body: "PMS codes are print code used to identify the exact shade of the print color needed to match the shade of the colour in your logo or artwork. Often a company brand is identified by the shade of the colour and therefore, the same shade needs to be used when reproducing the logo.",
     },
     {
-      title: "What can you see through a PMS color code Chart ?",
+      title: "Search product catalogue",
       body: "PMS codes are print code used to identify the exact shade of the print color needed to match the shade of the colour in your logo or artwork. Often a company brand is identified by the shade of the colour and therefore, the same shade needs to be used when reproducing the logo.",
     },
     {
-      title: "What do you mean when you say decoration type ?",
+      title: "Search product catalogue",
       body: "PMS codes are print code used to identify the exact shade of the print color needed to match the shade of the colour in your logo or artwork. Often a company brand is identified by the shade of the colour and therefore, the same shade needs to be used when reproducing the logo.",
     },
     {
-      title: "Can i just send you my logo, which i copied from my website ?",
-      body: "PMS codes are print code used to identify the exact shade of the print color needed to match the shade of the colour in your logo or artwork. Often a company brand is identified by the shade of the colour and therefore, the same shade needs to be used when reproducing the logo.",
-    },
-    {
-      title:
-        "If you need my artwork in EPS file, can I just rename my logo filename from xxx.JPG to xxx.ESP ?",
+      title: "Search product catalogue",
       body: "PMS codes are print code used to identify the exact shade of the print color needed to match the shade of the colour in your logo or artwork. Often a company brand is identified by the shade of the colour and therefore, the same shade needs to be used when reproducing the logo.",
     },
   ];
@@ -30,45 +59,17 @@ const Fqas = () => {
       <div className="flex flex-col gap-3 text-center">
         <b className="text-lg uppercase">fqas</b>
         <p>
-          Here are the most frequently asked questions. We are here to help you, so please feel free
-          to <span className="text-yellow font-semibold cursor-pointer">contact us</span>
+          Here are the most frequenty asked questions. We are here to help you, so please feel free
+          to <span className="text-yellow font-semibold cursor-pointer">Contact us</span>
         </p>
         <b className="text-left text-yellow">FAQ-Your Artwork and Logo</b>
       </div>
-      {questions &&
-        questions.map((question, index) => (
-          <div key={index} className="w-full relative my-2">
-            <div className="flex justify-between gap-5 items-center border border-secondary-100 px-4 py-2 cursor-pointer">
-              <div className="flex gap-3 items-center">
-                <FaQuestion size={15} color="blue" />
-                <b className="text-sm">{question.title}</b>
-              </div>
-              <FaAngleDown size={15} />
-            </div>
-            <div className="hidden w-full py-4 border border-t-0 border-secondary-100 px-10">
-              <p className="text-foreground-500">{question.body}</p>
-            </div>
-          </div>
-        ))}
+      <Questions data={questions} />
 
-      {/* Ordering Promotional Products */}
+      {/*=== Ordering Promotional Products ===*/}
       <div className="mt-5">
         <b className="text-left text-yellow">Ordering Promotional Products</b>
-        {questions &&
-          questions.map((question, index) => (
-            <div key={index} className="w-full relative my-2">
-              <div className="flex justify-between gap-5 items-center border border-secondary-100 px-4 py-2 cursor-pointer">
-                <div className="flex gap-3 items-center">
-                  <FaQuestion size={15} color="blue" />
-                  <b className="text-sm">{question.title}</b>
-                </div>
-                <FaAngleDown size={15} />
-              </div>
-              <div className="hidden w-full py-4 border border-t-0 border-secondary-100 px-10">
-                <p className="text-foreground-500">{question.body}</p>
-              </div>
-            </div>
-          ))}
+        <Questions data={questions} />
       </div>
     </div>
   );
