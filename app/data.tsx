@@ -6,22 +6,22 @@ import { Link } from "react-router-dom";
 
 export const services = [
   {
-    icon: <FaShoppingCart style={{ color: "#ffd700", fontSize: "4rem" }} />,
+    icon: <FaShoppingCart style={{ color: "orange", fontSize: "4rem" }} />,
     title: "Shopping now",
     action: "shopping",
   },
   {
-    icon: <MdVerified style={{ color: "#ffd700", fontSize: "4rem" }} />,
+    icon: <MdVerified style={{ color: "orange", fontSize: "4rem" }} />,
     title: "Our Guarantees",
     action: "guarantees",
   },
   {
-    icon: <FaRegNewspaper style={{ color: "#ffd700", fontSize: "4rem" }} />,
+    icon: <FaRegNewspaper style={{ color: "orange", fontSize: "4rem" }} />,
     title: "Our FAQs",
     action: "faqs",
   },
   {
-    icon: <IoMdChatbubbles style={{ color: "#ffd700", fontSize: "4rem" }} />,
+    icon: <IoMdChatbubbles style={{ color: "orange", fontSize: "4rem" }} />,
     title: "Blog Articles",
     action: "blog",
   },
