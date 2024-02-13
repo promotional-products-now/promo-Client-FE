@@ -1,29 +1,31 @@
+import { FaShoppingCart } from "react-icons/fa";
+import { MdVerified } from "react-icons/md";
+import { FaRegNewspaper } from "react-icons/fa";
+import { IoMdChatbubbles } from "react-icons/io";
+import { Link } from "react-router-dom";
+
 export const services = [
   {
-    img: "/images/shopping-cart.png",
+    icon: <FaShoppingCart style={{ color: "#ffd700", fontSize: "4rem" }} />,
     title: "Shopping now",
-    action: "Click here",
+    action: "shopping",
   },
-
   {
-    img: "/images/new-releases.png",
-    title: "Our Gurantees",
-    action: "Click here",
+    icon: <MdVerified style={{ color: "#ffd700", fontSize: "4rem" }} />,
+    title: "Our Guarantees",
+    action: "guarantees",
   },
-
   {
-    img: "/images/comment.png",
-    title: "Our faqs",
-    action: "Click here",
+    icon: <FaRegNewspaper style={{ color: "#ffd700", fontSize: "4rem" }} />,
+    title: "Our FAQs",
+    action: "faqs",
   },
-
   {
-    img: "/images/news.png",
-    title: "Blog articles",
-    action: "Click here",
+    icon: <IoMdChatbubbles style={{ color: "#ffd700", fontSize: "4rem" }} />,
+    title: "Blog Articles",
+    action: "blog",
   },
 ];
-
 export const items = [
   {
     image: "/images/item2.png",
