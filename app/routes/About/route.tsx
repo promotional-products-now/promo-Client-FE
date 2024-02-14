@@ -31,7 +31,8 @@ const route = () => {
         </p>
       </div>
 
-      <div className="md:grid md:grid-cols-4 grid grid-cols-1 gap-4 mt-8">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-8">
+        {" "}
         {services.map((item, index) => (
           <div
             key={index}
