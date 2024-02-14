@@ -1,27 +1,26 @@
-import { FaShoppingCart } from "react-icons/fa";
-import { MdVerified } from "react-icons/md";
-import { FaRegNewspaper } from "react-icons/fa";
-import { IoMdChatbubbles } from "react-icons/io";
-import { Link } from "@remix-run/react";
+import { MdOutlineShoppingCart } from "react-icons/md";
+import { GoVerified } from "react-icons/go";
+import { RiQuestionAnswerLine } from "react-icons/ri";
+import { FaRegNewspaper } from "react-icons/fa6";
 
 export const services = [
   {
-    icon: <FaShoppingCart style={{ color: "orange", fontSize: "4rem" }} />,
+    icon: <MdOutlineShoppingCart style={{ color: "orange", fontSize: "4rem" }} />,
     title: "Shopping now",
     action: "shopping",
   },
   {
-    icon: <MdVerified style={{ color: "orange", fontSize: "4rem" }} />,
+    icon: <GoVerified style={{ color: "orange", fontSize: "4rem" }} />,
     title: "Our Guarantees",
     action: "guarantees",
   },
   {
-    icon: <FaRegNewspaper style={{ color: "orange", fontSize: "4rem" }} />,
+    icon: <RiQuestionAnswerLine style={{ color: "orange", fontSize: "4rem" }} />,
     title: "Our FAQs",
     action: "faqs",
   },
   {
-    icon: <IoMdChatbubbles style={{ color: "orange", fontSize: "4rem" }} />,
+    icon: <FaRegNewspaper style={{ color: "orange", fontSize: "4rem" }} />,
     title: "Blog Articles",
     action: "blog",
   },
