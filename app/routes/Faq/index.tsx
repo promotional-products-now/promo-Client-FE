@@ -1,5 +1,5 @@
-import QuestionAccordion from "../../components/QuestionAccordion/index";
-import { questions } from "../../components/QuestionAccordion/data";
+import QuestionAccordion from "app/components/QuestionAccordion";
+import { questions } from "app/components/QuestionAccordion/data";
 
 const Faq = () => {
   return (
