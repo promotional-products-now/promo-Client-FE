@@ -1,9 +1,35 @@
-import { services } from "app/data";
 import { Link } from "@remix-run/react";
+import { BsCart3 } from "react-icons/bs";
+import { GoVerified } from "react-icons/go";
+import { TbMessage } from "react-icons/tb";
+import { FaRegNewspaper } from "react-icons/fa6";
+
+export const services = [
+  {
+    icon: <BsCart3 style={{ color: "orange", fontSize: "4rem" }} />,
+    title: "Shopping now",
+    action: "shopping",
+  },
+  {
+    icon: <GoVerified style={{ color: "orange", fontSize: "4rem" }} />,
+    title: "Our Guarantees",
+    action: "guarantees",
+  },
+  {
+    icon: <TbMessage style={{ color: "orange", fontSize: "4rem" }} />,
+    title: "Our FAQs",
+    action: "faqs",
+  },
+  {
+    icon: <FaRegNewspaper style={{ color: "orange", fontSize: "4rem" }} />,
+    title: "Blog Articles",
+    action: "blog",
+  },
+];
 
 const route = () => {
   return (
-    <div className="my-10 px-8">
+    <div className="my-10 mx-8 px-8">
       <div className="mb-8 flex justify-center font-extrabold">
         <h2 className="text-xl">Company Profile</h2>
       </div>
@@ -31,7 +57,8 @@ const route = () => {
         </p>
       </div>
 
-      <div className="md:grid md:grid-cols-4 grid grid-cols-1 gap-4 mt-8">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-8">
+        {" "}
         {services.map((item, index) => (
           <div
             key={index}
