@@ -1,17 +1,17 @@
 import { Link } from "@remix-run/react";
 import { FaArrowRight } from "react-icons/fa";
-import image from "../../assets/item.png";
+import image from "app/assets/item.png";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
-import { blogPosts } from "./data";
+import { blogPosts } from "app/mock/blogData";
 
 const Blog = () => {
   return (
     <div className="flex flex-col gap-10 w-full mx-auto py-10 text-sm lg:w-[90%]">
-      <div className="flex flex-col gap-1 text-center capitalize">
-        <b className="text-xl font-extrabold">our Blog</b>
-        <p className="text-foreground-500">Browse our latest new</p>
+      <div className="flex flex-col gap-1 text-center ">
+        <h1 className="text-xl font-extrabold">Our Blog</h1>
+        <p className="text-foreground-500">Browse our latest news</p>
       </div>
-      <div className="grid grid-cols-1 gap-14 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-14 md:grid-cols-2 lg:grid-cols-3">
         {blogPosts &&
           blogPosts.map((post) => (
             <Card key={post.id} isPressable className="rounded-none shadow-none">
