@@ -1,0 +1,121 @@
+import ProductCard from "./Card/ProductCard";
+import { items } from "app/data";
+import { Button } from "@nextui-org/react";
+import { Link } from "@remix-run/react";
+import { IoIosArrowDown } from "react-icons/io";
+import { PiFirstAidKitLight } from "react-icons/pi";
+
+interface ProductSectionProps {
+  sideImage?: string;
+  bgimage?: string;
+  title?: string;
+  showmore?: boolean;
+}
+
+const ProductSection = ({ sideImage, bgimage, showmore }: ProductSectionProps) => {
+  return (
+    <div className="flex flex-col justify-center items-center">
+      <div className="grid grid-cols-[4fr_7fr] py-10 ">
+        <div className="relative flex flex-row justify-start items-center left-0 ">
+          <div className="relative w-[275px] border h-full z-20">
+            <div
+              className="absolute mx-6 flex flex-col gap-[16px]
+            top-[50%] -translate-y-[50%] -p-6 z-20"
+            >
+              <div className="w-14 h-14">
+                <PiFirstAidKitLight className="text-white h-full w-full transition aspect-auto" />
+              </div>
+
+              <div className="text-[#D5E7DB] text-2xl">Health & Fitness</div>
+              <ul className="flex flex-col gap-4">
+                <Link to={"/"}>
+                  <li className="text-[#D5E7DB]">AUSTRALIAN MADE PRODUCTS </li>
+                </Link>
+                <Link to={"/"}>
+                  <li className="text-[#D5E7DB]">AUSTRALIAN MADE PRODUCTS </li>
+                </Link>
+                <Link to={"/"}>
+                  <li className="text-[#D5E7DB]">AUSTRALIAN MADE PRODUCTS </li>
+                </Link>
+                <Link to={"/"}>
+                  <li className="text-[#D5E7DB]">AUSTRALIAN MADE PRODUCTS </li>
+                </Link>
+                <Link to={"/"}>
+                  <li className="text-[#D5E7DB]">AUSTRALIAN MADE PRODUCTS </li>
+                </Link>
+                <Link to={"/"}>
+                  <li className="text-[#D5E7DB]">AUSTRALIAN MADE PRODUCTS </li>
+                </Link>
+                <Link to={"/"}>
+                  <li className="text-[#D5E7DB]">AUSTRALIAN MADE PRODUCTS </li>
+                </Link>
+                <Link to={"/"}>
+                  <li className="text-[#D5E7DB]">AUSTRALIAN MADE PRODUCTS </li>
+                </Link>
+              </ul>
+
+              <div className="w-[70%] mt-5">
+                <Button
+                  as={Link}
+                  href="#"
+                  className="bg-white px-3 py-3 rounded-sm  text-black text-base font-semibold hover:opacity-80 transition text-center capitalize"
+                  size="md"
+                  variant="ghost"
+                >
+                  View Collection
+                </Button>
+              </div>
+            </div>
+            <img
+              src="https://images.pexels.com/photos/7674483/pexels-photo-7674483.jpeg?auto=compress&cs=tinysrgb&w=600"
+              alt="bg"
+              className=" h-full w-full transition aspect-auto absolute inset-0  "
+            />
+            <div className="bg-[#0079C0] inset-0 absolute opacity-60"></div>
+          </div>
+
+          <div className="w-[302.21px] h-[600.11px] absolute md:-right-[16px] -right-[30px]">
+            <img
+              src="https://images.pexels.com/photos/3225889/pexels-photo-3225889.jpeg?auto=compress&cs=tinysrgb&w=600"
+              alt="bg"
+              className="object-cover h-full w-full transition aspect-auto"
+            />
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-3  grid-cols-1 z-20 bg-[#F8F8F8] gap-4">
+          {items.slice(0, 6).map((item, index) => {
+            return (
+              <ProductCard
+                key={index}
+                image={item.image}
+                title={item.title}
+                subtitle={item.subtitle}
+                price={item.price}
+                newPrice={item.newPrice}
+                qunatity={item.qunatity}
+              />
+            );
+          })}
+        </div>
+      </div>
+
+      {showmore && (
+        <div className="flex flex-row gap-2 items-center justify-center w-[30%]">
+          <Button
+            as={Link}
+            href="#"
+            variant="solid"
+            color="primary"
+            startContent={<IoIosArrowDown className="text-base" />}
+            className="bg-[#0079C0] px-5 py-3 rounded-sm text-white flex flex-row gap-5 text-base font-semibold hover:opacity-80 transition text-center capitalize"
+          >
+            Show more Products{" "}
+          </Button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ProductSection;
