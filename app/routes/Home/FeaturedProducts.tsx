@@ -98,7 +98,7 @@ const FeaturedProducts = ({
           </div>
         </div>
 
-        <div className="grid md:grid-cols-5 grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-5 grid-cols-2 gap-5">
           {filterItems.slice(0, gridno).map((item, index) => (
             <ProductCard
               key={index}

@@ -16,6 +16,7 @@ import BlogCard from "./Home/Blog";
 
 export const meta: MetaFunction = () => {
   return [{ title: "App" }, { name: "description", content: "Welcome to Remix!" }];
+  return [{ title: "App" }, { name: "description", content: "Welcome to Remix!" }];
 };
 
 export default function Index() {
@@ -26,8 +27,8 @@ export default function Index() {
     setWidth(carouselRef.current?.scrollWidth - carouselRef.current?.offsetWidth);
   }, []);
   return (
-    <div className="">
-      <div className="bg-[#F8F8F8] py-12  md:px-20 px-5">
+    <div className="mx-6">
+      <div className="bg-[#F8F8F8] py-12 md:px-20 px-5">
         <div className="flex flex-col md:flex-row ">
           <div className=" flex flex-row bg-lightblue justify-center items-center pl-[40px] pt-5 flex-4">
             <div className="flex flex-col gap-3 ">
@@ -72,8 +73,8 @@ export default function Index() {
           </div>
 
           <div className="flex flex-col align-center">
-            <div className="bg-lime-100 flex flex-row justify-center items-center gap-1 h-full p-10 flex-1">
-              <div className="max-w-[317px] max-h-[230px] flex flex-col gap-3">
+            <div className="bg-lime-100 flex flex-row justify-center items-center gap-1 h-full p-5 flex-1">
+              <div className=" flex flex-col gap-3">
                 <h3 className=" text-lg text-blue">HEALTH & FITNESS</h3>
                 <h1 className="font-bold text-2xl text-gray-800 capitalize space-y-2">
                   Champion Fitness Activity Tracker{" "}
@@ -242,7 +243,7 @@ export default function Index() {
         </div>
       </div>
       <div>
-        <div className="mt-16 md:px-[100px] w-full px-5 flex flex-col gap-2">
+        <div className="mt-16 md:px-[100px] w-full px-5 flex flex-col gap-2 mx-6">
           <h1 className="font-bold text-2xl text-black capitalize text-center">Our Blog</h1>
           <h3 className="font-semibold text-lg text-textcolor text-center">
             Browse Our Latest News

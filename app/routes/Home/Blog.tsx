@@ -1,3 +1,4 @@
+import { Link } from "@remix-run/react";
 import { HiArrowRight } from "react-icons/hi2";
 import { Card, CardHeader, CardBody, CardFooter, Divider, Image } from "@nextui-org/react";
 
@@ -11,20 +12,21 @@ const BlogCard = ({ image, title, subtitle }: BlogCardProps) => {
   return (
     <Card className="col-span-1 cursor-pointer group" radius="none">
       <CardHeader className="aspect-square w-full relative overflow-hidden p-0">
-        <Image radius="none"
+        <Image
+          radius="none"
           alt="listing"
           src={image}
           className="object-cover h-full w-full transition aspect-square inset-0"
         />
 
-        <div className="px-2 py-1 bg-orange absolute rounded-md top-2 left-2 z-10">News</div>
+        <div className="px-2 py-1 bg-[#FAB102] absolute rounded-md top-2 left-2 z-10">News</div>
       </CardHeader>
 
-      <CardBody className="bg-backgroundgray rounded-sm pb-2 px-2">
+      <CardBody className="bg-[#F8F8F8] rounded-sm pb-2 px-2">
         <div className="text-black capitalize font-semibold">{title}</div>
         <div className="text-black">{subtitle}</div>
-        <div className="flex flex-row justify-start items-center gap-3 mt-4">
-          <HiArrowRight size={20} className="text-blue" />
+        <div className="flex flex-row justify-start items-center gap-3 mt-[16px]">
+          <HiArrowRight size={20} className="text-[#0079C0]" />
           <div className="">View Article</div>
         </div>
       </CardBody>
