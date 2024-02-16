@@ -10,16 +10,19 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        current: "currentColor",
+        transparent: "transparent",
+        white: "#FFFFFF",
+        black: "#020202",
         primary: "#0079C0",
-        secondary: "#FB853C",
-        white: "#F8F8F8",
-        light: "#D5E7DB",
-        lightest: "#84C9F2",
+        orange: "#FB853C",
+        lightGreen: "#D5E7DB",
+        lightBlue: "#84C9F2",
         yellow: "#FAB102",
-        dark: "#020202",
-        grey: "#4D4D4D",
-        meduim: "#E9EBF3",
-      },
+        gray: "#4D4D4D",
+        'white-bg': "#F8F8F8",
+        'white-border': "#E9EBF3"
+      }
     },
   },
   darkMode: "class",

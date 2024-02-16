@@ -17,8 +17,6 @@ import { HiOutlineShoppingBag } from "react-icons/hi";
 import logo from "app/assets/logo.svg";
 import { navLinks } from "./navLinks";
 
-// TODO REMOVE ARBITRARY VALUE
-
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const location = useLocation();
@@ -44,7 +42,7 @@ export function Header() {
                 aria-current="page"
                 className={`text-black  ${
                   link.pathname === location.pathname
-                    ? "underline font-bold decoration-[#0079C0]"
+                    ? "underline font-bold decoration-primary"
                     : ""
                 }`}
                 underline={link.pathname === location.pathname ? "active" : "none"}
@@ -61,8 +59,8 @@ export function Header() {
             as={Link}
             href="#"
             variant="ghost"
-            startContent={<MdOutlineVerified className="text-base text-[#FB853C]" />}
-            className="border border-[#FB853C] rounded"
+            startContent={<MdOutlineVerified className="text-base text-orange" />}
+            className="border border-orange rounded"
           >
             OUR GUARANTEES
           </Button>
@@ -72,8 +70,8 @@ export function Header() {
             as={Link}
             href="tel:+44-785-7895"
             variant="ghost"
-            startContent={<MdOutlineLocalPhone className="text-base text-[#0079C0]" />}
-            className="border border-[#0079C0] rounded"
+            startContent={<MdOutlineLocalPhone className="text-base text-primary" />}
+            className="border border-primary rounded"
           >
             SALES: 44-785-7895
           </Button>
@@ -84,7 +82,7 @@ export function Header() {
             href="#/cart"
             variant="ghost"
             startContent={<HiOutlineShoppingBag className="text-base" />}
-            className="border border-[#0079C0] rounded"
+            className="border border-primary rounded"
           >
             VIEW CART
           </Button>
