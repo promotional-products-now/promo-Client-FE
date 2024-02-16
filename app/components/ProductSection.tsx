@@ -73,12 +73,12 @@ const ProductSection = ({ sideImage, bgimage, showmore }: ProductSectionProps) =
               radius="none"
               className=" h-full w-full transition aspect-auto absolute inset-0"
             />
-            <div className="bg-blue inset-0 absolute opacity-60 z-20"></div>
+            <div className="bg-primary inset-0 absolute opacity-60 z-20"></div>
           </div>
 
-          <div className="w-[302.21px] h-[600.11px] absolute md:-right-4 -right-8">
+          <div className="w-[302px] h-[600.11px] absolute md:-right-4 -right-8">
             <Image
-              src="https://images.pexels.com/photos/3225889/pexels-photo-3225889.jpeg?auto=compress&cs=tinysrgb&w=600"
+              src="https://images.unsplash.com/photo-1513682121497-80211f36a7d3?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHBlb3BsZXxlbnwwfHwwfHx8MA%3D%3D"
               alt="bg"
               removeWrapper
               className="object-cover h-full w-full transition aspect-auto"
@@ -111,7 +111,7 @@ const ProductSection = ({ sideImage, bgimage, showmore }: ProductSectionProps) =
             variant="solid"
             color="primary"
             startContent={<IoIosArrowDown className="text-base" />}
-            className="bg-blue px-5 py-3 rounded-sm text-white flex flex-row gap-5 text-base font-semibold hover:opacity-80 transition text-center capitalize"
+            className="bg-primary px-5 py-3 rounded-sm text-white flex flex-row gap-5 text-base font-semibold hover:opacity-80 transition text-center capitalize"
           >
             Show more Products{" "}
           </Button>

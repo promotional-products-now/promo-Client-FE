@@ -27,10 +27,10 @@ export default function Index() {
     setWidth(carouselRef.current?.scrollWidth - carouselRef.current?.offsetWidth);
   }, []);
   return (
-    <div className="mx-6">
+    <div className="-mx-20">
       <div className="bg-[#F8F8F8] py-12 md:px-20 px-5">
         <div className="flex flex-col md:flex-row ">
-          <div className=" flex flex-row bg-lightblue justify-center items-center pl-[40px] pt-5 flex-4">
+          <div className=" flex flex-row bg-lightBlue justify-center items-center pl-[40px] pt-5 flex-4">
             <div className="flex flex-col gap-3 ">
               <h3 className="font-semibold text-xl text-white space-y-2">CLOTHING</h3>
               <h1 className="font-bold text-2xl text-white capitalize ">
@@ -42,7 +42,7 @@ export default function Index() {
                 <Button
                   as={Link}
                   href="#"
-                  className="bg-blue w-min p-5 rounded-md  text-white text-base font-semibold hover:opacity-80 transition text-center capitalize"
+                  className="bg-primary w-min p-5 rounded-md  text-white text-base font-semibold hover:opacity-80 transition text-center capitalize"
                   size="md"
                   variant="solid"
                 >
@@ -75,7 +75,7 @@ export default function Index() {
           <div className="flex flex-col align-center">
             <div className="bg-lime-100 flex flex-row justify-center items-center gap-1 h-full p-5 flex-1">
               <div className=" flex flex-col gap-3">
-                <h3 className=" text-lg text-blue">HEALTH & FITNESS</h3>
+                <h3 className=" text-lg text-primary">HEALTH & FITNESS</h3>
                 <h1 className="font-bold text-2xl text-gray-800 capitalize space-y-2">
                   Champion Fitness Activity Tracker{" "}
                 </h1>
@@ -83,7 +83,7 @@ export default function Index() {
                   <Button
                     as={Link}
                     href="#"
-                    className="bg-blue p-5 w-min rounded-md  text-white text-base hover:opacity-80 transition text-center capitalize"
+                    className="bg-primary p-5 w-min rounded-md  text-white text-base hover:opacity-80 transition text-center capitalize"
                     size="md"
                     variant="solid"
                   >
@@ -103,7 +103,7 @@ export default function Index() {
               </Link>
             </div>
 
-            <div className="bg-blue flex flex-row justify-center items-center gap-5 p-6 flex-1">
+            <div className="bg-primary flex flex-row justify-center items-center gap-5 p-6 flex-1">
               <div className="w-[360px] h-[240px]">
                 <Image
                   src="https://images.pexels.com/photos/842959/pexels-photo-842959.jpeg?auto=compress&cs=tinysrgb&w=600"
@@ -138,7 +138,7 @@ export default function Index() {
       </div>
       <div className="md:px-20 px-5">
         <div className="mt-16  ">
-          <div className="text-blue text-center text-2xl font-semibold mb-8">
+          <div className="text-primary text-center text-2xl font-semibold mb-8">
             PROMOTIONAL MERCHANDISE AT GUARANTEED LOWEST PRICES
           </div>
 
@@ -158,7 +158,7 @@ export default function Index() {
                 );
               })}
 
-              <div className="absolute -top-7 flex flex-row gap-1 px-2 py-3 bg-whitewhite z-10 items-center">
+              <div className="absolute -top-7 flex flex-row gap-1 px-2 py-3 bg-white z-10 items-center">
                 <HiOutlineFire className="text-orange" size={25} />
                 <div className="text-orange">WHAT’S HOT</div>
               </div>
@@ -205,7 +205,7 @@ export default function Index() {
                 size="md"
                 variant="solid"
                 startContent={<FiShoppingCart className="text-base" />}
-                className="rounded-md bg-blue text-white p-6 hover:opacity-80 transition text-center capitalize flex flex-row"
+                className="rounded-md bg-primary text-white p-6 hover:opacity-80 transition text-center capitalize flex flex-row"
               >
                 Shop Now
               </Button>
@@ -222,14 +222,17 @@ export default function Index() {
               </Button>
             </div>
 
-            <div className="mt-4 flex flex-col justify-center items-center gap-2 w-full">
-              <h1 className="font-bold text-2xl text-black capitalize text-center">
-                You are fully protected
-              </h1>
-              <h3 className="font-semibold md:text-lg text-sm text-textcolor text-center">
-                We are bound by the code of conduct of the Australian Promotional Products
-                Association
-              </h3>
+            <div className="mt-4 flex flex-col justify-center items-center gap-4 w-full">
+              <div className="py-2">
+                <h2 className="font-bold text-2xl text-black capitalize text-center">
+                  You are fully protected
+                </h2>
+                <p className=" md:text-lg text-sm text-gray text-center">
+                  We are bound by the code of conduct of the Australian Promotional Products
+                  Association
+                </p>
+              </div>
+
               <div className="md:w-1/2 w-full">
                 <Image
                   src="https://app.requestly.io/delay/5000/https://nextui-docs-v2.vercel.app/images/hero-card-complete.jpeg"
@@ -243,7 +246,7 @@ export default function Index() {
         </div>
       </div>
       <div>
-        <div className="mt-16 md:px-[100px] w-full px-5 flex flex-col gap-2 mx-6">
+        <div className="mt-16 md:px-[100px] w-full px-5 flex flex-col gap-2 ">
           <h1 className="font-bold text-2xl text-black capitalize text-center">Our Blog</h1>
           <h3 className="font-semibold text-lg text-textcolor text-center">
             Browse Our Latest News

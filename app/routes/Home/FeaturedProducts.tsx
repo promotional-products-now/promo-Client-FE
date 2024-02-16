@@ -42,7 +42,7 @@ const FeaturedProducts = ({
       <div className="mt-[62px] flex flex-col gap-4 relative pb-20">
         <div className="flex flex-row justify-between item-center border-b-[1px] border-textcolor mb-8 md:p-5  p-1 ">
           <div className="flex flex-row gap-3 items-center">
-            <GoVerified size={25} className="text-blue" />
+            <GoVerified size={25} className="text-primary" />
 
             <div className="text-black md:text-2xl text-lg font-semibold">{sectionlabel}</div>
           </div>
@@ -56,7 +56,7 @@ const FeaturedProducts = ({
                 tabList: "gap-6 w-full relative rounded-none p-0 border-b border-divider",
                 cursor: "w-full bg-black",
                 tab: "max-w-fit px-0 h-12",
-                tabContent: "group-data-[selected=true]:text-blue",
+                tabContent: "group-data-[selected=true]:text-primary",
               }}
             >
               <Tab
@@ -98,7 +98,7 @@ const FeaturedProducts = ({
           </div>
         </div>
 
-        <div className="grid md:grid-cols-5 grid-cols-2 gap-5">
+        <div className="grid md:grid-cols-5 grid-cols-2 gap-4">
           {filterItems.slice(0, gridno).map((item, index) => (
             <ProductCard
               key={index}

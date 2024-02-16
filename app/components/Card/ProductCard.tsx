@@ -28,14 +28,14 @@ const ProductCard = ({ image, title, subtitle, price, newPrice, qunatity }: Prod
           <div className="bg-orange px-2 py-2 flex flex-row items-center flex-1 gap-2 justify-center ">
             <FiEye /> <div className="">Preview</div>
           </div>
-          <div className="bg-blue px-2 py-2 flex flex-row items-center flex-1 gap-2 justify-center">
+          <div className="bg-primary px-2 py-2 flex flex-row items-center flex-1 gap-2 justify-center">
             <BsCart3 /> <div className="">View product</div>
           </div>
         </div>
       </CardHeader>
 
       <CardBody className="overflow-visible p-2 gap-3">
-        <div className="text-blue capitalize font-semibold">{title}</div>
+        <div className="text-primary capitalize font-semibold">{title}</div>
         <div className="text-black">{subtitle}</div>
         <div className="flex flex-row text-sm justify-between">
           <div className="text-gray-700 flex flex-row gap-1">
@@ -43,7 +43,7 @@ const ProductCard = ({ image, title, subtitle, price, newPrice, qunatity }: Prod
               {" "}
               from <span className="text-orange">{price}</span> to
             </p>
-            <span className="text-blue">{newPrice}</span>
+            <span className="text-primary">{newPrice}</span>
           </div>
           <div className="">{qunatity}</div>
         </div>
