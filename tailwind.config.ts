@@ -14,7 +14,6 @@ module.exports = {
         whitewhite: "#FFFFFF",
         yellow: "#FAB102",
         orange: "#FB853C",
-        // white: "#D5E7DB",
         lightblue: "#84C9F2",
         backgroundgray: "#F8F8F8",
         titletext: "#020202",
