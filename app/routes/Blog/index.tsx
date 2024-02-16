@@ -11,7 +11,7 @@ const Blog = () => {
         <b className="text-xl font-extrabold">our Blog</b>
         <p className="text-foreground-500">Browse our latest new</p>
       </div>
-      <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-14 lg:grid-cols-3">
         {blogPosts &&
           blogPosts.map((post) => (
             <Card key={post.id} isPressable className="rounded-none shadow-none">
@@ -21,7 +21,7 @@ const Blog = () => {
                   radius="none"
                   width="100%"
                   alt={post.title}
-                  className="w-full object-cover h-[140px]"
+                  className="h-[200px] object-cover lg:h-[200px]"
                   src={image}
                 />
               </CardBody>

@@ -3,9 +3,9 @@ import { questions } from "app/components/QuestionAccordion/data";
 
 const Faq = () => {
   return (
-    <div className="flex flex-col gap-3 w-full mx-auto px-5 py-10 lg:w-[80%]">
+    <div className="flex flex-col gap-3 w-full mx-auto py-10 lg:px-5 lg:w-[80%]">
       <div className="flex flex-col gap-3 text-center">
-        <b className="text-lg uppercase">fqas</b>
+        <b className="text-lg uppercase">FAQs</b>
         <p>
           Here are the most frequenty asked questions. We are here to help you, so please feel free
           to{" "}
