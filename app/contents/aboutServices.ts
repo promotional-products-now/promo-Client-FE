@@ -2,39 +2,38 @@ import { BsCart3 } from "react-icons/bs";
 import { GoVerified } from "react-icons/go";
 import { TbMessage } from "react-icons/tb";
 import { FaRegNewspaper } from "react-icons/fa6";
+import { IconType } from "react-icons";
 
 export type ServicesT = {
-  icon: JSX.Element;
+  icon: IconType;
   title: string;
   action: string;
   id: string;
-}
+};
 
 export const services = [
   {
-    icon: <BsCart3 style={{ color: "orange", fontSize: "4rem" }} />,
+    icon: BsCart3,
     title: "Shopping now",
     action: "shopping",
-    id: "shopping"
+    id: "shopping",
   },
   {
-    icon: <GoVerified style={{ color: "orange", fontSize: "4rem" }} />,
+    icon: GoVerified,
     title: "Our Guarantees",
     action: "guarantees",
-    id: "guarantees"
+    id: "guarantees",
   },
   {
-    icon: <TbMessage style={{ color: "orange", fontSize: "4rem" }} />,
+    icon: TbMessage,
     title: "Our FAQs",
     action: "faqs",
-    id: "faqs"
+    id: "faqs",
   },
   {
-    icon: <FaRegNewspaper style={{ color: "orange", fontSize: "4rem" }} />,
+    icon: FaRegNewspaper,
     title: "Blog Articles",
     action: "blog",
-    id: "blog"
+    id: "blog",
   },
 ];
-
-

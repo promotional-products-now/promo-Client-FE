@@ -1,10 +1,9 @@
-import { cssBundleHref } from "@remix-run/css-bundle";
 import type { LinksFunction } from "@remix-run/node";
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
 import { NextUIProvider } from "@nextui-org/react";
-import stylesheet from "./tailwind.css";
 import { Header } from "app/components/Header";
 import { Footer } from "app/components/Footer";
+import stylesheet from "./tailwind.css";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: stylesheet }];
 
