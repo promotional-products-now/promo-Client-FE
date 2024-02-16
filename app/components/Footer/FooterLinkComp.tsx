@@ -11,7 +11,7 @@ export const FooterLinkComp = ({ title, links }: { title: string; links: Array<F
             <li className="mb-1" key={link.name}>
               <Link
                 href={link.pathname}
-                className="hover:underline text-[#4D4D4D] text-sm font-normal"
+                className="hover:underline text-gray text-sm font-normal"
               >
                 {link.name}
               </Link>
