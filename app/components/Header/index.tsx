@@ -17,8 +17,6 @@ import { HiOutlineShoppingBag } from "react-icons/hi";
 import logo from "app/assets/logo.svg";
 import { navLinks } from "./navLinks";
 
-// TODO REMOVE ARBITRARY VALUE
-
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const location = useLocation();
