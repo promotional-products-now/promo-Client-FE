@@ -10,16 +10,19 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        blue: "#0079C0",
-        whitewhite: "#FFFFFF",
-        yellow: "#FAB102",
+        current: "currentColor",
+        transparent: "transparent",
+        white: "#FFFFFF",
+        black: "#020202",
+        primary: "#0079C0",
         orange: "#FB853C",
-        lightblue: "#84C9F2",
-        backgroundgray: "#F8F8F8",
-        titletext: "#020202",
-        textcolor: "#4D4D4D",
-        bordercolor: "#E9EBF3",
-      },
+        lightGreen: "#D5E7DB",
+        lightBlue: "#84C9F2",
+        yellow: "#FAB102",
+        gray: "#4D4D4D",
+        'white-bg': "#F8F8F8",
+        'white-border': "#E9EBF3"
+      }
     },
   },
   darkMode: "class",

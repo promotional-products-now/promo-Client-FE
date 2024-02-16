@@ -26,10 +26,10 @@ export function Footer() {
   return (
     <footer className="bg-white dark:bg-gray-900">
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
-        <div className="sm:flex sm:items-center sm:justify-between space-y-6 sm:space-y-0">
+        <div className="sm:flex sm:items-center sm:justify-between space-y-6 sm:space-y-0 w-full">
           <h1 className="text-4xl text-black font-semibold">Newsletter</h1>
-          <div className="flex sm:justify-center">
-            <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="flex sm:justify-end w-full">
+            <form onSubmit={handleSubmit(onSubmit)} className="w-full sm:w-2/4">
               <div className="flex items-center w-full">
                 <Input
                   size="sm"
@@ -44,7 +44,7 @@ export function Footer() {
                       type="submit"
                       size="lg"
                       variant="ghost"
-                      className="border-none rounded-s-none bg-[#0079C0] text-white"
+                      className="border-none rounded-s-none bg-primary text-white"
                     >
                       Subscribe
                     </Button>
@@ -57,23 +57,23 @@ export function Footer() {
         <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
 
         <>
-          <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-4">
+          <div className="grid gap-8 sm:gap-6 sm:grid-cols-4">
             <div className="mb-6 md:mb-0 space-y-4">
               <Link href="/" className="flex items-center">
                 <Image src={logo} className="h-12" />
               </Link>
               <div className="space-y-3">
-                {[1, 2].map(() => (
-                  <p className="text-sm font-normal text-[#4D4D4D]">
+                {[1, 2].map((_,i) => (
+                  <p className="text-sm font-normal text-gray">
                     Lorem ipsum dolor sit amet consectetur. Dui mattis faucibus mus tristique.
                     Faucibus molestie faucibus dolor imperdiet urna volutpat.{" "}
                   </p>
                 ))}
               </div>
               <div>
-                <h2 className="text-xl text-[#020202] font-semibold">Follow Us</h2>
+                <h2 className="text-xl text-black font-semibold">Follow Us</h2>
               </div>
-              <p className="text-sm font-normal text-[#4D4D4D]">
+              <p className="text-sm font-normal text-gray">
                 Copyright 2023 Promotional Products Now
               </p>
             </div>
@@ -90,35 +90,35 @@ export function Footer() {
               <FooterLinkComp title="Other Information" links={otherLinks} />
               <FooterLinkComp title="FAQs" links={faqLinks} />
               <div>
-                <h2 className="mb-2 text-xl font-bold text-gray-900 dark:text-white">
+                <h2 className="mb-2 text-xl font-bold text-black dark:text-white">
                   Contact Details
                 </h2>
                 <div className="">
                   <div className="flex items-center gap-2 mb-2">
-                    <CiLocationOn className="text-[#0079C0] text-2xl" />
+                    <CiLocationOn className="text-primary text-2xl" />
                     <h2 className="text-sm font-semibold text-black">SHOWROOM AND OFFICE</h2>
                   </div>
-                  <div className="sm:pl-8">
-                    <p className="text-sm text-[#4D4D4D] font-normal">
+                  <div className="">
+                    <p className="text-sm text-gray font-normal">
                       Upper Floor, Unit 9/8 Ave of the America Newington NSW2127, Australia
                     </p>
                     <h2 className="text-sm font-semibold text-black pt-3">POSTAL ADDRESS</h2>
-                    <p className="text-sm text-[#4D4D4D] font-normal">
+                    <p className="text-sm text-gray font-normal">
                       Promotional Products Now Pty Ltd P.O Box 6373 SILVER WATER NSW 2128
                     </p>
                   </div>
                   <div className="flex items-center gap-2 mb-2">
-                    <CiLocationOn className="text-[#0079C0] text-2xl" />
+                    <CiLocationOn className="text-primary text-2xl" />
                     <Link
                       href="mailto:sales@promotionalproductsnow.com.au"
-                      className="text-sm font-normal text-[#4D4D4D]"
+                      className="text-sm font-normal text-gray"
                     >
                       sales@promotionalproductsnow.com.au
                     </Link>
                   </div>
                   <div className="flex items-center gap-4 mb-2">
-                    <FiPhoneCall className="text-[#0079C0] text-lg" />
-                    <Link href="tel:s1300 664 999" className="text-sm font-normal text-[#4D4D4D]">
+                    <FiPhoneCall className="text-primary text-lg" />
+                    <Link href="tel:s1300 664 999" className="text-sm font-normal text-gray">
                       1300 664 999
                     </Link>
                   </div>
