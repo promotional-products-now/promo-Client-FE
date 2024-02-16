@@ -21,7 +21,7 @@ export default function App() {
         <NextUIProvider>
           <div className="flex flex-col justify-between h-screen">
             <Header />
-            <div className="flex-1 m-6 sm:mx-20 sm:px-8">
+            <div className="flex-1 my-6">
               <Outlet />
             </div>
             <Footer />
