@@ -62,7 +62,7 @@ export default function Login(): JSX.Element {
           </div>
         </Form>
         <div>
-          <p className='text-center text-dark text-sm md:text-base'>You don’t have an account? <Link to="#" className='text-primary font-bold'>Create an account</Link></p>
+          <p className='text-center text-dark text-sm md:text-base'>You don’t have an account? <Link to="#" className='text-secondary font-bold'>Create an account</Link></p>
         </div>
       </div>
     </div>
