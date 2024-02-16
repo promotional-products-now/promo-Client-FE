@@ -26,10 +26,10 @@ export function Footer() {
   return (
     <footer className="bg-white dark:bg-gray-900">
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
-        <div className="sm:flex sm:items-center sm:justify-between space-y-6 sm:space-y-0">
+        <div className="sm:flex sm:items-center sm:justify-between space-y-6 sm:space-y-0 w-full">
           <h1 className="text-4xl text-black font-semibold">Newsletter</h1>
-          <div className="flex sm:justify-center">
-            <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="flex sm:justify-end w-full">
+            <form onSubmit={handleSubmit(onSubmit)} className="w-full sm:w-2/4">
               <div className="flex items-center w-full">
                 <Input
                   size="sm"
@@ -57,14 +57,14 @@ export function Footer() {
         <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
 
         <>
-          <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-4">
+          <div className="grid gap-8 sm:gap-6 sm:grid-cols-4">
             <div className="mb-6 md:mb-0 space-y-4">
               <Link href="/" className="flex items-center">
                 <Image src={logo} className="h-12" />
               </Link>
               <div className="space-y-3">
-                {[1, 2].map(() => (
-                  <p className="text-sm font-normal text-[#4D4D4D]">
+                {[1, 2].map((_,i) => (
+                  <p className="text-sm font-normal text-[#4D4D4D]" key={i}>
                     Lorem ipsum dolor sit amet consectetur. Dui mattis faucibus mus tristique.
                     Faucibus molestie faucibus dolor imperdiet urna volutpat.{" "}
                   </p>
@@ -98,7 +98,7 @@ export function Footer() {
                     <CiLocationOn className="text-[#0079C0] text-2xl" />
                     <h2 className="text-sm font-semibold text-black">SHOWROOM AND OFFICE</h2>
                   </div>
-                  <div className="sm:pl-8">
+                  <div className="s">
                     <p className="text-sm text-[#4D4D4D] font-normal">
                       Upper Floor, Unit 9/8 Ave of the America Newington NSW2127, Australia
                     </p>
