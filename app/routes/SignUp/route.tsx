@@ -2,15 +2,17 @@ import { Input, Button, Select, SelectItem } from '@nextui-org/react'
 import { Link, Form } from '@remix-run/react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { signUpSchema, signUpSchemaT } from 'app/schema/signup.schema'
+import { SignUpSchema } from 'app/schema/signup.schema'
+import { statesData, cityData } from 'app/mock/signUpData'
+
 
 export default function SignUp(): JSX.Element {
 
-  const { register, handleSubmit, formState: { errors } } = useForm<signUpSchemaT>({
-    resolver: yupResolver(signUpSchema)
+  const { register, handleSubmit, formState: { errors } } = useForm<SignUpSchema>({
+    resolver: yupResolver(SignUpSchema)
   })
 
-  const onSubmit = (data: signUpSchemaT) => {
+  const onSubmit = (data: SignUpSchema) => {
     console.log(data);
 
   }
@@ -123,28 +125,34 @@ export default function SignUp(): JSX.Element {
 
             <div className='flex gap-4 py-2'>
               <div className='py-2 w-36 md:w-80'>
-                <p className='text-base md:text-lg text-dark'>STATE</p>
-                <Select arial-label='state' variant='underlined' placeholder='Your state'
-                  color='primary' size='lg'
-                  {...register('state')}
-                  errorMessage={errors?.state?.message}
-                >
-                  <SelectItem key={'hello'}>
-                    adede
-                  </SelectItem>
-
-                </Select>
-              </div>
-              <div className='py-2 w-36 md:w-80'>
                 <p className='text-base md:text-lg text-dark'>CITY</p>
-                <Select arial-label='city' variant='underlined' placeholder='Your city'
+                <Select aria-label='city' variant='underlined' placeholder='Your city'
                   color='primary' size='lg'
                   {...register('city')}
                   errorMessage={errors?.city?.message}
                 >
-                  <SelectItem key={'hello'}>
-                    adede
-                  </SelectItem>
+                  {cityData.map((city) => (
+                    <SelectItem key={city.value} value={city.value}>
+                      {city.label}
+                    </SelectItem>
+                  ))}
+
+
+                </Select>
+              </div>
+              <div className='py-2 w-36 md:w-80'>
+                <p className='text-base md:text-lg text-dark'>STATE</p>
+                <Select aria-label='state' variant='underlined' placeholder='Your state'
+                  color='primary' size='lg'
+                  {...register('state')}
+                  errorMessage={errors?.state?.message}
+                >
+                  {statesData.map((states) => (
+                    <SelectItem key={states.value} value={states.value}>
+                      {states.label}
+                    </SelectItem>
+                  ))}
+
 
                 </Select>
               </div>

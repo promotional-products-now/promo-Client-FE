@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-export const signUpSchema = yup.object().shape({
+export const SignUpSchema = yup.object().shape({
   firstName: yup.string().required("First Name is required"),
   lastName: yup.string().required("Last Name is required"),
   email: yup.string().email().required("Email Address is required"),
@@ -17,4 +17,4 @@ export const signUpSchema = yup.object().shape({
   postCode: yup.string().required("Post Code is required"),
 });
 
-export type signUpSchemaT = yup.InferType<typeof signUpSchema>;
+export type SignUpSchema = yup.InferType<typeof SignUpSchema>;
