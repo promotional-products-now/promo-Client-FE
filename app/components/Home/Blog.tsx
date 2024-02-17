@@ -19,14 +19,14 @@ const BlogCard = ({ image, title, subtitle }: BlogCardProps) => {
           className="object-cover h-full w-full transition aspect-square inset-0"
         />
 
-        <div className="px-2 py-1 bg-[#FAB102] absolute rounded-md top-2 left-2 z-10">News</div>
+        <div className="px-2 py-1 bg-white-bg absolute rounded-md top-2 left-2 z-10">News</div>
       </CardHeader>
 
-      <CardBody className="bg-[#F8F8F8] rounded-sm pb-2 px-2">
+      <CardBody className="bg-white-bg rounded-sm pb-2 px-2">
         <div className="text-black capitalize font-semibold">{title}</div>
         <div className="text-black">{subtitle}</div>
-        <div className="flex flex-row justify-start items-center gap-3 mt-[16px]">
-          <HiArrowRight size={20} className="text-[#0079C0]" />
+        <div className="flex flex-row justify-start items-center gap-3 mt-4">
+          <HiArrowRight size={20} className="text-primary" />
           <div className="">View Article</div>
         </div>
       </CardBody>

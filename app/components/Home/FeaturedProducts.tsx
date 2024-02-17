@@ -38,16 +38,16 @@ const FeaturedProducts = ({
     { value: "new", label: "New" },
   ];
   return (
-    <div className="md:px-20 px-5">
-      <div className="mt-[62px] flex flex-col gap-4 relative pb-20">
-        <div className="flex flex-row justify-between item-center border-b-[1px] border-textcolor mb-8 md:p-5  p-1 ">
-          <div className="flex flex-row gap-3 items-center">
+    <div className="lg:px-20 ">
+      <div className="mt-16 flex flex-col gap-4 relative pb-20">
+        <div className="flex flex-col lg:flex-row md:flex-row justify-between item-center border-b border-gray mb-8 md:p-5 p-1 gap-4">
+          <div className="flex flex-col md:flex-row lg:gap-3 sm:gap-2 items-center justify-center">
             <GoVerified size={25} className="text-primary" />
 
-            <div className="text-black md:text-2xl text-lg font-semibold">{sectionlabel}</div>
+            <div className="text-black text-2xl font-semibold text-center">{sectionlabel}</div>
           </div>
 
-          <div className="flex w-1/2 flex-wrap md:flex-nowrap gap-6">
+          <div className="flex md:w-7/12 flex-wrap md:flex-nowrap md:gap-6 gap-3 px-2">
             <Tabs
               aria-label="Options"
               color="primary"
@@ -62,7 +62,7 @@ const FeaturedProducts = ({
               <Tab
                 key="photos"
                 title={
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center text-sm space-x-2">
                     <span>Trending Products</span>
                   </div>
                 }
@@ -88,7 +88,7 @@ const FeaturedProducts = ({
               />
             </Tabs>
 
-            <Select label="Price Low to High" color="default" className="max-w-xs text-center">
+            <Select label="Price Low to High" color="default" className="w-full text-center">
               {options.map((animal) => (
                 <SelectItem key={animal.value} value={animal.value}>
                   {animal.label}
@@ -98,7 +98,7 @@ const FeaturedProducts = ({
           </div>
         </div>
 
-        <div className="grid md:grid-cols-5 grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-5 sm:grid-cols-2 gap-4">
           {filterItems.slice(0, gridno).map((item, index) => (
             <ProductCard
               key={index}
@@ -113,7 +113,7 @@ const FeaturedProducts = ({
         </div>
 
         {showmore && (
-          <div className="flex flex-row gap-2 items-center justify-center w-2/6	 left-[50%] absolute -translate-x-[50%] bottom-0 ">
+          <div className="flex flex-row gap-2 items-center justify-center w-2/6 left-[50%] absolute -translate-x-[50%] bottom-0 ">
             <Button
               as={Link}
               href="#"

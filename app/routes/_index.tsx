@@ -5,44 +5,49 @@ import { HiOutlineFire } from "react-icons/hi";
 import { items } from "app/api_dummy";
 import ProductCard from "app/components/Card/ProductCard";
 import ProductSection from "../components/ProductSection";
-import FeaturedProducts from "./Home/FeaturedProducts";
-import NewArrivals from "./Home/NewArrivals";
+import FeaturedProducts from "../components/Home/FeaturedProducts";
+import NewArrivals from "../components/Home/NewArrivals";
 import { FiShoppingCart } from "react-icons/fi";
 import { FiPhoneCall } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
 import { blog } from "app/api_dummy";
-import BlogCard from "./Home/Blog";
+import BlogCard from "../components/Home/Blog";
 
 export const meta: MetaFunction = () => {
-  return [{ title: "App" }, { name: "description", content: "Welcome to Remix!" }];
   return [{ title: "App" }, { name: "description", content: "Welcome to Remix!" }];
 };
 
 export default function Index() {
   const [width, setWidth] = useState(0);
-  const carouselRef = useRef(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setWidth(carouselRef.current?.scrollWidth - carouselRef.current?.offsetWidth);
+    if (carouselRef.current) {
+      const scrollWidth = carouselRef.current.scrollWidth;
+      const offsetWidth = carouselRef.current.offsetWidth;
+      if (scrollWidth && offsetWidth) {
+        setWidth(scrollWidth - offsetWidth);
+      }
+    }
   }, []);
   return (
-    <div className="-mx-20">
-      <div className="bg-[#F8F8F8] py-12 md:px-20 px-5">
-        <div className="flex flex-col md:flex-row ">
-          <div className=" flex flex-row bg-lightBlue justify-center items-center pl-[40px] pt-5 flex-4">
+    <>
+      <div className="bg-white-bg py-12 lg:px-20  mx-auto">
+        <div className="flex flex-col md:flex-col lg:flex-row justify-center">
+          <div className=" flex flex-row bg-lightBlue justify-center items-center pl-10 pt-5 flex-4">
             <div className="flex flex-col gap-3 ">
-              <h3 className="font-semibold text-xl text-white space-y-2">CLOTHING</h3>
-              <h1 className="font-bold text-2xl text-white capitalize ">
+              <h3 className="font-semibold text-xl text-white-bg space-y-2">CLOTHING</h3>
+              <h1 className="font-bold text-2xl text-white-bg capitalize ">
                 Podium Cool Piping Polo Shirt Short Sleeve
               </h1>
-              <h3 className="text-base text-white space-y-2">PRICE RANGE </h3>
-              <h3 className="text-base text-white space-y-2">$21.95</h3>
+              <h3 className="text-base text-white-bg space-y-2">PRICE RANGE </h3>
+              <h3 className="text-base text-white-bg space-y-2">$21.95</h3>
               <div className="flex flex-col gap-3 justify-start">
                 <Button
                   as={Link}
                   href="#"
-                  className="bg-primary w-min p-5 rounded-md  text-white text-base font-semibold hover:opacity-80 transition text-center capitalize"
+                  className="bg-primary w-min p-5 rounded-md  text-white-bg text-base font-semibold hover:opacity-80 transition text-center capitalize"
                   size="md"
                   variant="solid"
                 >
@@ -52,7 +57,7 @@ export default function Index() {
                 <Button
                   as={Link}
                   href="#"
-                  className="bg-white p-5 w-max rounded-md  text-black text-base font-semibold hover:opacity-80 transition text-center capitalize"
+                  className="bg-white-bg p-5 w-max rounded-md  text-black text-base font-semibold hover:opacity-80 transition text-center capitalize"
                   size="md"
                   variant="solid"
                 >
@@ -83,7 +88,7 @@ export default function Index() {
                   <Button
                     as={Link}
                     href="#"
-                    className="bg-primary p-5 w-min rounded-md  text-white text-base hover:opacity-80 transition text-center capitalize"
+                    className="bg-primary p-5 w-min rounded-md  text-white-bg text-base hover:opacity-80 transition text-center capitalize"
                     size="md"
                     variant="solid"
                   >
@@ -116,15 +121,15 @@ export default function Index() {
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <h3 className="font-semibold text-xl space-y-2 text-white">BAGS</h3>
-                <h1 className="font-bold text-2xl text-white capitalize space-y-2">
+                <h3 className="font-semibold text-xl space-y-2 text-white-bg">BAGS</h3>
+                <h1 className="font-bold text-2xl text-white-bg capitalize space-y-2">
                   Harley Laptop Backpack 152 mm(w) x 127 mm(d){" "}
                 </h1>
                 <div className="flex flex-col gap-3 justify-start ">
                   <Button
                     as={Link}
                     href="#"
-                    className="bg-white p-5 w-max rounded-md text-black text-base hover:opacity-80 transition text-center capitalize"
+                    className="bg-white-bg p-5 w-max rounded-md text-black text-base hover:opacity-80 transition text-center capitalize"
                     size="md"
                     variant="solid"
                   >
@@ -136,14 +141,14 @@ export default function Index() {
           </div>
         </div>
       </div>
-      <div className="md:px-20 px-5">
+      <div className="lg:px-20  ">
         <div className="mt-16  ">
-          <div className="text-primary text-center text-2xl font-semibold mb-8">
+          <div className="text-primary text-center md:text-2xl text-xl font-semibold mb-8">
             PROMOTIONAL MERCHANDISE AT GUARANTEED LOWEST PRICES
           </div>
 
-          <div className="border-2 border-orange relative p-8">
-            <div className="gap-2 grid grid-cols-2 sm:grid-cols-4">
+          <div className="border-2 border-orange relative md:p-8 py-10 px-5">
+            <div className="gap-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 md:grid-cols-2">
               {items.slice(0, 4).map((item, index) => {
                 return (
                   <ProductCard
@@ -172,40 +177,40 @@ export default function Index() {
       <NewArrivals />
       <ProductSection showmore />
       <div className="bg-backgroundgray p-6 mt-5">
-        <div className="md:px-20 px-5">
-          <div className="mt-16 md:px-20 w-full flex flex-col justify-center items-center gap-8">
+        <div className="lg:px-20 ">
+          <div className="mt-16 w-full flex flex-col justify-center items-center gap-8">
             <h1 className="font-bold text-2xl text-black capitalize text-center">
               We are Promotional Promotional Products Now
             </h1>
 
             <div className="flex flex-col gap-5">
-              <p className="text-textcolor text-base text-center">
+              <p className="text-gray text-base ">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum hic. Quasi
                 dicta, quo temporibus consequatur atque, ex ad natus commodi cum eius itaque
                 excepturi voluptas qui numquam id? Saepe!
               </p>
 
-              <p className="text-textcolor text-base   text-center">
+              <p className="text-gray text-base  ">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum hic. Quasi
                 dicta, quo temporibus consequatur atque, ex ad natus commodi cum eius itaque
                 excepturi voluptas qui numquam id? Saepe!
               </p>
 
-              <p className="text-textcolor text-base text-center">
+              <p className="text-gray text-base ">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum hic. Quasi
                 dicta, quo temporibus consequatur atque, ex ad natus commodi cum eius itaque
                 excepturi voluptas qui numquam id? Saepe!
               </p>
             </div>
 
-            <div className="flex flex-row gap-8 w-1/2 justify-center">
+            <div className="flex flex-row gap-8 md:w-1/2 w-full justify-center">
               <Button
                 as={Link}
                 href="#"
                 size="md"
                 variant="solid"
                 startContent={<FiShoppingCart className="text-base" />}
-                className="rounded-md bg-primary text-white p-6 hover:opacity-80 transition text-center capitalize flex flex-row"
+                className="rounded-md bg-primary text-white-bg p-6 hover:opacity-80 transition text-center capitalize flex flex-row"
               >
                 Shop Now
               </Button>
@@ -216,7 +221,7 @@ export default function Index() {
                 size="md"
                 variant="solid"
                 startContent={<FiPhoneCall className="text-base" />}
-                className="rounded-md bg-yellow text-white p-6 hover:opacity-80 transition text-center capitalize flex flex-row"
+                className="rounded-md bg-yellow text-white-bg p-6 hover:opacity-80 transition text-center capitalize flex flex-row"
               >
                 Contact Us{" "}
               </Button>
@@ -248,9 +253,7 @@ export default function Index() {
       <div>
         <div className="mt-16 md:px-[100px] w-full px-5 flex flex-col gap-2 ">
           <h1 className="font-bold text-2xl text-black capitalize text-center">Our Blog</h1>
-          <h3 className="font-semibold text-lg text-textcolor text-center">
-            Browse Our Latest News
-          </h3>
+          <h3 className="font-semibold text-lg text-gray text-center">Browse Our Latest News</h3>
           <motion.div
             className="flex flex-row gap-5 cursor-grab overflow-x-hidden space-y-3"
             ref={carouselRef}
@@ -277,6 +280,6 @@ export default function Index() {
           </motion.div>
         </div>
       </div>{" "}
-    </div>
+    </>
   );
 }

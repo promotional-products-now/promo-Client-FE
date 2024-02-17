@@ -4,7 +4,7 @@ import { ServicesT, services } from "app/contents/aboutServices";
 
 const AboutPage = () => {
   return (
-    <div className="my-10 mx-8 px-8 space-y-6">
+    <div className="flex flex-col gap-3 w-full mx-auto py-10 lg:px-5 lg:w-4/5">
       <div className="flex justify-center">
         <h2 className="text-xl font-extrabold">Company Profile</h2>
       </div>
@@ -14,11 +14,11 @@ const AboutPage = () => {
             return (
               <p className="text-black p-2 text-base" key={index}>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum hic. Quasi
-                dicta, quo temporibus consequatur atque, ex ad natus commodi cum eius itaque excepturi
-                voluptas qui numquam id? Saepe! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Accusamus, rerum hic. Quasi dicta,
+                dicta, quo temporibus consequatur atque, ex ad natus commodi cum eius itaque
+                excepturi voluptas qui numquam id? Saepe! Lorem ipsum dolor sit amet consectetur
+                adipisicing elit. Accusamus, rerum hic. Quasi dicta,
               </p>
-            )
+            );
           })}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -36,7 +36,7 @@ const AboutPage = () => {
                 </div>
                 <div>{item.icon}</div>
               </div>
-            )
+            );
           })}
         </div>
       </div>

@@ -10,11 +10,12 @@ interface ProductCardProps {
   price: string;
   newPrice: string;
   qunatity: string;
+  key: number
 }
 
-const ProductCard = ({ image, title, subtitle, price, newPrice, qunatity }: ProductCardProps) => {
+const ProductCard = ({ image, title, subtitle, price, newPrice, qunatity, key }: ProductCardProps) => {
   return (
-    <Card className="col-span-1 cursor-pointer group" radius="none">
+    <Card className="col-span-1 cursor-pointer group" radius="none" key={key}>
       <CardHeader className="aspect-square w-full relative overflow-hidden p-0">
         <Image
           alt="item"
