@@ -3,27 +3,27 @@ import { Link, Form } from "@remix-run/react";
 import { Input, Button, Checkbox } from "@nextui-org/react";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { loginSchema, loginSchemaT } from 'app/schema/login.schema';
+import { LoginSchema } from 'app/schema/login.schema';
 
 
 export default function Login(): JSX.Element {
-  const { register, handleSubmit, formState: { errors } } = useForm<loginSchemaT>({
-    resolver: yupResolver(loginSchema)
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginSchema>({
+    resolver: yupResolver(LoginSchema)
   })
 
-  const onSubmit = (data: loginSchemaT) => {
+  const onSubmit = (data: LoginSchema) => {
     console.log(data);
 
   }
   return (
     <div>
-      <div className='py-8'>
-        <h1 className='text-2xl md:text-4xl text-dark  font-bold text-center'>Login your account</h1>
+      <div className='py-4 md:py-8'>
+        <h1 className='text-3xl md:text-4xl text-dark  font-bold text-center'>Login your account</h1>
         <p className='mt-4 text-base text-dark text-center'>Fill your account details below</p>
 
         <Form method='post'>
           <div className='py-4 md:py-12 flex flex-col justify-center items-center'>
-            <div className='py-4 md:w-1/2'>
+            <div className='py-4 w-full md:w-1/2'>
               <p className='text-lg text-dark'>EMAIL ADDRESS</p>
               <Input type='email' variant='underlined'
                 labelPlacement='outside' size='lg'
@@ -34,7 +34,7 @@ export default function Login(): JSX.Element {
               />
             </div>
 
-            <div className='py-4 md:w-1/2'>
+            <div className='py-4 w-full md:w-1/2'>
               <p className='text-lg text-dark'>PASSWORD</p>
               <Input type='password' variant='underlined'
                 labelPlacement='outside' size='lg'
@@ -45,7 +45,7 @@ export default function Login(): JSX.Element {
               />
             </div>
 
-            <div className='py-6 px-6 md:px-0 w-full md:w-1/2'>
+            <div className='py-6  w-full md:w-1/2'>
               <Button type='submit' variant='solid' color='primary'
                 className='font-bold w-full' size='lg'
                 radius='none'
@@ -62,7 +62,8 @@ export default function Login(): JSX.Element {
           </div>
         </Form>
         <div>
-          <p className='text-center text-dark text-sm md:text-base'>You don’t have an account? <Link to="#" className='text-orange font-bold'>Create an account</Link></p>
+          <p className='text-center text-dark text-sm md:text-base'>You don’t have an account?
+            <Link to="#" className='text-orange font-bold'>Create an account</Link></p>
         </div>
       </div>
     </div>

@@ -1,8 +1,8 @@
 import * as yup from "yup";
 
-export const loginSchema = yup.object().shape({
+export const LoginSchema = yup.object().shape({
   email: yup.string().email().required("Email is required"),
   password: yup.string().required("Password is required"),
 });
 
-export type loginSchemaT = yup.InferType<typeof loginSchema>;
+export type LoginSchema = yup.InferType<typeof LoginSchema>;
