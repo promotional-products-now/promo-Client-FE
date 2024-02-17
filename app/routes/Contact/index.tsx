@@ -1,0 +1,68 @@
+import { Button, Input, Textarea } from "@nextui-org/react";
+import { LocationDetails, fields } from "app/routes/Contact/data";
+
+const ContactUS = () => {
+  return (
+    <div className="flex flex-col justify-center items-center py-10">
+      <b className="text-xl font-extrabold capitalize">contact us</b>
+      <div className="grid grid-cols-1 gap-5 py-10 [&_p]:text-sm [&_p]:text-neutral-500 [&_span]:text-yellow lg:grid-cols-3">
+        <div className="flex flex-col gap-5">
+          <div className="mb-2">
+            <b className="capitalize">give out team a call</b>
+            <p>We are happy to hear how we can help you out.</p>
+          </div>
+          {LocationDetails.map((data) => (
+            <div key={data.id} className="flex gap-3">
+              <div>
+                <div className="w-[40px] h-[40px] rounded-full flex justify-center items-center border border-yellow">
+                  <data.icon color="blue" />
+                </div>
+              </div>
+              <div>
+                <span className="text-sm uppercase">{data.title}</span>
+                <p>{data.body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="col-span-2">
+          <div className="flex flex-col justify-between lg:flex-row">
+            <div>
+              <b className="capitalize">How can we help you?</b>
+              <p>Fill your information below to contact us</p>
+            </div>
+            <span>Promotional Merchandise at Guaranteed Lowest Prices</span>
+          </div>
+          <form>
+            <div className="w-full flex flex-col gap-4">
+              <div className="grid grid-cols-1 gap-x-4 gap-y-9 lg:grid-cols-2">
+                {fields.map((field) => (
+                  <Input
+                    key={field.id}
+                    type={field.type}
+                    variant="underlined"
+                    label={field.label}
+                    className="relative overflow-hidden underline-red-500"
+                  />
+                ))}
+              </div>
+              <Textarea
+                variant="underlined"
+                labelPlacement="outside"
+                placeholder="Your Message"
+                className="col-span-12 md:col-span-6 mb-6 md:mb-0"
+              />
+              <div>
+                <Button color="primary" className="rounded-sm py-3">
+                  Send Message
+                </Button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ContactUS;
