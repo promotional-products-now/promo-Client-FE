@@ -14,20 +14,21 @@ export default function SignUp(): JSX.Element {
 
   const onSubmit = (data: SignUpSchema) => {
     console.log(data);
-
   }
+
   return (
     <>
       <div className='py-8'>
-        <h1 className='text-2xl md:text-4xl text-dark font-bold text-center'>Welcome to Promotional Products Now</h1>
-        <p className='mt-4 text-lg md:text-xl text-dark text-center'>Create your account for a smoother website and purchasing experience</p>
-        <p className='mt-4 text-center text-dark text-sm md:text-base'>Have an account? {' '}
-          <Link to='/login' className='text-orange font-bold'>Login</Link>
-        </p>
+        <div className='space-y-4'>
+          <h1 className='text-2xl md:text-4xl text-dark font-bold text-center'>Welcome to Promotional Products Now</h1>
+          <p className='text-lg md:text-xl text-dark text-center'>Create your account for a smoother website and purchasing experience</p>
+          <p className='text-center text-dark text-sm md:text-base'>Have an account? {' '}
+            <Link to='/login' className='text-orange font-bold'>Login</Link>
+          </p>
+        </div>
 
         <Form method='post'>
-          <div className='py-4 md:py-12 flex flex-col justify-center items-center'>
-
+          <div className='py-4 md:py-12 flex flex-col md:items-center justify-center'>
             <div className='flex gap-4 py-2'>
               <div className='py-2 md:w-80'>
                 <p className='text-base md:text-lg text-dark'>FIRST NAME</p>
@@ -124,7 +125,7 @@ export default function SignUp(): JSX.Element {
             </div>
 
             <div className='flex gap-4 py-2'>
-              <div className='py-2 w-36 md:w-80'>
+              <div className='py-2 w-full md:w-80'>
                 <p className='text-base md:text-lg text-dark'>CITY</p>
                 <Select aria-label='city' variant='underlined' placeholder='Your city'
                   color='primary' size='lg'
@@ -136,11 +137,9 @@ export default function SignUp(): JSX.Element {
                       {city.label}
                     </SelectItem>
                   ))}
-
-
                 </Select>
               </div>
-              <div className='py-2 w-36 md:w-80'>
+              <div className='py-2 w-full md:w-80'>
                 <p className='text-base md:text-lg text-dark'>STATE</p>
                 <Select aria-label='state' variant='underlined' placeholder='Your state'
                   color='primary' size='lg'
@@ -152,8 +151,6 @@ export default function SignUp(): JSX.Element {
                       {states.label}
                     </SelectItem>
                   ))}
-
-
                 </Select>
               </div>
             </div>
