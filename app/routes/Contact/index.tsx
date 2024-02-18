@@ -1,11 +1,12 @@
 import { Button, Input, Textarea } from "@nextui-org/react";
-import { LocationDetails, fields } from "app/routes/Contact/data";
+import { Link } from "@remix-run/react";
+import { LocationDetails } from "app/contents/contactLoactions";
 
 const ContactUS = () => {
   return (
-    <div className="flex flex-col justify-center items-center py-10">
+    <div className="flex flex-col justify-center items-center py-10 px-5">
       <b className="text-xl font-extrabold capitalize">contact us</b>
-      <div className="grid grid-cols-1 gap-5 py-10 [&_p]:text-sm [&_p]:text-neutral-500 [&_span]:text-yellow lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-5 py-10 [&_p]:text-sm [&_p]:text-gray [&_span]:text-yellow lg:grid-cols-3">
         <div className="flex flex-col gap-5">
           <div className="mb-2">
             <b className="capitalize">give out team a call</b>
@@ -13,15 +14,22 @@ const ContactUS = () => {
           </div>
           {LocationDetails.map((data) => (
             <div key={data.id} className="flex gap-3">
-              <div>
-                <div className="w-[40px] h-[40px] rounded-full flex justify-center items-center border border-yellow">
-                  <data.icon color="blue" />
+              <Link
+                to={data.href}
+                className={
+                  data.href == "" ? "flex gap-3 cursor-default" : "flex gap-3 hover:[&_p]:underline"
+                }
+              >
+                <div>
+                  <div className="w-[40px] h-[40px] rounded-full flex justify-center items-center border border-yellow">
+                    <data.icon color="blue" />
+                  </div>
                 </div>
-              </div>
-              <div>
-                <span className="text-sm uppercase">{data.title}</span>
-                <p>{data.body}</p>
-              </div>
+                <div>
+                  <span className="text-sm uppercase">{data.title}</span>
+                  <p>{data.body}</p>
+                </div>
+              </Link>
             </div>
           ))}
         </div>
@@ -35,16 +43,11 @@ const ContactUS = () => {
           </div>
           <form>
             <div className="w-full flex flex-col gap-4">
-              <div className="grid grid-cols-1 gap-x-4 gap-y-9 lg:grid-cols-2">
-                {fields.map((field) => (
-                  <Input
-                    key={field.id}
-                    type={field.type}
-                    variant="underlined"
-                    label={field.label}
-                    className="relative overflow-hidden underline-red-500"
-                  />
-                ))}
+              <div className="grid grid-cols-1 gap-x-4 gap-y-9 md:grid-cols-2">
+                <Input type="text" variant="underlined" label="Name" required />
+                <Input type="email" variant="underlined" label="Email" required />
+                <Input type="number" variant="underlined" label="Phone" required />
+                <Input type="text" variant="underlined" label="Subject" required />
               </div>
               <Textarea
                 variant="underlined"
