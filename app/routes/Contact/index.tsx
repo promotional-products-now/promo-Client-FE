@@ -44,15 +44,16 @@ const ContactUS = () => {
           <form>
             <div className="w-full flex flex-col gap-4">
               <div className="grid grid-cols-1 gap-x-4 gap-y-9 md:grid-cols-2">
-                <Input type="text" variant="underlined" label="Name" required />
-                <Input type="email" variant="underlined" label="Email" required />
-                <Input type="number" variant="underlined" label="Phone" required />
-                <Input type="text" variant="underlined" label="Subject" required />
+                <Input type="text" variant="underlined" label="Name" color="primary" />
+                <Input type="email" variant="underlined" label="Email" color="primary" />
+                <Input type="number" variant="underlined" label="Phone" color="primary" />
+                <Input type="text" variant="underlined" label="Subject" color="primary" />
               </div>
               <Textarea
                 variant="underlined"
                 labelPlacement="outside"
                 placeholder="Your Message"
+                color="primary"
                 className="col-span-12 md:col-span-6 mb-6 md:mb-0"
               />
               <div>
