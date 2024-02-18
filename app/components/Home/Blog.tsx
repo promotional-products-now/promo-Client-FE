@@ -14,7 +14,7 @@ const BlogCard = ({ image, title, subtitle }: BlogCardProps) => {
       <CardHeader className="aspect-square w-full relative overflow-hidden p-0">
         <Image
           radius="none"
-          alt="listing"
+          alt={title}
           src={image}
           className="object-cover h-full w-full transition aspect-square inset-0"
         />

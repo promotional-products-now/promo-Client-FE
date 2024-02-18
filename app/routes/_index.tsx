@@ -1,18 +1,21 @@
+import { FiShoppingCart } from "react-icons/fi";
+import { GiClothes } from "react-icons/gi";
+import { PiFirstAidKitLight } from "react-icons/pi";
+import { FaFemale } from "react-icons/fa";
+
+import { FiPhoneCall } from "react-icons/fi";
+import { motion } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
 import type { MetaFunction } from "@remix-run/node";
 import { Button, Image } from "@nextui-org/react";
 import { Link } from "@remix-run/react";
 import { HiOutlineFire } from "react-icons/hi";
 import { items } from "app/api_dummy";
 import ProductCard from "app/components/Card/ProductCard";
-import ProductSection from "../components/ProductSection";
-import FeaturedProducts from "../components/Home/FeaturedProducts";
-import NewArrivals from "../components/Home/NewArrivals";
-import { FiShoppingCart } from "react-icons/fi";
-import { FiPhoneCall } from "react-icons/fi";
-import { motion } from "framer-motion";
-import { useState, useRef, useEffect } from "react";
+import ProductSection from "app/components/Home/ProductSection";
+import FeaturedProducts from "app/components/Home/FeaturedProducts";
 import { blog } from "app/api_dummy";
-import BlogCard from "../components/Home/Blog";
+import BlogCard from "app/components/Home/Blog";
 
 export const meta: MetaFunction = () => {
   return [{ title: "App" }, { name: "description", content: "Welcome to Remix!" }];
@@ -56,7 +59,7 @@ export default function Index() {
 
                 <Button
                   as={Link}
-                  href="#"
+                  href="/cart"
                   className="bg-white-bg p-5 w-max rounded-md  text-black text-base font-semibold hover:opacity-80 transition text-center capitalize"
                   size="md"
                   variant="solid"
@@ -97,7 +100,7 @@ export default function Index() {
                 </div>{" "}
               </div>
 
-              <Link to={"/Checkout"} className="w-[360px] h-[240px]">
+              <Link to={"/Cart"} className="w-[360px] h-[240px]">
                 <Image
                   src="https://images.pexels.com/photos/437036/pexels-photo-437036.jpeg?auto=compress&cs=tinysrgb&w=600"
                   alt="man-img"
@@ -171,12 +174,12 @@ export default function Index() {
           </div>
         </div>
       </div>
-      <ProductSection />
+      <ProductSection Icon={PiFirstAidKitLight} title="Health & Fitness" />
       <FeaturedProducts sectionlabel="Featured Products" gridno={10} />
-      <ProductSection />
-      <NewArrivals />
-      <ProductSection showmore />
-      <div className="bg-backgroundgray p-6 mt-5">
+      <ProductSection Icon={GiClothes} title="Mens Wear" />
+      <FeaturedProducts sectionlabel="New Arrivals" gridno={5} />
+      <ProductSection Icon={FaFemale} title="Womens Wear" showmore />
+      <div className="bg-white-bg p-6 mt-5">
         <div className="lg:px-20 ">
           <div className="mt-16 w-full flex flex-col justify-center items-center gap-8">
             <h1 className="font-bold text-2xl text-black capitalize text-center">

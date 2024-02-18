@@ -1,19 +1,20 @@
-import ProductCard from "./Card/ProductCard";
+import ProductCard from "../Card/ProductCard";
 import { items } from "app/api_dummy";
 import { Button, Image } from "@nextui-org/react";
 import { Link } from "@remix-run/react";
 import { IoIosArrowDown } from "react-icons/io";
-import { PiFirstAidKitLight } from "react-icons/pi";
 import { Select, SelectItem } from "@nextui-org/react";
+import { IconType } from "react-icons";
 
 interface ProductSectionProps {
+  Icon: IconType
   sideImage?: string;
   bgimage?: string;
   title?: string;
   showmore?: boolean;
 }
 
-const ProductSection = ({ sideImage, bgimage, showmore }: ProductSectionProps) => {
+const ProductSection = ({ sideImage, bgimage, showmore, title, Icon }: ProductSectionProps) => {
   const options = [
     { value: "AUSTRALIAN MADE PRODUCTS", label: "AUSTRALIAN MADE PRODUCTS" },
     { value: "AUSTRALIAN MADE PRODUCTS", label: "AUSTRALIAN MADE PRODUCTS" },
@@ -31,8 +32,8 @@ const ProductSection = ({ sideImage, bgimage, showmore }: ProductSectionProps) =
         <div className="md:grid md:grid-cols-[4fr_7fr] py-10 flex flex-col">
           <div className="md:hidden lg:hidden flex flex-row justify-between item-center my-10 p-3 border  border-orange rounded-md">
             <div className="flex flex-row items-center justify-center gap-2 p-4">
-              <PiFirstAidKitLight size={25} className="text-primary" />
-              <h1 className="text-black-bg text-xl">Health & Fitness</h1>
+              <Icon size={25} className="text-primary" />
+              <h1 className="text-black-bg text-xl">{title}</h1>
             </div>
             <Select label="Explore what suits you" color="default" className="w-2/4  text-center">
               {options.map((animal) => (
@@ -52,10 +53,10 @@ const ProductSection = ({ sideImage, bgimage, showmore }: ProductSectionProps) =
             "
               >
                 <div className="w-14 h-14">
-                  <PiFirstAidKitLight className="text-white h-full w-full transition aspect-auto" />
+                  <Icon className="text-white h-full w-full transition aspect-auto" />
                 </div>
 
-                <div className="text-white-bg text-2xl">Health & Fitness</div>
+                <div className="text-white-bg text-2xl">{title}</div>
 
                 {[1, 2, 4, 5, 6, 7, 8].map((_, index) => (
                   <ul className="flex flex-col gap-4">

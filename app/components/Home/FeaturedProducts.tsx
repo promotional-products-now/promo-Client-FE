@@ -11,20 +11,18 @@ interface FeaturedProductsProps {
   sectionlabel: string;
   gridno: number;
   showmore?: boolean;
-  value?: string;
-  onChange?: (value: string) => void;
 }
 
-const FeaturedProducts = ({
-  sectionlabel,
-  gridno,
-  showmore,
-  value,
-  onChange,
-}: FeaturedProductsProps) => {
+const options = [
+  { value: "low-high", label: "low to high" },
+  { value: "high", label: "High" },
+  { value: "new", label: "New" },
+];
+
+const FeaturedProducts = ({ sectionlabel, gridno, showmore }: FeaturedProductsProps) => {
   const [filterItems, setFilterItems] = useState(items);
 
-  const selectFilter = (selectItems: any) => {
+  const selectFilter = (selectItems: string) => {
     const updatedFilter = items.filter((items) => {
       return items.category === selectItems;
     });
@@ -32,11 +30,6 @@ const FeaturedProducts = ({
     setFilterItems(updatedFilter);
   };
 
-  const options = [
-    { value: "low-high", label: "low to high" },
-    { value: "high", label: "High" },
-    { value: "new", label: "New" },
-  ];
   return (
     <div className="lg:px-20 ">
       <div className="mt-16 flex flex-col gap-4 relative pb-20">
@@ -62,29 +55,35 @@ const FeaturedProducts = ({
               <Tab
                 key="photos"
                 title={
-                  <div className="flex items-center text-sm space-x-2">
+                  <div
+                    onClick={() => setFilterItems(items)}
+                    className="flex items-center text-sm space-x-2"
+                  >
                     <span>Trending Products</span>
                   </div>
                 }
-                onClick={() => setFilterItems(items)}
               />
               <Tab
                 key="music"
                 title={
-                  <div className="flex items-center space-x-2">
+                  <div
+                    onClick={() => selectFilter("latest")}
+                    className="flex items-center space-x-2"
+                  >
                     <span>Latest Products</span>
                   </div>
                 }
-                onClick={() => selectFilter("latest")}
               />
               <Tab
                 key="videos"
                 title={
-                  <div className="flex items-center space-x-2">
+                  <div
+                    onClick={() => selectFilter("aussie")}
+                    className="flex items-center space-x-2"
+                  >
                     <span>Aussie Product</span>
                   </div>
                 }
-                onClick={() => selectFilter("aussie")}
               />
             </Tabs>
 
