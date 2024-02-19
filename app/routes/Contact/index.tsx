@@ -46,7 +46,7 @@ const ContactUS = () => {
               <div className="grid grid-cols-1 gap-x-4 gap-y-9 md:grid-cols-2">
                 <Input type="text" variant="underlined" label="Name" color="primary" />
                 <Input type="email" variant="underlined" label="Email" color="primary" />
-                <Input type="number" variant="underlined" label="Phone" color="primary" />
+                <Input type="text" variant="underlined" label="Phone" color="primary" />
                 <Input type="text" variant="underlined" label="Subject" color="primary" />
               </div>
               <Textarea
