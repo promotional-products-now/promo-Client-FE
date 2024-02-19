@@ -1,8 +1,22 @@
 import { Button, Input, Textarea } from "@nextui-org/react";
-import { Link } from "@remix-run/react";
+import { Form, Link } from "@remix-run/react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { ContactUsSchema } from "app/schema/contactus.schema";
 import { LocationDetails } from "app/contents/contactLoactions";
 
 const ContactUS = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ContactUsSchema>({
+    resolver: yupResolver(ContactUsSchema),
+  });
+
+  const onSubmit = (data: ContactUsSchema) => {
+    console.log(data);
+  };
   return (
     <div className="flex flex-col justify-center items-center py-10 px-5">
       <b className="text-xl font-extrabold capitalize">contact us</b>
@@ -41,13 +55,42 @@ const ContactUS = () => {
             </div>
             <span>Promotional Merchandise at Guaranteed Lowest Prices</span>
           </div>
-          <form>
+          <Form method="post">
             <div className="w-full flex flex-col gap-4">
               <div className="grid grid-cols-1 gap-x-4 gap-y-9 md:grid-cols-2">
-                <Input type="text" variant="underlined" label="Name" color="primary" />
-                <Input type="email" variant="underlined" label="Email" color="primary" />
-                <Input type="text" variant="underlined" label="Phone" color="primary" />
-                <Input type="text" variant="underlined" label="Subject" color="primary" />
+                <Input
+                  type="text"
+                  variant="underlined"
+                  label="Name"
+                  color="primary"
+                  {...register("name")}
+                  errorMessage={errors?.name?.message}
+                />
+
+                <Input
+                  type="email"
+                  variant="underlined"
+                  label="Email"
+                  color="primary"
+                  {...register("email")}
+                  errorMessage={errors?.email?.message}
+                />
+                <Input
+                  type="text"
+                  variant="underlined"
+                  label="Phone"
+                  color="primary"
+                  {...register("phone")}
+                  errorMessage={errors?.phone?.message}
+                />
+                <Input
+                  type="text"
+                  variant="underlined"
+                  label="Subject"
+                  color="primary"
+                  {...register("subject")}
+                  errorMessage={errors?.subject?.message}
+                />
               </div>
               <Textarea
                 variant="underlined"
@@ -55,14 +98,20 @@ const ContactUS = () => {
                 placeholder="Your Message"
                 color="primary"
                 className="col-span-12 md:col-span-6 mb-6 md:mb-0"
+                {...register("message")}
+                errorMessage={errors?.message?.message}
               />
               <div>
-                <Button color="primary" className="rounded-sm py-3">
+                <Button
+                  color="primary"
+                  className="rounded-sm py-3"
+                  onClick={handleSubmit(onSubmit)}
+                >
                   Send Message
                 </Button>
               </div>
             </div>
-          </form>
+          </Form>
         </div>
       </div>
     </div>
