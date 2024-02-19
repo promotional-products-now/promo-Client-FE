@@ -1,8 +1,8 @@
-import { yupResolver } from '@hookform/resolvers/yup'
-import { Input, Button } from '@nextui-org/react'
 import { Form, Link } from '@remix-run/react'
-import { ChangePasswordSchema } from 'app/schema/changePassword.schema'
+import { Input, Button } from '@nextui-org/react'
+import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
+import { ChangePasswordSchema } from 'app/schema/changePassword.schema'
 
 
 export default function ChangePassword(): JSX.Element {
