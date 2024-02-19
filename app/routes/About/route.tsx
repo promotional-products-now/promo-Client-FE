@@ -23,6 +23,7 @@ const AboutPage = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {services.map((item: ServicesT) => {
+            const IconTag = item.icon;
             return (
               <div
                 key={item.id}
@@ -34,7 +35,9 @@ const AboutPage = () => {
                     Click here
                   </Link>
                 </div>
-                <div>{item.icon}</div>
+                <div>
+                  <IconTag className="text-orange text-7xl" />
+                </div>
               </div>
             );
           })}
