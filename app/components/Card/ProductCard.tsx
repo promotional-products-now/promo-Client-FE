@@ -2,6 +2,7 @@ import { Link } from "@remix-run/react";
 import { BsCart3 } from "react-icons/bs";
 import { FiEye } from "react-icons/fi";
 import { Card, CardHeader, CardBody, CardFooter, Divider, Image } from "@nextui-org/react";
+import { items } from "app/api_dummy";
 
 interface ProductCardProps {
   image: string;
@@ -18,7 +19,7 @@ const ProductCard = ({ image, title, subtitle, price, newPrice, qunatity, key }:
     <Card className="col-span-1 cursor-pointer group" radius="none" key={key}>
       <CardHeader className="aspect-square w-full relative overflow-hidden p-0">
         <Image
-          alt="item"
+          alt={title}
           radius="none"
           src={image}
           removeWrapper

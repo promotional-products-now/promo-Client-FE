@@ -19,7 +19,7 @@ const BlogCard = ({ image, title, subtitle }: BlogCardProps) => {
           className="object-cover h-full w-full transition aspect-square inset-0"
         />
 
-        <div className="px-2 py-1 bg-white-bg absolute rounded-md top-2 left-2 z-10">News</div>
+        <div className="px-2 py-1 bg-yellow absolute rounded-md top-2 left-2 z-10">News</div>
       </CardHeader>
 
       <CardBody className="bg-white-bg rounded-sm pb-2 px-2">

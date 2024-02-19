@@ -144,8 +144,8 @@ export default function Index() {
           </div>
         </div>
       </div>
-      <div className="lg:px-20  ">
-        <div className="mt-16  ">
+      <div className="lg:px-20 ">
+        <div className="mt-20  ">
           <div className="text-primary text-center md:text-2xl text-xl font-semibold mb-8">
             PROMOTIONAL MERCHANDISE AT GUARANTEED LOWEST PRICES
           </div>
@@ -179,82 +179,80 @@ export default function Index() {
       <ProductSection Icon={GiClothes} title="Mens Wear" />
       <FeaturedProducts sectionlabel="New Arrivals" gridno={5} />
       <ProductSection Icon={FaFemale} title="Womens Wear" showmore />
-      <div className="bg-white-bg p-6 mt-5">
-        <div className="lg:px-20 ">
-          <div className="mt-16 w-full flex flex-col justify-center items-center gap-8">
-            <h1 className="font-bold text-2xl text-black capitalize text-center">
-              We are Promotional Promotional Products Now
-            </h1>
+      <div className="lg:px-20 my-20">
+        <div className="mt-16 w-full flex flex-col justify-center items-center gap-8">
+          <h1 className="font-bold text-2xl text-black capitalize text-center">
+            We are Promotional Promotional Products Now
+          </h1>
 
-            <div className="flex flex-col gap-5">
-              <p className="text-gray text-base ">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum hic. Quasi
-                dicta, quo temporibus consequatur atque, ex ad natus commodi cum eius itaque
-                excepturi voluptas qui numquam id? Saepe!
-              </p>
+          <div className="flex flex-col gap-5">
+            <p className="text-gray text-base ">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum hic. Quasi
+              dicta, quo temporibus consequatur atque, ex ad natus commodi cum eius itaque excepturi
+              voluptas qui numquam id? Saepe!
+            </p>
 
-              <p className="text-gray text-base  ">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum hic. Quasi
-                dicta, quo temporibus consequatur atque, ex ad natus commodi cum eius itaque
-                excepturi voluptas qui numquam id? Saepe!
-              </p>
+            <p className="text-gray text-base  ">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum hic. Quasi
+              dicta, quo temporibus consequatur atque, ex ad natus commodi cum eius itaque excepturi
+              voluptas qui numquam id? Saepe!
+            </p>
 
-              <p className="text-gray text-base ">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum hic. Quasi
-                dicta, quo temporibus consequatur atque, ex ad natus commodi cum eius itaque
-                excepturi voluptas qui numquam id? Saepe!
-              </p>
-            </div>
+            <p className="text-gray text-base ">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum hic. Quasi
+              dicta, quo temporibus consequatur atque, ex ad natus commodi cum eius itaque excepturi
+              voluptas qui numquam id? Saepe!
+            </p>
+          </div>
 
-            <div className="flex flex-row gap-8 md:w-1/2 w-full justify-center">
-              <Button
-                as={Link}
-                href="#"
-                size="md"
-                variant="solid"
-                startContent={<FiShoppingCart className="text-base" />}
-                className="rounded-md bg-primary text-white-bg p-6 hover:opacity-80 transition text-center capitalize flex flex-row"
-              >
-                Shop Now
-              </Button>
+          <div className="flex flex-row gap-8 md:w-1/2 w-full justify-center">
+            <Button
+              as={Link}
+              href="#"
+              size="md"
+              variant="solid"
+              startContent={<FiShoppingCart className="text-base" />}
+              className="rounded-md bg-primary text-white-bg p-6 hover:opacity-80 transition text-center capitalize flex flex-row"
+            >
+              Shop Now
+            </Button>
 
-              <Button
-                as={Link}
-                href="#"
-                size="md"
-                variant="solid"
-                startContent={<FiPhoneCall className="text-base" />}
-                className="rounded-md bg-yellow text-white-bg p-6 hover:opacity-80 transition text-center capitalize flex flex-row"
-              >
-                Contact Us{" "}
-              </Button>
-            </div>
+            <Button
+              as={Link}
+              href="#"
+              size="md"
+              variant="solid"
+              startContent={<FiPhoneCall className="text-base" />}
+              className="rounded-md bg-yellow text-white-bg p-6 hover:opacity-80 transition text-center capitalize flex flex-row"
+            >
+              Contact Us{" "}
+            </Button>
+          </div>
+        </div>
+      </div>
+      <div className="bg-white-bg p-10 mb-20">
+        <div className="mt-4 flex flex-col justify-center items-center gap-4 w-full">
+          <div className="py-2">
+            <h2 className="font-bold text-2xl text-black capitalize text-center">
+              You are fully protected
+            </h2>
+            <p className=" md:text-lg text-sm text-gray text-center">
+              We are bound by the code of conduct of the Australian Promotional Products Association
+            </p>
+          </div>
 
-            <div className="mt-4 flex flex-col justify-center items-center gap-4 w-full">
-              <div className="py-2">
-                <h2 className="font-bold text-2xl text-black capitalize text-center">
-                  You are fully protected
-                </h2>
-                <p className=" md:text-lg text-sm text-gray text-center">
-                  We are bound by the code of conduct of the Australian Promotional Products
-                  Association
-                </p>
-              </div>
-
-              <div className="md:w-1/2 w-full">
-                <Image
-                  src="https://app.requestly.io/delay/5000/https://nextui-docs-v2.vercel.app/images/hero-card-complete.jpeg"
-                  alt="appa"
-                  removeWrapper
-                  className="object-fit w-full h-full "
-                />
-              </div>
-            </div>
+          <div className="md:w-1/2 w-full">
+            <Image
+              src="https://app.requestly.io/delay/5000/https://nextui-docs-v2.vercel.app/images/hero-card-complete.jpeg"
+              alt="appa"
+              removeWrapper
+              className="object-fit w-full h-full "
+            />
           </div>
         </div>
       </div>
       <div>
-        <div className="mt-16 md:px-[100px] w-full px-5 flex flex-col gap-2 ">
+        <div className="mb-20 md:px-20 w-full flex flex-col gap-2 ">
           <h1 className="font-bold text-2xl text-black capitalize text-center">Our Blog</h1>
           <h3 className="font-semibold text-lg text-gray text-center">Browse Our Latest News</h3>
           <motion.div
@@ -263,13 +261,13 @@ export default function Index() {
           >
             <motion.div
               drag="x"
-              dragConstraints={{ right: 0, left: -width - 50 }}
+              dragConstraints={{ right: 0, left: -width }}
               transition={{ type: "spring", damping: 10, stiffness: 100 }}
               className="flex gap-5"
             >
               {blog.map((item, index) => {
                 return (
-                  <motion.div className="min-w-[23rem] flex flex-row gap-3 pointer-events-none">
+                  <motion.div className="md:min-w-[20rem] min-w-[23rem] flex flex-row gap-3 pointer-events-none">
                     <BlogCard
                       key={index}
                       title={item.title}

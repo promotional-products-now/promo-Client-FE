@@ -41,51 +41,53 @@ const FeaturedProducts = ({ sectionlabel, gridno, showmore }: FeaturedProductsPr
           </div>
 
           <div className="flex md:w-7/12 flex-wrap md:flex-nowrap md:gap-6 gap-3 px-2">
-            <Tabs
-              aria-label="Options"
-              color="primary"
-              variant="underlined"
-              classNames={{
-                tabList: "gap-6 w-full relative rounded-none p-0 border-b border-divider",
-                cursor: "w-full bg-black",
-                tab: "max-w-fit px-0 h-12",
-                tabContent: "group-data-[selected=true]:text-primary",
-              }}
-            >
-              <Tab
-                key="photos"
-                title={
-                  <div
-                    onClick={() => setFilterItems(items)}
-                    className="flex items-center text-sm space-x-2"
-                  >
-                    <span>Trending Products</span>
-                  </div>
-                }
-              />
-              <Tab
-                key="music"
-                title={
-                  <div
-                    onClick={() => selectFilter("latest")}
-                    className="flex items-center space-x-2"
-                  >
-                    <span>Latest Products</span>
-                  </div>
-                }
-              />
-              <Tab
-                key="videos"
-                title={
-                  <div
-                    onClick={() => selectFilter("aussie")}
-                    className="flex items-center space-x-2"
-                  >
-                    <span>Aussie Product</span>
-                  </div>
-                }
-              />
-            </Tabs>
+            <div className="hidden md:block">
+              <Tabs
+                aria-label="Options"
+                color="primary"
+                variant="underlined"
+                classNames={{
+                  tabList: "gap-6 w-full relative rounded-none p-0 border-b border-divider",
+                  cursor: "w-full bg-black",
+                  tab: "max-w-fit px-0 h-12",
+                  tabContent: "group-data-[selected=true]:text-primary",
+                }}
+              >
+                <Tab
+                  key="photos"
+                  title={
+                    <div
+                      onClick={() => setFilterItems(items)}
+                      className="flex items-center text-sm space-x-2"
+                    >
+                      <span>Trending Products</span>
+                    </div>
+                  }
+                />
+                <Tab
+                  key="music"
+                  title={
+                    <div
+                      onClick={() => selectFilter("latest")}
+                      className="flex items-center space-x-2"
+                    >
+                      <span>Latest Products</span>
+                    </div>
+                  }
+                />
+                <Tab
+                  key="videos"
+                  title={
+                    <div
+                      onClick={() => selectFilter("aussie")}
+                      className="flex items-center space-x-2"
+                    >
+                      <span>Aussie Product</span>
+                    </div>
+                  }
+                />
+              </Tabs>
+            </div>
 
             <Select label="Price Low to High" color="default" className="w-full text-center">
               {options.map((animal) => (
