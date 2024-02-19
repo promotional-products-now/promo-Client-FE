@@ -14,6 +14,7 @@ const QuestionAccordion: React.FC<{ questions: AccordionType[] }> = ({ questions
       {questions &&
         questions.map((question) => (
           <AccordionItem
+            key={question.id}
             aria-label={`Accordion ${question.id}`}
             startContent={
               <div className="border border-blue-300 p-1 rounded">
