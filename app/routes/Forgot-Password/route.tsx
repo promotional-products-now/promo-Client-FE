@@ -36,8 +36,8 @@ export default function ForgotPassword(): JSX.Element {
             </div>
 
             <div className='py-8 w-full md:w-1/2 flex flex-wrap md:flex-nowrap justify-between gap-8'>
-              <Button type='submit' variant='bordered'
-                color='primary' className='font-bold w-full'
+              <Button type='submit' variant='solid'
+                className='bg-yellow text-white font-bold w-full'
                 size='lg' radius='none'>
                 <Link to="/login">Back to Login</Link>
               </Button>
