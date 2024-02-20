@@ -1,14 +1,12 @@
+import { useState, useRef, useEffect } from "react";
+import { Button, Image, Link } from "@nextui-org/react";
+import type { MetaFunction } from "@remix-run/node";
+import { motion } from "framer-motion";
 import { FiShoppingCart } from "react-icons/fi";
 import { GiClothes } from "react-icons/gi";
 import { PiFirstAidKitLight } from "react-icons/pi";
 import { FaFemale } from "react-icons/fa";
-
 import { FiPhoneCall } from "react-icons/fi";
-import { motion } from "framer-motion";
-import { useState, useRef, useEffect } from "react";
-import type { MetaFunction } from "@remix-run/node";
-import { Button, Image } from "@nextui-org/react";
-import { Link } from "@remix-run/react";
 import { HiOutlineFire } from "react-icons/hi";
 import { items } from "app/api_dummy";
 import ProductCard from "app/components/Card/ProductCard";
@@ -22,7 +20,7 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  const [width, setWidth] = useState(0);
+  const [width, setWidth] = useState<number>(0);
   const carouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -100,7 +98,7 @@ export default function Index() {
                 </div>{" "}
               </div>
 
-              <Link to={"/Cart"} className="w-[360px] h-[240px]">
+              <Link href="cart" className="w-[360px] h-[240px]">
                 <Image
                   src="https://images.pexels.com/photos/437036/pexels-photo-437036.jpeg?auto=compress&cs=tinysrgb&w=600"
                   alt="man-img"
@@ -185,24 +183,14 @@ export default function Index() {
             We are Promotional Promotional Products Now
           </h1>
 
-          <div className="flex flex-col gap-5 text-center">
-            <p className="text-gray text-base ">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum hic. Quasi
-              dicta, quo temporibus consequatur atque, ex ad natus commodi cum eius itaque excepturi
-              voluptas qui numquam id? Saepe!
-            </p>
-
-            <p className="text-gray text-base  ">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum hic. Quasi
-              dicta, quo temporibus consequatur atque, ex ad natus commodi cum eius itaque excepturi
-              voluptas qui numquam id? Saepe!
-            </p>
-
-            <p className="text-gray text-base ">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum hic. Quasi
-              dicta, quo temporibus consequatur atque, ex ad natus commodi cum eius itaque excepturi
-              voluptas qui numquam id? Saepe!
-            </p>
+          <div className="flex flex-col gap-5">
+            {[1, 2, 3].map((_, i) => (
+              <p className="text-gray text-base" key={i}>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum hic. Quasi
+                dicta, quo temporibus consequatur atque, ex ad natus commodi cum eius itaque
+                excepturi voluptas qui numquam id? Saepe!
+              </p>
+            ))}
           </div>
 
           <div className="flex flex-row gap-8 md:w-1/2 w-full justify-center">
@@ -219,7 +207,7 @@ export default function Index() {
 
             <Button
               as={Link}
-              href="#"
+              href="tel:+12334587"
               size="md"
               variant="solid"
               startContent={<FiPhoneCall className="text-base" />}
