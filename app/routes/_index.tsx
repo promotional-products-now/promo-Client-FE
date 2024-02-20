@@ -185,7 +185,7 @@ export default function Index() {
             We are Promotional Promotional Products Now
           </h1>
 
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-5 text-center">
             <p className="text-gray text-base ">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum hic. Quasi
               dicta, quo temporibus consequatur atque, ex ad natus commodi cum eius itaque excepturi
