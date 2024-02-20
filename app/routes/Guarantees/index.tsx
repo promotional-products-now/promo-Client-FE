@@ -1,4 +1,4 @@
-import { BiBadgeCheck } from "react-icons/bi";
+import { BiCheckShield } from "react-icons/bi";
 import { guarantees } from "app/contents/guarantees";
 
 const Guarantees = () => {
@@ -25,7 +25,7 @@ const Guarantees = () => {
             <div className="flex gap-5">
               <p className="text-gray leading-6">{guarantee.body}</p>
               <div>
-                <BiBadgeCheck size={50} className="hidden text-yellow md:block" />
+                <BiCheckShield size={50} className="hidden text-primary md:block" />
               </div>
             </div>
           </div>
