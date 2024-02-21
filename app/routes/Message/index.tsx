@@ -1,12 +1,15 @@
 import { BiUser } from "react-icons/bi";
 import { Image } from "@nextui-org/react";
-import image from "app/assets/Work-in-progress.png";
+import WorkInProgressImg from "app/assets/Work-in-progress.png";
 
 const Message = () => {
   return (
-    <div className="w-full flex flex-wrap-reverse gap-y-6 px-2">
+    <div className="w-full flex flex-wrap-reverse gap-y-6 px-2 md:py-5">
       <div className="w-full flex flex-col gap-2 text-sm text-gray leading-loose md:w-full lg:w-1/2">
-        <b className="font-bold text-lg capitalize">Message from National Sales Manager</b>
+        <div className="relative mb-3">
+          <h2 className="font-bold text-lg">Message from National Sales Manager</h2>
+          <div className="absolute h-[3px] w-[40px] mt-1 bg-yellow"></div>
+        </div>
         <p>
           There are many variations of passages of Lorem Ipsum available, but the majority have
           suffered alteration in some form, by injected humour, or randomised words which don't look
@@ -43,7 +46,7 @@ const Message = () => {
             width="100%"
             alt="image"
             className="object-cover w-full h-[400px]"
-            src={image}
+            src={WorkInProgressImg}
           />
         </div>
       </div>
