@@ -57,7 +57,7 @@ export function Header() {
         <NavbarItem>
           <Button
             as={Link}
-            href="#"
+            href="guarantees"
             variant="ghost"
             startContent={<MdOutlineVerified className="text-base text-orange" />}
             className="border border-orange rounded"
