@@ -5,3 +5,4 @@ export const SubscribeSchema = yup.object().shape({
 });
 
 export type SubscribeSchema = yup.InferType<typeof SubscribeSchema>;
+

@@ -1,9 +1,10 @@
 import { Link } from "@remix-run/react";
+
 import { ServicesT, services } from "app/contents/aboutServices";
 
 const AboutPage = () => {
   return (
-    <div className="my-10 mx-8 px-8 space-y-6">
+    <div className="flex flex-col gap-3 w-full mx-auto py-10 lg:px-5 lg:w-4/5">
       <div className="flex justify-center">
         <h2 className="text-xl font-extrabold">Company Profile</h2>
       </div>
