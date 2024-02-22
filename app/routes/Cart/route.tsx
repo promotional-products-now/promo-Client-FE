@@ -44,16 +44,33 @@ const CartPage = () => {
       <div className="md:px-20 mt-12 ">
         <h1 className="text-3xl capitalize font-bold text-center mb-5">Shopping Cart</h1>
 
-        <div className="border-y border-t-primary py-4 md:px-4">
-          <Table radius="none" shadow="none" removeWrapper className="overflow-x-auto">
+        <div className=" py-4 md:px-4">
+          <Table
+            radius="none"
+            shadow="none"
+            removeWrapper
+            className="overflow-x-auto border-b border-b-gray"
+          >
             <TableHeader>
-              <TableColumn className="uppercase md:text-base text-black">Delete</TableColumn>
+              <TableColumn className="uppercase bg-transparent border-b border-b-primary py-5 md:text-base text-black">
+                Delete
+              </TableColumn>
 
-              <TableColumn className="uppercase md:text-base text-black">Product</TableColumn>
-              <TableColumn className="uppercase md:text-base text-black">Name</TableColumn>
-              <TableColumn className="uppercase md:text-base text-black">Price</TableColumn>
-              <TableColumn className="uppercase md:text-base text-black">Quantity</TableColumn>
-              <TableColumn className="uppercase md:text-base text-black">Subtotal</TableColumn>
+              <TableColumn className="uppercase bg-transparent border-b border-b-primary py-5 md:text-base text-black">
+                Product
+              </TableColumn>
+              <TableColumn className="uppercase bg-transparent border-b border-b-primary py-5 md:text-base text-black">
+                Name
+              </TableColumn>
+              <TableColumn className="uppercase bg-transparent border-b border-b-primary py-5 md:text-base text-black">
+                Price
+              </TableColumn>
+              <TableColumn className="uppercase bg-transparent border-b border-b-primary py-5 md:text-base text-black">
+                Quantity
+              </TableColumn>
+              <TableColumn className="uppercase bg-transparent border-b border-b-primary py-5 md:text-base text-black">
+                Subtotal
+              </TableColumn>
             </TableHeader>
             <TableBody emptyContent={" Oops, your cart is empty, Please add an item to cart"}>
               {deletedItems.map((item, index) => (
@@ -68,8 +85,8 @@ const CartPage = () => {
                     />
                   </TableCell>
 
-                  <TableCell className="w-32 ">
-                    <Image src={item.image} className="object-cover aspect-square" />
+                  <TableCell className="w-32 py-5">
+                    <Image src={item.image} className="object-cover aspect-square w-44 h-full" />
                   </TableCell>
 
                   <TableCell className="font-medium ">{item.title}</TableCell>

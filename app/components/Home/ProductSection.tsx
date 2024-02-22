@@ -7,7 +7,7 @@ import { Select, SelectItem } from "@nextui-org/react";
 import { IconType } from "react-icons";
 
 interface ProductSectionProps {
-  Icon: IconType
+  Icon: IconType;
   sideImage?: string;
   bgimage?: string;
   title?: string;
@@ -27,15 +27,15 @@ const ProductSection = ({ sideImage, bgimage, showmore, title, Icon }: ProductSe
   ];
 
   return (
-    <div className="bg-white-bg">
+    <div className="bg-white-bg mt-20">
       <div className="flex flex-col justify-center items-center lg:px-20 ">
         <div className="md:grid md:grid-cols-[4fr_7fr] py-10 flex flex-col">
           <div className="md:hidden lg:hidden flex flex-row justify-between item-center my-10 p-3 border  border-orange rounded-md">
             <div className="flex flex-row items-center justify-center gap-2 p-4">
               <Icon size={25} className="text-primary" />
-              <h1 className="text-black-bg text-xl">{title}</h1>
+              <h1 className="text-black-bg md:text-xl text-sm">{title}</h1>
             </div>
-            <Select label="Explore what suits you" color="default" className="w-2/4  text-center">
+            <Select label="Explore what suits" color="default" className="w-2/4  text-center">
               {options.map((animal) => (
                 <SelectItem key={animal.value} value={animal.value}>
                   {animal.label}
