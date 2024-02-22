@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /Users/user/.cache/node/corepack/yarn/1.22.19/bin/yarn.js run start
+  /usr/local/bin/node /Users/user/.cache/node/corepack/yarn/1.22.19/bin/yarn.js run dev
 
 PATH: 
   /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin

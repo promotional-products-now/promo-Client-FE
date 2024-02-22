@@ -47,13 +47,13 @@ const CartPage = () => {
         <div className="border-y border-t-primary py-4 md:px-4">
           <Table radius="none" shadow="none" removeWrapper className="overflow-x-auto">
             <TableHeader>
-              <TableColumn className="uppercase md:text-base">Delete</TableColumn>
+              <TableColumn className="uppercase md:text-base text-black">Delete</TableColumn>
 
-              <TableColumn className="uppercase md:text-base">Product</TableColumn>
-              <TableColumn className="uppercase md:text-base">Name</TableColumn>
-              <TableColumn className="uppercase md:text-base">Price</TableColumn>
-              <TableColumn className="uppercase md:text-base">Quantity</TableColumn>
-              <TableColumn className="uppercase md:text-base">Subtotal</TableColumn>
+              <TableColumn className="uppercase md:text-base text-black">Product</TableColumn>
+              <TableColumn className="uppercase md:text-base text-black">Name</TableColumn>
+              <TableColumn className="uppercase md:text-base text-black">Price</TableColumn>
+              <TableColumn className="uppercase md:text-base text-black">Quantity</TableColumn>
+              <TableColumn className="uppercase md:text-base text-black">Subtotal</TableColumn>
             </TableHeader>
             <TableBody emptyContent={" Oops, your cart is empty, Please add an item to cart"}>
               {deletedItems.map((item, index) => (
@@ -132,11 +132,11 @@ const CartPage = () => {
             href="#"
             variant="ghost"
             startContent={<FiArrowRight className="text-base" />}
-            className="bg-green-600 px-8 py-5 w-full h-full rounded-sm text-white flex flex-row gap-5 text-base font-semibold hover:opacity-80 transition text-center capitalize"
+            className="bg-green-500 px-8 py-5 w-full h-full rounded-sm text-white flex flex-row gap-5 text-base font-semibold hover:opacity-80 transition text-center capitalize"
           >
             PROCEED TO CHECKOUT
           </Button>
-          <div className="border border-black px-5 py-2 flex flex-col gap-5 mt-6">
+          <div className="border border-black px-5 py-2 flex flex-col gap-1 mt-6">
             <div className="text-xl text-center">GUARANTEED SAFE CHECKOUT</div>
 
             <div className="flex flex-row items-center">
