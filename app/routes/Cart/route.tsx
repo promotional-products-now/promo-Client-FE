@@ -9,7 +9,7 @@ import {
 } from "@nextui-org/react";
 import { useState } from "react";
 import { AiTwotoneDelete } from "react-icons/ai";
-import { Link } from "@remix-run/react";
+import { Link, Links } from "@remix-run/react";
 import { Button } from "@nextui-org/react";
 import { FiArrowRight } from "react-icons/fi";
 import { MdOutlineArrowRight } from "react-icons/md";
@@ -36,7 +36,9 @@ const CartPage = () => {
   return (
     <div className="">
       <div className="flex flex-row border border-gray md:px-20 px-5 py-3 items-center justify-start cursor-pointer">
-        <div className="text-gray">Home</div>
+        <div className="text-gray">
+          <Links href="/">Home</Links>{" "}
+        </div>
         <MdOutlineArrowRight size={18} className="text-gray" />
         <div className="text-base text-primary">Shopping cart</div>
       </div>
@@ -53,15 +55,16 @@ const CartPage = () => {
           >
             <TableHeader>
               <TableColumn className="uppercase bg-transparent border-b border-b-primary py-5 md:text-base text-black">
-                Delete
+                {" "}
               </TableColumn>
 
               <TableColumn className="uppercase bg-transparent border-b border-b-primary py-5 md:text-base text-black">
-                Product
+                {""}
               </TableColumn>
               <TableColumn className="uppercase bg-transparent border-b border-b-primary py-5 md:text-base text-black">
-                Name
+                Product
               </TableColumn>
+
               <TableColumn className="uppercase bg-transparent border-b border-b-primary py-5 md:text-base text-black">
                 Price
               </TableColumn>
@@ -78,7 +81,7 @@ const CartPage = () => {
                   <TableCell className="font-medium">
                     <RxCross2
                       size={20}
-                      className="text-black font-semibold"
+                      className="text-black font-semibold cursor-pointer"
                       onClick={() => {
                         handleDelete(item.id);
                       }}
@@ -86,7 +89,7 @@ const CartPage = () => {
                   </TableCell>
 
                   <TableCell className="w-32 py-5">
-                    <Image src={item.image} className="object-cover aspect-square w-44 h-full" />
+                    <Image src={item.image} className="object-cover aspect-square w-34 h-full" />
                   </TableCell>
 
                   <TableCell className="font-medium ">{item.title}</TableCell>
