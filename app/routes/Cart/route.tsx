@@ -16,6 +16,7 @@ import { MdOutlineArrowRight } from "react-icons/md";
 import { Input } from "@nextui-org/react";
 import { items } from "app/api_dummy";
 import { payment } from "app/api_dummy";
+import { RxCross2 } from "react-icons/rx";
 
 const CartPage = () => {
   const cartItems = items.slice(0, 5);
@@ -44,37 +45,37 @@ const CartPage = () => {
         <h1 className="text-3xl capitalize font-bold text-center mb-5">Shopping Cart</h1>
 
         <div className="border-y border-t-primary py-4 md:px-4">
-          <Table radius="none" shadow="none" removeWrapper>
+          <Table radius="none" shadow="none" removeWrapper className="overflow-x-auto">
             <TableHeader>
-              <TableColumn className="uppercase">Delete</TableColumn>
+              <TableColumn className="uppercase md:text-base">Delete</TableColumn>
 
-              <TableColumn className="uppercase md:textlgl">Product</TableColumn>
-              <TableColumn className="uppercase md:text-lg">Name</TableColumn>
-              <TableColumn className="uppercase md:text-lg">Price</TableColumn>
-              <TableColumn className="uppercase md:text-lg">Qunatity</TableColumn>
-              <TableColumn className="uppercase md:text-lg">Subtotal</TableColumn>
+              <TableColumn className="uppercase md:text-base">Product</TableColumn>
+              <TableColumn className="uppercase md:text-base">Name</TableColumn>
+              <TableColumn className="uppercase md:text-base">Price</TableColumn>
+              <TableColumn className="uppercase md:text-base">Quantity</TableColumn>
+              <TableColumn className="uppercase md:text-base">Subtotal</TableColumn>
             </TableHeader>
             <TableBody emptyContent={" Oops, your cart is empty, Please add an item to cart"}>
               {deletedItems.map((item, index) => (
                 <TableRow key={index}>
                   <TableCell className="font-medium">
-                    <AiTwotoneDelete
+                    <RxCross2
                       size={20}
-                      className="text-red-800"
+                      className="text-black font-semibold"
                       onClick={() => {
                         handleDelete(item.id);
                       }}
                     />
                   </TableCell>
 
-                  <TableCell className="w-32">
+                  <TableCell className="w-32 ">
                     <Image src={item.image} className="object-cover aspect-square" />
                   </TableCell>
 
-                  <TableCell className="font-medium md:text-lg">{item.title}</TableCell>
-                  <TableCell className="text-primary md:text-lg">{item.price}</TableCell>
-                  <TableCell className="text-left md:text-lg">{item.qunatity}</TableCell>
-                  <TableCell className="text-left md:text-lg">{item.newPrice}</TableCell>
+                  <TableCell className="font-medium ">{item.title}</TableCell>
+                  <TableCell className="text-primary ">{item.price}</TableCell>
+                  <TableCell className="text-left ">{item.qunatity}</TableCell>
+                  <TableCell className="text-left ">{item.newPrice}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -115,14 +116,16 @@ const CartPage = () => {
         </div>
 
         <div className="flex flex-col gap-3 justify-start md:w-2/5 mt-10 w-full">
-          <div className="text-2xl font-semibold text-black">Card Totals</div>
+          <div className="text-2xl font-semibold text-black">Cart Totals</div>
           <div className="flex flex-row justify-between items-center border-t border-t-primary p-3">
-            <div className="text-base text-black ">Subtotal</div>
-            <div className="text-base text-black ">$238</div>
+            <div className=" text-black ">Subtotal</div>
+            <div className=" text-black ">$238.00</div>
           </div>
           <div className="flex flex-row justify-between items-center border-y border-y-gray p-3 mb-7">
-            <div className="text-2xl text-black ">Total(ex GST)</div>
-            <div className=" text-primary text-2xl">$238</div>
+            <div className=" text-black ">
+              <span className="font-semibold">TOTAL</span>(ex GST)
+            </div>
+            <div className=" text-primary font-semibold text-xl">$238.00</div>
           </div>
           <Button
             as={Link}
@@ -133,13 +136,13 @@ const CartPage = () => {
           >
             PROCEED TO CHECKOUT
           </Button>
-          <div className="border border-black px-5 py-5 flex flex-col gap-5 mt-6">
-            <div className="text-2xl text-center">GUARANTEED SAFE CHECKOUT</div>
+          <div className="border border-black px-5 py-2 flex flex-col gap-5 mt-6">
+            <div className="text-xl text-center">GUARANTEED SAFE CHECKOUT</div>
 
             <div className="flex flex-row items-center">
               {payment.map((item) => {
                 return (
-                  <div className="w-20 flex-1 ">
+                  <div className="w-18 flex-1 ">
                     <Image src={item.image} className="w-full h-full object-cover aspect-auto" />
                   </div>
                 );
