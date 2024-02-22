@@ -41,23 +41,44 @@ const CartPage = () => {
       </div>
 
       <div className="md:px-20 mt-12 ">
-        <h1 className="text-3xl capitalize font-bold text-center mb-5">Shopping Cart</h1>
+        <h1 className="md:text-3xl text-2xl capitalize font-bold text-center mb-5">
+          Shopping Cart
+        </h1>
 
-        <div className="border-y border-t-primary py-4 md:px-4">
-          <Table radius="none" shadow="none" removeWrapper>
+        <div className=" py-4 md:px-4">
+          <Table
+            radius="none"
+            shadow="none"
+            removeWrapper
+            isCompact
+            aria-label="Cart table"
+            className="overflow-x-scroll md:overflow-hidden "
+          >
             <TableHeader>
-              <TableColumn className="uppercase">Delete</TableColumn>
+              <TableColumn className="uppercase bg-transparent border-b border-b-primary py-5">
+                Delete
+              </TableColumn>
 
-              <TableColumn className="uppercase md:textlgl">Product</TableColumn>
-              <TableColumn className="uppercase md:text-lg">Name</TableColumn>
-              <TableColumn className="uppercase md:text-lg">Price</TableColumn>
-              <TableColumn className="uppercase md:text-lg">Qunatity</TableColumn>
-              <TableColumn className="uppercase md:text-lg">Subtotal</TableColumn>
+              <TableColumn className="uppercase md:text-lg bg-transparent border-b border-b-primary py-5">
+                Product
+              </TableColumn>
+              <TableColumn className="uppercase md:text-lg bg-transparent border-b border-b-primary py-5">
+                Name
+              </TableColumn>
+              <TableColumn className="uppercase md:text-lg bg-transparent border-b border-b-primary py-5">
+                Price
+              </TableColumn>
+              <TableColumn className="uppercase md:text-lg bg-transparent border-b border-b-primary py-5">
+                Qunatity
+              </TableColumn>
+              <TableColumn className="uppercase md:text-lg bg-transparent border-b border-b-primary py-5">
+                Subtotal
+              </TableColumn>
             </TableHeader>
             <TableBody emptyContent={" Oops, your cart is empty, Please add an item to cart"}>
               {deletedItems.map((item, index) => (
-                <TableRow key={index}>
-                  <TableCell className="font-medium">
+                <TableRow key={index} className="border-b border-gray">
+                  <TableCell className="font-medium py-5">
                     <AiTwotoneDelete
                       size={20}
                       className="text-red-800"
@@ -67,14 +88,14 @@ const CartPage = () => {
                     />
                   </TableCell>
 
-                  <TableCell className="w-32">
-                    <Image src={item.image} className="object-cover aspect-square" />
+                  <TableCell className="md:w-32 py-5">
+                    <Image src={item.image} className="object-cover aspect-square w-44 h-full" />
                   </TableCell>
 
-                  <TableCell className="font-medium md:text-lg">{item.title}</TableCell>
-                  <TableCell className="text-primary md:text-lg">{item.price}</TableCell>
-                  <TableCell className="text-left md:text-lg">{item.qunatity}</TableCell>
-                  <TableCell className="text-left md:text-lg">{item.newPrice}</TableCell>
+                  <TableCell className="font-medium md:text-lg py-5">{item.title}</TableCell>
+                  <TableCell className="text-primary md:text-lg py-5">{item.price}</TableCell>
+                  <TableCell className="text-left md:text-lg py-5">{item.qunatity}</TableCell>
+                  <TableCell className="text-left md:text-lg py-5">{item.newPrice}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
