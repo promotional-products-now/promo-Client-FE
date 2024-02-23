@@ -46,7 +46,12 @@ export default function Detatils(): JSX.Element {
             <hr className="text-lightGray mt-4  h-4 w-full" />
             <div>
               {recentOrders.map((orders) => (
-                <RecentOrderCard {...orders} />
+                <RecentOrderCard key={orders.id}
+                  id={0}
+                  title={orders.title}
+                  productImg={orders.productImg}
+                  price={orders.price}
+                  quantity={orders.quantity} />
               ))}
             </div>
           </div>

@@ -1,20 +1,22 @@
-export const recentOrders = [
+import { RecentOrderI } from "../interfaces/recentOrder.interface";
+
+export const recentOrders: Array<RecentOrderI> = [
   {
-    id: 1,
+    id: "prd111",
     title: "Mix N Match Type-C Flash Drive",
     productImg: "https://nextui-docs-v2.vercel.app/images/hero-card-complete.jpeg",
     quantity: "50",
     price: "$238.00",
   },
   {
-    id: 2,
+    id: "prd112",
     title: "Mix N Match Type-C Flash Drive",
     productImg: "https://nextui-docs-v2.vercel.app/images/hero-card-complete.jpeg",
     quantity: "50",
     price: "$238.00",
   },
   {
-    id: 3,
+    id: "prd113",
     title: "Mix N Match Type-C Flash Drive",
     productImg: "https://nextui-docs-v2.vercel.app/images/hero-card-complete.jpeg",
     quantity: "50",
