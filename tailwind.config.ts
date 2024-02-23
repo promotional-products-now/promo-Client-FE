@@ -20,13 +20,13 @@ module.exports = {
         lightBlue: "#84C9F2",
         yellow: "#FAB102",
         gray: "#4D4D4D",
-        'white-bg': "#F8F8F8",
-        'white-border': "#E9EBF3"
-      }
+        lightGray: "#D9D9D9",
+        "white-bg": "#F8F8F8",
+        "white-border": "#E9EBF3",
+      },
     },
   },
   darkMode: "class",
   plugins: [nextui()],
-
 
 }; 
