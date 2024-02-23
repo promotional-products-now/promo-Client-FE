@@ -1,25 +1,33 @@
 import { Link } from "@remix-run/react";
-
 import { ServicesT, services } from "app/contents/aboutServices";
 
 const AboutPage = () => {
   return (
     <div className="flex flex-col gap-3 w-full mx-auto py-10 lg:px-5 lg:w-4/5">
       <div className="flex justify-center">
-        <h2 className="text-xl font-extrabold">Company Profile</h2>
+        <h2 className="text-2xl font-extrabold">Company Profile</h2>
       </div>
       <div className="flex flex-col space-y-6">
-        <div className="flex flex-col text-center ">
-          {[1, 2, 3].map((_, index) => {
-            return (
-              <p className="text-black p-2 text-base" key={index}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum hic. Quasi
-                dicta, quo temporibus consequatur atque, ex ad natus commodi cum eius itaque
-                excepturi voluptas qui numquam id? Saepe! Lorem ipsum dolor sit amet consectetur
-                adipisicing elit. Accusamus, rerum hic. Quasi dicta,
-              </p>
-            );
-          })}
+        <div className="flex flex-col text-center text-black p-2 text-base">
+          <p className="pb-3">
+            <a href="/" className="text-blue-500">
+              Promotional Products Now
+            </a>{" "}
+            is a progressive promotional products company founded on the belief that customer
+            satisfaction is of paramount and continuing importance.
+          </p>
+          <p className="pb-3">
+            Serving all organisations around Australia for over 20 years, our success to date is
+            directly contributed to the feedback received from our customers. Together with our
+            proven cost-saving strategies, which have driven down prices, you can be assured our
+            service, price, and product quality you receive from us will not be matched by our
+            competitors.
+          </p>
+          <p className="pb-3">
+            We are bound by the Code of Conduct of the Australasian Promotional Products Association
+            and together with our 5 Rock Solid Guarantees, you are well and truly protected in the
+            unlikely event something goes wrong with your order.
+          </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {services.map((item: ServicesT) => {
