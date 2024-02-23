@@ -19,21 +19,17 @@ import { RxCross2 } from "react-icons/rx";
 
 const CartPage = () => {
   const cartItems = items.slice(0, 5);
-  console.log(cartItems.length);
-
   const [deletedItems, setDeletedItems] = useState(cartItems);
+
   const handleDelete = (id: number) => {
-    const FilteredItems = deletedItems.filter((item) => {
+    const filteredItems = deletedItems.filter((item) => {
       return item.id !== id;
     });
-
-    console.log(`FilteredItems`, FilteredItems);
-
-    setDeletedItems(FilteredItems);
+    setDeletedItems(filteredItems);
   };
 
   return (
-    <div className="">
+    <div className="space-y-10">
       <div className="flex flex-row border-y border-gray md:px-20 px-5 py-3 items-center justify-start cursor-pointer">
         <Link to={"/"}>
           <div className="text-gray">Home</div>
@@ -42,10 +38,10 @@ const CartPage = () => {
         <div className="text-base text-primary">Shopping cart</div>
       </div>
 
-      <div className="md:px-20 mt-12 ">
-        <h1 className="text-3xl capitalize font-bold text-center mb-5">Shopping Cart</h1>
+      <div className="md:px-20 space-y-10">
+        <h1 className="text-2xl capitalize font-bold text-center my-5">Shopping Cart</h1>
 
-        <div className=" py-4 md:px-4">
+        <div className="py-4 md:px-4">
           <Table
             radius="none"
             shadow="none"
@@ -84,21 +80,21 @@ const CartPage = () => {
                   </TableCell>
 
                   <TableCell className="w-96 py-5">
-                    <div className="flex items-center space-x-3">
-                      <Image src={item.image} className="object-cover aspect-square w-32 h-full" />
-                      <span className="hidden md:block font-semibold">{item.title}</span>
+                    <div className="md:flex items-center md:space-x-3">
+                      <Image src={item.image} className="object-cover aspect-square w-16 h-full" />
+                      <span className="font-semibold text-sm">{item.title}</span>
                     </div>
                   </TableCell>
-                  <TableCell className="text-primary ">{item.price}</TableCell>
-                  <TableCell className="text-left ">{item.qunatity}</TableCell>
-                  <TableCell className="text-left font-semibold ">{item.newPrice}</TableCell>
+                  <TableCell className="text-primary text-sm">{item.price}</TableCell>
+                  <TableCell className="text-left text-sm">{item.qunatity}</TableCell>
+                  <TableCell className="text-left font-semibold text-sm">{item.newPrice}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </div>
 
-        <div className="flex md:flex-row flex-col justify-between md:items-center mt-10">
+        <div className="flex md:flex-row flex-col justify-between md:items-center space-y-4 md:space-y-0">
           <div className="flex flex-row gap-6 items-center">
             <Input
               type="text"
@@ -118,7 +114,7 @@ const CartPage = () => {
             </Button>
           </div>
 
-          <div className="md:w-1/4 w-full mt-4">
+          <div className="md:w-1/4 w-full">
             <Button
               as={Link}
               href="#"
@@ -131,17 +127,19 @@ const CartPage = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 justify-start md:w-2/5 mt-10 w-full">
+        <div className="flex flex-col gap-3 justify-start md:w-2/5 w-full space-y-10">
           <div className="text-2xl font-semibold text-black">Cart Totals</div>
-          <div className="flex flex-row justify-between items-center border-t border-t-primary p-3">
-            <div className=" text-black ">Subtotal</div>
-            <div className=" text-black ">$238.00</div>
-          </div>
-          <div className="flex flex-row justify-between items-center border-y border-y-gray p-3 mb-7">
-            <div className=" text-black ">
-              <span className="font-semibold">TOTAL</span>(ex GST)
+          <div className="flex flex-col space-y-1">
+            <div className="flex flex-row justify-between items-center border-t border-t-primary p-3">
+              <div className=" text-black ">Subtotal</div>
+              <div className=" text-black ">$238.00</div>
             </div>
-            <div className=" text-primary font-semibold text-xl">$238.00</div>
+            <div className="flex flex-row justify-between items-center border-y border-y-gray p-3">
+              <div className=" text-black ">
+                <span className="font-semibold">TOTAL</span>(ex GST)
+              </div>
+              <div className=" text-primary font-semibold text-xl">$238.00</div>
+            </div>
           </div>
           <Button
             as={Link}
@@ -152,7 +150,7 @@ const CartPage = () => {
           >
             PROCEED TO CHECKOUT
           </Button>
-          <div className="border border-black px-5 py-2 flex flex-col gap-1 mt-6">
+          <div className="border border-black px-5 py-2 flex flex-col gap-1">
             <div className="text-xl text-center">GUARANTEED SAFE CHECKOUT</div>
 
             <div className="flex flex-row items-center">
