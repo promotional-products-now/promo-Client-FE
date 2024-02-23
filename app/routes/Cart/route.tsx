@@ -86,7 +86,7 @@ const CartPage = () => {
                   <TableCell className="w-96 py-5">
                     <div className="flex items-center space-x-3">
                       <Image src={item.image} className="object-cover aspect-square w-32 h-full" />
-                      <span className="hidden md:block">{item.title}</span>
+                      <span className="hidden md:block font-semibold">{item.title}</span>
                     </div>
                   </TableCell>
                   <TableCell className="text-primary ">{item.price}</TableCell>
