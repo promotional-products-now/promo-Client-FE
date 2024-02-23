@@ -8,8 +8,7 @@ import {
   Image,
 } from "@nextui-org/react";
 import { useState } from "react";
-import { AiTwotoneDelete } from "react-icons/ai";
-import { Link, Links } from "@remix-run/react";
+import { Link } from "@remix-run/react";
 import { Button } from "@nextui-org/react";
 import { FiArrowRight } from "react-icons/fi";
 import { MdOutlineArrowRight } from "react-icons/md";
@@ -35,10 +34,10 @@ const CartPage = () => {
 
   return (
     <div className="">
-      <div className="flex flex-row border border-gray md:px-20 px-5 py-3 items-center justify-start cursor-pointer">
-        <div className="text-gray">
-          <Links href="/">Home</Links>{" "}
-        </div>
+      <div className="flex flex-row border-y border-gray md:px-20 px-5 py-3 items-center justify-start cursor-pointer">
+        <Link to={"/"}>
+          <div className="text-gray">Home</div>
+        </Link>
         <MdOutlineArrowRight size={18} className="text-gray" />
         <div className="text-base text-primary">Shopping cart</div>
       </div>
@@ -57,12 +56,8 @@ const CartPage = () => {
               <TableColumn className="uppercase bg-transparent border-b border-b-primary py-5 md:text-base text-black">
                 {" "}
               </TableColumn>
-
               <TableColumn className="uppercase bg-transparent border-b border-b-primary py-5 md:text-base text-black">
-                {""}
-              </TableColumn>
-              <TableColumn className="uppercase bg-transparent border-b border-b-primary py-5 md:text-base text-black">
-                Product
+                {" Product"}
               </TableColumn>
 
               <TableColumn className="uppercase bg-transparent border-b border-b-primary py-5 md:text-base text-black">
@@ -88,14 +83,15 @@ const CartPage = () => {
                     />
                   </TableCell>
 
-                  <TableCell className="w-32 py-5">
-                    <Image src={item.image} className="object-cover aspect-square w-34 h-full" />
+                  <TableCell className="w-96 py-5">
+                    <div className="flex items-center space-x-3">
+                      <Image src={item.image} className="object-cover aspect-square w-32 h-full" />
+                      <span className="hidden md:block">{item.title}</span>
+                    </div>
                   </TableCell>
-
-                  <TableCell className="font-medium ">{item.title}</TableCell>
                   <TableCell className="text-primary ">{item.price}</TableCell>
                   <TableCell className="text-left ">{item.qunatity}</TableCell>
-                  <TableCell className="text-left ">{item.newPrice}</TableCell>
+                  <TableCell className="text-left font-semibold ">{item.newPrice}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
