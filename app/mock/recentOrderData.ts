@@ -1,4 +1,4 @@
-import { RecentOrderI } from "../interfaces/recentOrder.interface";
+import { RecentOrderI } from "app/interfaces/recentOrder.interface";
 
 export const recentOrders: Array<RecentOrderI> = [
   {
