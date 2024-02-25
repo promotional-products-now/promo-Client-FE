@@ -15,7 +15,6 @@ const Faq = () => {
         </p>
         <b className="text-left text-yellow-400">FAQ-Your Artwork and Logo</b>
       </div>
-      <QuestionAccordion questions={questions} />
 
       {/*=== Ordering Promotional Products ===*/}
       <div className="mt-5">

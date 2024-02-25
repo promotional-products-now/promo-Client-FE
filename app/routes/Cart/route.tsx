@@ -8,10 +8,10 @@ import {
   Image,
 } from "@nextui-org/react";
 import { useState } from "react";
-import { AiTwotoneDelete } from "react-icons/ai";
 import { Link } from "@remix-run/react";
 import { Button } from "@nextui-org/react";
 import { FiArrowRight } from "react-icons/fi";
+import { RxCross2 } from "react-icons/rx";
 import { MdOutlineArrowRight } from "react-icons/md";
 import { Input } from "@nextui-org/react";
 import { items } from "app/api_dummy";
@@ -19,69 +19,82 @@ import { payment } from "app/api_dummy";
 
 const CartPage = () => {
   const cartItems = items.slice(0, 5);
-  console.log(cartItems.length);
-
   const [deletedItems, setDeletedItems] = useState(cartItems);
+
   const handleDelete = (id: number) => {
-    const FilteredItems = deletedItems.filter((item) => {
+    const filteredItems = deletedItems.filter((item) => {
       return item.id !== id;
     });
-
-    console.log(`FilteredItems`, FilteredItems);
-
-    setDeletedItems(FilteredItems);
+    setDeletedItems(filteredItems);
   };
 
   return (
-    <div className="">
-      <div className="flex flex-row border border-gray md:px-20 px-5 py-3 items-center justify-start cursor-pointer">
-        <div className="text-gray">Home</div>
+    <div className="space-y-10">
+      <div className="flex flex-row border-y border-gray md:px-20 px-5 py-3 items-center justify-start cursor-pointer">
+        <Link to={"/"}>
+          <div className="text-gray">Home</div>
+        </Link>
         <MdOutlineArrowRight size={18} className="text-gray" />
         <div className="text-base text-primary">Shopping cart</div>
       </div>
 
-      <div className="md:px-20 mt-12 ">
-        <h1 className="text-3xl capitalize font-bold text-center mb-5">Shopping Cart</h1>
+      <div className="md:px-20 space-y-10">
+        <h1 className="text-2xl capitalize font-bold text-center my-5">Shopping Cart</h1>
 
-        <div className="border-y border-t-primary py-4 md:px-4">
-          <Table radius="none" shadow="none" removeWrapper>
+        <div className="py-4 md:px-4">
+          <Table
+            radius="none"
+            shadow="none"
+            removeWrapper
+            className="overflow-x-auto border-b border-b-gray"
+          >
             <TableHeader>
-              <TableColumn className="uppercase">Delete</TableColumn>
+              <TableColumn className="uppercase bg-transparent border-b border-b-primary py-5 md:text-base text-black">
+                {" "}
+              </TableColumn>
+              <TableColumn className="uppercase bg-transparent border-b border-b-primary py-5 md:text-base text-black">
+                {" Product"}
+              </TableColumn>
 
-              <TableColumn className="uppercase md:textlgl">Product</TableColumn>
-              <TableColumn className="uppercase md:text-lg">Name</TableColumn>
-              <TableColumn className="uppercase md:text-lg">Price</TableColumn>
-              <TableColumn className="uppercase md:text-lg">Qunatity</TableColumn>
-              <TableColumn className="uppercase md:text-lg">Subtotal</TableColumn>
+              <TableColumn className="uppercase bg-transparent border-b border-b-primary py-5 md:text-base text-black">
+                Price
+              </TableColumn>
+              <TableColumn className="uppercase bg-transparent border-b border-b-primary py-5 md:text-base text-black">
+                Quantity
+              </TableColumn>
+              <TableColumn className="uppercase bg-transparent border-b border-b-primary py-5 md:text-base text-black">
+                Subtotal
+              </TableColumn>
             </TableHeader>
             <TableBody emptyContent={" Oops, your cart is empty, Please add an item to cart"}>
               {deletedItems.map((item, index) => (
                 <TableRow key={index}>
                   <TableCell className="font-medium">
-                    <AiTwotoneDelete
+                    <RxCross2
                       size={20}
-                      className="text-red-800"
+                      className="text-black font-semibold cursor-pointer"
                       onClick={() => {
                         handleDelete(item.id);
                       }}
                     />
                   </TableCell>
 
-                  <TableCell className="w-32">
-                    <Image src={item.image} className="object-cover aspect-square" />
+                  <TableCell className="w-96 py-5">
+                    <div className="md:flex items-center md:space-x-3">
+                      <Image src={item.image} className="object-cover aspect-square w-16 h-full" />
+                      <span className="font-semibold text-sm">{item.title}</span>
+                    </div>
                   </TableCell>
-
-                  <TableCell className="font-medium md:text-lg">{item.title}</TableCell>
-                  <TableCell className="text-primary md:text-lg">{item.price}</TableCell>
-                  <TableCell className="text-left md:text-lg">{item.qunatity}</TableCell>
-                  <TableCell className="text-left md:text-lg">{item.newPrice}</TableCell>
+                  <TableCell className="text-primary text-sm">{item.price}</TableCell>
+                  <TableCell className="text-left text-sm">{item.qunatity}</TableCell>
+                  <TableCell className="text-left font-semibold text-sm">{item.newPrice}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </div>
 
-        <div className="flex md:flex-row flex-col justify-between md:items-center mt-10">
+        <div className="flex md:flex-row flex-col justify-between md:items-center space-y-4 md:space-y-0">
           <div className="flex flex-row gap-6 items-center">
             <Input
               type="text"
@@ -101,7 +114,7 @@ const CartPage = () => {
             </Button>
           </div>
 
-          <div className="md:w-1/4 w-full mt-4">
+          <div className="md:w-1/4 w-full">
             <Button
               as={Link}
               href="#"
@@ -114,32 +127,36 @@ const CartPage = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 justify-start md:w-2/5 mt-10 w-full">
-          <div className="text-2xl font-semibold text-black">Card Totals</div>
-          <div className="flex flex-row justify-between items-center border-t border-t-primary p-3">
-            <div className="text-base text-black ">Subtotal</div>
-            <div className="text-base text-black ">$238</div>
-          </div>
-          <div className="flex flex-row justify-between items-center border-y border-y-gray p-3 mb-7">
-            <div className="text-2xl text-black ">Total(ex GST)</div>
-            <div className=" text-primary text-2xl">$238</div>
+        <div className="flex flex-col gap-3 justify-start md:w-2/5 w-full space-y-10">
+          <div className="text-2xl font-semibold text-black">Cart Totals</div>
+          <div className="flex flex-col space-y-1">
+            <div className="flex flex-row justify-between items-center border-t border-t-primary p-3">
+              <div className=" text-black ">Subtotal</div>
+              <div className=" text-black ">$238.00</div>
+            </div>
+            <div className="flex flex-row justify-between items-center border-y border-y-gray p-3">
+              <div className=" text-black ">
+                <span className="font-semibold">TOTAL</span>(ex GST)
+              </div>
+              <div className=" text-primary font-semibold text-xl">$238.00</div>
+            </div>
           </div>
           <Button
             as={Link}
             href="#"
             variant="ghost"
             startContent={<FiArrowRight className="text-base" />}
-            className="bg-green-600 px-8 py-5 w-full h-full rounded-sm text-white flex flex-row gap-5 text-base font-semibold hover:opacity-80 transition text-center capitalize"
+            className="bg-green-500 px-8 py-5 w-full h-full rounded-sm text-white flex flex-row gap-5 text-base font-semibold hover:opacity-80 transition text-center capitalize"
           >
             PROCEED TO CHECKOUT
           </Button>
-          <div className="border border-black px-5 py-5 flex flex-col gap-5 mt-6">
-            <div className="text-2xl text-center">GUARANTEED SAFE CHECKOUT</div>
+          <div className="border border-black px-5 py-2 flex flex-col gap-1">
+            <div className="text-xl text-center">GUARANTEED SAFE CHECKOUT</div>
 
             <div className="flex flex-row items-center">
               {payment.map((item) => {
                 return (
-                  <div className="w-20 flex-1 ">
+                  <div className="w-18 flex-1 ">
                     <Image src={item.image} className="w-full h-full object-cover aspect-auto" />
                   </div>
                 );
