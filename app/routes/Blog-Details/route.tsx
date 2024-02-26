@@ -2,11 +2,25 @@ import { Image } from "@nextui-org/react";
 import { Link, Form } from "@remix-run/react";
 import { Button, Input, Textarea } from "@nextui-org/react";
 import { BiUser, BiChat, BiSearch } from "react-icons/bi";
+import { FaArrowRightLong } from "react-icons/fa6";
 import { socialIcons } from "app/contents/blogSocialHandles";
 import blogImage from "app/assets/item.png";
-import { FaArrowRightLong } from "react-icons/fa6";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { CommentSchema } from "app/schema/comment.schema";
 
 const SingleBlog = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<CommentSchema>({
+    resolver: yupResolver(CommentSchema),
+  });
+
+  const onSubmit = (data: CommentSchema) => {
+    console.log(data);
+  };
   return (
     <div className="w-full flex flex-wrap text-gray leading-loose gap-10 mx-auto px-3 py-10 md:px-20 md:flex-nowrap">
       <div className="w-full flex flex-col gap-5 md:w-2/3">
@@ -83,7 +97,7 @@ const SingleBlog = () => {
           <div className="w-full border"></div>
         </div>
 
-        <Form method="post" className="bg-lightGray p-5 flex flex-col gap-8">
+        <Form method="post" className="bg-lightGray p-5 my-5 flex flex-col gap-8">
           <div className="text-black">
             <h2 className="font-bold">Leave your reply</h2>
             <p className="text-sm">
@@ -95,8 +109,8 @@ const SingleBlog = () => {
             labelPlacement="outside"
             placeholder="Comment"
             className="bg-white col-span-12 md:col-span-6 mb-6 md:mb-0"
-            //   {...register("message")}
-            //   errorMessage={errors?.message?.message}
+            {...register("comment")}
+            errorMessage={errors?.comment?.message}
           />
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             <Input
@@ -104,32 +118,25 @@ const SingleBlog = () => {
               variant="underlined"
               label="Your phone"
               className="bg-white"
-              //   {...register("subject")}
-              //   errorMessage={errors?.subject?.message}
+              {...register("phone")}
+              errorMessage={errors?.phone?.message}
             />
             <Input
               type="text"
               variant="underlined"
               label="Email"
               className="bg-white"
-              //   {...register("subject")}
-              //   errorMessage={errors?.subject?.message}
+              {...register("email")}
+              errorMessage={errors?.email?.message}
             />
-            <Input
-              type="text"
-              variant="underlined"
-              label="Website"
-              className="bg-white"
-              //   {...register("subject")}
-              //   errorMessage={errors?.subject?.message}
-            />
+            <Input type="text" variant="underlined" label="Website" className="bg-white" />
           </div>
           <div>
             <Button
               color="default"
               radius="none"
               className="bg-black text-white py-3"
-              //   onClick={handleSubmit(onSubmit)}
+              onClick={handleSubmit(onSubmit)}
             >
               Leave your comment
             </Button>
@@ -137,11 +144,11 @@ const SingleBlog = () => {
         </Form>
       </div>
 
-      <div className="w-full md:w-1/3">
-        <div className="w-full bg-lightGray p-5 flex flex-col gap-4">
+      <div className="w-full text-black flex flex-col gap-8 md:w-1/3">
+        <div className="w-full bg-lightGray px-5 py-8 flex flex-col gap-4">
           <div className="flex gap-2 items-center text-sm">
             <FaArrowRightLong />
-            Search
+            SEARCH
           </div>
           <div className="flex">
             <Input
@@ -149,13 +156,84 @@ const SingleBlog = () => {
               radius="none"
               variant="underlined"
               label="Search blog here"
-              className="border py-0 h-[50px] bg-white"
-
-              //   {...register("subject")}
-              //   errorMessage={errors?.subject?.message}
+              className="border py-0 pl-2 h-[50px] bg-white"
             />
             <div className="bg-black py-2 px-3 flex items-center justify-center">
               <BiSearch size={20} color="white" />
+            </div>
+          </div>
+        </div>
+        <div className="w-full bg-lightGray px-5 py-8 flex flex-col gap-4 text-sm">
+          <div className="flex gap-2 items-center border-b pb-4">
+            <FaArrowRightLong />
+            BLOG CATEGORY
+          </div>
+          <div className="border-b pb-4">
+            <p>Corporate Gifts (28)</p>
+          </div>
+          <div className="border-b pb-4">
+            <p>Promotional Products (33)</p>
+          </div>
+          <div className="pb-4">
+            <p>Tips & Tricks (7)</p>
+          </div>
+        </div>
+        <div className="w-full bg-lightGray px-5 py-8 flex flex-col gap-4 text-sm">
+          <div>
+            <div className="flex gap-2 items-center">
+              <FaArrowRightLong />
+              RECENT POSTS
+            </div>
+            <div className="border-b border-gray shadow-sm pb-4"></div>
+          </div>
+          <div className="flex flex-col gap-6">
+            <div className="flex items-center gap-3">
+              <Image
+                shadow="none"
+                radius="none"
+                width="100%"
+                alt=""
+                className="w-[100px] h-[70px] object-cover"
+                src={blogImage}
+              />
+              <div className="flex flex-col gap-2">
+                <h3 className="line-clamp-2">How Customers Appreciation Helps Your B2B Sales</h3>
+                <Link to={""} className="font-light hover:underline">
+                  READ MORE
+                </Link>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <Image
+                shadow="none"
+                radius="none"
+                width="100%"
+                alt=""
+                className="w-[100px] h-[70px] object-cover"
+                src={blogImage}
+              />
+              <div className="flex flex-col gap-2">
+                <h3 className="line-clamp-2">How Customers Appreciation Helps Your B2B Sales</h3>
+                <Link to={""} className="font-light hover:underline">
+                  READ MORE
+                </Link>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <Image
+                shadow="none"
+                radius="none"
+                width="100%"
+                alt=""
+                className="w-[100px] h-[70px] object-cover"
+                src={blogImage}
+              />
+              <div className="flex flex-col gap-2">
+                <h3 className="line-clamp-2">How Customers Appreciation Helps Your B2B Sales</h3>
+                <Link to={""} className="font-light hover:underline">
+                  READ MORE
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -165,30 +243,3 @@ const SingleBlog = () => {
 };
 
 export default SingleBlog;
-
-//  <Input
-//                   type="text"
-//                   variant="underlined"
-//                   label="Subject"
-//                   color="primary"
-//                   {...register("subject")}
-//                   errorMessage={errors?.subject?.message}
-//                 />
-//               </div>
-//   <Textarea
-//     variant="underlined"
-//     labelPlacement="outside"
-//     placeholder="Your Message"
-//     color="primary"
-//     className="col-span-12 md:col-span-6 mb-6 md:mb-0"
-//     {...register("message")}
-//     errorMessage={errors?.message?.message}
-//   />
-//               <div>
-//                 <Button
-//                   color="primary"
-//                   className="rounded-sm py-3"
-//                   onClick={handleSubmit(onSubmit)}
-//                 >
-//                   Send Message
-//                 </Button>

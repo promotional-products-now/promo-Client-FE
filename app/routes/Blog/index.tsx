@@ -1,5 +1,5 @@
 import { Link } from "@remix-run/react";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowRightLong } from "react-icons/fa6";
 import image from "app/assets/item.png";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import { blogPosts } from "app/mock/blogData";
@@ -26,11 +26,14 @@ const Blog = () => {
                 />
               </CardBody>
               <CardFooter className="text-small flex flex-col gap-2 justify-between text-left px-3">
-                <b>{post.title}</b>
+                <b className="line-clamp-2">{post.title}</b>
                 <p className="text-default-500 line-clamp-2 ">{post.body}</p>
                 <div className="w-full">
-                  <Link to={""} className="flex items-center gap-2 font-semibold uppercase">
-                    <FaArrowRight color="blue" />
+                  <Link
+                    to={"/blog-details"}
+                    className="flex items-center gap-2 font-semibold uppercase"
+                  >
+                    <FaArrowRightLong color="blue" />
                     View article
                   </Link>
                 </div>

@@ -1,6 +1,4 @@
 import {
-  BiUser,
-  BiChat,
   BiShareAlt,
   BiLogoGoogle,
   BiLogoTwitter,
