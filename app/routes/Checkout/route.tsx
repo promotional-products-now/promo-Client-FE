@@ -16,6 +16,20 @@ const options = [
   { value: "new", label: "New" },
 ];
 
+type ValidId =
+  | "firstName"
+  | "lastName"
+  | "companyName"
+  | "apartment"
+  | "address"
+  | "suburb"
+  | "state"
+  | "postalCode"
+  | "country"
+  | "delivery"
+  | "email"
+  | "image";
+
 const CheckoutPage = () => {
   const [isSelected, setIsSelected] = useState<boolean>(false);
   const [isAnz, setANz] = useState<boolean>(false);
@@ -36,20 +50,6 @@ const CheckoutPage = () => {
 
   const state = watch("state");
   const country = watch("country");
-
-  type ValidId =
-    | "firstName"
-    | "lastName"
-    | "companyName"
-    | "apartment"
-    | "address"
-    | "suburb"
-    | "state"
-    | "postalCode"
-    | "country"
-    | "delivery"
-    | "email"
-    | "image";
 
   const setCustomValue = (id: ValidId, value: string) => {
     setValue(id, value, {
