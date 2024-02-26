@@ -1,6 +1,5 @@
 import { Checkbox } from "@nextui-org/react";
 import { useState } from "react";
-
 import { useForm, SubmitHandler } from "react-hook-form";
 import { CheckoutSchema } from "app/schema/checkout.schema";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -18,11 +17,11 @@ const options = [
 ];
 
 const CheckoutPage = () => {
-  const [isSelected, setIsSelected] = useState(false);
-  const [isAnz, setANz] = useState(false);
-  const [isLatitudePay, setLatitudePay] = useState(false);
-  const [isAgreed, setIsAgreed] = useState(false);
-  const [isToDiffrentAddress, seisToDiffrentAddress] = useState(false);
+  const [isSelected, setIsSelected] = useState<boolean>(false);
+  const [isAnz, setANz] = useState<boolean>(false);
+  const [isLatitudePay, setLatitudePay] = useState<boolean>(false);
+  const [isAgreed, setIsAgreed] = useState<boolean>(false);
+  const [isToDiffrentAddress, seisToDiffrentAddress] = useState<boolean>(false);
 
   const {
     handleSubmit,
@@ -38,10 +37,21 @@ const CheckoutPage = () => {
   const state = watch("state");
   const country = watch("country");
 
-  console.log(`country`, country);
-  console.log(`state`, state);
+  type ValidId =
+    | "firstName"
+    | "lastName"
+    | "companyName"
+    | "apartment"
+    | "address"
+    | "suburb"
+    | "state"
+    | "postalCode"
+    | "country"
+    | "delivery"
+    | "email"
+    | "image";
 
-  const setCustomValue = (id: any, value: string) => {
+  const setCustomValue = (id: ValidId, value: string) => {
     setValue(id, value, {
       shouldDirty: true,
       shouldTouch: true,
