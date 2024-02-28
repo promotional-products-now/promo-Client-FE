@@ -15,7 +15,7 @@ export const services = [
   {
     icon: BsCart3,
     title: "Shopping now",
-    action: "shopping",
+    action: "",
     id: "shopping",
   },
   {
@@ -27,7 +27,7 @@ export const services = [
   {
     icon: TbMessage,
     title: "Our FAQs",
-    action: "faqs",
+    action: "faq",
     id: "faqs",
   },
   {
