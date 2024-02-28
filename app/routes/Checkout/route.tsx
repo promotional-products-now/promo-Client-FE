@@ -8,7 +8,10 @@ import { Select, SelectItem } from "@nextui-org/react";
 import { GoUpload } from "react-icons/go";
 import { Textarea } from "@nextui-org/react";
 import { SiVisa, SiAmericanexpress } from "react-icons/si";
-import { RiMastercardLine  } from "react-icons/ri";
+import { RiMastercardLine } from "react-icons/ri";
+import AlternateAddressForm from "app/components/Checkout/AlternateAddressForm";
+import CheckoutOrder from "app/components/Checkout/CheckoutOrder";
+import { ValidId } from "app/components/Checkout/ValidId";
 
 const options = [
   { value: "low-high", label: "low to high" },
@@ -16,26 +19,16 @@ const options = [
   { value: "new", label: "New" },
 ];
 
-type ValidId =
-  | "firstName"
-  | "lastName"
-  | "companyName"
-  | "apartment"
-  | "address"
-  | "suburb"
-  | "state"
-  | "postalCode"
-  | "country"
-  | "delivery"
-  | "email"
-  | "image";
+
 
 const CheckoutPage = () => {
   const [isSelected, setIsSelected] = useState<boolean>(false);
   const [isAnz, setANz] = useState<boolean>(false);
   const [isLatitudePay, setLatitudePay] = useState<boolean>(false);
   const [isAgreed, setIsAgreed] = useState<boolean>(false);
-  const [isToDiffrentAddress, seisToDiffrentAddress] = useState<boolean>(false);
+  const [isToDifferentAddress, setIsToDifferentAddress] = useState<boolean>(false);
+
+  console.log(`isSelected`, isSelected);
 
   const {
     handleSubmit,
@@ -46,6 +39,20 @@ const CheckoutPage = () => {
     formState: { errors },
   } = useForm<CheckoutSchema>({
     resolver: yupResolver(CheckoutSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      companyName: "",
+      apartment: "",
+      address: "",
+      suburb: "",
+      state: "",
+      postalCode: 2345,
+      country: "",
+      delivery: "",
+      email: "",
+      image: "",
+    },
   });
 
   const state = watch("state");
@@ -60,6 +67,8 @@ const CheckoutPage = () => {
   };
 
   const onSubmit: SubmitHandler<CheckoutSchema> = (data) => {
+    if (!isAgreed) return;
+
     console.log(`data`, data);
 
     reset();
@@ -67,7 +76,7 @@ const CheckoutPage = () => {
 
   return (
     <div className="flex flex-col gap-3 w-full mx-auto py-10 lg:px-5 lg:w-4/5">
-      <h1 className="text-center md:text-3xl text-2xl mb-3">Checkout</h1>
+      <h1 className="text-center font-semibold md:text-3xl text-2xl mb-3">Checkout</h1>
 
       <div className="flex md:flex-row flex-col gap-3 items-center justify-between">
         <div className="flex-1 gap-3 w-full  ">
@@ -83,8 +92,8 @@ const CheckoutPage = () => {
                 placeholder="First Name"
                 className=" bg-transparent w-full overflow-hidden"
                 {...register("firstName")}
-                isInvalid={!!errors.email}
-                errorMessage={errors.email && errors.email.message}
+                isInvalid={!!errors.firstName}
+                errorMessage={errors.firstName && errors.firstName.message}
                 isRequired
               />
 
@@ -94,8 +103,8 @@ const CheckoutPage = () => {
                 placeholder="Last Name"
                 className=" bg-transparent w-full overflow-hidden"
                 {...register("lastName")}
-                isInvalid={!!errors.email}
-                errorMessage={errors.email && errors.email.message}
+                isInvalid={!!errors.lastName}
+                errorMessage={errors.lastName && errors.lastName.message}
                 isRequired
               />
             </div>
@@ -106,19 +115,19 @@ const CheckoutPage = () => {
               placeholder="Company Name"
               className=" bg-transparent w-full overflow-hidden"
               {...register("companyName")}
-              isInvalid={!!errors.email}
-              errorMessage={errors.email && errors.email.message}
+              isInvalid={!!errors.companyName}
+              errorMessage={errors.companyName && errors.companyName.message}
               isRequired
             />
 
             <Input
               variant="bordered"
               size="sm"
-              placeholder="Apartmnet, Suite, Unit, etc"
+              placeholder="Apartment, Suite, Unit, etc"
               className=" bg-transparent w-full overflow-hidden"
               {...register("apartment")}
-              isInvalid={!!errors.email}
-              errorMessage={errors.email && errors.email.message}
+              isInvalid={!!errors.apartment}
+              errorMessage={errors.apartment && errors.apartment.message}
               isRequired
             />
 
@@ -128,8 +137,8 @@ const CheckoutPage = () => {
               placeholder="Street Address"
               className=" bg-transparent w-full overflow-hidden"
               {...register("address")}
-              isInvalid={!!errors.email}
-              errorMessage={errors.email && errors.email.message}
+              isInvalid={!!errors.address}
+              errorMessage={errors.address && errors.address.message}
               isRequired
             />
 
@@ -139,8 +148,8 @@ const CheckoutPage = () => {
               placeholder="Suburb"
               className=" bg-transparent w-full overflow-hidden"
               {...register("suburb")}
-              isInvalid={!!errors.email}
-              errorMessage={errors.email && errors.email.message}
+              isInvalid={!!errors.suburb}
+              errorMessage={errors.suburb && errors.suburb.message}
               isRequired
             />
 
@@ -168,8 +177,8 @@ const CheckoutPage = () => {
               placeholder="2546"
               className=" bg-transparent w-full overflow-hidden"
               {...register("postalCode")}
-              isInvalid={!!errors.email}
-              errorMessage={errors.email && errors.email.message}
+              isInvalid={!!errors.postalCode}
+              errorMessage={errors.postalCode && errors.postalCode.message}
               isRequired
             />
 
@@ -180,7 +189,7 @@ const CheckoutPage = () => {
               }}
               variant="bordered"
               isRequired
-              label="Austerlia"
+              label="Australia"
               color="default"
               className="w-full text-center"
             >
@@ -197,8 +206,8 @@ const CheckoutPage = () => {
               placeholder="Special Delivery Instructions"
               className=" bg-transparent w-full overflow-hidden"
               {...register("delivery")}
-              isInvalid={!!errors.email}
-              errorMessage={errors.email && errors.email.message}
+              isInvalid={!!errors.delivery}
+              errorMessage={errors.delivery && errors.delivery.message}
               isRequired
             />
 
@@ -215,177 +224,16 @@ const CheckoutPage = () => {
           </div>
         </div>
 
-        <div className="flex flex-col flex-1 w-full ">
-          <div className="flex flex-row gap-2 border-b border-gray w-full mb-5 py-4">
-            <Checkbox
-              isSelected={isToDiffrentAddress}
-              onValueChange={seisToDiffrentAddress}
-              defaultSelected
-              size="sm"
-            ></Checkbox>
-            <h1 className="text-xl">Send Billing to Different Address</h1>
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <div className="flex flex-row gap-1">
-              <Input
-                variant="bordered"
-                size="sm"
-                placeholder="First Name"
-                className=" bg-transparent w-full overflow-hidden"
-                {...register("firstName")}
-                isInvalid={!!errors.email}
-                errorMessage={errors.email && errors.email.message}
-                isRequired
-              />
-
-              <Input
-                variant="bordered"
-                size="sm"
-                placeholder="Last Name"
-                className=" bg-transparent w-full overflow-hidden"
-                {...register("lastName")}
-                isInvalid={!!errors.email}
-                errorMessage={errors.email && errors.email.message}
-                isRequired
-              />
-            </div>
-
-            <Input
-              variant="bordered"
-              size="sm"
-              placeholder="Company Name"
-              className=" bg-transparent w-full overflow-hidden"
-              {...register("companyName")}
-              isInvalid={!!errors.email}
-              errorMessage={errors.email && errors.email.message}
-              isRequired
-            />
-
-            <Input
-              variant="bordered"
-              size="sm"
-              placeholder="Apartmnet, Suite, Unit, etc"
-              className=" bg-transparent w-full overflow-hidden"
-              {...register("apartment")}
-              isInvalid={!!errors.email}
-              errorMessage={errors.email && errors.email.message}
-              isRequired
-            />
-
-            <Input
-              variant="bordered"
-              size="sm"
-              placeholder="Street Address"
-              className=" bg-transparent w-full overflow-hidden"
-              {...register("address")}
-              isInvalid={!!errors.email}
-              errorMessage={errors.email && errors.email.message}
-              isRequired
-            />
-
-            <Input
-              variant="bordered"
-              size="sm"
-              placeholder="Suburb"
-              className=" bg-transparent w-full overflow-hidden"
-              {...register("suburb")}
-              isInvalid={!!errors.email}
-              errorMessage={errors.email && errors.email.message}
-              isRequired
-            />
-
-            <Select
-              selectedKeys={[state]}
-              onChange={(selection) => {
-                setCustomValue("state", selection.target.value);
-              }}
-              variant="bordered"
-              isRequired
-              label="Select your State"
-              color="default"
-              className="w-full text-center"
-            >
-              {options.map((animal) => (
-                <SelectItem key={animal.value} value={animal.value}>
-                  {animal.label}
-                </SelectItem>
-              ))}
-            </Select>
-
-            <Input
-              variant="bordered"
-              size="sm"
-              placeholder="2546"
-              className=" bg-transparent w-full overflow-hidden"
-              {...register("postalCode")}
-              isInvalid={!!errors.email}
-              errorMessage={errors.email && errors.email.message}
-              isRequired
-            />
-
-            <Select
-              selectedKeys={[country]}
-              onChange={(selection) => {
-                setCustomValue("country", selection.target.value);
-              }}
-              variant="bordered"
-              isRequired
-              label="Austerlia"
-              color="default"
-              className="w-full text-center"
-            >
-              {options.map((animal) => (
-                <SelectItem key={animal.value} value={animal.value}>
-                  {animal.label}
-                </SelectItem>
-              ))}
-            </Select>
-
-            <Input
-              variant="bordered"
-              size="sm"
-              placeholder="Special Delivery Instructions"
-              className=" bg-transparent w-full overflow-hidden"
-              {...register("delivery")}
-              isInvalid={!!errors.email}
-              errorMessage={errors.email && errors.email.message}
-              isRequired
-            />
-
-            <Input
-              variant="bordered"
-              size="sm"
-              placeholder="Email"
-              className=" bg-transparent w-full overflow-hidden"
-              {...register("email")}
-              isInvalid={!!errors.email}
-              errorMessage={errors.email && errors.email.message}
-              isRequired
-            />
-          </div>
-        </div>
+        <AlternateAddressForm
+          isAlternateAddressValid={isToDifferentAddress}
+          setIsAlternateAddressValid={setIsToDifferentAddress}
+        />
       </div>
 
-      <div className="flex flex-col gap-1 mt-6">
-        <h1 className="text-start text-xl w-fulll text-black font-bold">Your order </h1>
-
-        <div className="flex flex-row justify-between w-full py-3 border-b border-t border-t-primary border-b-gray">
-          <div className="">Subtotal</div>
-          <div className="">$300</div>
-        </div>
-        <div className="flex flex-row justify-between w-full py-3  border-b-gray g border-b">
-          <div className="text-black">GST</div>
-          <div className="text-black">$300</div>
-        </div>
-        <div className="flex flex-row justify-between w-full py-3  border-b-gray border-b">
-          <div className="text-primary">Total</div>
-          <div className="text-primary">$300</div>
-        </div>
-      </div>
+      <CheckoutOrder />
 
       <div className="mt-5 flex flex-col gap-4 ">
-        <h1 className="text-start w-fulll text-black font-bold text-xl py-5 border-b border-primary">
+        <h1 className="text-start w-full text-black font-bold text-xl py-5 border-b border-primary">
           Upload Artwork{" "}
         </h1>
 
@@ -423,7 +271,7 @@ const CheckoutPage = () => {
       </div>
 
       <div className="mt-6">
-        <div className="text-xl py-5 border-b border-primary">Paymnet</div>
+        <div className="text-xl py-5 border-b border-primary">Payment</div>
         <div className="mt-5 flex-col flex bg-white-bg py-5 px-5 gap-6 ">
           <div className="flex flex-col gap-3">
             <div className="flex text-base sm:text-xl items-center gap-4 mb-3">
@@ -516,17 +364,21 @@ const CheckoutPage = () => {
             throughout this website and for other purposes described in our{" "}
             <span className="text-orange">privacy policy</span>
           </div>
-          <div className="flex flex-row ">
+          <div className="flex flex-row items-center">
             <Checkbox
+              isRequired
               isSelected={isAgreed}
               onValueChange={setIsAgreed}
-              defaultSelected
               size="sm"
             ></Checkbox>
 
             <div className="">
               I have read and agreed to the website’s{" "}
               <span className="text-orange">terms and conditions</span>
+            </div>
+
+            <div className="text-sm ml-3 text-primary">
+              {isAgreed ? "" : "Please accept terms and condition"}
             </div>
           </div>
           <Button
