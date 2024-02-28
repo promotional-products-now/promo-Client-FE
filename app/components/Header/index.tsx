@@ -30,7 +30,7 @@ export function Header() {
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             className="sm:hidden"
           />
-          <NavbarBrand>
+          <NavbarBrand as={Link} href="/">
             <Image src={logo} className="h-12" />
           </NavbarBrand>
         </NavbarContent>
@@ -81,7 +81,7 @@ export function Header() {
           <NavbarItem>
             <Button
               as={Link}
-              href="#/cart"
+              href="/cart"
               variant="ghost"
               startContent={<HiOutlineShoppingBag className="text-base" />}
               className="border border-primary rounded"
