@@ -6,8 +6,8 @@ export type FooterT = {
 export const aboutLinks: FooterT[] = [
   { name: "Message from Sales Manager", pathname: "/" },
   { name: "Company Profile", pathname: "/" },
-  { name: "Terms & Conditions", pathname: "/" },
-  { name: "Privacy Policy", pathname: "/" },
+  { name: "Terms & Conditions", pathname: "/terms-&-conditions" },
+  { name: "Privacy Policy", pathname: "/privacy-policy" },
   { name: "Contact", pathname: "/" },
 ];
 
@@ -38,7 +38,7 @@ export const categoryLinks: FooterT[] = [
 ];
 
 export const otherLinks: FooterT[] = [
-  { name: "Terms & Conditions", pathname: "/" },
+  { name: "Terms & Conditions", pathname: "/terms-&-conditions" },
   { name: "Privacy Statement", pathname: "/" },
 ];
 

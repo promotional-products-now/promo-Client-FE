@@ -1,6 +1,6 @@
 .container {
     display: flex;
-    gap: 6rem;
+    gap: 2rem;
     display: flex;
     flex-direction: column;
 }
@@ -28,6 +28,7 @@
 @media (min-width: 768px) {
     .container {
         flex-direction: row;
+        gap: 6rem;
     }
 
     .sidebar {

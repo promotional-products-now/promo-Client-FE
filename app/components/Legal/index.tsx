@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useRef } from "react";
+import React, { FC, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import styles from "./legal.module.css"
 
@@ -99,7 +99,7 @@ const Legal: FC<LegalI> = ({ content }) => {
             })}
         </ul>
       </div>
-      <div className={styles.privacyPolicy}>
+      <div className="py-2">
         <ReactMarkdown components={renderers}>{content}</ReactMarkdown>
       </div>
     </div>
