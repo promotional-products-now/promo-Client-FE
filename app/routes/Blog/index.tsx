@@ -30,7 +30,7 @@ const Blog = () => {
                 <p className="text-default-500 line-clamp-2 ">{post.body}</p>
                 <div className="w-full">
                   <Link
-                    to={`/blog-details/${post.title}`}
+                    to={`/blogpost/${post.title}`}
                     className="flex items-center gap-2 font-semibold uppercase"
                   >
                     <FaArrowRightLong color="blue" />

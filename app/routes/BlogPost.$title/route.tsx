@@ -1,6 +1,7 @@
 import { Image } from "@nextui-org/react";
 import { Link, Form, useLoaderData } from "@remix-run/react";
 import { Button, Input, Textarea } from "@nextui-org/react";
+import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 import { BiUser, BiChat, BiSearch } from "react-icons/bi";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { socialIcons } from "app/contents/blogSocialHandles";
@@ -54,25 +55,39 @@ const SingleBlog = () => {
             src={post && post.image}
           />
           <div className="flex flex-col gap-10 my-5">
-            <h2 className="font-bold text-xl text-black">{post && post.title}</h2>
-            <div className="flex gap-4 text-sm">
-              <div className="flex items-center gap-3">
-                <div className="border p-2">
-                  <BiChat size={25} />
-                </div>
-                <p>0 comments</p>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="border p-2">
-                  <BiUser size={25} />
-                </div>
-                <div>
-                  <p>By Admin</p>
-                  <span>23/10/2024</span>
-                </div>
-              </div>
+            <h2 className="font-bold text-2xl text-black md:text-3xl">{post && post.title}</h2>
+
+            <div className="flex w-full flex-col">
+              <Tabs aria-label="Options" color="default" radius="none">
+                <Tab
+                  key="photos"
+                  title={
+                    <div className="flex items-center gap-3">
+                      <div className="border p-1">
+                        <BiChat size={20} />
+                      </div>
+                      <p>0 Comments</p>
+                    </div>
+                  }
+                />
+                <Tab
+                  key="music"
+                  title={
+                    <div className="flex items-center gap-3">
+                      <div className="border p-1">
+                        <BiUser size={20} />
+                      </div>
+                      <div>
+                        <p>By Admin</p>
+                        <span>23/10/2024</span>
+                      </div>
+                    </div>
+                  }
+                />
+              </Tabs>
             </div>
           </div>
+
           <div className="relative my-4">
             <div className="w-[100px] border border-gray -mb-[1px] z-10 absolute"></div>
             <div className="border border-lightGray"></div>
@@ -86,7 +101,7 @@ const SingleBlog = () => {
         <div className="flex flex-col gap-2">
           <div className="w-full border border-lightGray shadow-md"></div>
           <div className="flex flex-col gap-4 justify-between items-center md:flex-row">
-            <h2 className="font-bold text-black">Share this blog article</h2>
+            <h2 className="font-bold text-black text-2xl">Share this blog article</h2>
             <div className="flex flex-wrap gap-3">
               {socialIcons.map((socialIcon) => (
                 <Link to={socialIcon.href} key={socialIcon.id} className="bg-black p-2">
@@ -100,7 +115,7 @@ const SingleBlog = () => {
 
         <Form method="post" className="bg-lightGray p-5 my-5 flex flex-col gap-8">
           <div className="text-black">
-            <h2 className="font-bold">Leave your reply</h2>
+            <h2 className="font-bold text-2xl">Leave your reply</h2>
             <p className="text-sm">
               Your emaila ddress will not be published. Required fields are marked
             </p>
@@ -147,7 +162,7 @@ const SingleBlog = () => {
 
       <div className="w-full text-black flex flex-col gap-8 md:w-1/3">
         <div className="w-full bg-lightGray px-5 py-8 flex flex-col gap-4">
-          <div className="flex gap-2 items-center text-sm">
+          <div className="flex gap-2 items-center">
             <FaArrowRightLong />
             SEARCH
           </div>
@@ -164,7 +179,7 @@ const SingleBlog = () => {
             </button>
           </div>
         </div>
-        <div className="w-full bg-lightGray px-5 py-8 flex flex-col gap-4 text-sm">
+        <div className="w-full bg-lightGray px-5 py-8 flex flex-col gap-4 [&_p]:text-sm">
           <div className="flex gap-2 items-center border-b pb-4">
             <FaArrowRightLong />
             BLOG CATEGORY
@@ -179,7 +194,7 @@ const SingleBlog = () => {
             <p>Tips & Tricks (7)</p>
           </div>
         </div>
-        <div className="w-full bg-lightGray px-5 py-8 flex flex-col gap-4 text-sm">
+        <div className="w-full bg-lightGray px-5 py-8 flex flex-col gap-4">
           <div>
             <div className="flex gap-2 items-center">
               <FaArrowRightLong />
@@ -188,54 +203,29 @@ const SingleBlog = () => {
             <div className="border-b border-gray shadow-sm pb-4"></div>
           </div>
           <div className="flex flex-col gap-6">
-            <div className="flex items-center gap-3">
-              <Image
-                shadow="none"
-                radius="none"
-                width="100%"
-                alt=""
-                className="w-[100px] h-[70px] object-cover"
-                src={blogImage}
-              />
-              <div className="flex flex-col gap-2">
-                <h3 className="line-clamp-2">How Customers Appreciation Helps Your B2B Sales</h3>
-                <Link to={""} className="font-light hover:underline">
-                  READ MORE
-                </Link>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <Image
-                shadow="none"
-                radius="none"
-                width="100%"
-                alt=""
-                className="w-[100px] h-[70px] object-cover"
-                src={blogImage}
-              />
-              <div className="flex flex-col gap-2">
-                <h3 className="line-clamp-2">How Customers Appreciation Helps Your B2B Sales</h3>
-                <Link to={""} className="font-light hover:underline">
-                  READ MORE
-                </Link>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <Image
-                shadow="none"
-                radius="none"
-                width="100%"
-                alt=""
-                className="w-[100px] h-[70px] object-cover"
-                src={blogImage}
-              />
-              <div className="flex flex-col gap-2">
-                <h3 className="line-clamp-2">How Customers Appreciation Helps Your B2B Sales</h3>
-                <Link to={""} className="font-light hover:underline">
-                  READ MORE
-                </Link>
-              </div>
-            </div>
+            {blog.map(
+              (post, index) =>
+                index < 3 && (
+                  <div className="flex items-center gap-3">
+                    <Image
+                      shadow="none"
+                      radius="none"
+                      width="100%"
+                      alt=""
+                      className="w-[100px] h-[70px] object-cover"
+                      src={post.image}
+                    />
+                    <div className="flex flex-col gap-2">
+                      <h3 className="line-clamp-2 font-bold">
+                        How Customers Appreciation Helps Your B2B Sales
+                      </h3>
+                      <Link to={`/blogpost/${post.title}`} className="text-sm hover:underline">
+                        READ MORE
+                      </Link>
+                    </div>
+                  </div>
+                ),
+            )}
           </div>
         </div>
       </div>
