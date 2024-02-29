@@ -2,13 +2,16 @@ import fs from "fs";
 import path from "path";
 import Legal from "app/components/Legal";
 import { useLoaderData } from "@remix-run/react";
+// import styles from "../../styles/legalDoc.module.css"
 
 export default function Terms() {
   const { content } = useLoaderData<typeof loader>();
 
   return (
     <div>
-      <Legal content={content} />
+      <div className="flex flex-col gap-3 w-full mx-auto py-10 lg:px-5 lg:w-4/5">
+        <Legal content={content} />
+      </div>
     </div>
   );
 }

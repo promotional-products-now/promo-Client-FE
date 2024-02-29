@@ -1,6 +1,6 @@
 import React, { FC, ReactNode, useRef } from "react";
 import ReactMarkdown from "react-markdown";
-import styles from "./style.module.css"
+import styles from "./legal.module.css"
 
 interface LegalI {
   content: string;
@@ -37,7 +37,7 @@ const H1: FC<HeadingI> = ({ children }) => {
     typeof children === "string" ? stringConverter(children.toString()) : undefined;
 
   return (
-    <h1 id={id} className="text-primary" ref={headingRef}>
+    <h1 id={id} className="text-primary text-2xl md:text-3xl py-2" ref={headingRef}>
       <a href={`#${id}`} onClick={handleClick}>
         {children}
       </a>
@@ -47,11 +47,10 @@ const H1: FC<HeadingI> = ({ children }) => {
 
 const H2: FC<HeadingI> = ({ children }) => {
   const { headingRef, handleClick } = useScrollIntoView();
-  const id =
-    typeof children === "string" ? stringConverter(children.toString()) : undefined;
+  const id = typeof children === "string" ? stringConverter(children.toString()) : undefined;
 
   return (
-    <h2 id={id} className="text-primary" ref={headingRef}>
+    <h2 id={id} className="text-primary text-xl py-2" ref={headingRef}>
       <a href={`#${id}`} onClick={handleClick}>
         {children}
       </a>
@@ -65,7 +64,7 @@ const H3: FC<HeadingI> = ({ children }) => {
     typeof children === "string" ? stringConverter(children.toString()) : undefined;
 
   return (
-    <h3 id={id} className="text-primary" ref={headingRef}>
+    <h3 id={id} className="text-primary text-lg" ref={headingRef}>
       <a href={`#${id}`} onClick={handleClick}>
         {children}
       </a>
@@ -85,7 +84,7 @@ const Legal: FC<LegalI> = ({ content }) => {
   return (
     <div className={styles.container}>
       <div className={styles.sidebar}>
-        <h3 className="text-primary_green ">Contents</h3>
+        <h3 className="text-primary">Contents</h3>
         <ul>
           {headings &&
             headings.map((heading, index) => {
@@ -94,7 +93,7 @@ const Legal: FC<LegalI> = ({ content }) => {
 
               return (
                 <li key={index}>
-                  <a href={`#${anchor}`}>{title}</a>
+                  <a href={`#${anchor}`} className="hover:underline hover:text-primary">{title}</a>
                 </li>
               );
             })}

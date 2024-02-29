@@ -1,11 +1,17 @@
 import type { LinksFunction } from "@remix-run/node";
+import { cssBundleHref } from "@remix-run/css-bundle";
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
 import { NextUIProvider } from "@nextui-org/react";
 import { Header } from "app/components/Header";
 import { Footer } from "app/components/Footer";
 import stylesheet from "./tailwind.css";
 
-export const links: LinksFunction = () => [{ rel: "stylesheet", href: stylesheet }];
+export const links: LinksFunction = () => [
+  ...(cssBundleHref
+    ? [{ rel: "stylesheet", href: cssBundleHref }]
+    : []),
+  { rel: "stylesheet", href: stylesheet },
+];
 
 export default function App() {
   return (
