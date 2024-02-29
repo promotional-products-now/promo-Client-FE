@@ -3,7 +3,7 @@ import path from "path";
 import Legal from "app/components/Legal";
 import { useLoaderData } from "@remix-run/react";
 
-export default function Terms() {
+export default function Terms(): JSX.Element {
   const { content } = useLoaderData<typeof loader>();
 
   return (
