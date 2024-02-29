@@ -13,29 +13,13 @@ import {
   PopoverTrigger,
 } from "@nextui-org/react";
 import { IoIosArrowDown } from "react-icons/io";
+import { colors } from "app/utils/searchColors";
 
-const colors = [
-  "#8A2C51",
-  "#DD463D",
-  "#DF70AA",
-  "#ED965E",
-  "#FBCC62",
-  "#84BA5A",
-  "#C4E3FF",
-  "#586CB3",
-  "#2B417A",
-  "#8160A5",
-  "#FFFFFF",
-  "#8B5D50",
-  "#99979A",
-  "#18181A",
-  "#E5E5E7",
-  "",
-];
 const sortFilter = [
   { label: "Price", value: "price" },
   { label: "Lowest", value: "lowest" },
 ];
+
 export const SearchDropdown = () => {
   const [values, setValues] = useState<Selection>(new Set(["price", "lowest"]));
 
