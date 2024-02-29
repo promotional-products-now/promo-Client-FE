@@ -10,8 +10,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { CommentSchema } from "app/schema/comment.schema";
 import { blog } from "app/api_dummy/index";
 
-export const loader = ({ params }: { params: { id: string } }) => {
-  const post = blog.find((item) => item.id == params.id);
+export const loader = ({ params }: { params: { title: string } }) => {
+  const post = blog.find((item) => item.title == params.title);
 
   // Handle Not Found Error here
   // if (!post) throw Error("Post not found");
