@@ -1,5 +1,5 @@
 import { Image } from "@nextui-org/react";
-import { Link, Form } from "@remix-run/react";
+import { Link, Form, useLoaderData } from "@remix-run/react";
 import { Button, Input, Textarea } from "@nextui-org/react";
 import { BiUser, BiChat, BiSearch } from "react-icons/bi";
 import { FaArrowRightLong } from "react-icons/fa6";
@@ -8,8 +8,28 @@ import blogImage from "app/assets/item.png";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CommentSchema } from "app/schema/comment.schema";
+import { blog } from "app/api_dummy/index";
+
+export const loader = ({ params }: { params: { id: string } }) => {
+  const post = blog.find((item) => item.id == params.id);
+
+  // Handle Not Found Error here
+  // if (!post) throw Error("Post not found");
+
+  const data = { post };
+  return data;
+};
+
+type BlogPost = {
+  id: number;
+  image: string;
+  title: string;
+  subtitle: string;
+};
 
 const SingleBlog = () => {
+  const { post }: { post: BlogPost } = useLoaderData();
+
   const {
     register,
     handleSubmit,
@@ -22,7 +42,7 @@ const SingleBlog = () => {
     console.log(data);
   };
   return (
-    <div className="w-full flex flex-wrap text-gray leading-loose gap-10 mx-auto px-3 py-10 md:px-20 md:flex-nowrap">
+    <div className="w-full flex flex-wrap text-gray gap-10 mx-auto px-3 py-10 md:px-20 md:flex-nowrap">
       <div className="w-full flex flex-col gap-5 md:w-2/3">
         <div>
           <Image
@@ -31,12 +51,10 @@ const SingleBlog = () => {
             width="100%"
             alt=""
             className="h-[200px] object-cover lg:h-[450px]"
-            src={blogImage}
+            src={post && post.image}
           />
           <div className="flex flex-col gap-4 my-3">
-            <h2 className="font-bold text-lg text-black">
-              How T Deal Fairly With An Angry Customer
-            </h2>
+            <h2 className="font-bold text-lg text-black">{post && post.title}</h2>
             <div className="flex gap-4 text-sm">
               <div className="flex items-center gap-3">
                 <div className="border p-2">
@@ -61,25 +79,8 @@ const SingleBlog = () => {
           </div>
         </div>
 
-        <div className="leading-loose text-justify md:text-left">
-          <p>
-            It is a long established fact that a reader will be distracted by the readable content
-            of a page when looking at its layout. The point of using Lorem Ipsum is that it has a
-            more-or-less normal distribution of letters, as opposed to using 'Content here, content
-            here', making it look like readable English.
-          </p>
-          <p>
-            {" "}
-            Many desktop publishing packages and web page editors now use Lorem Ipsum as their
-            default model text, and a search for 'lorem ipsum' will uncover many web sites still in
-            their infancy. Various versions have evolved over the years, sometimes by accident,
-            sometimes on purpose (injected humour and the like).
-          </p>
-          <p>
-            There are many variations of passages of Lorem Ipsum available, but the majority have
-            suffered alteration in some form, by injected humour, or randomised words which don't
-            look even slightly believable.
-          </p>
+        <div className="text-justify md:text-left">
+          <p>{post && post.subtitle}</p>
         </div>
 
         <div className="flex flex-col gap-2">
@@ -158,9 +159,9 @@ const SingleBlog = () => {
               label="Search blog here"
               className="border py-0 pl-2 h-[50px] bg-white"
             />
-            <div className="bg-black py-2 px-3 flex items-center justify-center">
+            <button className="bg-black py-2 px-3 flex items-center justify-center">
               <BiSearch size={20} color="white" />
-            </div>
+            </button>
           </div>
         </div>
         <div className="w-full bg-lightGray px-5 py-8 flex flex-col gap-4 text-sm">

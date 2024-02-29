@@ -23,7 +23,7 @@ export default function App() {
             <div className="flex-1 lg:m-6 m-3">
               <Outlet />
             </div>
-            {/* <Footer /> */}
+            <Footer />
           </div>
           <ScrollRestoration />
           <Scripts />
