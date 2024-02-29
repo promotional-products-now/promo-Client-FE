@@ -42,7 +42,7 @@ const SingleBlog = () => {
     console.log(data);
   };
   return (
-    <div className="w-full flex flex-wrap text-gray gap-10 mx-auto px-3 py-10 md:px-20 md:flex-nowrap">
+    <div className="w-full flex flex-wrap text-gray gap-10 mx-auto px-3 py-10 md:flex-nowrap">
       <div className="w-full flex flex-col gap-5 md:w-2/3">
         <div>
           <Image
@@ -53,8 +53,8 @@ const SingleBlog = () => {
             className="h-[200px] object-cover lg:h-[450px]"
             src={post && post.image}
           />
-          <div className="flex flex-col gap-4 my-3">
-            <h2 className="font-bold text-lg text-black">{post && post.title}</h2>
+          <div className="flex flex-col gap-10 my-5">
+            <h2 className="font-bold text-xl text-black">{post && post.title}</h2>
             <div className="flex gap-4 text-sm">
               <div className="flex items-center gap-3">
                 <div className="border p-2">
@@ -85,7 +85,7 @@ const SingleBlog = () => {
 
         <div className="flex flex-col gap-2">
           <div className="w-full border border-lightGray shadow-md"></div>
-          <div className="flex flex-col justify-between items-center md:flex-row">
+          <div className="flex flex-col gap-4 justify-between items-center md:flex-row">
             <h2 className="font-bold text-black">Share this blog article</h2>
             <div className="flex flex-wrap gap-3">
               {socialIcons.map((socialIcon) => (
