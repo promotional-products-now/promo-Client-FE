@@ -18,6 +18,8 @@ import logo from "app/assets/logo.svg";
 import { navLinks } from "./navLinks";
 import { SecondaryNav } from "./SecondaryNav";
 
+const SALESCONTACT = process.env.SALES_CONTACT;
+
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const location = useLocation();
@@ -25,7 +27,7 @@ export function Header() {
   return (
     <div className="space-y-5">
       <Navbar onMenuOpenChange={setIsMenuOpen} maxWidth="xl">
-        <NavbarContent className="TEXTTTTTT👿👿👿👿👿">
+        <NavbarContent>
           <NavbarMenuToggle
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             className="sm:hidden"
@@ -70,12 +72,12 @@ export function Header() {
           <NavbarItem>
             <Button
               as={Link}
-              href="tel:+44-785-7895"
+              href={`tel:+${SALESCONTACT}`}
               variant="ghost"
               startContent={<MdOutlineLocalPhone className="text-base text-primary" />}
               className="border border-primary rounded"
             >
-              SALES: 44-785-7895
+              SALES: {SALESCONTACT}
             </Button>
           </NavbarItem>
           <NavbarItem>
