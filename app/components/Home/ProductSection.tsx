@@ -1,31 +1,28 @@
+import { Link } from "@remix-run/react";
+import { Button, Image, Select, SelectItem } from "@nextui-org/react";
+import { IoIosArrowDown } from "react-icons/io";
+import { IconType } from "react-icons";
 import ProductCard from "../Card/ProductCard";
 import { items } from "app/api_dummy";
-import { Button, Image } from "@nextui-org/react";
-import { Link } from "@remix-run/react";
-import { IoIosArrowDown } from "react-icons/io";
-import { Select, SelectItem } from "@nextui-org/react";
-import { IconType } from "react-icons";
+
+const options = [
+  { value: "AUSTRALIAN MADE PRODUCTS", label: "AUSTRALIAN MADE PRODUCTS" },
+  { value: "AUSTRALIAN MADE PRODUCTS", label: "AUSTRALIAN MADE PRODUCTS" },
+  { value: "AUSTRALIAN MADE PRODUCTS", label: "AUSTRALIAN MADE PRODUCTS" },
+  { value: "AUSTRALIAN MADE PRODUCTS", label: "AUSTRALIAN MADE PRODUCTS" },
+  { value: "AUSTRALIAN MADE PRODUCTS", label: "AUSTRALIAN MADE PRODUCTS" },
+  { value: "AUSTRALIAN MADE PRODUCTS", label: "AUSTRALIAN MADE PRODUCTS" },
+  { value: "AUSTRALIAN MADE PRODUCTS", label: "AUSTRALIAN MADE PRODUCTS" },
+  { value: "AUSTRALIAN MADE PRODUCTS", label: "AUSTRALIAN MADE PRODUCTS" },
+];
 
 interface ProductSectionProps {
   Icon: IconType;
-  sideImage?: string;
-  bgimage?: string;
   title?: string;
   showmore?: boolean;
 }
 
-const ProductSection = ({ sideImage, bgimage, showmore, title, Icon }: ProductSectionProps) => {
-  const options = [
-    { value: "AUSTRALIAN MADE PRODUCTS", label: "AUSTRALIAN MADE PRODUCTS" },
-    { value: "AUSTRALIAN MADE PRODUCTS", label: "AUSTRALIAN MADE PRODUCTS" },
-    { value: "AUSTRALIAN MADE PRODUCTS", label: "AUSTRALIAN MADE PRODUCTS" },
-    { value: "AUSTRALIAN MADE PRODUCTS", label: "AUSTRALIAN MADE PRODUCTS" },
-    { value: "AUSTRALIAN MADE PRODUCTS", label: "AUSTRALIAN MADE PRODUCTS" },
-    { value: "AUSTRALIAN MADE PRODUCTS", label: "AUSTRALIAN MADE PRODUCTS" },
-    { value: "AUSTRALIAN MADE PRODUCTS", label: "AUSTRALIAN MADE PRODUCTS" },
-    { value: "AUSTRALIAN MADE PRODUCTS", label: "AUSTRALIAN MADE PRODUCTS" },
-  ];
-
+const ProductSection = ({ showmore, title, Icon }: ProductSectionProps) => {
   return (
     <div className="bg-white-bg mt-20">
       <div className="flex flex-col justify-center items-center lg:px-20 ">
@@ -46,12 +43,7 @@ const ProductSection = ({ sideImage, bgimage, showmore, title, Icon }: ProductSe
 
           <div className="relative md:flex flex-row justify-start items-center left-0 hidden">
             <div className="relative w-[275px] border h-full z-20 ">
-              <div
-                className="md:relative absolute mx-6 flex flex-col gap-4
-            top-[50%] -translate-y-[50%] -p-6 z-20 outline-red-900
-            
-            "
-              >
+              <div className="md:relative absolute mx-6 flex flex-col gap-4 top-[50%] -translate-y-[50%] -p-6 z-20 outline-red-900">
                 <div className="w-14 h-14">
                   <Icon className="text-white h-full w-full transition aspect-auto" />
                 </div>
@@ -68,7 +60,7 @@ const ProductSection = ({ sideImage, bgimage, showmore, title, Icon }: ProductSe
                   </ul>
                 ))}
 
-                <div className="w-9/12 mt-5">
+                <div className="w-3/4 mt-5">
                   <Button
                     as={Link}
                     href="#"
@@ -118,7 +110,7 @@ const ProductSection = ({ sideImage, bgimage, showmore, title, Icon }: ProductSe
         </div>
 
         {showmore && (
-          <div className="flex flex-row gap-2 items-center justify-center md:w-2/6 w-9/12">
+          <div className="flex flex-row gap-2 items-center justify-center md:w-2/6 w-3/4">
             <Button
               as={Link}
               href="#"
