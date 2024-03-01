@@ -67,8 +67,9 @@ If you have any questions or concerns about our Privacy Policy or the handling o
 
 **PromodataEcommerce Ltd**
 
-Email:**privacy@promodataecommerce.com**
+Email:  **privacy@promodataecommerce.com**
+
+&nbsp;  
 
 
-
-By using our website and services, you acknowledge that you have read and understood this Privacy Policy and consent to the collection, use, and disclosure of your personal information as described herein.
+ By using our website and services, you acknowledge that you have read and understood this Privacy Policy and consent to the collection, use, and disclosure of your personal information as described herein.

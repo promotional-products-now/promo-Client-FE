@@ -39,7 +39,7 @@ export const categoryLinks: FooterT[] = [
 
 export const otherLinks: FooterT[] = [
   { name: "Terms & Conditions", pathname: "/terms-&-conditions" },
-  { name: "Privacy Statement", pathname: "/" },
+  { name: "Privacy Statement", pathname: "/privacy-policy" },
 ];
 
 export const faqLinks: FooterT[] = [
