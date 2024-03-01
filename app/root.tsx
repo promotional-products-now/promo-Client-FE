@@ -20,9 +20,11 @@ export default function App() {
         <NextUIProvider>
           <div className="flex flex-col justify-between h-screen">
             <Header />
-            <div className="flex-1 lg:m-6 m-3">
-              <Outlet />
-            </div>
+            <main className="flex-1">
+              <div className="container mx-auto lg:my-6 my-3">
+                <Outlet />
+              </div>
+            </main>
             <Footer />
           </div>
           <ScrollRestoration />
