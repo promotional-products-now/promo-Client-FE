@@ -11,16 +11,18 @@ import {
   NavbarMenuItem,
   Image,
 } from "@nextui-org/react";
-import { useLocation } from "@remix-run/react";
+import { json, useLoaderData, useLocation } from "@remix-run/react";
 import { MdOutlineLocalPhone, MdOutlineVerified } from "react-icons/md";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import logo from "app/assets/logo.svg";
 import { navLinks } from "./navLinks";
 import { SecondaryNav } from "./SecondaryNav";
 
-const SALESCONTACT = process.env.SALES_CONTACT;
-
 export function Header() {
+  let data = useLoaderData<typeof loader>();
+
+  const SALESCONTACT = data.ENV.SALES_CONTACT;
+
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const location = useLocation();
 
@@ -117,4 +119,8 @@ export function Header() {
       )}
     </div>
   );
+}
+
+export async function loader() {
+  return json({ ENV: { SALES_CONTACT: process.env.SALES_CONTACT } });
 }
