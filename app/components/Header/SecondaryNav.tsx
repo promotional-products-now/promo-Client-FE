@@ -48,7 +48,7 @@ export function SecondaryNav() {
       <div className="hidden md:block">
         <Button
           as={Link}
-          href="#"
+          href="/login"
           size="lg"
           variant="ghost"
           startContent={<FiLogIn className="text-xl text-primary" />}

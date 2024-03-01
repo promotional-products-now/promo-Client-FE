@@ -71,7 +71,7 @@ export const SearchDropdown = () => {
                       startContent="$"
                       endContent={<IoIosArrowDown />}
                     />
-                    <></>
+
                   </div>
                 </div>
                 <div className="flex w-full max-w-full flex-col gap-2">
