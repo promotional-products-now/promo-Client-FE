@@ -1,6 +1,15 @@
 import type { LinksFunction } from "@remix-run/node";
+import {
+  Links,
+  LiveReload,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  json,
+  useLoaderData,
+} from "@remix-run/react";
 import { cssBundleHref } from "@remix-run/css-bundle";
-import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
 import { NextUIProvider } from "@nextui-org/react";
 import { Header } from "app/components/Header";
 import { Footer } from "app/components/Footer";
@@ -14,6 +23,8 @@ export const links: LinksFunction = () => [
 ];
 
 export default function App() {
+  let data = useLoaderData<typeof loader>();
+
   return (
     <html lang="en">
       <head>
@@ -35,7 +46,17 @@ export default function App() {
           <Scripts />
           <LiveReload />
         </NextUIProvider>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.ENV = ${JSON.stringify({ env: data.ENV })}`,
+          }}
+        />
+        <Scripts />
       </body>
     </html>
   );
+}
+
+export async function loader() {
+  return json({ ENV: { SALES_CONTACT: process.env.SALES_CONTACT } });
 }
