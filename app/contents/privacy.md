@@ -1,45 +1,74 @@
 
 # Introduction
 
-Please read these terms and conditions ("Terms") carefully before using our job board portal ("Portal"). By accessing or using the Portal, you agree to be bound by these Terms. If you do not agree with any part of these Terms, please do not use the Portal.
+At Promo Data Ecommerce Pty Ltd, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy outlines how we collect, use, disclose, and store your personal information in compliance with the Australian Privacy Principles (APPs) under the Privacy Act 1988 (Cth).
 
-## 1. Acceptance of Terms
+By using our website (promodata.com) and our services, you consent to the practices described in this Privacy Policy.
 
-By accessing or using our Portal, you acknowledge that you have read, understood, and agree to be bound by these Terms, and any additional terms and conditions that may apply to specific features of the Portal. If you do not agree to these Terms, please refrain from accessing or using the Portal.
+## 1. Collection of Personal Information
 
-## 2. User Responsibilities
+We may collect personal information from you when you:
 
-- You are responsible for providing accurate, complete, and up-to-date information when creating an account or submitting job postings on our Portal.
-- You must comply with all applicable laws and regulations while using our Portal.
-- You are solely responsible for any content you post on our Portal, including job descriptions, company information, and applicant requirements. You agree not to post any false, misleading, or fraudulent information.
-- You acknowledge that any content you post on our Portal may be viewed by other users and that you are solely responsible for any consequences that may arise from such content.
+- Register an account on our website
+- Place an order for our products or services
+- Subscribe to our newsletter or marketing communications
+- Participate in surveys or promotional activities
+- Contact our customer support team
 
-## 3. Job Postings
+The types of personal information we may collect include but are not limited to:
 
-- We do not guarantee the accuracy, completeness, or availability of any job postings on our Portal. It is your responsibility to verify the details and legitimacy of any job posting before applying or entering into any agreements.
-- We reserve the right to remove or modify any job postings that violate our Terms or are deemed inappropriate, without prior notice.
-- We are not responsible for any interactions, negotiations, or agreements between employers and job seekers that may arise from the use of our Portal. Any disputes or issues that may occur should be resolved directly between the parties involved.
+- Name
+- Contact information (such as email address, phone number, and postal address)
+- Payment information
+- Transaction history
+- Preferences and interests
+- Demographic information
 
-## 4. Privacy and Data Protection
+## 2. Use of Personal Information
 
-- We collect and process personal information as outlined in our Privacy Policy. By using our Portal, you consent to the collection, storage, and processing of your personal information in accordance with our Privacy Policy.
-- We take reasonable measures to protect your personal information; however, we cannot guarantee the security of your information transmitted through the Portal. You understand and accept the inherent risks associated with transmitting information over the internet.
+We may use your personal information for the following purposes:
 
-## 5. Intellectual Property
+- Processing and fulfilling your orders
+- Providing customer support and responding to your inquiries
+- Sending you marketing communications, promotions, and newsletters (you can opt-out at any time)
+- Conducting research and analysis to improve our products and services
+- Complying with legal and regulatory requirements
 
-- All content on our Portal, including text, graphics, logos, images, and software, is the property of our company and is protected by intellectual property laws.
-- You may not use, reproduce, modify, or distribute any content from our Portal without obtaining written permission from us.
 
-## 6. Limitation of Liability
+## 3.  Disclosure of Personal Information
 
-- In no event shall we be liable for any direct, indirect, incidental, special, or consequential damages, including but not limited to loss of profits, data, or business opportunities, arising from the use or inability to use our Portal, even if we have been advised of the possibility of such damages.
-- We are not responsible for any third-party websites linked to or from our Portal. The inclusion of any links does not imply endorsement or guarantee the accuracy or safety of the linked website. You access linked websites at your own risk.
+We may disclose your personal information to third parties in the following circumstances:
 
-## 7. Modifications
+- **Service providers:** We may share your personal information with third-party service providers who assist us in operating our website, processing payments, delivering orders, and conducting marketing activities.
 
-- We reserve the right to modify or update these Terms at any time without prior notice. Any changes will be effective immediately upon posting the updated Terms on the Portal.
-- It is your responsibility to review these Terms periodically to stay informed of any changes. Your continued use of the Portal after the posting of any modifications constitutes acceptance of the revised Terms.
+- **Legal requirements:** We may disclose your personal information when required to comply with applicable laws, regulations, or legal processes.
 
-## 8. Governing Law and Jurisdiction
+- **Business transactions:** In the event of a merger, acquisition, or sale of assets, your personal information may be transferred to the acquiring entity.
 
-- These Terms and your use of the Portal shall be governed by and construed in accordance with the
+## 4. Security of Personal Information
+
+We take reasonable steps to protect your personal information from unauthorized access, use, or disclosure. We implement appropriate security measures such as encryption, secure servers, and access controls to safeguard your information.
+
+## 5. Access and Correction of Personal Information
+
+You have the right to access and correct the personal information we hold about you. If you would like to request access to or update your personal information, please contact us using the details provided below.
+
+## 6. Cookies
+
+Our website may use cookies and similar technologies to enhance your browsing experience and personalize content. You can configure your browser settings to disable cookies, but please note that some features of our website may not function properly as a result.
+
+## 7. Changes to this Privacy Policy
+
+We reserve the right to update this Privacy Policy from time to time. Any changes will be effective immediately upon posting on our website. We encourage you to review this Privacy Policy periodically for any updates.
+
+## 8. Contact Us
+
+If you have any questions or concerns about our Privacy Policy or the handling of your personal information, please contact us at:
+
+**PromodataEcommerce Ltd**
+
+Email:**privacy@promodataecommerce.com**
+
+
+
+By using our website and services, you acknowledge that you have read and understood this Privacy Policy and consent to the collection, use, and disclosure of your personal information as described herein.

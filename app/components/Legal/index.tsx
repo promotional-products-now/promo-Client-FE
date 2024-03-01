@@ -71,11 +71,18 @@ const H3: FC<HeadingI> = ({ children }) => {
     </h3>
   );
 };
+const LI: FC<HeadingI> = ({ children }) => {
+  const id = typeof children === "string" ? stringConverter(children.toString()) : undefined;
+  return (
+    <li id={id} className="list-disc">{children}</li>
+  )
+}
 
 const renderers: any = {
   h1: H1,
   h2: H2,
   h3: H3,
+  li: LI
 };
 
 const Legal: FC<LegalI> = ({ content }) => {
