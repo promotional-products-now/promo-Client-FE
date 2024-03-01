@@ -28,7 +28,7 @@ export function PreviewProduct({
         <>
           <ModalHeader className="justify-center">
             <div className="flex flex-col gap-1 items-center justify-center">
-              <span>{product?.title}</span>
+              <span className="text-lg md:text-xl font-semibold">{product?.title}</span>
               <div className="flex items-center space-x-4">
                 <span className="text-xs">Product Code: pyun67858</span>
                 {[1, 2, 3, 4, 5].map((_, i) => (
@@ -64,7 +64,7 @@ export function PreviewProduct({
                 <div className="grid grid-cols-2">
                   <Button
                     as={Link}
-                    href="#"
+                    href={`/products/${product?.title}`}
                     radius="none"
                     className="bg-primary text-white"
                     startContent={<BsCart3 />}

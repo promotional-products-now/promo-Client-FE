@@ -48,7 +48,7 @@ const ProductCard = ({ image, title, subtitle, price, newPrice, qunatity }: Prod
             </Button>
             <Button
               as={Link}
-              href="#"
+              href={`/products/${title}`}
               radius="none"
               className="bg-primary text-white"
               startContent={<BsCart3 />}
