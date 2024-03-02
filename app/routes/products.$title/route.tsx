@@ -24,8 +24,8 @@ import { HiOutlineUser } from "react-icons/hi";
 import { MdOutlineDiscount } from "react-icons/md";
 import { TbTruckDelivery } from "react-icons/tb";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
-import { SendPriceModal } from "app/components/Card/SendPriceModal";
-import { ProductCardDet } from "app/components/Card/ProductCardDet";
+import { SendPriceModal } from "app/components/Product/SendPriceModal";
+import { ProductCardDet } from "app/components/Product/ProductCardDet";
 import { items } from "app/api_dummy";
 
 const fakeFilter = [

@@ -2,7 +2,7 @@ import { Link } from "@remix-run/react";
 import { Button, Image, Select, SelectItem } from "@nextui-org/react";
 import { IoIosArrowDown } from "react-icons/io";
 import { IconType } from "react-icons";
-import ProductCard from "../Card/ProductCard";
+import { ProductCard } from "../Product/ProductCard";
 import { items } from "app/api_dummy";
 
 const options = [

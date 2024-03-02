@@ -14,7 +14,14 @@ export type ProductCardProps = {
   qunatity: string;
 };
 
-const ProductCard = ({ image, title, subtitle, price, newPrice, qunatity }: ProductCardProps) => {
+export const ProductCard = ({
+  image,
+  title,
+  subtitle,
+  price,
+  newPrice,
+  qunatity,
+}: ProductCardProps) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const setProduct = useSetAtom(productAtom);
 
@@ -77,5 +84,3 @@ const ProductCard = ({ image, title, subtitle, price, newPrice, qunatity }: Prod
     </>
   );
 };
-
-export default ProductCard;
