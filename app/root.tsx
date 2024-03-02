@@ -9,12 +9,18 @@ import {
   json,
   useLoaderData,
 } from "@remix-run/react";
+import { cssBundleHref } from "@remix-run/css-bundle";
 import { NextUIProvider } from "@nextui-org/react";
 import { Header } from "app/components/Header";
 import { Footer } from "app/components/Footer";
 import stylesheet from "./tailwind.css";
 
-export const links: LinksFunction = () => [{ rel: "stylesheet", href: stylesheet }];
+export const links: LinksFunction = () => [
+  ...(cssBundleHref
+    ? [{ rel: "stylesheet", href: cssBundleHref }]
+    : []),
+  { rel: "stylesheet", href: stylesheet },
+];
 
 export default function App() {
   let data = useLoaderData<typeof loader>();
