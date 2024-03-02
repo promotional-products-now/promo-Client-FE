@@ -1,4 +1,4 @@
-import { Form, Link } from "@remix-run/react";
+import { Form } from "@remix-run/react";
 import {
   Accordion,
   AccordionItem,
@@ -18,12 +18,15 @@ import {
   Tooltip,
   useDisclosure,
 } from "@nextui-org/react";
-import { SendPriceModal } from "app/components/Card/SendPriceModal";
 import { BsCart3, BsCheck2Square, BsInfoCircle } from "react-icons/bs";
 import { FaStar } from "react-icons/fa6";
 import { HiOutlineUser } from "react-icons/hi";
 import { MdOutlineDiscount } from "react-icons/md";
 import { TbTruckDelivery } from "react-icons/tb";
+import { RiVerifiedBadgeFill } from "react-icons/ri";
+import { SendPriceModal } from "app/components/Card/SendPriceModal";
+import { ProductCardDet } from "app/components/Card/ProductCardDet";
+import { items } from "app/api_dummy";
 
 const fakeFilter = [
   { label: "Red", value: "red" },
@@ -35,10 +38,11 @@ const cardData = ["ABOUT", "DETAILS", "ADDITIONAL INFO"];
 
 export default function Route() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
   return (
     <>
       <div className="w-4/5 mx-auto">
-        <div className="space-y-6 md:space-y-12">
+        <div className="space-y-6 md:space-y-16">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-10">
             <div className="space-y-4 w-full order-2 md:order-1 md:px-6">
               <div className="space-y-1">
@@ -369,24 +373,70 @@ export default function Route() {
                 </div>
                 <Card className="max-w-[400px] rounded-none border border-primary bg-gray1">
                   <CardBody className="px-4 md:px-8 space-y-3">
-                    <span className="font-semibold text-sm">Description</span>
-                    <p className="text-xs md:text-sm">
-                      Lorem ipsum dolor sit amet consectetur. A quis pellentesque diam orci vitae
-                      venenatis a tellus. Ornare amet vulputate accumsan suspendisse. Viverra
-                      malesuada et non euismod. Augue faucibus dui orci vestibulum. Lorem ipsum
-                      dolor sit amet consectetur. A quis pellentesque diam orci vitae venenatis a
-                      tellus. Ornare amet vulputate accumsan suspendisse. Viverra malesuada et non
-                      euismod. Augue faucibus dui orci vestibulum.
-                    </p>
-                    <span className="font-semibold text-sm">Please Note:</span>
-                    <p className="text-xs md:text-sm">
-                      Lorem ipsum dolor sit amet consectetur. A quis pellentesque diam orci vitae
-                      venenatis a tellus.{" "}
-                    </p>
+                    <div className="">
+                      <span className="font-semibold text-sm">Description</span>
+                      <p className="text-xs md:text-sm">
+                        Lorem ipsum dolor sit amet consectetur. A quis pellentesque diam orci vitae
+                        venenatis a tellus. Ornare amet vulputate accumsan suspendisse. Viverra
+                        malesuada et non euismod. Augue faucibus dui orci vestibulum. Lorem ipsum
+                        dolor sit amet consectetur. A quis pellentesque diam orci vitae venenatis a
+                        tellus. Ornare amet vulputate accumsan suspendisse. Viverra malesuada et non
+                        euismod. Augue faucibus dui orci vestibulum.
+                      </p>
+                    </div>
+                    <div>
+                      <span className="font-semibold text-sm">Please Note:</span>
+                      <p className="text-xs md:text-sm">
+                        Lorem ipsum dolor sit amet consectetur. A quis pellentesque diam orci vitae
+                        venenatis a tellus.{" "}
+                      </p>
+                    </div>
                   </CardBody>
                 </Card>
               </div>
             ))}
+          </div>
+
+          <div className="space-y-6">
+            <div className="flex md:items-center md:justify-between space-y-2 md:space-y-0 border-b border-gray pb-4 flex-wrap">
+              <div className="flex items-center space-x-1">
+                <RiVerifiedBadgeFill className=" text-primary" />
+                <span>You may also like this</span>
+              </div>
+              <div>
+                <Tabs
+                  variant="light"
+                  color="primary"
+                  radius="full"
+                  aria-label="Tabs variants"
+                  className="hidden md:flex flex-wrap"
+                >
+                  <Tab key="latestProducts" title="Latest Products" />
+                  <Tab key="trendingProducts" title="Trending Products" />
+                  <Tab key="aussieProducts" title="Aussie Products" />
+                </Tabs>
+              </div>
+
+              <Select
+                variant="bordered"
+                label="Sort by:"
+                labelPlacement="outside-left"
+                className="max-w-xs"
+                selectedKeys={["PriceLowToHigh"]}
+              >
+                {[{ value: "PriceLowToHigh", label: "Price-Low to High" }].map((animal) => (
+                  <SelectItem key={animal.value} value={animal.value}>
+                    {animal.label}
+                  </SelectItem>
+                ))}
+              </Select>
+            </div>
+            {/* Use useMemo and change listings according to selected tab and  */}
+            <div className="gap-4 md:gap-8 grid grid-cols- sm:grid-cols-4">
+              {items.slice(1, 5).map((item, index) => (
+                <ProductCardDet product={item} key={index} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
