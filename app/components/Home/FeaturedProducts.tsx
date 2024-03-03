@@ -1,11 +1,10 @@
-import { GoVerified } from "react-icons/go";
-import { items } from "app/api_dummy";
-import ProductCard from "app/components/Card/ProductCard";
-import { IoIosArrowDown } from "react-icons/io";
-import { Button, Tabs, Tab, Chip } from "@nextui-org/react";
-import { Link } from "@remix-run/react";
 import { useState } from "react";
-import { Select, SelectItem } from "@nextui-org/react";
+import { Link } from "@remix-run/react";
+import { Button, Select, SelectItem, Tabs, Tab } from "@nextui-org/react";
+import { GoVerified } from "react-icons/go";
+import { IoIosArrowDown } from "react-icons/io";
+import { ProductCard } from "app/components/Product/ProductCard";
+import { items } from "app/api_dummy";
 
 interface FeaturedProductsProps {
   sectionlabel: string;
