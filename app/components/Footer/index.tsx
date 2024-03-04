@@ -63,11 +63,13 @@ export function Footer() {
                 <Image src={logo} className="h-12" />
               </Link>
               <div className="space-y-3">
-                {[1, 2].map((_,i) => (
-                  <p className="text-sm font-normal text-gray">
-                    Lorem ipsum dolor sit amet consectetur. Dui mattis faucibus mus tristique.
-                    Faucibus molestie faucibus dolor imperdiet urna volutpat.{" "}
-                  </p>
+                {[1, 2].map((_, i) => (
+                  <div key={i}>
+                    <p className="text-sm font-normal text-gray">
+                      Lorem ipsum dolor sit amet consectetur. Dui mattis faucibus mus tristique.
+                      Faucibus molestie faucibus dolor imperdiet urna volutpat.{" "}
+                    </p>
+                  </div>
                 ))}
               </div>
               <div>

@@ -1,7 +1,7 @@
 import { Link } from "@remix-run/react";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { LuEye, LuMapPin } from "react-icons/lu";
-import RecentOrderCard from "app/components/Card/RecentOrderCard";
+import { RecentOrderCard } from "app/components/Product/RecentOrderCard";
 import { recentOrders } from "app/mock/recentOrderData";
 
 export default function Detatils(): JSX.Element {

@@ -9,7 +9,7 @@ import { FaFemale } from "react-icons/fa";
 import { FiPhoneCall } from "react-icons/fi";
 import { HiOutlineFire } from "react-icons/hi";
 import { items } from "app/api_dummy";
-import ProductCard from "app/components/Card/ProductCard";
+import { ProductCard } from "app/components/Product/ProductCard";
 import ProductSection from "app/components/Home/ProductSection";
 import FeaturedProducts from "app/components/Home/FeaturedProducts";
 import { blog } from "app/api_dummy";

@@ -9,7 +9,7 @@ type RecentOrderCardProps = {
   quantity: string;
 };
 
-export default function RecentOrderCard(props: RecentOrderCardProps) {
+export function RecentOrderCard(props: RecentOrderCardProps) {
   return (
     <div className="border  border-lightGray p-6 flex flex-wrap justify-between items-center gap-3 mb-4">
       <div className="flex gap-4 items-center">
