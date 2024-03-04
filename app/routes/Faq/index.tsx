@@ -1,6 +1,11 @@
+import type { MetaFunction } from "@remix-run/node";
 import { Accordion, AccordionItem } from "@nextui-org/react";
 import { FaQuestion } from "react-icons/fa";
 import { questions } from "app/contents/faqs";
+
+export const meta: MetaFunction = () => {
+  return [{ title: "App" }, { name: "description", content: "Welcome to Remix!" }];
+};
 
 const Faq = () => {
   return (
