@@ -10,7 +10,7 @@ export const meta: MetaFunction = () => {
 
 const Faq = () => {
   return (
-    <div className="flex flex-col gap-3 w-full mx-auto py-10 lg:px-5 lg:w-[80%]">
+    <div className="flex flex-col gap-3 w-full mx-auto py-10 px-3 lg:px-5 lg:w-[80%]">
       <div className="flex flex-col gap-3 text-center">
         <h2 className="text-3xl font-extrabold">FAQs</h2>
         <p>

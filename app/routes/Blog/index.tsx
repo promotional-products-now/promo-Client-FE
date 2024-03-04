@@ -8,8 +8,8 @@ const Blog = () => {
   return (
     <div className="flex flex-col gap-10 w-full mx-auto py-10 text-sm lg:w-[90%]">
       <div className="flex flex-col gap-1 text-center ">
-        <h2 className="text-3xl font-extrabold">Our Blog</h2>
-        <p className="text-gray">Browse our latest news</p>
+        <h2 className="text-4xl font-extrabold">Our Blog</h2>
+        <p className="text-gray text-2xl">Browse our latest news</p>
       </div>
       <div className="grid grid-cols-1 gap-14 sm:grid-cols-2 md:grid-cols-3">
         {blogPosts &&
