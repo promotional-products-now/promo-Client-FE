@@ -26,7 +26,7 @@ const Blog = () => {
                 />
               </CardBody>
               <CardFooter className="bg-white-bg flex flex-col gap-2 justify-between text-left px-3">
-                <h4 className="line-clamp-2 text-[18px]">{post.title}</h4>
+                <h4 className="text-sm md:text-lg">{post.title}</h4>
                 <p className="text-default-500 line-clamp-2 ">{post.body}</p>
                 <div className="w-full">
                   <Link
