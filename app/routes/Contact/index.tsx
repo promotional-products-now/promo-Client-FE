@@ -18,7 +18,7 @@ const ContactUS = () => {
     console.log(data);
   };
   return (
-    <div className="flex flex-col justify-center items-center py-10 px-5">
+    <div className="flex flex-col justify-center items-center py-10 px-5  mx-auto md:w-[80%]">
       <b className="text-xl font-extrabold capitalize">contact us</b>
       <div className="grid grid-cols-1 gap-5 py-10 [&_p]:text-sm [&_p]:text-gray [&_span]:text-yellow lg:grid-cols-3">
         <div className="flex flex-col gap-5">
