@@ -2,6 +2,7 @@ import type { MetaFunction } from "@remix-run/node";
 import { Accordion, AccordionItem } from "@nextui-org/react";
 import { FaQuestion } from "react-icons/fa";
 import { questions } from "app/contents/faqs";
+import { Link } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return [{ title: "App" }, { name: "description", content: "Welcome to Remix!" }];
@@ -15,9 +16,9 @@ const Faq = () => {
         <p>
           Here are the most frequenty asked questions. We are here to help you, so please feel free
           to{" "}
-          <span className="text-yellow font-semibold text-yellow-400 cursor-pointer">
+          <Link to="/contact" className="text-yellow font-semibold text-yellow-400 cursor-pointer">
             Contact us
-          </span>
+          </Link>
         </p>
       </div>
 
