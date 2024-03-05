@@ -24,6 +24,7 @@ module.exports = {
         "white-bg": "#F8F8F8",
         "white-border": "#E9EBF3",
         gray1: "#F6F6F6",
+        default: "",
       },
     },
   },
