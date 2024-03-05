@@ -34,8 +34,8 @@ export function Header() {
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             className="sm:hidden"
           />
-          <NavbarBrand as={Link} href="/">
-            <Image src={logo} className="h-12" />
+          <NavbarBrand as={Link} href="/" className="-border border-red-500 w-fit">
+            <Image src={logo} className="h-12 " />
           </NavbarBrand>
         </NavbarContent>
 
@@ -113,7 +113,7 @@ export function Header() {
       </Navbar>
       {/* TODO: should be displayed only on screens that has products and the home page inclusive */}
       {location.pathname === "/" && (
-        <div className="flex justify-self-center mx-auto container bg-white">
+        <div className="flex justify-self-center mx-auto container bg-white md:px-6">
           <SecondaryNav />
         </div>
       )}
