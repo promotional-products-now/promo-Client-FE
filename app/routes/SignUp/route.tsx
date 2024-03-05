@@ -40,8 +40,8 @@ export default function SignUp(): JSX.Element {
           method="post"
           className="w-full  overflow-hidden py-4 px-4 md:py-12 flex flex-col items-center justify-center"
         >
-          <div className="w-full md:w-4/5 xl:w-3/5 2xl:w-2/4  overflow-hidden py-4 md:py-12">
-            <div className="flex flex-col sm:flex-row  gap-4 py-2">
+          <div className="w-full md:w-4/5 xl:w-3/5 2xl:w-2/4  overflow-hidden py-4 md:py-8 space-y-4">
+            <div className="flex flex-col sm:flex-row  gap-4 ">
               <div className="w-full">
                 <p className="text-base font-bold text-dark">FIRST NAME</p>
                 <Input
@@ -70,7 +70,7 @@ export default function SignUp(): JSX.Element {
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 py-2">
+            <div className="flex flex-col sm:flex-row gap-4">
               <div className="w-full">
                 <p className="text-base font-bold text-dark">EMAIL ADDRESS</p>
                 <Input
@@ -99,7 +99,7 @@ export default function SignUp(): JSX.Element {
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 py-2">
+            <div className="flex flex-col sm:flex-row gap-4 ">
               <div className="w-full">
                 <p className="text-base font-bold text-dark">PASSWORD</p>
                 <Input
@@ -156,7 +156,7 @@ export default function SignUp(): JSX.Element {
               />
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 py-2 w-full">
+            <div className="flex flex-col sm:flex-row gap-4 w-full">
               <div className="w-full">
                 <p className="text-base font-bold text-dark">CITY</p>{" "}
                 <Select
@@ -195,7 +195,7 @@ export default function SignUp(): JSX.Element {
               </div>
             </div>
 
-            <div className="py-2 ">
+            <div>
               <p className="text-base font-bold text-dark">POST CODE</p>
               <Input
                 type="text"
