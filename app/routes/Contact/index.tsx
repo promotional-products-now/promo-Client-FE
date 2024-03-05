@@ -3,6 +3,7 @@ import { Form, Link } from "@remix-run/react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ContactUsSchema } from "app/schema/contactus.schema";
+import { Select, SelectItem } from "@nextui-org/react";
 import { LocationDetails } from "app/contents/contactLoactions";
 
 const ContactUS = () => {
@@ -18,9 +19,9 @@ const ContactUS = () => {
     console.log(data);
   };
   return (
-    <div className="flex flex-col justify-center items-center py-10 px-5  mx-auto md:w-[80%]">
+    <div className="flex flex-col justify-center items-center py-10 px-5 mx-auto md:px-5 md:w-[80%]">
       <b className="text-xl font-extrabold capitalize">contact us</b>
-      <div className="grid grid-cols-1 gap-5 py-10 [&_p]:text-sm [&_p]:text-gray [&_span]:text-yellow lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-5 py-10 [&_p]:text-sm [&_p]:text-gray lg:grid-cols-3">
         <div className="flex flex-col gap-5">
           <div className="mb-2">
             <b className="capitalize">give out team a call</b>
@@ -36,11 +37,11 @@ const ContactUS = () => {
               >
                 <div>
                   <div className="w-[40px] h-[40px] rounded-full flex justify-center items-center border border-yellow">
-                    <data.icon color="blue" />
+                    <data.icon className="text-primary" />
                   </div>
                 </div>
                 <div>
-                  <span className="text-sm uppercase">{data.title}</span>
+                  <span className="text-sm text-yellow uppercase">{data.title}</span>
                   <p>{data.body}</p>
                 </div>
               </Link>
@@ -53,7 +54,7 @@ const ContactUS = () => {
               <b className="capitalize">How can we help you?</b>
               <p>Fill your information below to contact us</p>
             </div>
-            <span>Promotional Merchandise at Guaranteed Lowest Prices</span>
+            <span className="text-yellow">Promotional Merchandise at Guaranteed Lowest Prices</span>
           </div>
           <Form method="post">
             <div className="w-full flex flex-col gap-4">
@@ -62,7 +63,6 @@ const ContactUS = () => {
                   type="text"
                   variant="underlined"
                   label="Name"
-                  color="primary"
                   {...register("name")}
                   errorMessage={errors?.name?.message}
                 />
@@ -71,7 +71,6 @@ const ContactUS = () => {
                   type="email"
                   variant="underlined"
                   label="Email"
-                  color="primary"
                   {...register("email")}
                   errorMessage={errors?.email?.message}
                 />
@@ -79,24 +78,28 @@ const ContactUS = () => {
                   type="text"
                   variant="underlined"
                   label="Phone"
-                  color="primary"
                   {...register("phone")}
                   errorMessage={errors?.phone?.message}
                 />
-                <Input
-                  type="text"
+                <Select
                   variant="underlined"
                   label="Subject"
-                  color="primary"
+                  className="max-w-xs"
                   {...register("subject")}
                   errorMessage={errors?.subject?.message}
-                />
+                >
+                  <SelectItem key="one" value={"one"}>
+                    Subject one
+                  </SelectItem>
+                  <SelectItem key="tow" value={"two"}>
+                    Subject two
+                  </SelectItem>
+                </Select>
               </div>
               <Textarea
                 variant="underlined"
                 labelPlacement="outside"
                 placeholder="Your Message"
-                color="primary"
                 className="col-span-12 md:col-span-6 mb-6 md:mb-0"
                 {...register("message")}
                 errorMessage={errors?.message?.message}
