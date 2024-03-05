@@ -1,3 +1,9 @@
+import { IconType } from "react-icons";
+import { AiOutlineYoutube } from "react-icons/ai";
+import { BsTwitterX } from "react-icons/bs";
+import { FiFacebook } from "react-icons/fi";
+import { SlSocialGoogle, SlSocialLinkedin } from "react-icons/sl";
+
 export type FooterT = {
   name: string;
   pathname: string;
@@ -45,4 +51,18 @@ export const otherLinks: FooterT[] = [
 export const faqLinks: FooterT[] = [
   { name: "FAQ - Your Artwork & Logo", pathname: "/" },
   { name: "FAQ - Placing Your Order", pathname: "/" },
+];
+
+export type SocialsT = {
+  id: string;
+  icon: IconType;
+  pathname: string;
+};
+
+export const socialLinks: SocialsT[] = [
+  { id: "facebook", icon: FiFacebook, pathname: "" },
+  { id: "youtube", icon: AiOutlineYoutube, pathname: "" },
+  { id: "linkedin", icon: SlSocialLinkedin, pathname: "" },
+  { id: "twitterx", icon: BsTwitterX, pathname: "" },
+  { id: "google", icon: SlSocialGoogle, pathname: "" },
 ];
