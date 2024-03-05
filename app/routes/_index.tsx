@@ -1,12 +1,14 @@
-import { useState, useRef, useEffect } from "react";
-import { Button, Image, Link } from "@nextui-org/react";
-import type { MetaFunction } from "@remix-run/node";
-import { motion } from "framer-motion";
 import { FiShoppingCart } from "react-icons/fi";
 import { GiClothes } from "react-icons/gi";
 import { PiFirstAidKitLight } from "react-icons/pi";
 import { FaFemale } from "react-icons/fa";
+
 import { FiPhoneCall } from "react-icons/fi";
+import { motion } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
+import type { MetaFunction } from "@remix-run/node";
+import { Button, Image } from "@nextui-org/react";
+import { Link } from "@remix-run/react";
 import { HiOutlineFire } from "react-icons/hi";
 import { items } from "app/api_dummy";
 import ProductCard from "app/components/Card/ProductCard";
@@ -15,12 +17,15 @@ import FeaturedProducts from "app/components/Home/FeaturedProducts";
 import { blog } from "app/api_dummy";
 import BlogCard from "app/components/Home/Blog";
 
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+
 export const meta: MetaFunction = () => {
   return [{ title: "App" }, { name: "description", content: "Welcome to Remix!" }];
 };
 
 export default function Index() {
-  const [width, setWidth] = useState<number>(0);
+  const [width, setWidth] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -32,6 +37,42 @@ export default function Index() {
       }
     }
   }, []);
+
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 4,
+      slidesToSlide: 4, // optional, default to 1.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 768 },
+      items: 3,
+      slidesToSlide: 3, // optional, default to 1.
+    },
+    mobile: {
+      breakpoint: { max: 767, min: 464 },
+      items: 2,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+  };
+
+  const responsiveBlog = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3,
+      slidesToSlide: 3, // optional, default to 1.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 768 },
+      items: 2,
+      slidesToSlide: 2, // optional, default to 1.
+    },
+    mobile: {
+      breakpoint: { max: 767, min: 464 },
+      items: 1,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+  };
   return (
     <>
       <div className="bg-white-bg py-12 lg:px-20  mx-auto">
@@ -98,7 +139,7 @@ export default function Index() {
                 </div>{" "}
               </div>
 
-              <Link href="cart" className="w-[360px] h-[240px]">
+              <Link to={"/Cart"} className="w-[360px] h-[240px]">
                 <Image
                   src="https://images.pexels.com/photos/437036/pexels-photo-437036.jpeg?auto=compress&cs=tinysrgb&w=600"
                   alt="man-img"
@@ -150,20 +191,30 @@ export default function Index() {
 
           <div className="border-2 border-orange relative md:p-8 py-10 px-5">
             <div className="gap-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 md:grid-cols-2">
-              {items.slice(0, 4).map((item, index) => {
-                return (
-                  <ProductCard
-                    key={index}
-                    image={item.image}
-                    title={item.title}
-                    subtitle={item.subtitle}
-                    price={item.price}
-                    newPrice={item.newPrice}
-                    qunatity={item.qunatity}
-                  />
-                );
-              })}
-
+              <Carousel
+                responsive={responsive}
+                autoPlay={true}
+                swipeable={true}
+                draggable={true}
+                showDots={true}
+                infinite={true}
+                partialVisible={false}
+                dotListClass="custom-dot-list-style"
+              >
+                {items.slice(0, 6).map((item, index) => {
+                  return (
+                    <ProductCard
+                      key={index}
+                      image={item.image}
+                      title={item.title}
+                      subtitle={item.subtitle}
+                      price={item.price}
+                      newPrice={item.newPrice}
+                      qunatity={item.qunatity}
+                    />
+                  );
+                })}
+              </Carousel>
               <div className="absolute -top-7 flex flex-row gap-1 px-2 py-3 bg-white z-10 items-center">
                 <HiOutlineFire className="text-orange" size={25} />
                 <div className="text-orange">WHAT’S HOT</div>
@@ -184,13 +235,23 @@ export default function Index() {
           </h1>
 
           <div className="flex flex-col gap-5">
-            {[1, 2, 3].map((_, i) => (
-              <p className="text-gray text-base" key={i}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum hic. Quasi
-                dicta, quo temporibus consequatur atque, ex ad natus commodi cum eius itaque
-                excepturi voluptas qui numquam id? Saepe!
-              </p>
-            ))}
+            <p className="text-gray text-base text-center">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum hic. Quasi
+              dicta, quo temporibus consequatur atque, ex ad natus commodi cum eius itaque excepturi
+              voluptas qui numquam id? Saepe!
+            </p>
+
+            <p className="text-gray text-base text-center ">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum hic. Quasi
+              dicta, quo temporibus consequatur atque, ex ad natus commodi cum eius itaque excepturi
+              voluptas qui numquam id? Saepe!
+            </p>
+
+            <p className="text-gray text-base text-center ">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum hic. Quasi
+              dicta, quo temporibus consequatur atque, ex ad natus commodi cum eius itaque excepturi
+              voluptas qui numquam id? Saepe!
+            </p>
           </div>
 
           <div className="flex flex-row gap-8 md:w-1/2 w-full justify-center">
@@ -207,7 +268,7 @@ export default function Index() {
 
             <Button
               as={Link}
-              href="tel:+12334587"
+              href="#"
               size="md"
               variant="solid"
               startContent={<FiPhoneCall className="text-base" />}
@@ -243,7 +304,7 @@ export default function Index() {
         <div className="mb-20 md:px-20 w-full flex flex-col gap-2 ">
           <h1 className="font-bold text-2xl text-black capitalize text-center">Our Blog</h1>
           <h3 className="font-semibold text-lg text-gray text-center">Browse Our Latest News</h3>
-          <motion.div
+          {/* <motion.div
             className="flex flex-row gap-5 cursor-grab overflow-x-hidden space-y-3"
             ref={carouselRef}
           >
@@ -266,7 +327,28 @@ export default function Index() {
                 );
               })}
             </motion.div>
-          </motion.div>
+          </motion.div> */}
+          <Carousel
+                responsive={responsiveBlog}
+                autoPlay={true}
+                swipeable={true}
+                draggable={true}
+                showDots={false}
+                infinite={true}
+                partialVisible={false}
+                dotListClass="custom-dot-list-style"
+          >
+            {blog.map((item, index) => {
+              return (
+                <BlogCard
+                  key={index}
+                  title={item.title}
+                  subtitle={item.subtitle}
+                  image={item.image}
+                />
+              );
+                })}
+              </Carousel>
         </div>
       </div>{" "}
     </>

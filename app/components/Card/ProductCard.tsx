@@ -1,8 +1,7 @@
 import { Link } from "@remix-run/react";
 import { BsCart3 } from "react-icons/bs";
 import { FiEye } from "react-icons/fi";
-import { Card, CardHeader, CardBody, CardFooter, Divider, Image } from "@nextui-org/react";
-import { items } from "app/api_dummy";
+import { Image } from "@nextui-org/react";
 
 interface ProductCardProps {
   image: string;
@@ -16,8 +15,8 @@ interface ProductCardProps {
 
 const ProductCard = ({ image, title, subtitle, price, newPrice, qunatity, key }: ProductCardProps) => {
   return (
-    <Card className="col-span-1 cursor-pointer group" radius="none" key={key}>
-      <CardHeader className="aspect-square w-full relative overflow-hidden p-0">
+    <div className="col-span-1 cursor-pointer group" key={key}>
+      <div className="aspect-square w-full relative overflow-hidden p-0">
         <Image
           alt={title}
           radius="none"
@@ -34,9 +33,9 @@ const ProductCard = ({ image, title, subtitle, price, newPrice, qunatity, key }:
             <BsCart3 /> <div className="">View product</div>
           </div>
         </div>
-      </CardHeader>
+      </div>
 
-      <CardBody className="overflow-visible p-2 gap-3">
+      <div className="overflow-visible p-2 gap-3">
         <div className="text-primary capitalize font-semibold">{title}</div>
         <div className="text-black">{subtitle}</div>
         <div className="flex flex-row text-sm justify-between">
@@ -49,8 +48,8 @@ const ProductCard = ({ image, title, subtitle, price, newPrice, qunatity, key }:
           </div>
           <div className="">{qunatity}</div>
         </div>
-      </CardBody>
-    </Card>
+      </div>
+    </div>
   );
 };
 

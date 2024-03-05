@@ -10,8 +10,8 @@ interface BlogCardProps {
 
 const BlogCard = ({ image, title, subtitle }: BlogCardProps) => {
   return (
-    <Card className="col-span-1 cursor-pointer group" radius="none">
-      <CardHeader className="aspect-square w-full relative overflow-hidden p-0">
+    <div className="col-span-1 cursor-pointer group" >
+      <div className="aspect-square w-full relative overflow-hidden p-0">
         <Image
           radius="none"
           alt={title}
@@ -20,17 +20,17 @@ const BlogCard = ({ image, title, subtitle }: BlogCardProps) => {
         />
 
         <div className="px-2 py-1 bg-yellow absolute rounded-md top-2 left-2 z-10">News</div>
-      </CardHeader>
+      </div>
 
-      <CardBody className="bg-white-bg rounded-sm pb-2 px-2">
+      <div className="bg-white-bg rounded-sm py-4 px-2">
         <div className="text-black capitalize font-semibold">{title}</div>
         <div className="text-black">{subtitle}</div>
         <div className="flex flex-row justify-start items-center gap-3 mt-4">
           <HiArrowRight size={20} className="text-primary" />
           <div className="">View Article</div>
         </div>
-      </CardBody>
-    </Card>
+      </div>
+    </div>
   );
 };
 
