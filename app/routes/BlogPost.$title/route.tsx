@@ -43,7 +43,7 @@ const SingleBlog = () => {
     console.log(data);
   };
   return (
-    <div className="w-full flex flex-wrap text-gray gap-10 mx-auto px-3 py-10 md:flex-nowrap">
+    <div className="w-full flex flex-wrap text-gray gap-10 mx-auto px-3 py-10 md:flex-nowrap md:w-[85%]">
       <div className="w-full flex flex-col gap-5 md:w-2/3">
         <div>
           <Image
