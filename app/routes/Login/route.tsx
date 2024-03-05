@@ -22,8 +22,8 @@ export default function Login(): JSX.Element {
         <p className='mt-4 text-base text-dark text-center'>Fill your account details below</p>
 
         <Form method='post'>
-          <div className='py-4 md:py-12 flex flex-col justify-center items-center'>
-            <div className='py-4 w-full md:w-1/2'>
+          <div className='py-4 md:py-12 flex flex-col justify-center items-center space-y-6'>
+            <div className='w-full md:w-1/2'>
               <p className='text-base text-dark font-bold'>EMAIL ADDRESS</p>
               <Input type='email' variant='underlined'
                 labelPlacement='outside' size='lg'
@@ -34,7 +34,7 @@ export default function Login(): JSX.Element {
               />
             </div>
 
-            <div className='py-4 w-full md:w-1/2'>
+            <div className='w-full md:w-1/2'>
               <p className='text-base text-dark font-bold'>PASSWORD</p>
               <Input type='password' variant='underlined'
                 labelPlacement='outside' size='lg'
