@@ -1,14 +1,14 @@
 import { Link } from "@remix-run/react";
 import { HiArrowRight } from "react-icons/hi2";
-import { Card, CardHeader, CardBody, CardFooter, Divider, Image } from "@nextui-org/react";
+import { Card, CardHeader, CardBody, Image } from "@nextui-org/react";
 
-interface BlogCardProps {
+export type BlogCardProps = {
   image: string;
   title: string;
   subtitle: string;
-}
+};
 
-const BlogCard = ({ image, title, subtitle }: BlogCardProps) => {
+export const BlogCard = ({ image, title, subtitle }: BlogCardProps) => {
   return (
     <Card className="col-span-1 cursor-pointer group" radius="none">
       <CardHeader className="aspect-square w-full relative overflow-hidden p-0">
@@ -22,16 +22,14 @@ const BlogCard = ({ image, title, subtitle }: BlogCardProps) => {
         <div className="px-2 py-1 bg-yellow absolute rounded-md top-2 left-2 z-10">News</div>
       </CardHeader>
 
-      <CardBody className="bg-white-bg rounded-sm pb-2 px-2">
-        <div className="text-black capitalize font-semibold">{title}</div>
-        <div className="text-black">{subtitle}</div>
-        <div className="flex flex-row justify-start items-center gap-3 mt-4">
+      <CardBody className="bg-white-bg rounded-sm p-2 space-y-3">
+        <div className="text-black capitalize font-semibold text-sm">{title}</div>
+        <div className="text-black text-xs">{subtitle}</div>
+        <Link to={`/blogpost/${title}`} className="flex flex-row justify-start items-center gap-3">
           <HiArrowRight size={20} className="text-primary" />
           <div className="">View Article</div>
-        </div>
+        </Link>
       </CardBody>
     </Card>
   );
 };
-
-export default BlogCard;
