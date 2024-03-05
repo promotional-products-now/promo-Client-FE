@@ -43,7 +43,7 @@ const SingleBlog = () => {
     console.log(data);
   };
   return (
-    <div className="w-full flex flex-wrap text-gray gap-10 mx-auto px-3 py-10 md:flex-nowrap md:w-[85%]">
+    <div className="w-full flex flex-wrap text-gray gap-10 mx-auto px-3 py-10 md:px-0 md:flex-nowrap md:w-5/6">
       <div className="w-full flex flex-col gap-5 md:w-2/3">
         <div>
           <Image
@@ -212,10 +212,10 @@ const SingleBlog = () => {
                       radius="none"
                       width="100%"
                       alt=""
-                      className="w-[100px] h-[70px] object-cover"
+                      className="w-[100px] h-[65px] object-cover"
                       src={post.image}
                     />
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-1">
                       <h3 className="line-clamp-2 font-bold">
                         How Customers Appreciation Helps Your B2B Sales
                       </h3>
