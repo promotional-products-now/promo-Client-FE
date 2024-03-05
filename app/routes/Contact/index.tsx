@@ -1,10 +1,10 @@
-import { Button, Input, Textarea } from "@nextui-org/react";
 import { Form, Link } from "@remix-run/react";
+import { Select, SelectItem } from "@nextui-org/react";
+import { Button, Input, Textarea } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { ContactUsSchema } from "app/schema/contactus.schema";
-import { Select, SelectItem } from "@nextui-org/react";
 import { LocationDetails } from "app/contents/contactLoactions";
+import { ContactUsSchema } from "app/schema/contactus.schema";
 
 const ContactUS = () => {
   const {
@@ -19,8 +19,8 @@ const ContactUS = () => {
     console.log(data);
   };
   return (
-    <div className="flex flex-col justify-center items-center py-10 px-5 mx-auto md:px-5 md:w-[80%]">
-      <b className="text-xl font-extrabold capitalize">contact us</b>
+    <div className="flex flex-col justify-center items-center py-10 px-5 mx-auto md:w-5/6">
+      <h2 className="text-xl font-extrabold capitalize">contact us</h2>
       <div className="grid grid-cols-1 gap-5 py-10 [&_p]:text-sm [&_p]:text-gray lg:grid-cols-3">
         <div className="flex flex-col gap-5">
           <div className="mb-2">
@@ -41,8 +41,8 @@ const ContactUS = () => {
                   </div>
                 </div>
                 <div>
-                  <span className="text-sm text-yellow uppercase">{data.title}</span>
-                  <p>{data.body}</p>
+                  <span className="text-sm text-yellow uppercase font-semibold">{data.title}</span>
+                  <p className="text-sm font-normal text-gray">{data.body}</p>
                 </div>
               </Link>
             </div>
@@ -81,20 +81,22 @@ const ContactUS = () => {
                   {...register("phone")}
                   errorMessage={errors?.phone?.message}
                 />
-                <Select
-                  variant="underlined"
-                  label="Subject"
-                  className="max-w-xs"
-                  {...register("subject")}
-                  errorMessage={errors?.subject?.message}
-                >
-                  <SelectItem key="one" value={"one"}>
-                    Subject one
-                  </SelectItem>
-                  <SelectItem key="tow" value={"two"}>
-                    Subject two
-                  </SelectItem>
-                </Select>
+                <div>
+                  <Select
+                    variant="underlined"
+                    label="Subject"
+                    className="w-full"
+                    {...register("subject")}
+                    errorMessage={errors?.subject?.message}
+                  >
+                    <SelectItem key="one" value={"one"}>
+                      Subject one
+                    </SelectItem>
+                    <SelectItem key="tow" value={"two"}>
+                      Subject two
+                    </SelectItem>
+                  </Select>
+                </div>
               </div>
               <Textarea
                 variant="underlined"
