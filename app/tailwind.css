@@ -2,3 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* global class targetting the border color of input fields */
+.border-default-200 {
+  border-color:#0079C0;
+}

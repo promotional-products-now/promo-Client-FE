@@ -14,14 +14,12 @@ import { NextUIProvider } from "@nextui-org/react";
 import { Header } from "app/components/Header";
 import { Footer } from "app/components/Footer";
 import stylesheet from "./tailwind.css";
-import appStyleSheet from "./app.css"
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref
     ? [{ rel: "stylesheet", href: cssBundleHref }]
     : []),
   { rel: "stylesheet", href: stylesheet },
-  { rel: "stylesheet", href: appStyleSheet }
 ];
 
 export default function App() {
