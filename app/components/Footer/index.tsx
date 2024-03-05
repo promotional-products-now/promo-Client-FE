@@ -1,3 +1,4 @@
+import { json, useLoaderData, useLocation } from "@remix-run/react";
 import { Button, Image, Input, Link } from "@nextui-org/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -8,7 +9,15 @@ import { SubscribeSchema } from "app/schema/subscribe.schema";
 import { FooterLinkComp } from "./FooterLinkComp";
 import { aboutLinks, categoryLinks, companyInfo, faqLinks, otherLinks, socialLinks } from "./links";
 
+export async function loader() {
+  return json({ ENV: { SALES_CONTACT: process.env.SALES_CONTACT } });
+}
+
 export function Footer() {
+  const data = useLoaderData<typeof loader>();
+
+  const SALESCONTACT = data.ENV.SALES_CONTACT;
+
   const {
     handleSubmit,
     register,
@@ -129,8 +138,8 @@ export function Footer() {
                   </div>
                   <div className="flex items-center gap-4 mb-2">
                     <FiPhoneCall className="text-primary text-lg" />
-                    <Link href="tel:s1300 664 999" className="text-sm font-normal text-gray">
-                      1300 664 999
+                    <Link href={`tel:+${SALESCONTACT}`} className="text-sm font-normal text-gray">
+                      +{SALESCONTACT}
                     </Link>
                   </div>
                 </div>

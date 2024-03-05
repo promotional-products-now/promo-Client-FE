@@ -14,16 +14,16 @@ export const aboutLinks: FooterT[] = [
   { name: "Company Profile", pathname: "/" },
   { name: "Terms & Conditions", pathname: "/terms-&-conditions" },
   { name: "Privacy Policy", pathname: "/privacy-policy" },
-  { name: "Contact", pathname: "/" },
+  { name: "Contact", pathname: "/contact" },
 ];
 
 export const companyInfo: FooterT[] = [
   { name: "Home", pathname: "/" },
-  { name: "About Us", pathname: "/" },
-  { name: "FAQs", pathname: "/" },
-  { name: "Blog", pathname: "/" },
-  { name: "Guarantees", pathname: "/" },
-  { name: "Contact Us", pathname: "/" },
+  { name: "About Us", pathname: "/about" },
+  { name: "FAQs", pathname: "/faq" },
+  { name: "Blog", pathname: "/blog" },
+  { name: "Guarantees", pathname: "/guarantees" },
+  { name: "Contact Us", pathname: "/contact" },
 ];
 
 export const categoryLinks: FooterT[] = [
@@ -49,8 +49,8 @@ export const otherLinks: FooterT[] = [
 ];
 
 export const faqLinks: FooterT[] = [
-  { name: "FAQ - Your Artwork & Logo", pathname: "/" },
-  { name: "FAQ - Placing Your Order", pathname: "/" },
+  { name: "FAQ - Your Artwork & Logo", pathname: "/faq" },
+  { name: "FAQ - Placing Your Order", pathname: "/faq" },
 ];
 
 export type SocialsT = {
