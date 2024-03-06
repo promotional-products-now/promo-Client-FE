@@ -16,7 +16,10 @@ import { blog } from "app/api_dummy";
 import { BlogCard } from "app/components/Home/Blog";
 
 export const meta: MetaFunction = () => {
-  return [{ title: "App" }, { name: "description", content: "Welcome to Remix!" }];
+  return [
+    { title: "Promotional Products Now" },
+    { name: "description", content: "Welcome to Promotional Products Now" },
+  ];
 };
 
 export default function Index() {
