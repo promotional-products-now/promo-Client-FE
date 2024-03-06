@@ -111,12 +111,10 @@ export function Header() {
           ))}
         </NavbarMenu>
       </Navbar>
-      {/* TODO: should be displayed only on screens that has products and the home page inclusive */}
-      {location.pathname === "/" && (
-        <div className="flex justify-self-center mx-auto container bg-white md:px-6">
-          <SecondaryNav />
-        </div>
-      )}
+
+      <div className="flex justify-self-center mx-auto container bg-white md:px-6">
+        <SecondaryNav />
+      </div>
     </div>
   );
 }
