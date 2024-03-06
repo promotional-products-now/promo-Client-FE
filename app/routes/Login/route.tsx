@@ -56,14 +56,14 @@ export default function Login(): JSX.Element {
             <div className='py-4 md:w-1/2 flex justify-between items-center gap-2'>
               <Checkbox className='text-dark md:text-lg font-medium' color='primary' radius='none'>Remember me</Checkbox>
 
-              <Link to="#" className='text-dark md:text-lg'>Forgot your password?</Link>
+              <Link to="/forgot-password" className='text-dark md:text-lg'>Forgot your password?</Link>
             </div>
 
           </div>
         </Form>
         <div>
-          <p className='text-center text-dark text-sm md:text-base'>You don’t have an account?
-            <Link to="#" className='text-orange font-bold'>Create an account</Link></p>
+          <p className='text-center text-dark text-sm md:text-base'>You don’t have an account? {' '}
+            <Link to="/signup" className='text-orange font-bold'>Create an account</Link></p>
         </div>
       </div>
     </div>

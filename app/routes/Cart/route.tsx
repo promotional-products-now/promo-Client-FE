@@ -117,7 +117,7 @@ const CartPage = () => {
           <div className="md:w-1/4 w-full">
             <Button
               as={Link}
-              href="#"
+              href=" "
               className="bg-transparent w-full h-full  px-7 py-4 rounded-sm text-primary text-base font-semibold hover:opacity-80 transition text-center capitalize"
               size="md"
               variant="ghost"

@@ -185,6 +185,7 @@ export const items = [
 
 export const blog = [
   {
+    id: "0",
     title: "How Customers Appreciation Helps Your B2B Sales",
     image:
       "https://images.pexels.com/photos/915060/pexels-photo-915060.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
@@ -192,6 +193,7 @@ export const blog = [
       "Lorem ipsum dolor sit amet consectetur. Eu tempor accumsan nunc velit viverra porttitor diam.",
   },
   {
+    id: "1",
     title: "How Customers Appreciation Helps Your B2B Sales",
     image:
       "https://images.pexels.com/photos/915060/pexels-photo-915060.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
@@ -199,28 +201,7 @@ export const blog = [
       "Lorem ipsum dolor sit amet consectetur. Eu tempor accumsan nunc velit viverra porttitor diam.",
   },
   {
-    title: "How Customers Appreciation Helps Your B2B Sales",
-    image:
-      "https://images.pexels.com/photos/915060/pexels-photo-915060.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-    subtitle:
-      "Lorem ipsum dolor sit amet consectetur. Eu tempor accumsan nunc velit viverra porttitor diam.",
-  },
-
-  {
-    title: "How Customers Appreciation Helps Your B2B Sales",
-    image:
-      "https://images.pexels.com/photos/915060/pexels-photo-915060.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-    subtitle:
-      "Lorem ipsum dolor sit amet consectetur. Eu tempor accumsan nunc velit viverra porttitor diam.",
-  },
-  {
-    title: "How Customers Appreciation Helps Your B2B Sales",
-    image:
-      "https://images.pexels.com/photos/915060/pexels-photo-915060.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-    subtitle:
-      "Lorem ipsum dolor sit amet consectetur. Eu tempor accumsan nunc velit viverra porttitor diam.",
-  },
-  {
+    id: "2",
     title: "How Customers Appreciation Helps Your B2B Sales",
     image:
       "https://images.pexels.com/photos/915060/pexels-photo-915060.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
@@ -229,6 +210,23 @@ export const blog = [
   },
 
   {
+    id: "3",
+    title: "How Customers Appreciation Helps Your B2B Sales",
+    image:
+      "https://images.pexels.com/photos/915060/pexels-photo-915060.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
+    subtitle:
+      "Lorem ipsum dolor sit amet consectetur. Eu tempor accumsan nunc velit viverra porttitor diam.",
+  },
+  {
+    id: "4",
+    title: "How Customers Appreciation Helps Your B2B Sales",
+    image:
+      "https://images.pexels.com/photos/915060/pexels-photo-915060.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
+    subtitle:
+      "Lorem ipsum dolor sit amet consectetur. Eu tempor accumsan nunc velit viverra porttitor diam.",
+  },
+  {
+    id: "5",
     title: "How Customers Appreciation Helps Your B2B Sales",
     image:
       "https://images.pexels.com/photos/915060/pexels-photo-915060.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
@@ -237,6 +235,16 @@ export const blog = [
   },
 
   {
+    id: "6",
+    title: "How Customers Appreciation Helps Your B2B Sales",
+    image:
+      "https://images.pexels.com/photos/915060/pexels-photo-915060.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
+    subtitle:
+      "Lorem ipsum dolor sit amet consectetur. Eu tempor accumsan nunc velit viverra porttitor diam.",
+  },
+
+  {
+    id: "7",
     title: "How Customers Appreciation Helps Your B2B Sales",
     image:
       "https://images.pexels.com/photos/915060/pexels-photo-915060.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",

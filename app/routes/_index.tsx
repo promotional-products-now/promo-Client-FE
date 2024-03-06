@@ -9,11 +9,16 @@ import { FaFemale } from "react-icons/fa";
 import { FiPhoneCall } from "react-icons/fi";
 import { HiOutlineFire } from "react-icons/hi";
 import { items } from "app/api_dummy";
-import ProductCard from "app/components/Card/ProductCard";
+import { ProductCard } from "app/components/Product/ProductCard";
 import ProductSection from "app/components/Home/ProductSection";
 import FeaturedProducts from "app/components/Home/FeaturedProducts";
 import { blog } from "app/api_dummy";
 import BlogCard from "app/components/Home/Blog";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 export const meta: MetaFunction = () => {
   return [{ title: "App" }, { name: "description", content: "Welcome to Remix!" }];
@@ -22,6 +27,14 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   const [width, setWidth] = useState<number>(0);
   const carouselRef = useRef<HTMLDivElement>(null);
+
+  var settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 2,
+  };
 
   useEffect(() => {
     if (carouselRef.current) {
@@ -183,7 +196,7 @@ export default function Index() {
             We are Promotional Promotional Products Now
           </h1>
 
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-5 text-center">
             {[1, 2, 3].map((_, i) => (
               <p className="text-gray text-base" key={i}>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum hic. Quasi
@@ -240,33 +253,24 @@ export default function Index() {
         </div>
       </div>
       <div>
-        <div className="mb-20 md:px-20 w-full flex flex-col gap-2 ">
+        <div className="mb-20 md:px-20 w-full flex flex-col gap-2 relative">
           <h1 className="font-bold text-2xl text-black capitalize text-center">Our Blog</h1>
           <h3 className="font-semibold text-lg text-gray text-center">Browse Our Latest News</h3>
-          <motion.div
-            className="flex flex-row gap-5 cursor-grab overflow-x-hidden space-y-3"
-            ref={carouselRef}
-          >
-            <motion.div
-              drag="x"
-              dragConstraints={{ right: 0, left: -width }}
-              transition={{ type: "spring", damping: 10, stiffness: 100 }}
-              className="flex gap-5"
-            >
-              {blog.map((item, index) => {
-                return (
-                  <motion.div className="md:min-w-[20rem] min-w-[23rem] flex flex-row gap-3 pointer-events-none">
-                    <BlogCard
-                      key={index}
-                      title={item.title}
-                      subtitle={item.subtitle}
-                      image={item.image}
-                    />
-                  </motion.div>
-                );
-              })}
-            </motion.div>
-          </motion.div>
+
+          <div className="flex flex-row gap-5 cursor-grab overflow-x-hidden space-y-3 relative">
+            <Slider {...settings}>
+              {blog.map((item, index) => (
+                <div
+                  key={index}
+                  className="md:min-w-[20rem] min-w-[23rem] flex flex-row gap-3 pointer-events-none"
+                >
+                  <BlogCard title={item.title} subtitle={item.subtitle} image={item.image} />
+                </div>
+              ))}
+            </Slider>
+            <IoIosArrowBack className="absolute top-1/2 left-0 transform -translate-y-1/2 cursor-pointer" />
+            <IoIosArrowForward className="absolute top-1/2 right-0 transform -translate-y-1/2 cursor-pointer" />
+          </div>
         </div>
       </div>{" "}
     </>
