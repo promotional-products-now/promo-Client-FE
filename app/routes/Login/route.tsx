@@ -26,10 +26,11 @@ export default function Login(): JSX.Element {
             <Form method='post'>
               <div className='py-4 md:py-12 flex flex-col justify-center items-center space-y-6'>
                 <div className='w-full'>
-                  <p className='text-base text-dark font-bold'>EMAIL ADDRESS</p>
-                  <Input type='email' variant='underlined'
+                  <Input type='email'
+                    label="EMAIL ADDRESS"
+                    variant='underlined'
                     labelPlacement='outside' size='lg'
-                    placeholder='Your Email' className='w-full'
+                    placeholder='Your Email' className='w-full text-base text-dark font-bold'
                     color='primary'
                     {...register('email')}
                     errorMessage={errors?.email?.message}
@@ -37,10 +38,11 @@ export default function Login(): JSX.Element {
                 </div>
 
                 <div className='w-full'>
-                  <p className='text-base text-dark font-bold'>PASSWORD</p>
-                  <Input type='password' variant='underlined'
+                  <Input type='password'
+                    label="PASSWORD"
+                    variant='underlined'
                     labelPlacement='outside' size='lg'
-                    placeholder='Your Password' className='w-full'
+                    placeholder='Your Password' className='w-full text-base text-dark font-bold'
                     color='primary'
                     {...register('password')}
                     errorMessage={errors?.password?.message}
