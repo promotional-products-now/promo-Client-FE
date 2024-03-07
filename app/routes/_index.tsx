@@ -24,15 +24,7 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   const isSmallScreen = useMediaQuery({ maxWidth: 767 });
-  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % blog.length);
-  };
-
-  const handlePrev = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + blog.length) % blog.length);
-  };
 
   return (
     <>
@@ -290,7 +282,7 @@ export default function Index() {
           {/* <div className="flex flex-row gap-5 cursor-grab overflow-x-hidden space-y-3 relative"> */}
           <div className="h-56 sm:h-64 xl:h-[40rem] 2xl:h-96 mx-6">
             <Carousel slide={false} leftControl={" "} rightControl={" "}>
-              {blog.slice(currentIndex, currentIndex + 3).map((item, index) => (
+              {blog.slice(0, 3).map((item, index) => (
                 <div key={index}>
                   <div className="flex flex-col md:flex-row gap-3 pointer-events-none sm:mx-4">
                     <BlogCard title={item.title} subtitle={item.subtitle} image={item.image} />
@@ -314,12 +306,12 @@ export default function Index() {
             </Carousel>
           </div>
           <div className="absolute top-1/2 left-8 transform -translate-y-1/2 flex items-center bg-transparent md:block">
-            <button className="text-2xl  " onClick={Carousel.apply}>
+            <button className="text-2xl  ">
               <IoChevronBackOutline />
             </button>
           </div>
           <div className="absolute top-1/2 right-8 transform -translate-y-1/2 flex items-center bg-transparent md:block">
-            <button className="text-2xl " onClick={handleNext}>
+            <button className="text-2xl ">
               <IoChevronForward />
             </button>
           </div>
