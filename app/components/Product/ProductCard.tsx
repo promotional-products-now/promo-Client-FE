@@ -35,7 +35,7 @@ export const ProductCard = ({
   return (
     <>
       <div className="col-span-1 cursor-pointer group">
-        <div className="aspect-square w-full relative overflow-hidden p-0">
+        <div className="aspect-square w-full relative overflow-hidden p-0 md:mb-4">
           <Image
             alt={title}
             radius="none"
@@ -65,7 +65,7 @@ export const ProductCard = ({
           </div>
         </div>
 
-        <div className="overflow-visible p-2 gap-3">
+        <div className="overflow-visible py-2 gap-3">
           <div className="text-primary capitalize font-semibold">{title}</div>
           <div className="text-black">{subtitle}</div>
           <div className="flex flex-row text-sm justify-between">

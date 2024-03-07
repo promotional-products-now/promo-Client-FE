@@ -14,37 +14,26 @@ import ProductSection from "app/components/Home/ProductSection";
 import FeaturedProducts from "app/components/Home/FeaturedProducts";
 import { blog } from "app/api_dummy";
 import BlogCard from "app/components/Home/Blog";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
-
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { Carousel } from "flowbite-react";
+import { useMediaQuery } from "react-responsive";
+import { IoChevronForward, IoChevronBackOutline } from "react-icons/io5";
 
 export const meta: MetaFunction = () => {
   return [{ title: "App" }, { name: "description", content: "Welcome to Remix!" }];
 };
 
 export default function Index() {
-  const [width, setWidth] = useState<number>(0);
-  const carouselRef = useRef<HTMLDivElement>(null);
+  const isSmallScreen = useMediaQuery({ maxWidth: 767 });
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  var settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 2,
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % blog.length);
   };
 
-  useEffect(() => {
-    if (carouselRef.current) {
-      const scrollWidth = carouselRef.current.scrollWidth;
-      const offsetWidth = carouselRef.current.offsetWidth;
-      if (scrollWidth && offsetWidth) {
-        setWidth(scrollWidth - offsetWidth);
-      }
-    }
-  }, []);
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + blog.length) % blog.length);
+  };
+
   return (
     <>
       <div className="bg-white-bg py-12 lg:px-20  mx-auto">
@@ -161,26 +150,67 @@ export default function Index() {
             PROMOTIONAL MERCHANDISE AT GUARANTEED LOWEST PRICES
           </div>
 
-          <div className="border-2 border-orange relative md:p-8 py-10 px-5">
-            <div className="gap-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 md:grid-cols-2">
-              {items.slice(0, 4).map((item, index) => {
-                return (
-                  <ProductCard
-                    key={index}
-                    image={item.image}
-                    title={item.title}
-                    subtitle={item.subtitle}
-                    price={item.price}
-                    newPrice={item.newPrice}
-                    qunatity={item.qunatity}
-                  />
-                );
-              })}
+          <div className="border-2 border-orange relative md:p-8 py-2 px-5">
+            <div className="h-[32rem] sm:h-[32rem] xl:h-[28rem] 2xl:h-96">
+              <Carousel slide={false} indicators={false} leftControl=" " rightControl=" ">
+                {isSmallScreen
+                  ? items.map((item, index) => (
+                      <div key={index}>
+                        <div className="flex flex-row pointer-events-none sm:mx-4">
+                          <ProductCard
+                            key={index}
+                            image={item.image}
+                            title={item.title}
+                            subtitle={item.subtitle}
+                            price={item.price}
+                            newPrice={item.newPrice}
+                            qunatity={item.qunatity}
+                          />
+                        </div>
+                      </div>
+                    ))
+                  : items.slice(0, 2).map((item, index) => (
+                      <div key={index}>
+                        <div className="flex flex-col md:flex-row gap-3 pointer-events-none sm:mx-4">
+                          <ProductCard
+                            key={index}
+                            image={item.image}
+                            title={item.title}
+                            subtitle={item.subtitle}
+                            price={item.price}
+                            newPrice={item.newPrice}
+                            qunatity={item.qunatity}
+                          />
+                          {items.slice(index + 1, index + 4).map((nextItem, nextIndex) => (
+                            <ProductCard
+                              key={nextIndex + index + 1}
+                              image={nextItem.image}
+                              title={nextItem.title}
+                              subtitle={nextItem.subtitle}
+                              price={nextItem.price}
+                              newPrice={nextItem.newPrice}
+                              qunatity={nextItem.qunatity}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+              </Carousel>
 
               <div className="absolute -top-7 flex flex-row gap-1 px-2 py-3 bg-white z-10 items-center">
                 <HiOutlineFire className="text-orange" size={25} />
                 <div className="text-orange">WHAT’S HOT</div>
               </div>
+            </div>
+            <div className="absolute top-1/2 left-4 transform -translate-y-1/2 flex items-center bg-transparent md:block">
+              <button className="text-2xl ">
+                <IoChevronBackOutline />
+              </button>
+            </div>
+            <div className="absolute top-1/2 right-4 transform -translate-y-1/2 flex items-center bg-transparent md:block">
+              <button className="text-2xl ">
+                <IoChevronForward />
+              </button>
             </div>
           </div>
         </div>
@@ -257,19 +287,41 @@ export default function Index() {
           <h1 className="font-bold text-2xl text-black capitalize text-center">Our Blog</h1>
           <h3 className="font-semibold text-lg text-gray text-center">Browse Our Latest News</h3>
 
-          <div className="flex flex-row gap-5 cursor-grab overflow-x-hidden space-y-3 relative">
-            <Slider {...settings}>
-              {blog.map((item, index) => (
-                <div
-                  key={index}
-                  className="md:min-w-[20rem] min-w-[23rem] flex flex-row gap-3 pointer-events-none"
-                >
-                  <BlogCard title={item.title} subtitle={item.subtitle} image={item.image} />
+          {/* <div className="flex flex-row gap-5 cursor-grab overflow-x-hidden space-y-3 relative"> */}
+          <div className="h-56 sm:h-64 xl:h-[40rem] 2xl:h-96 mx-6">
+            <Carousel slide={false} leftControl={" "} rightControl={" "}>
+              {blog.slice(currentIndex, currentIndex + 3).map((item, index) => (
+                <div key={index}>
+                  <div className="flex flex-col md:flex-row gap-3 pointer-events-none sm:mx-4">
+                    <BlogCard title={item.title} subtitle={item.subtitle} image={item.image} />
+                    {blog[index + 1] && (
+                      <BlogCard
+                        title={blog[index + 1].title}
+                        subtitle={blog[index + 1].subtitle}
+                        image={blog[index + 1].image}
+                      />
+                    )}
+                    {blog[index + 2] && (
+                      <BlogCard
+                        title={blog[index + 2].title}
+                        subtitle={blog[index + 2].subtitle}
+                        image={blog[index + 2].image}
+                      />
+                    )}
+                  </div>
                 </div>
               ))}
-            </Slider>
-            <IoIosArrowBack className="absolute top-1/2 left-0 transform -translate-y-1/2 cursor-pointer" />
-            <IoIosArrowForward className="absolute top-1/2 right-0 transform -translate-y-1/2 cursor-pointer" />
+            </Carousel>
+          </div>
+          <div className="absolute top-1/2 left-8 transform -translate-y-1/2 flex items-center bg-transparent md:block">
+            <button className="text-2xl  " onClick={Carousel.apply}>
+              <IoChevronBackOutline />
+            </button>
+          </div>
+          <div className="absolute top-1/2 right-8 transform -translate-y-1/2 flex items-center bg-transparent md:block">
+            <button className="text-2xl " onClick={handleNext}>
+              <IoChevronForward />
+            </button>
           </div>
         </div>
       </div>{" "}
