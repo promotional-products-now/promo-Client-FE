@@ -8,7 +8,7 @@ export type BlogCardProps = {
   subtitle: string;
 };
 
-export const BlogCard = ({ image, title, subtitle }: BlogCardProps) => {
+export default function BlogCard({ image, title, subtitle }: BlogCardProps) {
   return (
     <Card className="col-span-1 cursor-pointer group" radius="none">
       <CardHeader className="aspect-square w-full relative overflow-hidden p-0">

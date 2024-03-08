@@ -13,7 +13,7 @@ import { ProductCard } from "app/components/Product/ProductCard";
 import ProductSection from "app/components/Home/ProductSection";
 import FeaturedProducts from "app/components/Home/FeaturedProducts";
 import { blog } from "app/api_dummy";
-import { BlogCard } from "app/components/Home/Blog";
+import BlogCard from "app/components/Home/Blog";
 
 export const meta: MetaFunction = () => {
   return [
