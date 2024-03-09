@@ -14,7 +14,7 @@ const Blog = () => {
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
         {blogPosts &&
           blogPosts.map((post) => (
-            <Card key={post.id} isPressable className="rounded-none shadow-none">
+            <Card key={post.id} isPressable className="rounded-none shadow-none" radius="sm">
               <CardBody className="overflow-visible p-0">
                 <Image
                   shadow="none"
@@ -33,7 +33,7 @@ const Blog = () => {
                     to={`/blogpost/${post.title}`}
                     className="flex items-center gap-2 font-semibold uppercase"
                   >
-                    <FaArrowRightLong color="blue" />
+                    <FaArrowRightLong className="text-primary" />
                     View article
                   </Link>
                 </div>

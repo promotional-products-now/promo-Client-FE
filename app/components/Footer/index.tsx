@@ -36,7 +36,7 @@ export function Footer() {
     <footer className="bg-white dark:bg-gray-900">
       <hr className="border-neutral-200 sm:mx-auto dark:border-gray-700" />
 
-      <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8 space-y-6 md:space-y-10">
+      <div className="mx-auto w-full container p-4 py-6 lg:py-8 space-y-6 md:space-y-10">
         <div className="sm:flex sm:items-center sm:justify-between space-y-6 sm:space-y-0 w-full">
           <h1 className="text-lg md:text-3xl text-black font-semibold">Newsletter</h1>
           <div className="flex sm:justify-end w-full">
@@ -47,7 +47,7 @@ export function Footer() {
                   radius="none"
                   placeholder="Your email address"
                   startContent={<CiMail className="text-xl" />}
-                  className="rounded-s-2xl rounded-e-none bg-transparent w-full overflow-hidden"
+                  className="rounded-s-[4px] rounded-e-none bg-transparent w-full overflow-hidden"
                   {...register("email")}
                   isInvalid={!!errors.email}
                 />
@@ -55,7 +55,7 @@ export function Footer() {
                   type="submit"
                   size="lg"
                   variant="ghost"
-                  className="border-none rounded-s-none bg-primary text-white"
+                  className="border-none rounded-s-none rounded-e-[4px] bg-primary text-white"
                 >
                   Subscribe
                 </Button>

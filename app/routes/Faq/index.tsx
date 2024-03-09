@@ -31,8 +31,8 @@ const Faq = () => {
                 key={question.id}
                 aria-label={`Accordion ${question.id}`}
                 startContent={
-                  <div className="border border-blue-300 p-1 rounded">
-                    <FaQuestion color="blue" size={10} />
+                  <div className="border border-primary p-1 rounded">
+                    <FaQuestion size={10} className="text-primary" />
                   </div>
                 }
                 title={question.title}
