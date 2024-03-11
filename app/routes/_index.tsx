@@ -14,7 +14,7 @@ import ProductSection from "app/components/Home/ProductSection";
 import FeaturedProducts from "app/components/Home/FeaturedProducts";
 import { blog } from "app/api_dummy";
 import BlogCard from "app/components/Home/Blog";
-import { Carousel } from "flowbite-react";
+import Carousel from "app/components/Carousel";
 import { useMediaQuery } from "react-responsive";
 import { IoChevronForward, IoChevronBackOutline } from "react-icons/io5";
 
@@ -24,7 +24,6 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   const isSmallScreen = useMediaQuery({ maxWidth: 767 });
-
 
   return (
     <>
@@ -144,21 +143,19 @@ export default function Index() {
 
           <div className="border-2 border-orange relative md:p-8 py-2 px-5">
             <div className="h-[32rem] sm:h-[32rem] xl:h-[28rem] 2xl:h-96">
-              <Carousel slide={false} indicators={false} leftControl=" " rightControl=" ">
+              <Carousel>
                 {isSmallScreen
                   ? items.map((item, index) => (
-                      <div key={index}>
-                        <div className="flex flex-row pointer-events-none sm:mx-4">
-                          <ProductCard
-                            key={index}
-                            image={item.image}
-                            title={item.title}
-                            subtitle={item.subtitle}
-                            price={item.price}
-                            newPrice={item.newPrice}
-                            qunatity={item.qunatity}
-                          />
-                        </div>
+                      <div key={index} className="flex flex-row pointer-events-none sm:mx-4">
+                        <ProductCard
+                          key={index}
+                          image={item.image}
+                          title={item.title}
+                          subtitle={item.subtitle}
+                          price={item.price}
+                          newPrice={item.newPrice}
+                          qunatity={item.qunatity}
+                        />
                       </div>
                     ))
                   : items.slice(0, 2).map((item, index) => (
@@ -281,7 +278,7 @@ export default function Index() {
 
           {/* <div className="flex flex-row gap-5 cursor-grab overflow-x-hidden space-y-3 relative"> */}
           <div className="h-56 sm:h-64 xl:h-[40rem] 2xl:h-96 mx-6">
-            <Carousel slide={false} leftControl={" "} rightControl={" "}>
+            <Carousel>
               {blog.slice(0, 3).map((item, index) => (
                 <div key={index}>
                   <div className="flex flex-col md:flex-row gap-3 pointer-events-none sm:mx-4">
