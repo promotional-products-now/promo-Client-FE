@@ -1,21 +1,33 @@
 import React, { useRef, useState } from "react";
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// import required modules
-import { FreeMode, Pagination } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 
 export default function Carousel({ children }: { children: React.ReactNode[] }) {
   return (
     <>
       <Swiper
-        slidesPerView={3}
-        spaceBetween={30}
-        freeMode={true}
+        // freeMode={true}
+        navigation={true}
         pagination={{
           clickable: true,
         }}
-        modules={[FreeMode, Pagination]}
+        slidesPerView={1}
+        spaceBetween={20}
+        breakpoints={{
+          640: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 40,
+          },
+          3024: {
+            slidesPerView: 4,
+            spaceBetween: 50,
+          },
+        }}
+        modules={[Navigation, Pagination]}
         className="mySwiper"
       >
         {children &&

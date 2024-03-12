@@ -10,7 +10,7 @@ interface BlogCardProps {
 
 const BlogCard = ({ image, title, subtitle }: BlogCardProps) => {
   return (
-    <>
+    <Link to={`/blogpost/${title}`}>
       <div className="col-span-1 cursor-pointer group align-center">
         <div className="aspect-square w-full relative overflow-hidden p-0">
           <Image
@@ -32,7 +32,7 @@ const BlogCard = ({ image, title, subtitle }: BlogCardProps) => {
           </div>
         </div>
       </div>
-    </>
+    </Link>
   );
 };
 
