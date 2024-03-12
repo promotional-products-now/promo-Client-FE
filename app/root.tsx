@@ -14,12 +14,21 @@ import { NextUIProvider } from "@nextui-org/react";
 import { Header } from "app/components/Header";
 import { Footer } from "app/components/Footer";
 import stylesheet from "./tailwind.css";
+import SwiperStyle from "./style.css";
 
 export const links: LinksFunction = () => [
-  ...(cssBundleHref
-    ? [{ rel: "stylesheet", href: cssBundleHref }]
-    : []),
+  ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
   { rel: "stylesheet", href: stylesheet },
+  { rel: "stylesheet", href: SwiperStyle },
+  { rel: "stylesheet", href: "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" },
+  {
+    rel: "stylesheet",
+    href: "https://cdn.jsdelivr.net/npm/swiper@11.0.7/modules/free-mode.min.css",
+  },
+  {
+    rel: "stylesheet",
+    href: "https://cdn.jsdelivr.net/npm/swiper@11.0.7/modules/pagination.min.css",
+  },
 ];
 
 export default function App() {

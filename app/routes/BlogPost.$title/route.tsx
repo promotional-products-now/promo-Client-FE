@@ -9,7 +9,7 @@ import blogImage from "app/assets/item.png";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CommentSchema } from "app/schema/comment.schema";
-import { blog } from "app/api_dummy/index";
+import { blog } from "app/api_dummy";
 
 export const loader = ({ params }: { params: { title: string } }) => {
   const post = blog.find((item) => item.title == params.title);
