@@ -1,5 +1,10 @@
 import * as yup from "yup";
 
+export const SubscribeSchema = yup.object().shape({
+  email: yup.string().email("Invalid email address").required("Email is required"),
+});
+
+
 export const CheckoutSchema = yup.object().shape({
   firstName: yup.string().required("Field is required"),
   lastName: yup.string().required("Field is required"),

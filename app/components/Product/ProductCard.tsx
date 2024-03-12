@@ -34,8 +34,8 @@ export const ProductCard = ({
 
   return (
     <>
-      <Card className="col-span-1 cursor-pointer group" radius="none">
-        <CardHeader className="aspect-square w-full relative overflow-hidden p-0">
+      <div className="col-span-1 cursor-pointer group">
+        <div className="aspect-square w-full relative overflow-hidden p-0 md:mb-4">
           <Image
             alt={title}
             radius="none"
@@ -63,22 +63,22 @@ export const ProductCard = ({
               View
             </Button>
           </div>
-        </CardHeader>
+        </div>
 
-        <CardBody className="overflow-visible p-2 gap-3">
-          <div className="text-primary capitalize font-semibold text-sm">{title}</div>
-          <div className="text-black text-xs">{subtitle}</div>
-          <div className="flex text-sm justify-between">
-            <div className="text-gray-700 flex gap-1">
-              <p className="text-xs">
-                from <span className="text-orange text-xs">{price}</span> to
-              </p>
-              <span className="text-primary text-xs">{newPrice}</span>
+        <div className="overflow-visible py-2 gap-3">
+          <div className="text-primary capitalize font-semibold">{title}</div>
+          <div className="text-black">{subtitle}</div>
+          <div className="flex flex-row text-sm justify-between">
+            <div className="text-gray-700 flex flex-row gap-1">
+              <span>
+                from <span className="text-orange">{price}</span> to
+                <span className="text-primary">{newPrice}</span>
+              </span>
             </div>
-            <div className="text-xs">{qunatity}</div>
+            <div className="">{qunatity}</div>
           </div>
-        </CardBody>
-      </Card>
+        </div>
+      </div>
 
       <PreviewProduct isOpen={isOpen} onOpenChange={onOpenChange} />
     </>

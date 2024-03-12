@@ -186,72 +186,97 @@ export const items = [
 export const blog = [
   {
     id: "0",
-    title: "How Customers Appreciation Helps Your B2B Sales",
+    title: "The Impact of Artificial Intelligence on Business",
     image:
-      "https://images.pexels.com/photos/915060/pexels-photo-915060.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-    subtitle:
-      "Lorem ipsum dolor sit amet consectetur. Eu tempor accumsan nunc velit viverra porttitor diam.",
+      "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    subtitle: "Exploring the role of AI in shaping the future of businesses.",
   },
   {
     id: "1",
-    title: "How Customers Appreciation Helps Your B2B Sales",
+    title: "Unlocking Creativity: A Guide for Aspiring Artists",
     image:
-      "https://images.pexels.com/photos/915060/pexels-photo-915060.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-    subtitle:
-      "Lorem ipsum dolor sit amet consectetur. Eu tempor accumsan nunc velit viverra porttitor diam.",
+      "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    subtitle: "Discover tips and tricks to enhance your artistic journey.",
   },
   {
     id: "2",
-    title: "How Customers Appreciation Helps Your B2B Sales",
+    title: "The Science Behind Healthy Eating Habits",
     image:
-      "https://images.pexels.com/photos/915060/pexels-photo-915060.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-    subtitle:
-      "Lorem ipsum dolor sit amet consectetur. Eu tempor accumsan nunc velit viverra porttitor diam.",
+      "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    subtitle: "Understanding the nutritional principles for a balanced diet.",
   },
-
   {
     id: "3",
-    title: "How Customers Appreciation Helps Your B2B Sales",
+    title: "Exploring the Wonders of Space Travel",
     image:
-      "https://images.pexels.com/photos/915060/pexels-photo-915060.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-    subtitle:
-      "Lorem ipsum dolor sit amet consectetur. Eu tempor accumsan nunc velit viverra porttitor diam.",
+      "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    subtitle: "A journey into the possibilities and challenges of space exploration.",
   },
   {
     id: "4",
-    title: "How Customers Appreciation Helps Your B2B Sales",
+    title: "The Art of Effective Communication in the Workplace",
     image:
-      "https://images.pexels.com/photos/915060/pexels-photo-915060.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-    subtitle:
-      "Lorem ipsum dolor sit amet consectetur. Eu tempor accumsan nunc velit viverra porttitor diam.",
+      "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    subtitle: "Tips for fostering better communication and collaboration at work.",
   },
   {
     id: "5",
-    title: "How Customers Appreciation Helps Your B2B Sales",
+    title: "Green Living: Sustainable Practices for a Better Tomorrow",
     image:
-      "https://images.pexels.com/photos/915060/pexels-photo-915060.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-    subtitle:
-      "Lorem ipsum dolor sit amet consectetur. Eu tempor accumsan nunc velit viverra porttitor diam.",
+      "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    subtitle: "Adopting eco-friendly habits for a more sustainable lifestyle.",
   },
-
   {
     id: "6",
-    title: "How Customers Appreciation Helps Your B2B Sales",
+    title: "Diving into the World of Virtual Reality Gaming",
     image:
-      "https://images.pexels.com/photos/915060/pexels-photo-915060.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-    subtitle:
-      "Lorem ipsum dolor sit amet consectetur. Eu tempor accumsan nunc velit viverra porttitor diam.",
+      "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    subtitle: "A closer look at the immersive experience of VR gaming.",
   },
-
   {
     id: "7",
-    title: "How Customers Appreciation Helps Your B2B Sales",
+    title: "The Evolution of Digital Marketing Strategies",
     image:
-      "https://images.pexels.com/photos/915060/pexels-photo-915060.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-    subtitle:
-      "Lorem ipsum dolor sit amet consectetur. Eu tempor accumsan nunc velit viverra porttitor diam.",
+      "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    subtitle: "Analyzing the changing landscape of digital marketing in the modern era.",
+  },
+  {
+    id: "8",
+    title: "Green Living:",
+    image:
+      "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    subtitle: "A more sustainable lifestyle.",
+  },
+  {
+    id: "9",
+    title: "Green Living: Sustainable Practices for a Better Tomorrow",
+    image:
+      "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    subtitle: "Adopting eco-friendly habits for a more sustainable lifestyle.",
+  },
+  {
+    id: "10",
+    title: "Diving into the World of Virtual Reality Gaming",
+    image:
+      "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    subtitle: "A closer look at the immersive experience of VR gaming.",
+  },
+  {
+    id: "11",
+    title: "The Evolution of Digital Marketing Strategies",
+    image:
+      "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    subtitle: "Analyzing the changing landscape of digital marketing in the modern era.",
+  },
+  {
+    id: "12",
+    title: "Green Living:",
+    image:
+      "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    subtitle: "A more sustainable lifestyle.",
   },
 ];
+
 
 export const payment = [
   { image: "https://africamoneydefisummit.com/wp-content/uploads/2022/08/Visa-logo.png" },
