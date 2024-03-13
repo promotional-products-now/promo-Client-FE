@@ -12,8 +12,8 @@ const Faq = () => {
   return (
     <div className="flex flex-col gap-3 w-full mx-auto py-10 px-4 lg:px-5 lg:w-[80%]">
       <div className="flex flex-col gap-3 text-center">
-        <h2 className="text-3xl font-extrabold">FAQs</h2>
-        <p>
+        <h2 className="text-2xl font-semibold">FAQs</h2>
+        <p className="text-default-500">
           Here are the most frequenty asked questions. We are here to help you, so please feel free
           to{" "}
           <Link to="/contact" className="text-yellow font-semibold text-yellow-400 cursor-pointer">
