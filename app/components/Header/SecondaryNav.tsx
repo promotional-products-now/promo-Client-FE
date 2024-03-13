@@ -1,51 +1,23 @@
-import {
-  Button,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownSection,
-  DropdownTrigger,
-  Input,
-  Link,
-} from "@nextui-org/react";
+import { Button, Input, Link } from "@nextui-org/react";
 import { FiLogIn, FiMenu, FiSearch } from "react-icons/fi";
 import { TbTruckDelivery } from "react-icons/tb";
 import { SearchDropdown } from "./SearchDropdown";
-import { allCategories } from "app/utils/homeAllCategories";
 
 export function SecondaryNav() {
   return (
-    <div className="flex justify-between space-x-4 w-full">
-      <div className="flex flex-col space-y-3 w-full -border border-green-400">
+    <div className="flex justify-between space-x-4 flex-wrap w-full">
+      <div className="flex flex-col space-y-3 w-full">
         <div className="flex items-center justify-between space-x-4 w-full">
           <div className="hidden md:flex flex-col space-y-3">
-            <Dropdown>
-              <DropdownTrigger>
-                <Button
-                  size="lg"
-                  color="primary"
-                  startContent={<FiMenu />}
-                  className="w-full rounded-sm"
-                >
-                  All Products Categoeries
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu aria-label="Link Actions">
-                {allCategories.map((cat) => (
-                  <DropdownSection
-                    key={cat.id}
-                    showDivider
-                    classNames={{
-                      divider: "bg-primary",
-                    }}
-                  >
-                    <DropdownItem key={cat.id} href="#">
-                      {cat.category}
-                    </DropdownItem>
-                  </DropdownSection>
-                ))}
-              </DropdownMenu>
-            </Dropdown>
+            <Button
+              size="lg"
+              disabled
+              color="primary"
+              startContent={<FiMenu />}
+              className="w-full rounded-sm"
+            >
+              All Products Categoeries
+            </Button>
           </div>
           <div className="w-full">
             <form>
