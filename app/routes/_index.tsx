@@ -31,6 +31,7 @@ export default function Index() {
                 {allCategories.map((cat) => (
                   <ListboxSection
                     showDivider
+                    key={cat.id}
                     dividerProps={{
                       className: " border-b border-primary",
                     }}
