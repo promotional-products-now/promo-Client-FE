@@ -4,8 +4,8 @@ const Guarantees = () => {
   return (
     <div className="flex flex-col gap-10 w-full py-10 px-4 text-sm leading-6 md:px-0 mx-auto md:w-[80%]">
       <div className="flex flex-col gap-2 text-center ">
-        <h2 className="text-4xl font-extrabold">Our Guarantees</h2>
-        <p className="text-gray text-sm md:text-lg">
+        <h2 className="text-2xl md:text-3xl font-bold">Our Guarantees</h2>
+        <p className="text-gray text-medium">
           Here is a 5 Rock Solid Guarantees to give you peace of mind and confidence that your
           satisfaction is our number 1 priority at all times.
         </p>
@@ -18,14 +18,12 @@ const Guarantees = () => {
             className="flex flex-col gap-3 py-3 px-3 border border-neutral-100 md:px-5"
           >
             <div>
-              <p className="text-medium md:text-2xl font-semibold text-primary">
-                {guarantee.title}
-              </p>
+              <p className="text-sm md:text-xl font-semibold text-primary">{guarantee.title}</p>
               <p className="text-yellow text-sm md:text-lg">{guarantee.subTitle}</p>
             </div>
             <div className="flex gap-5">
               <p className="text-gray leading-6">{guarantee.body}</p>
-              <div className="hidden md:block">
+              <div className="hidden lg:block">
                 <svg
                   width="60px"
                   height="60px"
