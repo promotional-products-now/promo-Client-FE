@@ -8,6 +8,7 @@ import {
   ScrollRestoration,
   json,
   useLoaderData,
+  useLocation,
 } from "@remix-run/react";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import { NextUIProvider } from "@nextui-org/react";
@@ -33,6 +34,7 @@ export const links: LinksFunction = () => [
 
 export default function App() {
   let data = useLoaderData<typeof loader>();
+  const location = useLocation();
 
   return (
     <html lang="en">
@@ -47,7 +49,7 @@ export default function App() {
           <div className="flex flex-col justify-between h-screen">
             <Header />
             <main className="flex-1">
-              <div className="container mx-auto lg:my-6 my-3">
+              <div className={`lg:my-6 my-3 ${location.pathname !== "/" && "container mx-auto "}`}>
                 <Outlet />
               </div>
             </main>
