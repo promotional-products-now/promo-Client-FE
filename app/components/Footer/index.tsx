@@ -36,7 +36,7 @@ export function Footer() {
     <footer className="bg-white dark:bg-gray-900">
       <hr className="border-neutral-200 sm:mx-auto dark:border-gray-700" />
 
-      <div className="mx-auto w-full container p-4 py-6 lg:py-8 space-y-6 md:space-y-10">
+      <div className="w-max-ppn px-4 py-6 lg:py-8 sm:px-12 2xl:px-12 space-y-6 md:space-y-10">
         <div className="sm:flex sm:items-center sm:justify-between space-y-6 sm:space-y-0 w-full">
           <h1 className="text-lg md:text-3xl text-black font-semibold">Newsletter</h1>
           <div className="flex sm:justify-end w-full">
