@@ -1,4 +1,5 @@
-import { Button, Input, Link } from "@nextui-org/react";
+import { Link } from "@remix-run/react";
+import { Button, Input } from "@nextui-org/react";
 import { FiLogIn, FiMenu, FiSearch } from "react-icons/fi";
 import { TbTruckDelivery } from "react-icons/tb";
 import { SearchDropdown } from "./SearchDropdown";
@@ -44,7 +45,7 @@ export function SecondaryNav() {
           <div className="hidden md:flex">
             <Button
               as={Link}
-              href="#"
+              to="#"
               size="lg"
               variant="ghost"
               startContent={<TbTruckDelivery className="text-2xl text-orange" />}
@@ -56,7 +57,7 @@ export function SecondaryNav() {
           <div className="hidden md:block">
             <Button
               as={Link}
-              href="/login"
+              to="/login"
               size="lg"
               variant="ghost"
               startContent={<FiLogIn className="text-xl text-primary" />}
