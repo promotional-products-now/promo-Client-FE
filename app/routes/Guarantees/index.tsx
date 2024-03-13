@@ -18,7 +18,7 @@ const Guarantees = () => {
             className="flex flex-col gap-3 py-3 px-3 border border-neutral-100 md:px-5"
           >
             <div>
-              <p className="text-sm md:text-lg font-semibold text-primary">{guarantee.title}</p>
+              <p className="text-sm md:text-xl font-semibold text-primary">{guarantee.title}</p>
               <p className="text-yellow text-sm md:text-lg">{guarantee.subTitle}</p>
             </div>
             <div className="flex gap-5">
