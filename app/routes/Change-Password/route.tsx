@@ -1,8 +1,13 @@
 import { Form, Link } from '@remix-run/react'
 import { Input, Button } from '@nextui-org/react'
+import { MetaFunction } from "@remix-run/react";
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import { ChangePasswordSchema } from 'app/schema/changePassword.schema'
+
+export const meta: MetaFunction = () => {
+  return [{ title: "Change password" }, { name: "", content: "" }];
+};
 
 
 export default function ChangePassword(): JSX.Element {
