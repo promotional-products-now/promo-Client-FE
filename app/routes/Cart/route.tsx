@@ -11,11 +11,16 @@ import { useState } from "react";
 import { Link } from "@remix-run/react";
 import { Button } from "@nextui-org/react";
 import { FiArrowRight } from "react-icons/fi";
+import { MetaFunction } from "@remix-run/react";
 import { RxCross2 } from "react-icons/rx";
 import { MdOutlineArrowRight } from "react-icons/md";
 import { Input } from "@nextui-org/react";
 import { items } from "app/api_dummy";
 import { payment } from "app/api_dummy";
+
+export const meta: MetaFunction = () => {
+  return [{ title: "Cart" }, { name: "", content: "" }];
+};
 
 const CartPage = () => {
   const cartItems = items.slice(0, 5);
