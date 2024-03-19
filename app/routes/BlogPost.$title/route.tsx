@@ -3,12 +3,18 @@ import { Link, Form, useLoaderData } from "@remix-run/react";
 import { Button, Input, Textarea } from "@nextui-org/react";
 import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 import { BiUser, BiChat, BiSearch } from "react-icons/bi";
+import { MetaFunction } from "@remix-run/react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { socialIcons } from "app/contents/blogSocialHandles";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CommentSchema } from "app/schema/comment.schema";
 import { blog } from "app/api_dummy";
+
+export const meta: MetaFunction = () => {
+  return [{ title: "Blog Post" }, { name: "", content: "" }];
+};
+
 
 export const loader = ({ params }: { params: { title: string } }) => {
   const post = blog.find((item) => item.title == params.title);
