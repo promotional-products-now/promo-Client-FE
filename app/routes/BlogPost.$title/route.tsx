@@ -5,7 +5,6 @@ import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 import { BiUser, BiChat, BiSearch } from "react-icons/bi";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { socialIcons } from "app/contents/blogSocialHandles";
-import blogImage from "app/assets/item.png";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CommentSchema } from "app/schema/comment.schema";

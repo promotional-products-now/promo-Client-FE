@@ -1,5 +1,11 @@
 import { Link } from "@remix-run/react";
+import { MetaFunction } from "@remix-run/node";
 import { ServicesT, services } from "app/contents/aboutServices";
+
+export const meta: MetaFunction = () => {
+  return [{ title: "About Us" }, { name: "description", content: "" }];
+};
+
 
 const AboutPage = () => {
   return (
