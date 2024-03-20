@@ -2,9 +2,14 @@ import { Form, Link } from "@remix-run/react";
 import { Select, SelectItem } from "@nextui-org/react";
 import { Button, Input, Textarea } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
+import { MetaFunction } from "@remix-run/node";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LocationDetails } from "app/contents/contactLoactions";
 import { ContactUsSchema } from "app/schema/contactus.schema";
+
+export const meta: MetaFunction = () => {
+  return [{ title: "Contact us" }, { name: "", content: "" }];
+};
 
 const ContactUS = () => {
   const {
