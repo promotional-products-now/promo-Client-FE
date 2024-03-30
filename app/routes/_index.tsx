@@ -159,9 +159,11 @@ export default function Index() {
       </div>
 
       <div className="px-4 sm:px-12">
-        <div className="mt-20  ">
-          <div className="text-primary text-center md:text-2xl text-xl font-semibold mb-8">
-            PROMOTIONAL MERCHANDISE AT GUARANTEED LOWEST PRICES
+        <div className="w-max-ppn space-y-8">
+          <div className="flex items-center justify-center py-3">
+            <span className="text-primary text-center md:text-3xl text-xl font-semibold">
+              PROMOTIONAL MERCHANDISE AT GUARANTEED LOWEST PRICES
+            </span>
           </div>
 
           <div className="border-2 border-orange relative md:p-8 py-2 px-5">
@@ -185,6 +187,7 @@ export default function Index() {
           </div>
         </div>
       </div>
+
       <div className="px-4 md:px-0">
         <ProductSection Icon={PiFirstAidKitLight} title="Health & Fitness" />
         <FeaturedProducts sectionlabel="Featured Products" gridno={10} />

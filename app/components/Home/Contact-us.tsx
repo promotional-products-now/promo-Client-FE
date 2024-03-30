@@ -4,7 +4,7 @@ import { FiPhoneCall } from "react-icons/fi";
 
 function ContactUs() {
   return (
-    <section className="lg:px-20 my-20">
+    <section className="lg:px-20 my-20 px-4">
       <div className="mt-16 w-full flex flex-col justify-center items-center gap-8">
         <h1 className="font-bold text-2xl text-black capitalize text-center">
           We are Promotional Promotional Products Now

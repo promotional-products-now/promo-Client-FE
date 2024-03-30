@@ -3,7 +3,7 @@ import { Image } from "@nextui-org/react";
 function FullyProtected() {
   return (
     <section className="bg-white-bg p-10 mb-20">
-      <div className="mt-4 flex flex-col justify-center items-center gap-4 w-full">
+      <div className="mt-4 flex flex-col justify-center items-center gap-4 w-full w-max-ppn">
         <div className="py-2">
           <h2 className="font-bold text-2xl text-black capitalize text-center">
             You are fully protected
