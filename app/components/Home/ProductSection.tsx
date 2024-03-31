@@ -24,9 +24,9 @@ interface ProductSectionProps {
 
 const ProductSection = ({ showmore, title, Icon }: ProductSectionProps) => {
   return (
-    <div className="bg-white-bg mt-20">
-      <div className="flex flex-col justify-center items-center lg:px-20 ">
-        <div className="md:grid md:grid-cols-[4fr_7fr] py-10 flex flex-col">
+    <div className="bg-white-bg mt-20 px-4 sm:px-12">
+      <div className="flex flex-col justify-center items-center w-max-ppn">
+        <div className="md:grid md:grid-cols-[4fr_7fr] py-10 flex flex-col w-full">
           <div className="md:hidden lg:hidden flex flex-row justify-between item-center my-10 p-3 border  border-orange rounded-md">
             <div className="flex flex-row items-center justify-center gap-2 p-4">
               <Icon size={25} className="text-primary" />

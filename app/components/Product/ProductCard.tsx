@@ -34,8 +34,8 @@ export const ProductCard = ({
 
   return (
     <>
-      <div className="col-span-1 cursor-pointer group">
-        <div className="aspect-square w-full relative overflow-hidden p-0 md:mb-4">
+      <div className="cursor-pointer group lg:max-w-80">
+        <div className="aspect-square w-full relative overflow-hidden p-0 md:mb-4-">
           <Image
             alt={title}
             radius="none"
@@ -65,17 +65,17 @@ export const ProductCard = ({
           </div>
         </div>
 
-        <div className="overflow-visible py-2 gap-3">
-          <div className="text-primary capitalize font-semibold">{title}</div>
-          <div className="text-black">{subtitle}</div>
+        <div className="overflow-visible py-2 flex flex-col justify-between space-y-2">
+          <div className="text-primary capitalize font-semibold text-sm">{title}</div>
+          <p className="text-black text-xs">{subtitle}</p>
           <div className="flex flex-row text-sm justify-between">
             <div className="text-gray-700 flex flex-row gap-1">
-              <span>
-                from <span className="text-orange">{price}</span> to
-                <span className="text-primary">{newPrice}</span>
+              <span className="text-xs">
+                from <span className="text-orange text-xs">{price}</span> to
+                <span className="text-primary text-xs"> {newPrice}</span>
               </span>
             </div>
-            <div className="">{qunatity}</div>
+            <div className="text-xs">{qunatity}</div>
           </div>
         </div>
       </div>

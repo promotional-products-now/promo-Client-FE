@@ -4,7 +4,7 @@ import { blog } from "app/api_dummy";
 
 function BlogSection() {
   return (
-    <section className="mb-20 md:px-20 w-full flex flex-col gap-2 relative">
+    <section className="mb-20 md:px-20 w-full flex flex-col gap-2 relative w-max-ppn">
       <h1 className="font-bold text-2xl text-black capitalize text-center">Our Blog</h1>
       <h3 className="font-semibold text-lg text-gray text-center">Browse Our Latest News</h3>
 

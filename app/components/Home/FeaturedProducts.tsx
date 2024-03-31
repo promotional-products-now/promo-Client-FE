@@ -30,13 +30,12 @@ const FeaturedProducts = ({ sectionlabel, gridno, showmore }: FeaturedProductsPr
   };
 
   return (
-    <div className="lg:px-20 ">
-      <div className="mt-16 flex flex-col gap-4 relative pb-20">
+    <div className="px-4 sm:px-12">
+      <div className="mt-16 flex flex-col gap-4 relative pb-20 w-max-ppn">
         <div className="flex flex-col lg:flex-row md:flex-row justify-between item-center border-b border-gray mb-8 md:p-5 p-1 gap-4">
-          <div className="flex flex-col md:flex-row lg:gap-3 sm:gap-2 items-center justify-center">
+          <div className="flex space-x-3 items-center justify-center">
             <GoVerified size={25} className="text-primary" />
-
-            <div className="text-black text-2xl font-semibold text-center">{sectionlabel}</div>
+            <span className="text-black text-2xl font-semibold text-center">{sectionlabel}</span>
           </div>
 
           <div className="flex md:w-7/12 flex-wrap md:flex-nowrap md:gap-6 gap-3 px-2">
