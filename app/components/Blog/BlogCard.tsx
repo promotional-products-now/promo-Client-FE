@@ -1,6 +1,6 @@
 import { Link } from "@remix-run/react";
 import { HiArrowRight } from "react-icons/hi2";
-import { Card, CardHeader, CardBody, CardFooter, Divider, Image } from "@nextui-org/react";
+import { Image } from "@nextui-org/react";
 
 interface BlogCardProps {
   image: string;

@@ -24,8 +24,8 @@ const ContactUS = () => {
     console.log(data);
   };
   return (
-    <div className="flex flex-col justify-center items-center py-10 px-5 mx-auto md:w-5/6">
-      <h2 className="text-lg font-bold md:text-2xl">Contact us</h2>
+    <div className="flex flex-col justify-center items-center mx-auto p-4 lg:p-0 lg:w-4/5">
+      <h2 className="text-2xl md:text-3xl font-bold">Contact us</h2>
       <div className="grid grid-cols-1 gap-5 py-10 [&_p]:text-sm [&_p]:text-gray lg:grid-cols-3">
         <div className="flex flex-col gap-5">
           <div className="mb-2">
