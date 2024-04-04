@@ -49,7 +49,11 @@ export default function App() {
           <div className="flex flex-col justify-between h-screen">
             <Header />
             <main className="flex-1">
-              <div className={`lg:my-6 my-3 ${location.pathname !== "/" && "container mx-auto "}`}>
+              <div
+                className={`lg:my-6 my-3 ${
+                  location.pathname !== "/" && "container mx-auto w-max-ppn"
+                }`}
+              >
                 <Outlet />
               </div>
             </main>
