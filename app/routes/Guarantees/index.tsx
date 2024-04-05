@@ -2,7 +2,7 @@ import { guarantees } from "app/contents/guarantees";
 
 const Guarantees = () => {
   return (
-    <div className="flex flex-col gap-10 w-full py-10 px-4 text-sm leading-6 md:px-0 mx-auto md:w-[80%]">
+    <div className="flex flex-col gap-10 w-full p-4 lg:p-0 mx-auto md:w-4/5">
       <div className="flex flex-col gap-2 text-center ">
         <h2 className="text-2xl md:text-3xl font-bold">Our Guarantees</h2>
         <p className="text-gray text-medium">

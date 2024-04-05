@@ -9,9 +9,9 @@ export const meta: MetaFunction = () => {
 
 const AboutPage = () => {
   return (
-    <div className="flex flex-col gap-3 w-full mx-auto py-10 lg:px-5 lg:w-4/5">
+    <div className="flex flex-col gap-3 w-full mx-auto p-4 lg:p-0 lg:w-4/5">
       <div className="flex justify-center">
-        <h2 className="text-2xl font-extrabold">Company Profile</h2>
+        <h2 className="text-2xl md:text-3xl font-bold">Company Profile</h2>
       </div>
       <div className="flex flex-col space-y-6">
         <div className="flex flex-col text-center text-black p-2 text-base">

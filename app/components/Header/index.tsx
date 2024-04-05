@@ -15,7 +15,7 @@ export function Header() {
 
   return (
     <header>
-      <div className="px-4 sm:px-12">
+      <div className="px-4 sm:px-12 pb-4 border border-white-border">
         <nav className="bg-white dark:bg-gray-900 w-max-ppn">
           <div className=" flex flex-wrap items-center justify-between mx-auto py-4">
             <Link as={RemixLink} href="/">
@@ -117,7 +117,7 @@ export function Header() {
             <SecondaryNav />
           </div>
         ) : (
-          <div className="hidden md:flex justify-end">
+          <div className="hidden md:flex justify-end w-max-ppn">
             <Button
               as={Link}
               href="/login"

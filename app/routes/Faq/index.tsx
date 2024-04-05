@@ -10,9 +10,9 @@ export const meta: MetaFunction = () => {
 
 const Faq = () => {
   return (
-    <div className="flex flex-col gap-3 w-full mx-auto py-10 px-4 lg:px-5 lg:w-[80%]">
+    <div className="flex flex-col gap-3 w-full mx-auto p-4 lg:p-0 lg:w-4/5">
       <div className="flex flex-col gap-3 text-center">
-        <h2 className="text-2xl font-semibold">FAQs</h2>
+        <h2 className="text-2xl md:text-3xl font-bold">FAQs</h2>
         <p className="text-default-500">
           Here are the most frequenty asked questions. We are here to help you, so please feel free
           to{" "}

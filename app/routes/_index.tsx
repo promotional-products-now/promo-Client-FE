@@ -24,7 +24,7 @@ export default function Index() {
   return (
     <>
       <div className="bg-white-bg py-12 px-4 sm:px-12">
-        <div className="flex flex-col md:flex-col lg:flex-row justify-center w-max-ppn overflow-">
+        <div className="flex flex-col md:flex-col lg:flex-row justify-center w-max-ppn">
           <div className="bg-white mr-3 p-4 hidden md:block max-w-64">
             <div aria-label="Link Categories" className="w-full divide-y divide-primary">
               <Listbox aria-label="Categories">
@@ -194,7 +194,6 @@ export default function Index() {
         <ProductSection Icon={GiClothes} title="Mens Wear" />
         <FeaturedProducts sectionlabel="New Arrivals" gridno={5} />
         <ProductSection Icon={FaFemale} title="Womens Wear" showmore />
-        {/* contact */}
         <ContactUs />
         <FullyProtected />
         <BlogSection />
