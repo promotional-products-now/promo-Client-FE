@@ -131,7 +131,7 @@ export function Footer() {
                     <CiLocationOn className="text-primary text-2xl" />
                     <Link
                       href="mailto:sales@promotionalproductsnow.com.au"
-                      className="text-sm font-normal text-gray"
+                      className="text-sm font-normal text-gray line-clamp-2"
                     >
                       sales@promotionalproductsnow.com.au
                     </Link>
