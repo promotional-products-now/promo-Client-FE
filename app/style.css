@@ -10,6 +10,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0 5px;
 }
 
 .swiper-slide img {
@@ -20,8 +23,7 @@
 }
 
 @media only screen and (min-width: 768px) {
-  .swiper-wrapper {
-    margin-left: 1rem;
-    padding-left: 3rem;
+  .swiper-slide {
+    padding: 0 25px;
   }
 }
