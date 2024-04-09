@@ -8,10 +8,10 @@ import ProductSection from "app/components/Home/ProductSection";
 import FeaturedProducts from "app/components/Home/FeaturedProducts";
 import Carousel from "app/components/Carousel";
 import BlogSection from "app/components/Home/BlogSection";
-import FullyProtected from "app/components/Home/FullyProtected";
 import ContactUs from "app/components/Home/Contact-us";
 import { allCategories } from "app/utils/homeAllCategories";
 import { items } from "app/api_dummy";
+import { AppaIcon } from "app/assets/appaIcon";
 
 export const meta: MetaFunction = () => {
   return [
@@ -159,7 +159,7 @@ export default function Index() {
       </div>
 
       <div className="px-4 sm:px-12">
-        <div className="w-max-ppn space-y-8">
+        <div className="w-max-ppn space-y-8 py-4">
           <div className="flex items-center justify-center py-3">
             <span className="text-primary text-center md:text-3xl text-xl font-semibold">
               PROMOTIONAL MERCHANDISE AT GUARANTEED LOWEST PRICES
@@ -167,7 +167,7 @@ export default function Index() {
           </div>
 
           <div className="border-2 border-orange relative md:p-8 py-2 px-5">
-            <div className="h-[32rem] sm:h-[32rem] xl:h-[32rem] 2xl:h-96">
+            <div className="h-[24rem] sm:h-[32rem] xl:h-[32rem] 2xl:h-96">
               <Carousel>
                 {items.map((item, index) => (
                   <div key={index} className="flex flex-row pointer-events-none sm:mx-4">
@@ -188,14 +188,31 @@ export default function Index() {
         </div>
       </div>
 
-      <div className="px-4 md:px-0">
+      <div className="px-4 md:px-0 flex flex-col space-y-20 pb-20 border">
         <ProductSection Icon={PiFirstAidKitLight} title="Health & Fitness" />
         <FeaturedProducts sectionlabel="Featured Products" gridno={10} />
         <ProductSection Icon={GiClothes} title="Mens Wear" />
         <FeaturedProducts sectionlabel="New Arrivals" gridno={5} />
         <ProductSection Icon={FaFemale} title="Womens Wear" showmore />
         <ContactUs />
-        <FullyProtected />
+        <section className="bg-white-bg p-10 ">
+          <div className="mt-4 flex flex-col justify-center items-center gap-4 w-full w-max-ppn">
+            <div className="py-2">
+              <h2 className="font-bold text-2xl text-black capitalize text-center">
+                You are fully protected
+              </h2>
+              <p className=" md:text-lg text-sm text-gray text-center">
+                We are bound by the code of conduct of the Australian Promotional Products
+                Association
+              </p>
+            </div>
+
+            <div className="w-1/2 hidden md:block overflow-hidden px-4">
+              {/* TODO: asset not ready for mobile screens */}
+              <AppaIcon />
+            </div>
+          </div>
+        </section>
         <BlogSection />
       </div>
     </>
