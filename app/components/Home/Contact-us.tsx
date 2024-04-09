@@ -4,8 +4,8 @@ import { FiPhoneCall } from "react-icons/fi";
 
 function ContactUs() {
   return (
-    <section className="lg:px-20 my-20 px-4">
-      <div className="mt-16 w-full flex flex-col justify-center items-center gap-8">
+    <section className="lg:px-20 px-4 w-max-ppn">
+      <div className="m-16 w-full flex flex-col justify-center items-center gap-8 -border border-red-500 container mx-auto md:px-4">
         <h1 className="font-bold text-2xl text-black capitalize text-center">
           We are Promotional Promotional Products Now
         </h1>
