@@ -65,7 +65,7 @@ export const ProductCard = ({
           </div>
         </div>
 
-        <div className="overflow-visible py-2 flex flex-col justify-between space-y-2">
+        <div className="overflow-visible py-2">
           <div className="text-primary capitalize font-semibold text-sm">{title}</div>
           <p className="text-black text-xs">{subtitle}</p>
           <div className="flex flex-row text-sm justify-between">

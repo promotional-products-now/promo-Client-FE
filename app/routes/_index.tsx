@@ -166,11 +166,14 @@ export default function Index() {
             </span>
           </div>
 
-          <div className="border-2 border-orange relative md:p-8 py-2 px-5">
-            <div className="h-[24rem] sm:h-[32rem] xl:h-[32rem] 2xl:h-96">
+          <div className="relative border-2 border-orange md:p-8 py-2 px-5">
+            <div className="bg-white text-orange font-semibold text-lg p-4 absolute top-[-1.65rem]">
+              WHAT'S HOT
+            </div>
+            <div className="">
               <Carousel>
                 {items.map((item, index) => (
-                  <div key={index} className="flex flex-row pointer-events-none sm:mx-4">
+                  <div key={index} className="flex flex-row sm:mx-4">
                     <ProductCard
                       key={index}
                       image={item.image}
