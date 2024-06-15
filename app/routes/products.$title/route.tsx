@@ -43,13 +43,13 @@ export default function Route() {
     <>
       <div className="w-4/5 mx-auto">
         <div className="space-y-6 md:space-y-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-10">
-            <div className="space-y-4 w-full order-2 md:order-1 md:px-6">
-              <div className="space-y-1">
-                <span className="text-lg md:xl font-normal">Memory USB</span>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs">Product Code: pyun67858</span>
-                  <div className="flex items-center space-x-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-3 md:gap-10">
+            <div className=" w-full order-2 md:order-1 md:px-6 flex-col items-center">
+              <div className="w-full text-center">
+                <div className="text-xl md:text-2xl font-semibold text-center">Memory USB</div>
+                <div className="flex items-center w-fit mx-auto gap-4 mb-4">
+                  <div className="text-lg ">Product Code: pyun67858</div>
+                  <div className="flex items-center ">
                     {[1, 2, 3, 4, 5].map((_, i) => (
                       <FaStar key={i} className="text-xs text-orange" />
                     ))}
@@ -74,16 +74,16 @@ export default function Route() {
             <div className="order-1">
               <Image
                 alt=""
-                radius="none"
+                radius="sm"
                 src="https://images.pexels.com/photos/208984/pexels-photo-208984.jpeg"
                 removeWrapper
-                className="object-cover w-full transition aspect-square inset-0"
+                className="object-cover w-full h-96 transition aspect-square inset-0"
               />
             </div>
           </div>
 
           <Form>
-            <div className="bg-gray1 grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-10 p-4">
+            <div className="bg-zinc-50 grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-10 p-4 md:p-8 border border-zinc-200">
               <div className="space-y-4">
                 <div className="flex items-center justify-between w-full flex-wrap space-y-2 md:space-y-0">
                   <span className="text-lg md:text-xl font-bold text-primary">
@@ -144,13 +144,15 @@ export default function Route() {
                     ))}
                   </Select>
                 </div>
-                <Accordion selectionMode="multiple">
+                <Divider />
+
+                <Accordion defaultExpandedKeys={["1", "2", "3"]} selectionMode="multiple">
                   <AccordionItem
                     key="1"
                     aria-label="options"
                     title={
                       <div className="flex items-center space-x-3">
-                        <span className="">Options</span>
+                        <span className="font-medium">Options</span>
                         <Tooltip>
                           <BsInfoCircle className="text-green-600" />
                         </Tooltip>
@@ -172,7 +174,7 @@ export default function Route() {
                     aria-label="accessories"
                     title={
                       <div className="flex items-center space-x-3">
-                        <span className="">Accessories</span>
+                        <span className="font-medium">Accessories</span>
                         <Tooltip>
                           <BsInfoCircle className="text-green-600" />
                         </Tooltip>
@@ -205,7 +207,7 @@ export default function Route() {
                     aria-label="Packaging"
                     title={
                       <div className="flex items-center space-x-3">
-                        <span className="">Packaging</span>
+                        <span className="font-medium">Packaging</span>
                         <Tooltip>
                           <BsInfoCircle className="text-green-600" />
                         </Tooltip>
@@ -222,9 +224,9 @@ export default function Route() {
                   </AccordionItem>
                 </Accordion>
                 <Divider />
-                <div className="bg-white border border-dashed border-orange">
+                <div className="bg-white border-2 border-dashed border-orange">
                   <div className="p-4 space-y-3">
-                    <span className="font-semibold text-sm text-primary">
+                    <span className="font-semibold text-lg text-primary">
                       Important Information
                     </span>
                     <p className="text-xs">
@@ -368,10 +370,10 @@ export default function Route() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-10">
             {cardData.map((dd, i) => (
               <div key={i} className="">
-                <div className="px-8 py-2 border border-primary w-fit">
+                <div className="px-8 py-2 border border-b-0 border-primary w-fit">
                   <span className="text-primary">{dd}</span>
                 </div>
-                <Card className="max-w-[400px] rounded-none border border-primary bg-gray1">
+                <Card shadow="none" className="full rounded-none border border-primary bg-gray1">
                   <CardBody className="px-4 md:px-8 space-y-3">
                     <div className="">
                       <span className="font-semibold text-sm">Description</span>
@@ -409,7 +411,7 @@ export default function Route() {
                   color="primary"
                   radius="full"
                   aria-label="Tabs variants"
-                  className="hidden md:flex flex-wrap"
+                  className="hidden md:flex flex-wrap text-lg font-medium"
                 >
                   <Tab key="latestProducts" title="Latest Products" />
                   <Tab key="trendingProducts" title="Trending Products" />
@@ -432,7 +434,7 @@ export default function Route() {
               </Select>
             </div>
             {/* Use useMemo and change listings according to selected tab and  */}
-            <div className="gap-4 md:gap-8 grid grid-cols- sm:grid-cols-4">
+            <div className="gap-4 md:gap-8 grid grid-cols-2 sm:grid-cols-4">
               {items.slice(1, 5).map((item, index) => (
                 <ProductCardDet product={item} key={index} />
               ))}
