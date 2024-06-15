@@ -4,6 +4,8 @@ export const items = [
     image:
       "https://images.pexels.com/photos/208984/pexels-photo-208984.jpeg?auto=compress&cs=tinysrgb&w=600",
     title: "Sequoias Two Bottle Cooler",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
+
     subtitle:
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
@@ -18,6 +20,8 @@ export const items = [
     image:
       "https://images.pexels.com/photos/208984/pexels-photo-208984.jpeg?auto=compress&cs=tinysrgb&w=600",
     title: "Sequoias Two Bottle Cooler",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
+
     subtitle:
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
@@ -189,6 +193,8 @@ export const blog = [
     title: "The Impact of Artificial Intelligence on Business",
     image:
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
+
     subtitle: "Exploring the role of AI in shaping the future of businesses.",
   },
   {
@@ -196,6 +202,8 @@ export const blog = [
     title: "Unlocking Creativity: A Guide for Aspiring Artists",
     image:
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
+
     subtitle: "Discover tips and tricks to enhance your artistic journey.",
   },
   {
@@ -203,6 +211,8 @@ export const blog = [
     title: "The Science Behind Healthy Eating Habits",
     image:
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
+
     subtitle: "Understanding the nutritional principles for a balanced diet.",
   },
   {
@@ -210,6 +220,8 @@ export const blog = [
     title: "Exploring the Wonders of Space Travel",
     image:
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
+
     subtitle: "A journey into the possibilities and challenges of space exploration.",
   },
   {
@@ -217,6 +229,8 @@ export const blog = [
     title: "The Art of Effective Communication in the Workplace",
     image:
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
+
     subtitle: "Tips for fostering better communication and collaboration at work.",
   },
   {
@@ -224,6 +238,8 @@ export const blog = [
     title: "Green Living: Sustainable Practices for a Better Tomorrow",
     image:
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
+
     subtitle: "Adopting eco-friendly habits for a more sustainable lifestyle.",
   },
   {
@@ -231,6 +247,8 @@ export const blog = [
     title: "Diving into the World of Virtual Reality Gaming",
     image:
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
+
     subtitle: "A closer look at the immersive experience of VR gaming.",
   },
   {
@@ -238,6 +256,8 @@ export const blog = [
     title: "The Evolution of Digital Marketing Strategies",
     image:
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
+
     subtitle: "Analyzing the changing landscape of digital marketing in the modern era.",
   },
   {
@@ -245,6 +265,8 @@ export const blog = [
     title: "Green Living:",
     image:
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
+
     subtitle: "A more sustainable lifestyle.",
   },
   {
@@ -252,6 +274,8 @@ export const blog = [
     title: "Green Living: Sustainable Practices for a Better Tomorrow",
     image:
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
+
     subtitle: "Adopting eco-friendly habits for a more sustainable lifestyle.",
   },
   {
@@ -259,6 +283,8 @@ export const blog = [
     title: "Diving into the World of Virtual Reality Gaming",
     image:
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
+
     subtitle: "A closer look at the immersive experience of VR gaming.",
   },
   {
@@ -266,6 +292,8 @@ export const blog = [
     title: "The Evolution of Digital Marketing Strategies",
     image:
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
+
     subtitle: "Analyzing the changing landscape of digital marketing in the modern era.",
   },
   {
@@ -273,6 +301,8 @@ export const blog = [
     title: "Green Living:",
     image:
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
+
     subtitle: "A more sustainable lifestyle.",
   },
 ];

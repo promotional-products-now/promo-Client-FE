@@ -166,11 +166,11 @@ export default function Index() {
             </span>
           </div>
 
-          <div className="relative border-2 border-orange py-5 sm:py-2 px-2 sm:px-5">
+          <div className="relative border-3 border-orange py-5 sm:py-2 px-2 sm:px-5">
             <div className="bg-white text-orange font-semibold text-lg p-4 absolute top-[-1.65rem]">
               WHAT'S HOT
             </div>
-            <div className="">
+            <div className="md:pt-4">
               <Carousel>
                 {items.map((item, index) => (
                   <div key={index} className="flex flex-row">

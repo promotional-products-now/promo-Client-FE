@@ -3,7 +3,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { MetaFunction } from "@remix-run/node";
 import image from "app/assets/item.png";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
-import { blogPosts } from "app/mock/blogData";
+import { blog as blogPosts } from "app/api_dummy";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Blog" }, { name: "description", content: "" }];

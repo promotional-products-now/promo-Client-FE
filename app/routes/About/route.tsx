@@ -41,10 +41,12 @@ const AboutPage = () => {
             return (
               <div
                 key={item.id}
-                className="flex flex-row p-8 border-1 border-b-blue-500 border-b-blue rounded-sm justify-between"
+                className="flex flex-row p-6 border-b-3 border border-neutral-200 border-b-blue-500 border-b-blue rounded-sm justify-between"
               >
                 <div className="flex flex-col justify-around">
-                  <div className="text-blue-500 font-semibold text-sm text-start">{item.title}</div>
+                  <div className="text-blue-500 font-semibold text-base text-start">
+                    {item.title}
+                  </div>
                   <Link to={`/${item.action}`} className="text-black text-sm">
                     Click here
                   </Link>

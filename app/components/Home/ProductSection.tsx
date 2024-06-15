@@ -110,7 +110,7 @@ const ProductSection = ({ showmore, title, Icon }: ProductSectionProps) => {
         </div>
 
         {showmore && (
-          <div className="flex flex-row gap-2 items-center justify-center md:w-2/6 w-3/4">
+          <div className="flex flex-row gap-2 items-center justify-center mx-auto">
             <Button
               as={Link}
               href="#"
