@@ -166,14 +166,14 @@ export default function Index() {
             </span>
           </div>
 
-          <div className="relative border-2 border-orange md:p-8 py-2 px-5">
+          <div className="relative border-2 border-orange py-5 sm:py-2 px-2 sm:px-5">
             <div className="bg-white text-orange font-semibold text-lg p-4 absolute top-[-1.65rem]">
               WHAT'S HOT
             </div>
             <div className="">
               <Carousel>
                 {items.map((item, index) => (
-                  <div key={index} className="flex flex-row sm:mx-4">
+                  <div key={index} className="flex flex-row">
                     <ProductCard
                       key={index}
                       image={item.image}
@@ -191,7 +191,7 @@ export default function Index() {
         </div>
       </div>
 
-      <div className="px-4 md:px-0 flex flex-col space-y-20 pb-20 border">
+      <div className="px-4 md:px-0 flex flex-col space-y-20 pb-20">
         <ProductSection Icon={PiFirstAidKitLight} title="Health & Fitness" />
         <FeaturedProducts sectionlabel="Featured Products" gridno={10} />
         <ProductSection Icon={GiClothes} title="Mens Wear" />

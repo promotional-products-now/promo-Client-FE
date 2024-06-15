@@ -8,10 +8,10 @@ function BlogSection() {
       <h1 className="font-bold text-2xl text-black capitalize text-center">Our Blog</h1>
       <h3 className="font-semibold text-lg text-gray text-center">Browse Our Latest News</h3>
 
-      <div className="mx-4">
+      <div className="md:mx-4">
         <Carousel numberOfItems={3}>
           {blog.map((item, index) => (
-            <div key={index} className="flex flex-col md:flex-row gap-3 sm:mx-4">
+            <div key={index} className="flex flex-col md:flex-row gap-1 sm:mx-2 md:mx-1">
               <BlogCard title={item.title} subtitle={item.subtitle} image={item.image} />
             </div>
           ))}
