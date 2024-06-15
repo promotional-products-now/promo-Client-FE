@@ -10,20 +10,20 @@ export function ProductCardDet({ product }: { product: ProductCardProps }) {
   return (
     <>
       <Card
-        shadow="sm"
+        shadow="none"
         radius="none"
         isPressable
-        className="col-span-1 cursor-pointer group"
+        className="col-span-1 cursor-pointer group border border-zinc-100"
         onPress={() => console.log("item pressed")}
       >
-        <CardBody className="overflow-visible p-0">
+        <CardBody className="overflow-visible p-0  ">
           <Image
             shadow="sm"
             radius="none"
             width="100%"
             alt={product.title}
             removeWrapper
-            className="w-full object-cover h-full transition"
+            className="w-full object-cover h-60 transition"
             src={product.image}
           />
           <div className="absolute bottom-0 opacity-0 group-hover:opacity-100 transition w-full z-20">
@@ -41,8 +41,8 @@ export function ProductCardDet({ product }: { product: ProductCardProps }) {
 
         <CardFooter className="p-0 flex flex-col items-start justify-start gap-3">
           <div className="p-2 space-y-3 flex flex-col items-start justify-start">
-            <div className="text-primary capitalize font-semibold text-sm">{product.title}</div>
-            <div className="text-black text-xs">{product.subtitle}</div>
+            <div className=" capitalize font-semibold text-sm">{product.title}</div>
+            {/* <div className="text-black text-xs">{product.subtitle}</div> */}
             <div className="flex text-sm justify-between">
               <div className="text-gray-700 flex gap-1">
                 <p className="text-xs">

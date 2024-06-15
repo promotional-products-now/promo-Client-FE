@@ -56,7 +56,7 @@ const FeaturedProducts = ({ sectionlabel, gridno, showmore }: FeaturedProductsPr
                   title={
                     <div
                       onClick={() => setFilterItems(items)}
-                      className="flex items-center text-sm space-x-2"
+                      className="flex items-center text-base font-medium space-x-2"
                     >
                       <span>Trending Products</span>
                     </div>
@@ -67,7 +67,7 @@ const FeaturedProducts = ({ sectionlabel, gridno, showmore }: FeaturedProductsPr
                   title={
                     <div
                       onClick={() => selectFilter("latest")}
-                      className="flex items-center space-x-2"
+                      className="flex items-center text-base font-medium space-x-2"
                     >
                       <span>Latest Products</span>
                     </div>
@@ -78,7 +78,7 @@ const FeaturedProducts = ({ sectionlabel, gridno, showmore }: FeaturedProductsPr
                   title={
                     <div
                       onClick={() => selectFilter("aussie")}
-                      className="flex items-center space-x-2"
+                      className="flex items-center text-base font-medium space-x-2"
                     >
                       <span>Aussie Product</span>
                     </div>
