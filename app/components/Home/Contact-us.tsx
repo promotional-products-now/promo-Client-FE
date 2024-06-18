@@ -10,7 +10,7 @@ function ContactUs() {
           We are Promotional Promotional Products Now
         </h1>
 
-        <div className="flex flex-col gap-5 text-center">
+        <div className="flex flex-col gap-5 text-justify md:text-center">
           {[1, 2, 3].map((_, i) => (
             <p className="text-gray text-base" key={i}>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum hic. Quasi

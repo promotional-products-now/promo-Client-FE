@@ -7,9 +7,19 @@ import { navLinks } from "./navLinks";
 import logo from "app/assets/logo.svg";
 import { FiLogIn } from "react-icons/fi";
 
-export function Header() {
+type HeaderT = {
+  sidebarOpen: string | boolean | undefined;
+  setSidebarOpen: (arg0: boolean) => void;
+};
+
+export function Header(props: HeaderT) {
   const location = useLocation();
   let data = useLoaderData<typeof loader>();
+
+  const handleOpenSidebar = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation();
+    props.setSidebarOpen(!props.sidebarOpen);
+  };
 
   const SALESCONTACT = data.ENV.SALES_CONTACT;
 
@@ -60,6 +70,7 @@ export function Header() {
               <button
                 data-collapse-toggle="navbar-sticky"
                 type="button"
+                onClick={handleOpenSidebar}
                 className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                 aria-controls="navbar-sticky"
                 aria-expanded="false"

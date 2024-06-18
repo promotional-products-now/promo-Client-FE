@@ -14,8 +14,11 @@ import { cssBundleHref } from "@remix-run/css-bundle";
 import { NextUIProvider } from "@nextui-org/react";
 import { Header } from "app/components/Header";
 import { Footer } from "app/components/Footer";
+import { Sidebar } from "app/components/Sidebar";
+
 import stylesheet from "./tailwind.css";
 import SwiperStyle from "./style.css";
+import { useState } from "react";
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
@@ -35,6 +38,7 @@ export const links: LinksFunction = () => [
 export default function App() {
   let data = useLoaderData<typeof loader>();
   const location = useLocation();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
     <html lang="en">
@@ -47,7 +51,9 @@ export default function App() {
       <body>
         <NextUIProvider>
           <div className="flex flex-col justify-between h-screen">
-            <Header />
+            <Header sidebarOpen={isSidebarOpen} setSidebarOpen={setIsSidebarOpen} />
+            <Sidebar sidebarOpen={isSidebarOpen} setSidebarOpen={setIsSidebarOpen} />
+
             <main className="flex-1">
               <div
                 className={`lg:my-6 my-3 ${
