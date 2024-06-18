@@ -32,20 +32,20 @@ const FeaturedProducts = ({ sectionlabel, gridno, showmore }: FeaturedProductsPr
   return (
     <div className="px-4 sm:px-12">
       <div className="mt-16 flex flex-col gap-4 relative pb-20 w-max-ppn">
-        <div className="flex flex-col lg:flex-row md:flex-row justify-between item-center border-b border-gray mb-8 md:p-5 p-1 gap-4">
+        <div className="flex flex-col lg:flex-row md:flex-row justify-between item-center border-b border-gray md:p-5 !pb-0 pt-1 gap-4">
           <div className="flex space-x-3 items-center justify-center">
             <GoVerified size={25} className="text-primary" />
             <span className="text-black text-2xl font-semibold text-center">{sectionlabel}</span>
           </div>
 
-          <div className="flex md:w-7/12 flex-wrap md:flex-nowrap md:gap-6 gap-3 px-2">
+          <div className="flex md:w-7/12 flex-wrap md:flex-nowrap items-start md:gap-6 gap-3 px-2">
             <div className="hidden md:block">
               <Tabs
                 aria-label="Options"
                 color="primary"
                 variant="underlined"
                 classNames={{
-                  tabList: "gap-6 w-full relative rounded-none p-0 border-b border-divider",
+                  tabList: "gap-6 w-full relative rounded-none p-0",
                   cursor: "w-full bg-black",
                   tab: "max-w-fit px-0 h-12",
                   tabContent: "group-data-[selected=true]:text-primary",
@@ -87,10 +87,18 @@ const FeaturedProducts = ({ sectionlabel, gridno, showmore }: FeaturedProductsPr
               </Tabs>
             </div>
 
-            <Select label="Price Low to High" color="default" className="w-full text-center">
-              {options.map((animal) => (
-                <SelectItem key={animal.value} value={animal.value}>
-                  {animal.label}
+            <Select
+              variant="bordered"
+              label="Price Low to High"
+              className="w-40 text-center mb-2"
+              classNames={{
+                trigger: ["border-zinc-100 rounded-md py-1"],
+                label: ["text-sm"],
+              }}
+            >
+              {options.map((filter) => (
+                <SelectItem key={filter.value} value={filter.value}>
+                  {filter.label}
                 </SelectItem>
               ))}
             </Select>
@@ -110,7 +118,6 @@ const FeaturedProducts = ({ sectionlabel, gridno, showmore }: FeaturedProductsPr
             />
           ))}
         </div>
-
         {showmore && (
           <div className="flex flex-row gap-2 items-center justify-center w-2/6 left-[50%] absolute -translate-x-[50%] bottom-0 ">
             <Button

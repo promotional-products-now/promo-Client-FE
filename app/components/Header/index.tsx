@@ -22,14 +22,14 @@ export function Header() {
               <Image src={logo} className="h-12 " />
             </Link>
             <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-              <ul className="hidden lg:flex space-x-8">
+              <ul className="hidden lg:flex space-x-3">
                 <li>
                   <Button
                     as={RemixLink}
                     to="guarantees"
                     variant="ghost"
-                    startContent={<MdOutlineVerified className="text-base text-orange" />}
-                    className="border border-orange rounded"
+                    startContent={<MdOutlineVerified className="text-2xl text-orange" />}
+                    className="border-2 border-orange rounded font-medium px-3"
                   >
                     OUR GUARANTEES
                   </Button>
@@ -39,8 +39,8 @@ export function Header() {
                     as={RemixLink}
                     to={`tel:+${SALESCONTACT}`}
                     variant="ghost"
-                    startContent={<MdOutlineLocalPhone className="text-base text-primary" />}
-                    className="border border-primary rounded"
+                    startContent={<MdOutlineLocalPhone className="text-2xl text-primary" />}
+                    className="border-2 border-primary rounded font-medium px-3"
                   >
                     SALES: {SALESCONTACT}
                   </Button>
@@ -50,8 +50,8 @@ export function Header() {
                     as={RemixLink}
                     to="/cart"
                     variant="ghost"
-                    startContent={<HiOutlineShoppingBag className="text-base" />}
-                    className="border border-primary rounded"
+                    startContent={<HiOutlineShoppingBag className="text-2xl" />}
+                    className="border-2 border-primary rounded font-medium px-3"
                   >
                     VIEW CART
                   </Button>

@@ -26,7 +26,11 @@ export const SearchDropdown = () => {
   return (
     <Popover placement="bottom" backdrop="transparent">
       <PopoverTrigger>
-        <Button isIconOnly variant="faded" className="border-none">
+        <Button
+          isIconOnly
+          variant="light"
+          className=" items-center rounded-none border-r border-r-zinc-200 "
+        >
           <IoIosArrowDown />
         </Button>
       </PopoverTrigger>
@@ -71,7 +75,6 @@ export const SearchDropdown = () => {
                       startContent="$"
                       endContent={<IoIosArrowDown />}
                     />
-
                   </div>
                 </div>
                 <div className="flex w-full max-w-full flex-col gap-2">
