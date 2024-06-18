@@ -1,23 +1,16 @@
-import { json, useLoaderData, useLocation } from "@remix-run/react";
-import { Button, Image, Input, Link } from "@nextui-org/react";
+import { Button, Image, Input } from "@nextui-org/react";
+import { Link } from "@remix-run/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { CiLocationOn, CiMail } from "react-icons/ci";
-import { FiPhoneCall } from "react-icons/fi";
+import { CiMail } from "react-icons/ci";
+import { FaHome, FaShoppingCart, FaUser, FaThList } from "react-icons/fa";
 import logo from "app/assets/logo.svg";
 import { SubscribeSchema } from "app/schema/subscribe.schema";
 import { FooterLinkComp } from "./FooterLinkComp";
 import { aboutLinks, categoryLinks, companyInfo, faqLinks, otherLinks, socialLinks } from "./links";
-
-export async function loader() {
-  return json({ ENV: { SALES_CONTACT: process.env.SALES_CONTACT } });
-}
+import ContactDetails from "./ContactDetails";
 
 export function Footer() {
-  const data = useLoaderData<typeof loader>();
-
-  const SALESCONTACT = data.ENV.SALES_CONTACT;
-
   const {
     handleSubmit,
     register,
@@ -34,120 +27,121 @@ export function Footer() {
 
   return (
     <footer className="bg-white dark:bg-gray-900">
-      <hr className="border-neutral-200 sm:mx-auto dark:border-gray-700" />
+      <div className="hidden md:block">
+        <hr className="border-neutral-200 sm:mx-auto dark:border-gray-700" />
 
-      <div className="w-max-ppn px-4 py-6 lg:py-8 sm:px-12 2xl:px-12 space-y-6 md:space-y-10">
-        <div className="sm:flex sm:items-center sm:justify-between space-y-6 sm:space-y-0 w-full">
-          <h1 className="text-lg md:text-3xl text-black font-semibold">Newsletter</h1>
-          <div className="flex sm:justify-end w-full">
-            <form onSubmit={handleSubmit(onSubmit)} className="w-full sm:w-3/4">
-              <div className="flex items-center w-full border-">
-                <Input
-                  size="sm"
-                  radius="none"
-                  placeholder="Your email address"
-                  startContent={<CiMail className="text-xl" />}
-                  className="rounded-s-[4px] rounded-e-none bg-transparent w-full overflow-hidden"
-                  {...register("email")}
-                  isInvalid={!!errors.email}
-                />
-                <Button
-                  type="submit"
-                  size="lg"
-                  variant="ghost"
-                  className="border-none rounded-s-none rounded-e-[4px] bg-primary text-white"
-                >
-                  Subscribe
-                </Button>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <>
-          <div className="grid gap-8 sm:gap-6 sm:grid-cols-4">
-            <div className="mb-6 md:mb-0 space-y-4">
-              <Link href="/" className="flex items-center">
-                <Image src={logo} className="h-12" />
-              </Link>
-              <div className="space-y-3">
-                {[1, 2].map((_, i) => (
-                  <div key={i}>
-                    <p className="text-sm font-normal text-gray">
-                      Lorem ipsum dolor sit amet consectetur. Dui mattis faucibus mus tristique.
-                      Faucibus molestie faucibus dolor imperdiet urna volutpat.{" "}
-                    </p>
-                  </div>
-                ))}
-              </div>
-              <div className="space-y-4">
-                <h2 className="text-xl text-black font-semibold">Follow Us</h2>
-                <div className="flex items-center space-x-3">
-                  {socialLinks.map((link) => {
-                    const IconTag = link.icon;
-                    return (
-                      <Link href={link.pathname} className="">
-                        <IconTag className="text-primary text-2xl" />
-                      </Link>
-                    );
-                  })}
+        <div className="w-max-ppn px-4 py-6 lg:py-8 sm:px-12 2xl:px-12 space-y-6 md:space-y-10">
+          <div className="sm:flex sm:items-center sm:justify-between space-y-6 sm:space-y-0 w-full">
+            <h1 className="text-lg md:text-3xl text-black font-semibold">Newsletter</h1>
+            <div className="flex sm:justify-end w-full">
+              <form onSubmit={handleSubmit(onSubmit)} className="w-full sm:w-3/4">
+                <div className="flex items-center w-full border-">
+                  <Input
+                    size="sm"
+                    radius="none"
+                    placeholder="Your email address"
+                    startContent={<CiMail className="text-xl" />}
+                    className="rounded-s-[4px] rounded-e-none bg-transparent w-full overflow-hidden"
+                    {...register("email")}
+                    isInvalid={!!errors.email}
+                  />
+                  <Button
+                    type="submit"
+                    size="lg"
+                    variant="ghost"
+                    className="border-none rounded-s-none rounded-e-[4px] bg-primary text-white"
+                  >
+                    Subscribe
+                  </Button>
                 </div>
+              </form>
+            </div>
+          </div>
+
+          <>
+            <div className="grid gap-8 sm:gap-6 sm:grid-cols-4">
+              <div className="mb-6 md:mb-0 space-y-4">
+                <Link to="/" className="flex items-center">
+                  <Image src={logo} className="h-12" />
+                </Link>
+                <div className="space-y-3">
+                  {[1, 2].map((_, i) => (
+                    <div key={i}>
+                      <p className="text-sm font-normal text-gray">
+                        Lorem ipsum dolor sit amet consectetur. Dui mattis faucibus mus tristique.
+                        Faucibus molestie faucibus dolor imperdiet urna volutpat.{" "}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+                <div className="space-y-4">
+                  <h2 className="text-xl text-black font-semibold">Follow Us</h2>
+                  <div className="flex items-center space-x-3">
+                    {socialLinks.map((link) => {
+                      const IconTag = link.icon;
+                      return (
+                        <Link to={link.pathname} className="">
+                          <IconTag className="text-primary text-2xl" />
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+                <p className="text-sm font-normal text-gray">
+                  Copyright 2023 Promotional Products Now
+                </p>
               </div>
-              <p className="text-sm font-normal text-gray">
-                Copyright 2023 Promotional Products Now
-              </p>
-            </div>
 
-            <div className="space-y-6">
-              <FooterLinkComp title="About Us" links={aboutLinks} />
-              <FooterLinkComp title="Compay Information" links={companyInfo} />
-            </div>
+              <div className="space-y-6">
+                <FooterLinkComp title="About Us" links={aboutLinks} />
+                <FooterLinkComp title="Compay Information" links={companyInfo} />
+              </div>
 
-            <div>
-              <FooterLinkComp title="Categories" links={categoryLinks} />
-            </div>
-            <div className="space-y-6">
-              <FooterLinkComp title="Other Information" links={otherLinks} />
-              <FooterLinkComp title="FAQs" links={faqLinks} />
               <div>
-                <h2 className="mb-2 text-xl font-bold text-black dark:text-white">
-                  Contact Details
-                </h2>
-                <div className="">
-                  <div className="flex items-center gap-2 mb-2">
-                    <CiLocationOn className="text-primary text-2xl" />
-                    <h2 className="text-sm font-semibold text-black">SHOWROOM AND OFFICE</h2>
-                  </div>
-                  <div className="">
-                    <p className="text-sm text-gray font-normal">
-                      Upper Floor, Unit 9/8 Ave of the America Newington NSW2127, Australia
-                    </p>
-                    <h2 className="text-sm font-semibold text-black pt-3">POSTAL ADDRESS</h2>
-                    <p className="text-sm text-gray font-normal">
-                      Promotional Products Now Pty Ltd P.O Box 6373 SILVER WATER NSW 2128
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-2 mb-2">
-                    <CiLocationOn className="text-primary text-2xl" />
-                    <Link
-                      href="mailto:sales@promotionalproductsnow.com.au"
-                      className="text-sm font-normal text-gray line-clamp-2"
-                    >
-                      sales@promotionalproductsnow.com.au
-                    </Link>
-                  </div>
-                  <div className="flex items-center gap-4 mb-2">
-                    <FiPhoneCall className="text-primary text-lg" />
-                    <Link href={`tel:+${SALESCONTACT}`} className="text-sm font-normal text-gray">
-                      +{SALESCONTACT}
-                    </Link>
-                  </div>
-                </div>
+                <FooterLinkComp title="Categories" links={categoryLinks} />
+              </div>
+              <div className="space-y-6">
+                <FooterLinkComp title="Other Information" links={otherLinks} />
+                <FooterLinkComp title="FAQs" links={faqLinks} />
+                {/* contact */}
+                <ContactDetails />
               </div>
             </div>
-          </div>
-        </>
+          </>
+        </div>
+      </div>
+      <div className="block md:hidden">
+        <BottomNavigation />
+        gation
       </div>
     </footer>
   );
 }
+
+const BottomNavigation = () => {
+  return (
+    <div className="fixed z-50 bottom-0 left-0 w-full bg-white  text-zinc-600 text-xl shadow-md">
+      <div className="flex justify-around py-2">
+        <Link to="/">
+          <NavItem icon={<FaHome />} label="Home" />
+        </Link>
+        <Link to="#">
+          <NavItem icon={<FaThList />} label="Categories" />
+        </Link>
+        <Link to="/cart">
+          <NavItem icon={<FaShoppingCart />} label="Cart" />
+        </Link>
+        <Link to="/login">
+          <NavItem icon={<FaUser />} label="Account" />
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+const NavItem = ({ icon, label }: any) => (
+  <div className="flex flex-col items-center text-gray-700 hover:text-blue-500">
+    {icon}
+    <span className="text-xs">{label}</span>
+  </div>
+);

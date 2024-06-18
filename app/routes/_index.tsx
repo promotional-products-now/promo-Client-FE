@@ -191,7 +191,7 @@ export default function Index() {
         </div>
       </div>
 
-      <div className="px-4 md:px-0 flex flex-col space-y-20 pb-20">
+      <div className="md:px-0 flex flex-col space-y-20 pb-20">
         <ProductSection Icon={PiFirstAidKitLight} title="Health & Fitness" />
         <FeaturedProducts sectionlabel="Featured Products" gridno={10} />
         <ProductSection Icon={GiClothes} title="Mens Wear" />
