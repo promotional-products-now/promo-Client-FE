@@ -35,12 +35,14 @@ const CartPage = () => {
 
   return (
     <div className="space-y-10">
-      <div className="flex flex-row border-y border-gray md:px-20 px-5 py-3 items-center justify-start cursor-pointer">
-        <Link to={"/"}>
-          <div className="text-gray">Home</div>
-        </Link>
-        <MdOutlineArrowRight size={18} className="text-gray" />
-        <div className="text-base text-primary">Shopping cart</div>
+      <div className="flex flex-row border-b border-white-border md:px-20 px-5 py-4 md:pb-6 md:py-0">
+        <div className="flex flex-row items-center">
+          <Link to="/">
+            <div className="text-gray">Home</div>
+          </Link>
+          <MdOutlineArrowRight size={18} className="text-gray" />
+          <div className="text-base text-primary">Shopping cart</div>
+        </div>
       </div>
 
       <div className="md:px-20 space-y-10">
@@ -87,33 +89,36 @@ const CartPage = () => {
                   <TableCell className="w-96 py-5">
                     <div className="md:flex items-center md:space-x-3">
                       <Image src={item.image} className="object-cover aspect-square w-16 h-full" />
-                      <span className="font-semibold text-sm">{item.title}</span>
+                      <span className="font-semibold text-sm md:text-base">{item.title}</span>
                     </div>
                   </TableCell>
-                  <TableCell className="text-primary text-sm">{item.price}</TableCell>
-                  <TableCell className="text-left text-sm">{item.qunatity}</TableCell>
-                  <TableCell className="text-left font-semibold text-sm">{item.newPrice}</TableCell>
+                  <TableCell className="text-primary text-sm md:text-base">{item.price}</TableCell>
+                  <TableCell className="text-left text-sm md:text-base">{item.qunatity}</TableCell>
+                  <TableCell className="text-left font-semibold text-sm md:text-base">
+                    {item.newPrice}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </div>
 
-        <div className="flex md:flex-row flex-col justify-between md:items-center space-y-4 md:space-y-0">
+        <div className="flex md:flex-row flex-col justify-between md:items-center space-y-4 md:space-y-0 px-4 md:px-0">
           <div className="flex flex-row gap-6 items-center">
             <Input
               type="text"
               radius="none"
               placeholder="Coupon Code"
-              className="border border-black sm:text-sm md:text-xl w-full h-full"
+              className="border border-white-border sm:text-sm md:text-xl w-full h-full"
+              size="sm"
             />
 
             <Button
               as={Link}
               href="#"
-              className=" bg-yellow px-7 py-4 w-full h-full rounded-sm  text-white text-base font-semibold hover:opacity-80 transition text-center capitalize"
+              className=" bg-yellow px-6 py-[0.83rem] w-full h-full rounded-sm  text-white text-base font-semibold hover:opacity-80 transition text-center capitalize"
               size="md"
-              variant="ghost"
+              variant="flat"
             >
               Apply Code{" "}
             </Button>
@@ -123,8 +128,8 @@ const CartPage = () => {
             <Button
               as={Link}
               href=" "
-              className="bg-transparent w-full h-full  px-7 py-4 rounded-sm text-primary text-base font-semibold hover:opacity-80 transition text-center capitalize"
-              size="md"
+              className="bg-transparent w-full h-full px-4 py-3 rounded-sm text-primary text-base font-semibold hover:opacity-80 transition text-center capitalize"
+              size="sm"
               variant="ghost"
             >
               Continue shopping{" "}
@@ -132,7 +137,7 @@ const CartPage = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 justify-start md:w-2/5 w-full space-y-10">
+        <div className="flex flex-col gap-3 justify-start md:w-2/5 w-full space-y-10 px-4 md:px-0">
           <div className="text-2xl font-semibold text-black">Cart Totals</div>
           <div className="flex flex-col space-y-1">
             <div className="flex flex-row justify-between items-center border-t border-t-primary p-3">
@@ -148,10 +153,10 @@ const CartPage = () => {
           </div>
           <Button
             as={Link}
-            href="#"
-            variant="ghost"
-            startContent={<FiArrowRight className="text-base" />}
-            className="bg-green-500 px-8 py-5 w-full h-full rounded-sm text-white flex flex-row gap-5 text-base font-semibold hover:opacity-80 transition text-center capitalize"
+            to="/checkout"
+            variant="flat"
+            startContent={<FiArrowRight className="text-3xl" />}
+            className="bg-green-500 py-4 w-full h-full rounded-sm text-white flex flex-row gap-5 text-base font-semibold hover:opacity-80 transition text-center capitalize"
           >
             PROCEED TO CHECKOUT
           </Button>
