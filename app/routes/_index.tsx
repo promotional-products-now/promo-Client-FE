@@ -161,7 +161,7 @@ export default function Index() {
       <div className="px-4 sm:px-12">
         <div className="w-max-ppn space-y-8 py-4">
           <div className="flex items-center justify-center py-3">
-            <span className="text-primary text-center md:text-3xl text-xl font-semibold">
+            <span className="text-primary text-center md:text-2xl text-xl font-semibold">
               PROMOTIONAL MERCHANDISE AT GUARANTEED LOWEST PRICES
             </span>
           </div>
