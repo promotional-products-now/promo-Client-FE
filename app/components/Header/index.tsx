@@ -28,6 +28,9 @@ export function Header(props: HeaderT) {
       <div className="px-4 sm:px-12 pb-4 border border-white-border">
         <nav className="fixed sm:relative top-0 left-0 right-0 z-50 bg-white dark:bg-gray-900 w-max-ppn">
           <div className=" flex flex-wrap items-center justify-between mx-auto py-4">
+            <Link as={RemixLink} href="/" className="hidden md:block">
+              <Image src={logo} className="h-12 " />
+            </Link>
             <div className="flex gap-3 items-center">
               <button
                 data-collapse-toggle="navbar-sticky"
@@ -102,7 +105,7 @@ export function Header(props: HeaderT) {
                   </Button>
                 </li>
               </ul>
-              <Link as={RemixLink} href="/">
+              <Link as={RemixLink} href="/" className="md:hidden">
                 <Image src={logo} className="h-12 " />
               </Link>
             </div>
