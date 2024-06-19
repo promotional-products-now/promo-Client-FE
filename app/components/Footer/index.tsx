@@ -112,7 +112,6 @@ export function Footer() {
       </div>
       <div className="block md:hidden">
         <BottomNavigation />
-        gation
       </div>
     </footer>
   );
