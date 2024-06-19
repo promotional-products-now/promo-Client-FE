@@ -11,7 +11,7 @@ export const meta: MetaFunction = () => {
   return [{ title: "Contact us" }, { name: "", content: "" }];
 };
 
-const ContactUS = () => {
+export default function ContactUS() {
   const {
     register,
     handleSubmit,
@@ -30,7 +30,7 @@ const ContactUS = () => {
         <div className="flex flex-col gap-5">
           <div className="mb-2">
             <b className="capitalize">give out team a call</b>
-            <p>We are happy to hear how we can help you out.</p>
+            <p>We'd be happy to hear how we can help you out.</p>
           </div>
           {LocationDetails.map((data) => (
             <div key={data.id} className="flex gap-3">
@@ -62,12 +62,12 @@ const ContactUS = () => {
             <span className="text-yellow">Promotional Merchandise at Guaranteed Lowest Prices</span>
           </div>
           <Form method="post">
-            <div className="w-full flex flex-col gap-4">
+            <div className="w-full flex flex-col gap-4 space-y-4">
               <div className="grid grid-cols-1 gap-x-4 gap-y-9 md:grid-cols-2">
                 <Input
                   type="text"
                   variant="underlined"
-                  label="Name"
+                  label="Your Name"
                   {...register("name")}
                   errorMessage={errors?.name?.message}
                 />
@@ -75,21 +75,21 @@ const ContactUS = () => {
                 <Input
                   type="email"
                   variant="underlined"
-                  label="Email"
+                  label="Your Email"
                   {...register("email")}
                   errorMessage={errors?.email?.message}
                 />
                 <Input
                   type="text"
                   variant="underlined"
-                  label="Phone"
+                  label="Your Phone"
                   {...register("phone")}
                   errorMessage={errors?.phone?.message}
                 />
                 <div>
                   <Select
                     variant="underlined"
-                    label="Subject"
+                    label="Your Subject"
                     className="w-full"
                     {...register("subject")}
                     errorMessage={errors?.subject?.message}
@@ -106,7 +106,7 @@ const ContactUS = () => {
               <Textarea
                 variant="underlined"
                 labelPlacement="outside"
-                placeholder="Your Message"
+                placeholder="Message"
                 className="col-span-12 md:col-span-6 mb-6 md:mb-0"
                 {...register("message")}
                 errorMessage={errors?.message?.message}
@@ -114,7 +114,7 @@ const ContactUS = () => {
               <div>
                 <Button
                   color="primary"
-                  className="rounded-sm py-3"
+                  className="rounded-sm py-3 px-6"
                   onClick={handleSubmit(onSubmit)}
                 >
                   Send Message
@@ -126,6 +126,4 @@ const ContactUS = () => {
       </div>
     </div>
   );
-};
-
-export default ContactUS;
+}

@@ -10,7 +10,7 @@ export const meta: MetaFunction = () => {
 
 const Faq = () => {
   return (
-    <div className="flex flex-col gap-3 w-full mx-auto p-4 lg:p-0 lg:w-4/5">
+    <div className="flex flex-col gap-3 w-full mx-auto p-4 lg:p-0 lg:w-4/5 space-y-6">
       <div className="flex flex-col gap-3 text-center">
         <h2 className="text-2xl md:text-3xl font-bold">FAQs</h2>
         <p className="text-default-500">
@@ -22,21 +22,24 @@ const Faq = () => {
         </p>
       </div>
 
-      <div className="flex flex-col gap-2 mt-5">
+      <div className="flex flex-col gap-2">
         <b className="text-left text-yellow">FAQ-Your Artwork and Logo</b>
-        <Accordion showDivider={false}>
+        <Accordion variant="light" showDivider={false}>
           {questions &&
             questions.map((question) => (
               <AccordionItem
                 key={question.id}
-                aria-label={`Accordion ${question.id}`}
+                aria-label={`Accordion-${question.id}`}
                 startContent={
-                  <div className="border border-primary p-1 rounded">
+                  <div className="border-2 border-primary p-1 rounded">
                     <FaQuestion size={10} className="text-primary" />
                   </div>
                 }
                 title={question.title}
                 className="border border-neutral-200 my-2 px-3"
+                classNames={{
+                  title: "font-semibold",
+                }}
               >
                 <div className="border-t border-neutral-200 mb-2"></div>
                 <div className="w-full px-3">
