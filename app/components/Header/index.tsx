@@ -26,11 +26,46 @@ export function Header(props: HeaderT) {
   return (
     <header>
       <div className="px-4 sm:px-12 pb-4 border border-white-border">
-        <nav className="bg-white dark:bg-gray-900 w-max-ppn">
+        <nav className="fixed sm:relative top-0 left-0 right-0 z-50 bg-white dark:bg-gray-900 w-max-ppn">
           <div className=" flex flex-wrap items-center justify-between mx-auto py-4">
-            <Link as={RemixLink} href="/">
-              <Image src={logo} className="h-12 " />
-            </Link>
+            <div className="flex gap-3 items-center">
+              <button
+                data-collapse-toggle="navbar-sticky"
+                type="button"
+                onClick={handleOpenSidebar}
+                className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                aria-controls="navbar-sticky"
+                aria-expanded="false"
+              >
+                <span className="sr-only">Open main menu</span>
+                <svg
+                  className="w-5 h-5"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 17 14"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M1 1h15M1 7h15M1 13h15"
+                  />
+                </svg>
+              </button>
+              <div className="md:hidden">
+                <Button
+                  as={RemixLink}
+                  isIconOnly
+                  to={`tel:+${SALESCONTACT}`}
+                  variant="ghost"
+                  className="border-0  rounded"
+                >
+                  <MdOutlineLocalPhone className="text-2xl text-primary" />
+                </Button>
+              </div>
+            </div>
             <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
               <ul className="hidden lg:flex space-x-3">
                 <li>
@@ -67,31 +102,9 @@ export function Header(props: HeaderT) {
                   </Button>
                 </li>
               </ul>
-              <button
-                data-collapse-toggle="navbar-sticky"
-                type="button"
-                onClick={handleOpenSidebar}
-                className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                aria-controls="navbar-sticky"
-                aria-expanded="false"
-              >
-                <span className="sr-only">Open main menu</span>
-                <svg
-                  className="w-5 h-5"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 17 14"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M1 1h15M1 7h15M1 13h15"
-                  />
-                </svg>
-              </button>
+              <Link as={RemixLink} href="/">
+                <Image src={logo} className="h-12 " />
+              </Link>
             </div>
             <div
               className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
@@ -124,7 +137,7 @@ export function Header(props: HeaderT) {
           </div>
         </nav>
         {location.pathname === "/" ? (
-          <div className="flex justify-self-center mx-auto container bg-white w-max-ppn w-full">
+          <div className="flex justify-self-center mx-auto container bg-white w-max-ppn w-full !mt-20 sm:!mt-auto">
             <SecondaryNav />
           </div>
         ) : (

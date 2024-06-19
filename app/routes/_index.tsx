@@ -12,6 +12,7 @@ import ContactUs from "app/components/Home/Contact-us";
 import { allCategories } from "app/utils/homeAllCategories";
 import { items } from "app/api_dummy";
 import { AppaIcon } from "app/assets/appaIcon";
+import CategoryList from "app/components/CategoryList";
 
 export const meta: MetaFunction = () => {
   return [
@@ -27,26 +28,8 @@ export default function Index() {
         <div className="flex flex-col md:flex-col lg:flex-row justify-center w-max-ppn">
           <div className="bg-white mr-3 p-4 hidden md:block max-w-64">
             <div aria-label="Link Categories" className="w-full divide-y divide-primary">
-              <Listbox aria-label="Categories">
-                {allCategories.map((cat) => (
-                  <ListboxSection
-                    showDivider
-                    key={cat.id}
-                    dividerProps={{
-                      className: " border-b border-primary",
-                    }}
-                  >
-                    <ListboxItem
-                      as={Link}
-                      key={cat.id}
-                      href="#"
-                      className="text-left bg-white mb-1"
-                    >
-                      {cat.category}
-                    </ListboxItem>
-                  </ListboxSection>
-                ))}
-              </Listbox>
+              {/* category */}
+              <CategoryList />
             </div>
           </div>
           <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 bg-lightBlue justify-center items-center p-5">

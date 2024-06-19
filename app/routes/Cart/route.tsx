@@ -34,7 +34,7 @@ const CartPage = () => {
   };
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-10 px-2">
       <div className="flex flex-row border-y border-gray md:px-20 px-5 py-3 items-center justify-start cursor-pointer">
         <Link to={"/"}>
           <div className="text-gray">Home</div>

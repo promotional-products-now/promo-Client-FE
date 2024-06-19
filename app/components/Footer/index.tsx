@@ -125,7 +125,7 @@ const BottomNavigation = () => {
         <Link to="/">
           <NavItem icon={<FaHome />} label="Home" />
         </Link>
-        <Link to="#">
+        <Link to="/category">
           <NavItem icon={<FaThList />} label="Categories" />
         </Link>
         <Link to="/cart">
