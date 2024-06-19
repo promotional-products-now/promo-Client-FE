@@ -56,7 +56,7 @@ export default function App() {
 
             <main className="flex-1">
               <div
-                className={`lg:my-6 my-3 ${
+                className={`lg:my-6 my-3 pb-10 md:pb-0 ${
                   location.pathname !== "/" && "container mx-auto w-max-ppn"
                 }`}
               >
