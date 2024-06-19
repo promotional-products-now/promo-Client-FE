@@ -34,6 +34,15 @@ const CartPage = () => {
   };
 
   return (
+<<<<<<< HEAD
+    <div className="space-y-10 px-2">
+      <div className="flex flex-row border-y border-gray md:px-20 px-5 py-3 items-center justify-start cursor-pointer">
+        <Link to={"/"}>
+          <div className="text-gray">Home</div>
+        </Link>
+        <MdOutlineArrowRight size={18} className="text-gray" />
+        <div className="text-base text-primary">Shopping cart</div>
+=======
     <div className="space-y-10">
       <div className="flex flex-row border-b border-white-border md:px-20 px-5 py-4 md:pb-6 md:py-0">
         <div className="flex flex-row items-center">
@@ -43,6 +52,7 @@ const CartPage = () => {
           <MdOutlineArrowRight size={18} className="text-gray" />
           <div className="text-base text-primary">Shopping cart</div>
         </div>
+>>>>>>> 05f728774f9eaf1e8569403a8d63f729b1d69a55
       </div>
 
       <div className="md:px-20 space-y-10">

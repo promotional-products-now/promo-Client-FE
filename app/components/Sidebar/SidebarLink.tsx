@@ -1,6 +1,6 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { Link } from "@nextui-org/react";
-import { SidebarLinkT } from "./sidebarLinks";
+import { SidebarLinkT } from "./sideBarLinks";
 import { CustomTooltip } from "./CustomTooltip";
 
 type SidebarProps = {
