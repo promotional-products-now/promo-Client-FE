@@ -32,16 +32,18 @@ const Blog = () => {
                     src={image}
                   />
                 </CardBody>
-                <CardFooter className="bg-white-bg flex flex-col gap-2 justify-between text-left px-3">
-                  <h4 className="font-semibold md:text-medium">{post.title}</h4>
-                  <p className="text-default-500 line-clamp-3 ">{post.body}</p>
+                <CardFooter className="bg-white-bg flex flex-col gap-2 justify-between px-4">
+                  <h4 className="font-semibold text-base flex justify-start items-start text-left w-full">
+                    {post.title}
+                  </h4>
+                  <p className="text-default-500 line-clamp-3 text-left">{post.body}</p>
                   <div className="w-full">
                     <Link
                       to={`/blogpost/${post.title}`}
                       className="flex items-center gap-2 text-medium uppercase"
                     >
                       <FaArrowRightLong className="text-primary" />
-                      View article
+                      <span className="font-semibold text-sm">View article</span>
                     </Link>
                   </div>
                 </CardFooter>
