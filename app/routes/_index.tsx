@@ -33,7 +33,7 @@ export default function Index() {
           <div
             aria-label="Link Categories"
             className={` bg-white mr-3 -mt-4 hidden md:block divide-y divide-primary max-w-64 transition-height duration-300 ease-linear  ${
-              !isCategoryOpen ? "h-0 w-0" : " h-[28rem] w-full"
+              !isCategoryOpen ? "h-0 w-0" : "h-[28rem] 2xl:h-full w-full 2xl:min-w-80 "
             } `}
           >
             {/* category */}
@@ -47,7 +47,7 @@ export default function Index() {
             }`}
           >
             <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 bg-lightBlue justify-center items-center p-5">
-              <div className="flex flex-col gap-2 md:gap-3">
+              <div className="flex flex-col gap-2 md:gap-3 ">
                 <h3 className="font-semibold text-sm md:text-base text-white-bg space-y-2">
                   CLOTHING
                 </h3>

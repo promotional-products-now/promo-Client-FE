@@ -14,7 +14,7 @@ export function SecondaryNav() {
       <div className="flex flex-col space-y-3 w-full">
         <div className="flex items-center justify-between space-x-3 w-full">
           <div className="hidden md:flex flex-col space-y-3">
-            <div className=" min-w-64 flex items-center gap-2 text-white bg-primary p-1 font-medium  rounded-none text-sm  rounded-t-md">
+            <div className=" min-w-64 2xl:min-w-80 flex items-center gap-2 text-white bg-primary p-1 font-medium  rounded-none text-sm  rounded-t-md">
               <Button
                 onClick={() => setIsCategoryOpen(!isCategoryOpen)}
                 isIconOnly
