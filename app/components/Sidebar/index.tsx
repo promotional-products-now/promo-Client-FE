@@ -81,7 +81,7 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
       <aside
         ref={sidebarRef}
-        className={`fixed w-4/5 sm:w-[65%] left-0 top-0 z-[1000] flex flex-col items-start justify-start overflow-y-clip bg-[#f5f6fa] transition-transform duration-300 ease-linear dark:bg-dark lg:static lg:translate-x-0 h-screen ${
+        className={`fixed md:hidden w-4/5 sm:w-[65%] left-0 top-0 z-[1000] flex flex-col items-start justify-start overflow-y-clip bg-[#f5f6fa] transition-transform duration-300 ease-linear dark:bg-dark lg:static lg:translate-x-0 h-screen ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }  ${isSnapped ? "animate-sidebar-width-snap " : "animate-sidebar-width-inc"}`}
       >
