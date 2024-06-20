@@ -1,24 +1,29 @@
+import { useAtom } from "jotai";
 import { Link } from "@remix-run/react";
 import { Button, Input } from "@nextui-org/react";
 import { FiLogIn, FiMenu, FiSearch } from "react-icons/fi";
 import { TbTruckDelivery } from "react-icons/tb";
 import { SearchDropdown } from "./SearchDropdown";
+import { isCategoryListOpen } from "app/atoms/category.atom";
 
 export function SecondaryNav() {
+  const [isCategoryOpen, setIsCategoryOpen] = useAtom(isCategoryListOpen);
+
   return (
     <div className="flex justify-between space-x-4 flex-wrap w-full">
       <div className="flex flex-col space-y-3 w-full">
         <div className="flex items-center justify-between space-x-3 w-full">
           <div className="hidden md:flex flex-col space-y-3">
-            <Button
-              size="lg"
-              disabled
-              color="primary"
-              startContent={<FiMenu />}
-              className="w-full font-medium text-sm rounded-none  rounded-t-md"
-            >
+            <div className=" min-w-64 flex items-center gap-2 text-white bg-primary p-1 font-medium  rounded-none text-sm  rounded-t-md">
+              <Button
+                onClick={() => setIsCategoryOpen(!isCategoryOpen)}
+                isIconOnly
+                className="bg-transparent text-lg text-white"
+              >
+                <FiMenu />
+              </Button>{" "}
               All Products Categoeries
-            </Button>
+            </div>
           </div>
           <div className="w-full">
             <form>

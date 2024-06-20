@@ -1,4 +1,5 @@
-import { Button, Image, Link, Listbox, ListboxItem, ListboxSection } from "@nextui-org/react";
+import { useAtom } from "jotai";
+import { Button, Image, Link, ScrollShadow } from "@nextui-org/react";
 import type { MetaFunction } from "@remix-run/node";
 import { GiClothes } from "react-icons/gi";
 import { PiFirstAidKitLight } from "react-icons/pi";
@@ -13,6 +14,7 @@ import { allCategories } from "app/utils/homeAllCategories";
 import { items } from "app/api_dummy";
 import { AppaIcon } from "app/assets/appaIcon";
 import CategoryList from "app/components/CategoryList";
+import { isCategoryListOpen } from "app/atoms/category.atom";
 
 export const meta: MetaFunction = () => {
   return [
@@ -22,119 +24,134 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
+  const [isCategoryOpen, setIsCategoryOpen] = useAtom(isCategoryListOpen);
+
   return (
     <>
-      <div className="bg-white-bg py-12 px-4 sm:px-12">
+      <div className="bg-white-bg pb-12 px-4 sm:px-12">
         <div className="flex flex-col md:flex-col lg:flex-row justify-center w-max-ppn">
-          <div className="bg-white mr-3 p-4 hidden md:block max-w-64">
-            <div aria-label="Link Categories" className="w-full divide-y divide-primary">
-              {/* category */}
+          <div
+            aria-label="Link Categories"
+            className={` bg-white mr-3 -mt-4 hidden md:block divide-y divide-primary max-w-64 transition-height duration-300 ease-linear  ${
+              isCategoryOpen ? "h-0 w-0" : " h-[28rem] w-full"
+            } `}
+          >
+            {/* category */}
+            <ScrollShadow className="w-full h-full ">
               <CategoryList />
-            </div>
+            </ScrollShadow>
           </div>
-          <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 bg-lightBlue justify-center items-center p-5">
-            <div className="flex flex-col gap-2 md:gap-3">
-              <h3 className="font-semibold text-sm md:text-base text-white-bg space-y-2">
-                CLOTHING
-              </h3>
-              <h1 className="font-bold text-lg md:text-2xl text-white-bg capitalize ">
-                Podium Cool Piping Polo Shirt Short Sleeve
-              </h1>
-              <h3 className="text-sm md:text-base text-white-bg font-normal">PRICE RANGE </h3>
-              <h3 className="text-sm md:text-base text-white-bg font-normal">$21.95</h3>
-              <div className="flex flex-col gap-3 justify-start">
-                <Button
-                  as={Link}
-                  href="#"
-                  className="bg-primary w-min p-5 rounded-md  text-white-bg text-base font-semibold hover:opacity-80 transition text-center capitalize"
-                  variant="solid"
-                >
-                  Shop now
-                </Button>
-
-                <Button
-                  as={Link}
-                  href="/#"
-                  className="bg-white-bg w-max p-5 rounded-md  text-black text-base font-semibold hover:opacity-80 transition text-center capitalize"
-                  variant="solid"
-                >
-                  View Collection
-                </Button>
-              </div>
-            </div>
-
-            <div className="object-cover h-full">
-              <Image
-                src="https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=600"
-                radius="none"
-                alt="man-img"
-                removeWrapper
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-
-          <div className="flex flex-col align-center">
-            <div className="bg-lime-100 flex flex-row justify-center items-center gap-1 h-full p-5 flex-1">
-              <div className="flex flex-col gap-3">
-                <h3 className="font-semibold text-sm md:text-base text-primary">
-                  HEALTH & FITNESS
+          <div
+            className={`flex flex-col md:flex-col lg:flex-row justify-center w-max-ppn !m-0 md:p-4 transition-width duration-300 ease-linear ${
+              isCategoryOpen ? "" : "w-full"
+            }`}
+          >
+            <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 bg-lightBlue justify-center items-center p-5">
+              <div className="flex flex-col gap-2 md:gap-3">
+                <h3 className="font-semibold text-sm md:text-base text-white-bg space-y-2">
+                  CLOTHING
                 </h3>
-                <h1 className="font-bold text-lg md:text-2xl text-black capitalize space-y-2">
-                  Champion Fitness Activity Tracker{" "}
+                <h1 className="font-bold text-lg md:text-2xl text-white-bg capitalize ">
+                  Podium Cool Piping Polo Shirt Short Sleeve
                 </h1>
+                <h3 className="text-sm md:text-base text-white-bg font-normal">PRICE RANGE </h3>
+                <h3 className="text-sm md:text-base text-white-bg font-normal">$21.95</h3>
                 <div className="flex flex-col gap-3 justify-start">
                   <Button
                     as={Link}
                     href="#"
-                    className="bg-primary p-5 w-min rounded-md  text-white-bg text-base hover:opacity-80 transition text-center capitalize"
-                    size="md"
+                    className="bg-primary w-min p-5 rounded-md  text-white-bg text-base font-semibold hover:opacity-80 transition text-center capitalize"
                     variant="solid"
                   >
                     Shop now
                   </Button>
-                </div>{" "}
-              </div>
 
-              <Link href="cart" className="w-56 h-36">
-                <Image
-                  src="https://images.pexels.com/photos/437036/pexels-photo-437036.jpeg?auto=compress&cs=tinysrgb&w=600"
-                  alt="man-img"
-                  radius="none"
-                  removeWrapper
-                  className="w-full h-full object-cover"
-                />
-              </Link>
-            </div>
-
-            <div className="bg-primary flex flex-row justify-center items-center gap-5 p-6 flex-1">
-              <div className="w-56 h-36">
-                <Image
-                  src="https://images.pexels.com/photos/842959/pexels-photo-842959.jpeg?auto=compress&cs=tinysrgb&w=600"
-                  height="100"
-                  width="100"
-                  alt="man-img"
-                  radius="none"
-                  removeWrapper
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <h3 className="font-semibold text-sm md:text-base space-y-2 text-white-bg">BAGS</h3>
-                <h1 className="font-bold text-lg md:text-2xl text-white-bg capitalize space-y-2">
-                  Harley Laptop Backpack 152 mm(w) x 127 mm(d){" "}
-                </h1>
-                <div className="flex flex-col gap-3 justify-start ">
                   <Button
                     as={Link}
-                    href="#"
-                    className="bg-white-bg p-5 w-max rounded-md text-black text-base hover:opacity-80 transition text-center capitalize"
-                    size="md"
+                    href="/#"
+                    className="bg-white-bg w-max p-5 rounded-md  text-black text-base font-semibold hover:opacity-80 transition text-center capitalize"
                     variant="solid"
                   >
-                    Shop Now
+                    View Collection
                   </Button>
-                </div>{" "}
+                </div>
+              </div>
+
+              <div className="object-cover h-full">
+                <Image
+                  src="https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=600"
+                  radius="none"
+                  alt="man-img"
+                  removeWrapper
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-col align-center">
+              <div className="bg-lime-100 flex flex-row justify-center items-center gap-1 h-full p-5 flex-1">
+                <div className="flex flex-col gap-3">
+                  <h3 className="font-semibold text-sm md:text-base text-primary">
+                    HEALTH & FITNESS
+                  </h3>
+                  <h1 className="font-bold text-lg md:text-2xl text-black capitalize space-y-2">
+                    Champion Fitness Activity Tracker{" "}
+                  </h1>
+                  <div className="flex flex-col gap-3 justify-start">
+                    <Button
+                      as={Link}
+                      href="#"
+                      className="bg-primary p-5 w-min rounded-md  text-white-bg text-base hover:opacity-80 transition text-center capitalize"
+                      size="md"
+                      variant="solid"
+                    >
+                      Shop now
+                    </Button>
+                  </div>{" "}
+                </div>
+
+                <Link href="cart" className="w-56 h-36">
+                  <Image
+                    src="https://images.pexels.com/photos/437036/pexels-photo-437036.jpeg?auto=compress&cs=tinysrgb&w=600"
+                    alt="man-img"
+                    radius="none"
+                    removeWrapper
+                    className="w-full h-full object-cover"
+                  />
+                </Link>
+              </div>
+
+              <div className="bg-primary flex flex-row justify-center items-center gap-5 p-6 flex-1">
+                <div className="w-56 h-36">
+                  <Image
+                    src="https://images.pexels.com/photos/842959/pexels-photo-842959.jpeg?auto=compress&cs=tinysrgb&w=600"
+                    height="100"
+                    width="100"
+                    alt="man-img"
+                    radius="none"
+                    removeWrapper
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <h3 className="font-semibold text-sm md:text-base space-y-2 text-white-bg">
+                    BAGS
+                  </h3>
+                  <h1 className="font-bold text-lg md:text-2xl text-white-bg capitalize space-y-2">
+                    Harley Laptop Backpack 152 mm(w) x 127 mm(d){" "}
+                  </h1>
+                  <div className="flex flex-col gap-3 justify-start ">
+                    <Button
+                      as={Link}
+                      href="#"
+                      className="bg-white-bg p-5 w-max rounded-md text-black text-base hover:opacity-80 transition text-center capitalize"
+                      size="md"
+                      variant="solid"
+                    >
+                      Shop Now
+                    </Button>
+                  </div>{" "}
+                </div>
               </div>
             </div>
           </div>
