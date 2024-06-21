@@ -66,13 +66,13 @@ export const ProductCard = ({
         </div>
 
         <div className="overflow-visible text-justify py-2">
-          <div className="text-primary capitalize font-semibold text-sm">{title}</div>
-          <p className="text-black text-xs mb-2">{subtitle}</p>
+          <div className="text-primary capitalize font-semibold  2x:text-lg">{title}</div>
+          <p className="text-black text-small mb-2">{subtitle}</p>
           <div className="flex flex-row text-sm justify-between">
             <div className="text-gray-700 flex flex-row gap-1">
-              <span className="text-xs">
-                from <span className="text-orange text-xs">{price}</span> to
-                <span className="text-primary text-xs"> {newPrice}</span>
+              <span className="text-small">
+                from <span className="text-orange text-small">{price}</span> to
+                <span className="text-primary text-small"> {newPrice}</span>
               </span>
             </div>
             <div className="text-xs">{qunatity}</div>

@@ -30,8 +30,8 @@ const FeaturedProducts = ({ sectionlabel, gridno, showmore }: FeaturedProductsPr
   };
 
   return (
-    <div className="px-4 sm:px-12">
-      <div className="mt-16 flex flex-col gap-4 relative pb-20 w-max-ppn">
+    <div className="px-3 md:px-6 lg:px-8 xl:px-12">
+      <div className="mt-16 flex flex-col gap-4 relative pb-20 container mx-auto">
         <div className="flex flex-col lg:flex-row md:flex-row justify-between item-center border-b border-gray md:p-5 !pb-0 pt-1 gap-4">
           <div className="flex space-x-3 items-center justify-center">
             <GoVerified size={25} className="text-primary" />

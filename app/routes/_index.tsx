@@ -28,8 +28,8 @@ export default function Index() {
 
   return (
     <>
-      <div className="bg-white-bg pb-12 px-4 sm:px-12">
-        <div className="flex flex-col md:flex-col lg:flex-row justify-center w-max-ppn">
+      <div className="bg-white-bg pb-12 px-3 md:px-6 lg:px-8 xl:px-12 ">
+        <div className=" container mx-auto flex flex-col md:flex-col lg:flex-row justify-center">
           <div
             aria-label="Link Categories"
             className={` bg-white mr-3 -mt-4 hidden md:block divide-y divide-primary max-w-64 transition-height duration-300 ease-linear  ${
@@ -42,7 +42,7 @@ export default function Index() {
             </ScrollShadow>
           </div>
           <div
-            className={`flex flex-col md:flex-col lg:flex-row justify-center w-max-ppn !m-0 md:p-4 transition-width duration-300 ease-linear ${
+            className={`flex flex-col md:flex-col lg:flex-row justify-center container mx-auto p-3 !m-0 md:px-0 transition-width duration-300 ease-linear ${
               !isCategoryOpen ? "" : "w-full"
             }`}
           >
@@ -158,10 +158,10 @@ export default function Index() {
         </div>
       </div>
 
-      <div className="px-4 sm:px-12">
-        <div className="w-max-ppn space-y-8 py-4">
+      <div className="px-3 md:px-6 lg:px-8 xl:px-12">
+        <div className="container mx-auto space-y-8 py-4">
           <div className="flex items-center justify-center py-3">
-            <span className="text-primary text-center md:text-2xl text-xl font-semibold">
+            <span className="text-primary text-center md:text-2xl text-xl 2xl:text-4xl font-semibold">
               PROMOTIONAL MERCHANDISE AT GUARANTEED LOWEST PRICES
             </span>
           </div>

@@ -24,8 +24,8 @@ export function Header(props: HeaderT) {
   const SALESCONTACT = data.ENV.SALES_CONTACT;
 
   return (
-    <header>
-      <div className="px-4 sm:px-12 pb-4 border md:border-none border-white-border">
+    <header className="border md:border-none border-white-border px-3 md:px-6 lg:px-8 xl:px-12">
+      <div className="container mx-auto pb-4 ">
         <nav className="fixed sm:relative top-0 left-0 right-0 z-50 bg-white dark:bg-gray-900 w-max-ppn">
           <div className=" flex flex-wrap items-center justify-between mx-auto py-4">
             <Link as={RemixLink} href="/" className="hidden md:block">
