@@ -42,7 +42,7 @@ export default function Index() {
             </ScrollShadow>
           </div>
           <div
-            className={`flex flex-col md:flex-col lg:flex-row justify-center container mx-auto p-3 !m-0 md:px-0 transition-width duration-300 ease-linear ${
+            className={`flex flex-col md:flex-col lg:flex-row justify-center container mx-auto p-3 px-0 !m-0 md:px-0 transition-width duration-300 ease-linear ${
               !isCategoryOpen ? "" : "w-full"
             }`}
           >
