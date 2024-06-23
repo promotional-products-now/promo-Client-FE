@@ -25,7 +25,7 @@ interface ProductSectionProps {
 const ProductSection = ({ showmore, title, Icon }: ProductSectionProps) => {
   return (
     <div className="bg-white-bg mt-20 px-3 md:px-6 lg:px-8 xl:px-12">
-      <div className="flex flex-col justify-center items-center container mx-auto">
+      <div className="relative flex flex-col justify-center items-center container mx-auto">
         <div className="md:grid md:grid-cols-[4fr_7fr] py-10 flex flex-col w-full">
           <div className="md:hidden lg:hidden flex flex-row justify-between item-center my-10 p-3 border  border-orange rounded-md">
             <div className="flex flex-row items-center justify-center gap-2 p-4">
@@ -110,18 +110,27 @@ const ProductSection = ({ showmore, title, Icon }: ProductSectionProps) => {
         </div>
 
         {showmore && (
-          <div className="flex flex-row gap-2 items-center justify-center mx-auto">
-            <Button
-              as={Link}
-              href="#"
-              variant="solid"
-              color="primary"
-              startContent={<IoIosArrowDown className="sm:text-2xl lg:text-xl" />}
-              className="bg-primary px-5 py-6 rounded-sm text-white-bg flex flex-row gap-5 text-base font-semibold hover:opacity-80 transition text-center capitalize"
-            >
-              Show more Products{" "}
-            </Button>
-          </div>
+          // position: absolute;
+          // bottom: 0%;
+          // width: 200px;
+          // /* top: 100%; */
+          // left: 50%;
+          // /* z-index: 10000; */
+          // transform: translateY(25px);
+          // <div className="flex flex-row gap-2 items-center justify-center mx-auto absolute bottom-0 w-">
+          <Button
+            as={Link}
+            href="#"
+            variant="solid"
+            color="primary"
+            startContent={<IoIosArrowDown className="sm:text-2xl lg:text-xl" />}
+            className="bg-primary px-5 py-6 rounded-sm text-white-bg flex flex-row gap-5
+             text-base font-semibold hover:opacity-80 transition text-center capitalize
+              absolute bottom-0 left-2/4 translate-y-2/4 -translate-x-2/4"
+          >
+            Show more Products{" "}
+          </Button>
+          // </div>
         )}
       </div>
     </div>

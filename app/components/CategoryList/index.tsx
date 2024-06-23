@@ -1,26 +1,20 @@
-import { Link, Listbox, ListboxItem, ListboxSection } from "@nextui-org/react";
+import { Link, Listbox, ListboxItem } from "@nextui-org/react";
 import { allCategories } from "app/utils/homeAllCategories";
 
 function CategoryList() {
   return (
     <Listbox aria-label="Categories" className="mb-12 w-full text-xs">
       {allCategories.map((cat) => (
-        <ListboxSection
+        <ListboxItem
+          as={Link}
           showDivider
           key={cat.id}
-          dividerProps={{
-            className: " border-b border-primary my-1",
-          }}
+          href="#"
+          className="text-left bg-white text-zinc-800 text-xs md:font-medium"
+          classNames={{ title: " md:font-medium" }}
         >
-          <ListboxItem
-            as={Link}
-            key={cat.id}
-            href="#"
-            className="text-left bg-white text-zinc-800 text-xs px-2"
-          >
-            {cat.category}
-          </ListboxItem>
-        </ListboxSection>
+          {cat.category}
+        </ListboxItem>
       ))}
     </Listbox>
   );
