@@ -110,14 +110,6 @@ const ProductSection = ({ showmore, title, Icon }: ProductSectionProps) => {
         </div>
 
         {showmore && (
-          // position: absolute;
-          // bottom: 0%;
-          // width: 200px;
-          // /* top: 100%; */
-          // left: 50%;
-          // /* z-index: 10000; */
-          // transform: translateY(25px);
-          // <div className="flex flex-row gap-2 items-center justify-center mx-auto absolute bottom-0 w-">
           <Button
             as={Link}
             href="#"
