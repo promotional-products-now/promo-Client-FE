@@ -1,6 +1,8 @@
 import { Link } from "@remix-run/react";
+import { Divider } from "@nextui-org/react";
 import { MdOutlineMailOutline } from "react-icons/md";
-import { LuEye, LuMapPin } from "react-icons/lu";
+import { LuMapPin } from "react-icons/lu";
+import { FaEyeSlash } from "react-icons/fa";
 import { RecentOrderCard } from "app/components/Product/RecentOrderCard";
 import { recentOrders } from "app/mock/recentOrderData";
 
@@ -14,31 +16,34 @@ export default function Detatils(): JSX.Element {
             <h1 className="text-dark text-lg md:text-3xl font-semibold">Alex Martenis</h1>
 
             <div>
+              <Divider className="w-3/4" />
               <div className="flex gap-3 py-3">
                 <MdOutlineMailOutline className="text-primary text-xl" />
                 <div className="space-y-2">
                   <p>alex@marteni@gmail.com</p>
-                  <Link to="#" className="text-base text-yellow">
+                  <Link to="#" className="text-base text-yellow font-semibold">
                     Edit account info
                   </Link>
                 </div>
               </div>
-
+              <Divider className="w-3/4" />
               <div className="flex  gap-3 py-3">
-                <LuEye className="text-primary text-xl" />
+                <FaEyeSlash className="text-primary text-xl" />
                 <div className="space-y-2">
                   <p>*********</p>
-                  <Link to="/change-password" className="text-base text-yellow">
+                  <Link to="/change-password" className="text-base text-yellow font-semibold">
                     Change Password
                   </Link>
                 </div>
               </div>
+              <Divider className="w-3/4" />
               <div className="flex gap-3 py-3">
                 <LuMapPin className="text-primary text-xl" />
                 <div className="space-y-2">
                   <p>Sydney, Australia</p>
                 </div>
               </div>
+              <Divider className="my-4 w-3/4" />
             </div>
           </div>
           <div className="col-span-2">
