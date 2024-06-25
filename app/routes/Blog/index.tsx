@@ -1,7 +1,6 @@
 import { Link } from "@remix-run/react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { MetaFunction } from "@remix-run/node";
-import image from "app/assets/item.png";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import { blog as blogPosts } from "app/api_dummy";
 
