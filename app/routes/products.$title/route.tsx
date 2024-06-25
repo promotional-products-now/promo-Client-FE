@@ -27,6 +27,7 @@ import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { SendPriceModal } from "app/components/Product/SendPriceModal";
 import { ProductCardDet } from "app/components/Product/ProductCardDet";
 import { items } from "app/api_dummy";
+import Carousel from "../../components/Carousel";
 
 const fakeFilter = [
   { label: "Red", value: "red" },
@@ -49,26 +50,28 @@ export default function Route() {
                 <div className="text-xl md:text-2xl font-semibold text-center">Memory USB</div>
                 <div className="flex items-center w-fit mx-auto gap-4 mb-4">
                   <div className="text-lg ">Product Code: pyun67858</div>
-                  <div className="flex items-center ">
-                    {[1, 2, 3, 4, 5].map((_, i) => (
+                  {[1, 2, 3, 4, 5].map((_, i) => (
+                    <div className="flex items-center ">
                       <FaStar key={i} className="text-xs text-orange" />
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-              <div className="flex space-x-2">
-                {[1, 2, 3, 4, 4].map((_, i) => (
-                  <div key={i} className="w-full h-16 relative rounded-sm overflow-hidden">
-                    <Image
-                      alt=""
-                      radius="none"
-                      src="https://images.pexels.com/photos/208984/pexels-photo-208984.jpeg"
-                      removeWrapper
-                      fallbackSrc
-                      className="absolute inset-0 w-full h-full object-cover transition-transform transform-gpu aspect-square"
-                    />
-                  </div>
-                ))}
+              <div className="">
+                <Carousel numberOfItems={3}>
+                  {[1, 2, 3, 4, 4].map((_, i) => (
+                    <div key={i} className="h-24 relative rounded-sm flex items-center">
+                      <Image
+                        alt=""
+                        radius="none"
+                        src="https://images.pexels.com/photos/208984/pexels-photo-208984.jpeg"
+                        removeWrapper
+                        fallbackSrc
+                        className="absolute inset-0 w-full h-full object-cover transition-transform transform-gpu aspect-square border-2 border-gray"
+                      />
+                    </div>
+                  ))}
+                </Carousel>
               </div>
             </div>
             <div className="order-1">
@@ -349,7 +352,7 @@ export default function Route() {
                     <Button
                       variant="bordered"
                       radius="none"
-                      className="bg-white text-primary border-primary"
+                      className="bg-green-500 text-white border-green-500"
                     >
                       Buy Now
                     </Button>
