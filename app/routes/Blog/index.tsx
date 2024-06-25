@@ -22,17 +22,24 @@ const Blog = () => {
           blogPosts.map((post) => (
             <Link to={`/blogpost/${post.title}`} key={post.id}>
               <Card isPressable className="rounded-none shadow-none" radius="sm">
-                <CardBody className="overflow-visible p-0">
+                <CardBody className="overflow-visible p-0 relative">
                   <Image
                     shadow="none"
                     radius="none"
                     width="100%"
                     alt={post.title}
                     className="h-[200px] object-fill lg:h-[180px]"
-                    src={image}
+                    src={post.image}
                   />
+                  <div className="absolute left-0 top-0 w-full h-full z-10">
+                    <div className="flex p-4">
+                      <div className="bg-yellow text-white px-2 py-1 rounded text-sm uppercase">
+                        {post.category}
+                      </div>
+                    </div>
+                  </div>
                 </CardBody>
-                <CardFooter className="bg-white-bg flex flex-col gap-2 justify-between px-4">
+                <CardFooter className="bg-white-bg flex flex-col gap-4 justify-between px-4">
                   <h4 className="font-semibold text-base flex justify-start items-start text-left w-full">
                     {post.title}
                   </h4>
