@@ -104,12 +104,13 @@ const CartPage = () => {
         </div>
 
         <div className="flex md:flex-row flex-col justify-between md:items-center space-y-4 md:space-y-0 px-4 md:px-0">
-          <div className="flex flex-row gap-6 items-center">
+          <div className="grid grid-cols-3 gap-6 items-center">
             <Input
+              variant="flat"
               type="text"
               radius="none"
               placeholder="Coupon Code"
-              className="border border-white-border sm:text-sm md:text-xl w-full h-full"
+              className="border border-white-border sm:text-sm md:text-xl w-full h-full col-span-2"
               size="sm"
             />
 
