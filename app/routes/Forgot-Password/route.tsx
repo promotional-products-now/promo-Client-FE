@@ -18,13 +18,13 @@ export default function ForgotPassword(): JSX.Element {
     <>
       <div className="py-8">
         <div className='space-y-4'>
-          <h1 className='text-2xl md:text-4xl text-dark font-bold text-center'>Forgot your password?</h1>
-          <p className='text-lg md:text-xl text-dark text-center'>Please enter your email you use to login</p>
+          <h1 className='text-2xl md:text-5xl text-dark font-bold text-center'>Forgot your password?</h1>
+          <p className='text-lg md:text-xl text-dark text-center font-semibold'>Please enter the email you use to login</p>
         </div>
         <Form method='post'>
           <div className='py-4 md:py-12 flex flex-col items-center justify-center'>
             <div className='py-2 w-full md:w-1/2'>
-              <p className='text-base md:text-lg text-dark'>EMAIL ADDRESS</p>
+              <p className='text-base md:text-lg text-dark font-semibold'>EMAIL ADDRESS</p>
               <Input type='email'
                 variant='underlined'
                 labelPlacement='outside'

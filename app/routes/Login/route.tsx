@@ -62,7 +62,7 @@ export default function Login(): JSX.Element {
                     type="submit"
                     variant="solid"
                     color="primary"
-                    className="font-bold w-full"
+                    className="font-semibold w-full"
                     size="lg"
                     radius="none"
                     onClick={handleSubmit(onSubmit)}
