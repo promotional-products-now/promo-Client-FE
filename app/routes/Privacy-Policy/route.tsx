@@ -8,7 +8,7 @@ export default function Privacy(): JSX.Element {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-center text-black text-2xl font-medium">Privacy Policy</h1>
+      <h1 className="text-center text-black text-3xl md:text-4xl font-bold">Privacy Policy</h1>
       <div className="flex flex-col gap-3 w-full mx-auto py-4 lg:py-10 lg:px-5 lg:w-4/5">
         <Legal content={content} />
       </div>
