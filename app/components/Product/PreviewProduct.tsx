@@ -71,9 +71,6 @@ export function PreviewProduct({
                   >
                     View Product
                   </Button>
-                  <Button as={Link} radius="none" className="bg-white text-primary">
-                    Buy Now
-                  </Button>
                 </div>
               </div>
             </div>
