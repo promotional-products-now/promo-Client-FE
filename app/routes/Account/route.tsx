@@ -1,48 +1,57 @@
-import { Link } from "@remix-run/react";
+import { Link, MetaFunction } from "@remix-run/react";
+import { Divider } from "@nextui-org/react";
 import { MdOutlineMailOutline } from "react-icons/md";
-import { LuEye, LuMapPin } from "react-icons/lu";
+import { LuMapPin } from "react-icons/lu";
+import { FaEyeSlash } from "react-icons/fa";
 import { RecentOrderCard } from "app/components/Product/RecentOrderCard";
 import { recentOrders } from "app/mock/recentOrderData";
+
+export const meta: MetaFunction = () => {
+  return [{ title: "Details" }, { name: "", content: "" }];
+};
 
 export default function Detatils(): JSX.Element {
   return (
     <>
       <div className="py-4 md:py-8 space-y-8">
-        <h1 className="text-2xl md:text-3xl text-dark  text-center">Account Details</h1>
+        <h1 className="text-2xl md:text-3xl text-dark  text-center font-bold">Account Details</h1>
         <div className="grid  grid-cols-1  md:grid-cols-3  gap-4 py-4 px-2 md:px-6 w-full md:w-5/6 mx-auto">
           <div className="space-y-4">
-            <h1 className="text-dark text-lg md:text-xl font-medium">Alex Martenis</h1>
+            <h1 className="text-dark text-lg md:text-xl  xl:text-3xl font-semibold">Alex Martenis</h1>
 
             <div>
+              <Divider className="w-3/4" />
               <div className="flex gap-3 py-3">
                 <MdOutlineMailOutline className="text-primary text-xl" />
                 <div className="space-y-2">
                   <p>alex@marteni@gmail.com</p>
-                  <Link to="#" className="text-base text-yellow">
+                  <Link to="#" className="text-base text-yellow font-semibold">
                     Edit account info
                   </Link>
                 </div>
               </div>
-
+              <Divider className="w-3/4" />
               <div className="flex  gap-3 py-3">
-                <LuEye className="text-primary text-xl" />
+                <FaEyeSlash className="text-primary text-xl" />
                 <div className="space-y-2">
                   <p>*********</p>
-                  <Link to="/change-password" className="text-base text-yellow">
+                  <Link to="/change-password" className="text-base text-yellow font-semibold">
                     Change Password
                   </Link>
                 </div>
               </div>
+              <Divider className="w-3/4" />
               <div className="flex gap-3 py-3">
                 <LuMapPin className="text-primary text-xl" />
                 <div className="space-y-2">
                   <p>Sydney, Australia</p>
                 </div>
               </div>
+              <Divider className="my-4 w-3/4" />
             </div>
           </div>
           <div className="col-span-2">
-            <h1 className="text-dark text-lg md:text-xl">Your Recent Orders</h1>
+            <h1 className="text-dark text-lg md:text-xl xl:text-2xl font-semibold">Your Recent Orders</h1>
             <hr className="text-lightGray mt-4  h-4 w-full" />
             <div>
               {recentOrders.map((orders) => (

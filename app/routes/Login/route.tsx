@@ -1,10 +1,13 @@
 import React from 'react'
-import { Link, Form } from "@remix-run/react";
+import { Link, Form, MetaFunction } from "@remix-run/react";
 import { Input, Button, Checkbox, Divider } from "@nextui-org/react";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LoginSchema } from 'app/schema/login.schema';
 
+export const meta: MetaFunction = () => {
+  return [{ title: "Login" }, { name: "", content: "" }];
+};
 
 export default function Login(): JSX.Element {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginSchema>({
@@ -18,10 +21,10 @@ export default function Login(): JSX.Element {
   return (
     <div>
       <div className="py-4 md:py-8">
-        <h1 className="text-3xl md:text-4xl text-dark  font-bold text-center">
+        <h1 className="text-2xl md:text-3xl text-dark  font-bold text-center">
           Login your account
         </h1>
-        <p className="mt-4 text-base text-dark text-center">Fill your account details below</p>
+        <p className="mt-4 text-lg font-semibold text-dark text-center">Fill your account details below</p>
 
         <div className="flex flex-col justify-center items-center px-6">
           <div className="md:px-2 py-6  w-full md:w-2/5">
@@ -35,7 +38,7 @@ export default function Login(): JSX.Element {
                     labelPlacement="outside"
                     size="lg"
                     placeholder="Your Email"
-                    className="w-full text-base text-dark font-bold"
+                    className="w-full text-base text-dark font-semibold"
                     color="primary"
                     {...register("email")}
                     errorMessage={errors?.email?.message}
@@ -50,7 +53,7 @@ export default function Login(): JSX.Element {
                     labelPlacement="outside"
                     size="lg"
                     placeholder="Your Password"
-                    className="w-full text-base text-dark font-bold"
+                    className="w-full text-base text-dark font-semibold"
                     color="primary"
                     {...register("password")}
                     errorMessage={errors?.password?.message}
@@ -62,7 +65,7 @@ export default function Login(): JSX.Element {
                     type="submit"
                     variant="solid"
                     color="primary"
-                    className="font-bold w-full"
+                    className="font-semibold w-full"
                     size="lg"
                     radius="none"
                     onClick={handleSubmit(onSubmit)}
