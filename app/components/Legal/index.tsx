@@ -37,7 +37,7 @@ const H1: FC<HeadingI> = ({ children }) => {
     typeof children === "string" ? stringConverter(children.toString()) : undefined;
 
   return (
-    <h1 id={id} className="text-primary text-2xl md:text-3xl py-2" ref={headingRef}>
+    <h1 id={id} className="text-primary text-2xl md:text-3xl py-2 font-semibold" ref={headingRef}>
       <a href={`#${id}`} onClick={handleClick}>
         {children}
       </a>
@@ -50,7 +50,7 @@ const H2: FC<HeadingI> = ({ children }) => {
   const id = typeof children === "string" ? stringConverter(children.toString()) : undefined;
 
   return (
-    <h2 id={id} className="text-primary text-xl py-2" ref={headingRef}>
+    <h2 id={id} className="text-primary text-xl py-2 font-semibold" ref={headingRef}>
       <a href={`#${id}`} onClick={handleClick}>
         {children}
       </a>
@@ -64,7 +64,7 @@ const H3: FC<HeadingI> = ({ children }) => {
     typeof children === "string" ? stringConverter(children.toString()) : undefined;
 
   return (
-    <h3 id={id} className="text-primary text-lg" ref={headingRef}>
+    <h3 id={id} className="text-primary text-lg font-semibold" ref={headingRef}>
       <a href={`#${id}`} onClick={handleClick}>
         {children}
       </a>
