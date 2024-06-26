@@ -1,9 +1,12 @@
 import { Input, Button, Divider } from '@nextui-org/react'
-import { Form, Link } from '@remix-run/react'
+import { Form, Link, MetaFunction } from '@remix-run/react'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ForgotPasswordSchema } from 'app/schema/forgotPassword.schema'
 
+export const meta: MetaFunction = () => {
+  return [{ title: "Forgot Password" }, { name: "", content: "" }];
+};
 
 export default function ForgotPassword(): JSX.Element {
   const { register, handleSubmit, formState: { errors } } = useForm<ForgotPasswordSchema>({
@@ -18,7 +21,7 @@ export default function ForgotPassword(): JSX.Element {
     <>
       <div className="py-8">
         <div className='space-y-4'>
-          <h1 className='text-2xl md:text-4xl xl:text-5xl text-dark font-bold text-center'>Forgot your password?</h1>
+          <h1 className='text-2xl md:text-3xl text-dark font-bold text-center'>Forgot your password?</h1>
           <p className='text-lg md:text-xl text-dark text-center font-semibold'>Please enter the email you use to login</p>
         </div>
         <div className='w-full'>

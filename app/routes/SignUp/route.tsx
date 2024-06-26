@@ -1,9 +1,13 @@
 import { Input, Button, Select, SelectItem } from "@nextui-org/react";
-import { Link, Form } from "@remix-run/react";
+import { Link, Form, MetaFunction } from "@remix-run/react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SignUpSchema } from "app/schema/signup.schema";
 import { statesData, cityData } from "app/mock/signUpData";
+
+export const meta: MetaFunction = () => {
+  return [{ title: "SignUp" }, { name: "", content: "" }];
+};
 
 export default function SignUp(): JSX.Element {
   const {
@@ -22,7 +26,7 @@ export default function SignUp(): JSX.Element {
     <>
       <div className="py-8">
         <div className="space-y-4 px-2">
-          <h1 className="text-xl md:text-4xl xl:text-5xl text-dark font-bold text-center">
+          <h1 className="text-2xl md:text-3xl text-dark font-bold text-center">
             Welcome to Promotional Products Now
           </h1>
           <div>
