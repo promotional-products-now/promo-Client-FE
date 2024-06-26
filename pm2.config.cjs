@@ -2,7 +2,9 @@ module.exports = {
   apps: [
     {
       name: "promo_fe_prd",
-      script: "./build/index.js",
+      // script: "./server.cjs",
+      script: "npm",
+      args: "start",
       // Options reference: https://pm2.keymetrics.io/docs/usage/application-declaration/
       instances: "max",
       autorestart: true,
@@ -18,6 +20,10 @@ module.exports = {
       listen_timeout: 10000,
       source_map_support: true,
       node_args: ["--trace-warnings", "--enable-source-maps"],
+      env: {
+        NODE_ENV: "production",
+        RUNTIME_ENV: "production",
+      },
     },
     {
       name: "promo_fe_stg",
