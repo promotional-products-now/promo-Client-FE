@@ -9,10 +9,10 @@ export default {
   },
   ignoredRouteFiles: ["**/*.css"],
   publicPath: "/build/",
-  routes(defineRoutes) {
-    return defineRoutes((route) => {
-      route("/somewhere/cool/*", "catchall.tsx");
-    });
-  },
+  // routes(defineRoutes) {
+  //   return defineRoutes((route) => {
+  //     route("/somewhere/cool/*", "catchall.tsx");
+  //   });
+  // },
   serverBuildPath: "build/index.js",
 };
