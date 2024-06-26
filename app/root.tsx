@@ -58,8 +58,8 @@ export default function App() {
               <div
                 className={`pb-10 md:pb-0 ${
                   location.pathname !== "/"
-                    ? "container mx-auto lg:my-6 my-3 "
-                    : "lg:mb-6 mb-3  mx-auto"
+                    ? "container mx-auto lg:my-6 my-10 py-4"
+                    : "lg:mb-6 mb-3 mx-auto"
                 }`}
               >
                 <Outlet />
