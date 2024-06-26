@@ -24,7 +24,7 @@ export default function ChangePassword(): JSX.Element {
     <>
       <div className='py-8'>
         <div className='space-y-4'>
-          <h1 className='text-2xl md:text-5xl text-dark font-bold text-center'>Change Password</h1>
+          <h1 className='text-2xl md:text-4xl xl:text-5xl text-dark font-bold text-center'>Change Password</h1>
         </div>
         <Form method='post'>
           <div className='py-4 md:py-12 flex flex-col items-center justify-center'>

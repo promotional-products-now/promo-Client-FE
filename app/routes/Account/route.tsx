@@ -10,10 +10,10 @@ export default function Detatils(): JSX.Element {
   return (
     <>
       <div className="py-4 md:py-8 space-y-8">
-        <h1 className="text-2xl md:text-5xl text-dark  text-center font-bold">Account Details</h1>
+        <h1 className="text-2xl  md:text-2xl xl:text-5xl text-dark  text-center font-bold">Account Details</h1>
         <div className="grid  grid-cols-1  md:grid-cols-3  gap-4 py-4 px-2 md:px-6 w-full md:w-5/6 mx-auto">
           <div className="space-y-4">
-            <h1 className="text-dark text-lg md:text-3xl font-semibold">Alex Martenis</h1>
+            <h1 className="text-dark text-lg md:text-xl  xl:text-3xl font-semibold">Alex Martenis</h1>
 
             <div>
               <Divider className="w-3/4" />
@@ -47,7 +47,7 @@ export default function Detatils(): JSX.Element {
             </div>
           </div>
           <div className="col-span-2">
-            <h1 className="text-dark text-lg md:text-2xl font-semibold">Your Recent Orders</h1>
+            <h1 className="text-dark text-lg md:text-xl xl:text-2xl font-semibold">Your Recent Orders</h1>
             <hr className="text-lightGray mt-4  h-4 w-full" />
             <div>
               {recentOrders.map((orders) => (

@@ -22,7 +22,7 @@ export default function SignUp(): JSX.Element {
     <>
       <div className="py-8">
         <div className="space-y-4 px-2">
-          <h1 className="text-xl md:text-5xl text-dark font-bold text-center">
+          <h1 className="text-xl md:text-4xl xl:text-5xl text-dark font-bold text-center">
             Welcome to Promotional Products Now
           </h1>
           <div>

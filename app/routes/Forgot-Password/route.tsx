@@ -18,7 +18,7 @@ export default function ForgotPassword(): JSX.Element {
     <>
       <div className="py-8">
         <div className='space-y-4'>
-          <h1 className='text-2xl md:text-5xl text-dark font-bold text-center'>Forgot your password?</h1>
+          <h1 className='text-2xl md:text-4xl xl:text-5xl text-dark font-bold text-center'>Forgot your password?</h1>
           <p className='text-lg md:text-xl text-dark text-center font-semibold'>Please enter the email you use to login</p>
         </div>
         <div className='w-full'>

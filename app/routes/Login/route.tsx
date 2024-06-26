@@ -18,7 +18,7 @@ export default function Login(): JSX.Element {
   return (
     <div>
       <div className="py-4 md:py-8">
-        <h1 className="text-3xl md:text-5xl text-dark  font-bold text-center">
+        <h1 className="text-3xl md:text-4xl xl:text-5xl text-dark  font-bold text-center">
           Login your account
         </h1>
         <p className="mt-4 text-lg font-semibold text-dark text-center">Fill your account details below</p>
