@@ -12,6 +12,7 @@ import { useAtomValue } from "jotai";
 import { FaStar } from "react-icons/fa6";
 import { productAtom } from "app/atoms/product.atom";
 import { BsCart3 } from "react-icons/bs";
+import Carousel from "../Carousel";
 
 export function PreviewProduct({
   isOpen,
@@ -32,7 +33,7 @@ export function PreviewProduct({
               <div className="flex items-center space-x-4">
                 <span className="text-xs">Product Code: pyun67858</span>
                 {[1, 2, 3, 4, 5].map((_, i) => (
-                  <FaStar key={i} className="text-xs" />
+                  <FaStar key={i} className="text-xs text-orange" />
                 ))}
               </div>
             </div>
@@ -71,26 +72,27 @@ export function PreviewProduct({
                   >
                     View Product
                   </Button>
-                  <Button as={Link} radius="none" className="bg-white text-primary">
-                    Buy Now
-                  </Button>
                 </div>
               </div>
             </div>
           </ModalBody>
-          <ModalFooter className="justify-center">
-            <div className="flex space-x-2">
-              {[1, 2, 3, 4, 4].map((_, i) => (
-                <Image
-                  key={i}
-                  alt=""
-                  radius="none"
-                  src="https://images.pexels.com/photos/208984/pexels-photo-208984.jpeg"
-                  removeWrapper
-                  width={40}
-                  className="object-cover transition aspect-square inset-0"
-                />
-              ))}
+          <ModalFooter className="justify-center border- border-red-600">
+            <div className="border- relative w-3/5">
+              <Carousel numberOfItems={3}>
+                {[1, 2, 3, 4, 4].map((_, i) => (
+                  <div key={i} className="h-24 relative rounded-sm flex items-center">
+                    <Image
+                      alt=""
+                      radius="md"
+                      src="https://images.pexels.com/photos/208984/pexels-photo-208984.jpeg"
+                      removeWrapper
+                      width={40}
+                      // className="object-cover transition aspect-square inset-0"
+                      className="absolute inset-0 h-full object-cover transition-transform transform-gpu aspect-square border-2 border-slate-500"
+                    />
+                  </div>
+                ))}
+              </Carousel>
             </div>
           </ModalFooter>
         </>

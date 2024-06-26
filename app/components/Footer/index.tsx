@@ -28,7 +28,7 @@ export function Footer() {
   return (
     <footer className="bg-white dark:bg-gray-900 border border-neutral-200 dark:border-gray-700">
       <div className="hidden md:block px-3 md:px-6 lg:px-8 xl:px-12 py-6">
-        <div className="container mx-auto  lg:py-8 space-y-6 md:space-y-10">
+        <div className="container mx-auto md:w-11/12 lg:py-8 space-y-6 md:space-y-10">
           <div className="sm:flex sm:items-center sm:justify-between space-y-6 sm:space-y-0 w-full">
             <h1 className="text-lg md:text-3xl text-black font-semibold">Newsletter</h1>
             <div className="flex sm:justify-end w-full">
@@ -37,6 +37,7 @@ export function Footer() {
                   <Input
                     size="sm"
                     radius="none"
+                    variant="bordered"
                     placeholder="Your email address"
                     startContent={<CiMail className="text-xl" />}
                     className="rounded-s-[4px] rounded-e-none bg-transparent w-full overflow-hidden"
@@ -65,7 +66,7 @@ export function Footer() {
                 <div className="space-y-3">
                   {[1, 2].map((_, i) => (
                     <div key={i}>
-                      <p className="text-sm font-normal text-gray">
+                      <p className="text-xs font-normal text-gray">
                         Lorem ipsum dolor sit amet consectetur. Dui mattis faucibus mus tristique.
                         Faucibus molestie faucibus dolor imperdiet urna volutpat.{" "}
                       </p>
@@ -73,7 +74,7 @@ export function Footer() {
                   ))}
                 </div>
                 <div className="space-y-4">
-                  <h2 className="text-xl text-black font-semibold">Follow Us</h2>
+                  <h2 className="text-lg text-black font-semibold">Follow Us</h2>
                   <div className="flex items-center space-x-3">
                     {socialLinks.map((link) => {
                       const IconTag = link.icon;
@@ -85,7 +86,7 @@ export function Footer() {
                     })}
                   </div>
                 </div>
-                <p className="text-sm font-normal text-gray">
+                <p className="text-xs font-normal text-gray">
                   Copyright 2023 Promotional Products Now
                 </p>
               </div>
