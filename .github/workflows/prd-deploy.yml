@@ -1,0 +1,69 @@
+name: 'Build and Deploy to production environment'
+on:
+  push:
+    tags:
+      # https://github.community/t/how-to-run-github-actions-workflow-only-for-new-tags/16075/31
+      # v0.5.1
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+      # rc0.5.1+4 
+      - 'v\d+\.\d+\.\d+\+\d+'
+jobs:
+  deploy_to_production:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: (::PRODUCTION::) SSH to host 
+        uses: appleboy/ssh-action@v1.0.3
+        env:
+          WORKING_DIR: '/srv/promo_fe_prd'
+          GIT_URL: 'git@github.com:promotional-products-now/promo-Client-FE.git'
+          NODE_VERSION: '20.12.0'
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          port: ${{ secrets.SERVER_PORT }}
+          key: ${{secrets.SERVICE_ACCOUNT_SSH_KEY }}
+          envs: WORKING_DIR,NODE_VERSION,GIT_URL
+          script: |
+            # This packages are required
+            # If any of this commands are not found
+            # the script will exit with status 1
+            #
+            echo "$(node -v)   <-- node version"
+            echo "$(npm -v)    <-- npm  version"
+            echo "$(pm2 -v)    <-- npm  version"
+
+
+            if [ ! -d "$WORKING_DIR" ]
+            then
+              git clone "$GIT_URL" "$WORKING_DIR"
+            fi
+            
+            node -v
+            npm -v
+            
+            cd "$WORKING_DIR"
+           
+            echo "*** Getting production tag ***"
+            git reset --hard
+            git fetch --all --tags
+            tag=$(git describe --tags --match="v[0-9]*" `git rev-list --tags --max-count=1`)
+            echo $tag
+            echo "*** Checkout out to $tag as $tag-branch ***"
+            git checkout $tag -b "$tag-branch"
+            
+            echo "**** Seting Doppler Token to $WORKING_DIR ****"
+            
+            export HISTIGNORE='doppler*'
+            echo ${{ secrets.DOPPLER_KEY_PRD }} | doppler configure set token --scope "$WORKING_DIR"
+            
+            doppler secrets get DOPPLER_ENVIRONMENT DOPPLER_PROJECT DOPPLER_CONFIG 
+
+
+            echo "**** Running npm install in $WORKING_DIR ****"
+            
+            npm install --legacy-peer-deps
+            
+            echo "**** Starting Service with PM2 ****"
+            npm run reload:pm2:prd
