@@ -196,6 +196,7 @@ export const blog = [
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
     subtitle: "Exploring the role of AI in shaping the future of businesses.",
+    category: "businesses",
   },
   {
     id: "1",
@@ -205,6 +206,7 @@ export const blog = [
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
     subtitle: "Discover tips and tricks to enhance your artistic journey.",
+    category: "creativity",
   },
   {
     id: "2",
@@ -214,6 +216,7 @@ export const blog = [
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
     subtitle: "Understanding the nutritional principles for a balanced diet.",
+    category: "habits",
   },
   {
     id: "3",
@@ -223,6 +226,7 @@ export const blog = [
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
     subtitle: "A journey into the possibilities and challenges of space exploration.",
+    category: "travel",
   },
   {
     id: "4",
@@ -232,6 +236,7 @@ export const blog = [
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
     subtitle: "Tips for fostering better communication and collaboration at work.",
+    category: "communication",
   },
   {
     id: "5",
@@ -241,6 +246,7 @@ export const blog = [
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
     subtitle: "Adopting eco-friendly habits for a more sustainable lifestyle.",
+    category: "lifestyle",
   },
   {
     id: "6",
@@ -250,6 +256,7 @@ export const blog = [
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
     subtitle: "A closer look at the immersive experience of VR gaming.",
+    category: "gaming",
   },
   {
     id: "7",
@@ -259,6 +266,7 @@ export const blog = [
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
     subtitle: "Analyzing the changing landscape of digital marketing in the modern era.",
+    category: "marketing",
   },
   {
     id: "8",
@@ -268,6 +276,7 @@ export const blog = [
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
     subtitle: "A more sustainable lifestyle.",
+    category: "lifestyle",
   },
   {
     id: "9",
@@ -277,6 +286,7 @@ export const blog = [
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
     subtitle: "Adopting eco-friendly habits for a more sustainable lifestyle.",
+    category: "lifestyle",
   },
   {
     id: "10",
@@ -286,6 +296,7 @@ export const blog = [
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
     subtitle: "A closer look at the immersive experience of VR gaming.",
+    category: "gaming",
   },
   {
     id: "11",
@@ -295,6 +306,7 @@ export const blog = [
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
     subtitle: "Analyzing the changing landscape of digital marketing in the modern era.",
+    category: "marketing",
   },
   {
     id: "12",
@@ -304,6 +316,7 @@ export const blog = [
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
     subtitle: "A more sustainable lifestyle.",
+    category: "lifestyle",
   },
 ];
 
