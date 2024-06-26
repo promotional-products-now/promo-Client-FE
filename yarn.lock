@@ -2803,7 +2803,7 @@
   resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.17.0.tgz#fbb0add487478ef42247d5942e7a5d8a2e20095f"
   integrity sha512-2D6XaHEVvkCn682XBnipbJjgZUU7xjLtA4dGJRBVUKpEaDYOZMENZoZjAOSb7qirxt5RupjzZxz4fK2FO+EFPw==
 
-"@remix-run/serve@^2.10.0":
+"@remix-run/serve@^2.6.0":
   version "2.10.0"
   resolved "https://registry.yarnpkg.com/@remix-run/serve/-/serve-2.10.0.tgz#cb5c077154900b22983a1f40db538d8f97984bc2"
   integrity sha512-JOF2x8HwXo4G5hOqKEUEG7Xm2ZYYL0kZJcWdJVIQxaRN/EmbmJCKGLcW21rZ6VZ/FqpEkSnwmiGFoDkPQ9q6lg==

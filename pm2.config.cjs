@@ -2,7 +2,9 @@ module.exports = {
   apps: [
     {
       name: "promo_fe_prd",
-      script: "./server.cjs",
+      // script: "./server.cjs",
+      script: "npm",
+      args: "start",
       // Options reference: https://pm2.keymetrics.io/docs/usage/application-declaration/
       instances: "max",
       autorestart: true,
