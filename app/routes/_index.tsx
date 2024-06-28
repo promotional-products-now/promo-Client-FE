@@ -8,13 +8,12 @@ import { ProductCard } from "app/components/Product/ProductCard";
 import ProductSection from "app/components/Home/ProductSection";
 import FeaturedProducts from "app/components/Home/FeaturedProducts";
 import Carousel from "app/components/Carousel";
-import BlogSection from "app/components/Home/BlogSection";
 import ContactUs from "app/components/Home/Contact-us";
-import { allCategories } from "app/utils/homeAllCategories";
-import { items } from "app/api_dummy";
 import { AppaIcon } from "app/assets/appaIcon";
 import CategoryList from "app/components/CategoryList";
 import { isCategoryListOpen } from "app/atoms/category.atom";
+import { BlogCard } from "app/components/Blog/BlogCard";
+import { blog, items } from "app/api_dummy";
 
 export const meta: MetaFunction = () => {
   return [
@@ -216,7 +215,27 @@ export default function Index() {
             </div>
           </div>
         </section>
-        <BlogSection />
+        <section className="mb-20 md:px-20 w-full flex flex-col gap-2 md:space-y-6 w-max-ppn">
+          <h1 className="font-bold text-2xl text-black capitalize text-center">Our Blog</h1>
+          <h3 className="font-semibold text-lg text-gray text-center">Browse Our Latest News</h3>
+
+          <div className="md:mx-4">
+            <Carousel numberOfItems={3}>
+              {blog.map((item) => (
+                <div key={item.id} className="flex flex-col md:flex-row gap-1 sm:mx-2 md:mx-1">
+                  <BlogCard
+                    title={item.title}
+                    subtitle={item.subtitle}
+                    image={item.image}
+                    id={item.id}
+                    category={item.category}
+                    body={item.body}
+                  />
+                </div>
+              ))}
+            </Carousel>
+          </div>
+        </section>
       </div>
     </>
   );
