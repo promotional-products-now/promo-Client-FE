@@ -26,7 +26,7 @@ export default function ForgotPassword(): JSX.Element {
         </div>
         <div className='w-full'>
         <Form method='post'>
-          <div className='py-4 md:py-12 flex flex-col items-center justify-center'>
+            <div className='py-4 md:py-12 px-6 flex flex-col items-center justify-center'>
             <div className='py-2 w-full md:w-1/2'>
               <p className='text-base md:text-lg text-dark font-semibold'>EMAIL ADDRESS</p>
               <Input type='email'
