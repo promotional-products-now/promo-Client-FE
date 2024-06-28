@@ -1,13 +1,10 @@
-import { Image } from "@nextui-org/react";
-import { Link, Form, useLoaderData } from "@remix-run/react";
-import { Button, Input, Textarea } from "@nextui-org/react";
-import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
+import { Link, Form, MetaFunction, useLoaderData } from "@remix-run/react";
+import { Button, Image, Input, Tabs, Tab, Textarea } from "@nextui-org/react";
 import { BiUser, BiChat, BiSearch } from "react-icons/bi";
-import { MetaFunction } from "@remix-run/react";
 import { FaArrowRightLong } from "react-icons/fa6";
-import { socialIcons } from "app/contents/blogSocialHandles";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { socialIcons } from "app/contents/blogSocialHandles";
 import { CommentSchema } from "app/schema/comment.schema";
 import { blog as blogs } from "app/api_dummy";
 
@@ -52,29 +49,51 @@ export default function BlogPost() {
           <div className="flex flex-col gap-10 my-5">
             <h2 className="font-bold text-2xl text-black md:text-3xl">{post && post.title}</h2>
 
-            <div className="flex w-full gap-6">
-              <div className="flex items-center gap-3">
-                <div className="border p-1">
-                  <BiChat size={20} />
-                </div>
-                <p>0 Comments</p>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <div className="border p-1">
-                  <BiUser size={20} />
-                </div>
-                <div>
-                  <p>By Admin</p>
-                  <span>23/10/2024</span>
-                </div>
-              </div>
+            <div className="flex w-full flex-col gap-6">
+              <Tabs
+                variant="underlined"
+                aria-label="Tabs variants"
+                classNames={{
+                  tabList: "gap-8 w-full relative rounded-none p-0 border-b border-divider",
+                  cursor: "w-full bg-primary h-1",
+                  tab: "max-w-fit px-0 h-12",
+                }}
+              >
+                <Tab
+                  key="photos"
+                  title={
+                    <div className="flex items-center gap-3 mb-1">
+                      <div className="border p-1">
+                        <BiChat size={20} />
+                      </div>
+                      <p>0 Comments</p>
+                    </div>
+                  }
+                >
+                  <div>
+                    <span>No comments</span>
+                  </div>
+                </Tab>
+                <Tab
+                  key="music"
+                  title={
+                    <div className="flex items-center gap-3 mb-1">
+                      <div className="border p-1">
+                        <BiUser size={20} />
+                      </div>
+                      <div>
+                        <p>By Admin</p>
+                        <span>23/10/2024</span>
+                      </div>
+                    </div>
+                  }
+                >
+                  <div>
+                    <span>Admin comments Here</span>
+                  </div>
+                </Tab>
+              </Tabs>
             </div>
-          </div>
-
-          <div className="relative my-4">
-            <div className="w-[100px] border border-primary border-b-4 h-0 top-0 -translate-y-2/4 absolute"></div>
-            <div className="border border-lightGray"></div>
           </div>
         </div>
 
