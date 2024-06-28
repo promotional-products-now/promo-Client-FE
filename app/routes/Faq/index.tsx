@@ -28,7 +28,7 @@ const Faq = () => {
       </div>
 
       <div className="flex flex-col gap-2 p-4 md:p-0">
-        <b className="text-left text-yellow">FAQ-Your Artwork and Logo</b>
+        <b className="text-left text-yellow ml-2">FAQ-Your Artwork and Logo</b>
         <Accordion variant="light" showDivider={false}>
           {questions &&
             questions.map((question) => (
