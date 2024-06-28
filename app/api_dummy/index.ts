@@ -209,6 +209,16 @@ export const blog = [
     category: "creativity",
   },
   {
+    id: "001",
+    title: "Unlocking Creativity: A Guide for Aspiring Artists",
+    image:
+      "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
+
+    subtitle: "Discover tips and tricks to enhance your artistic journey.",
+    category: "creativity",
+  },
+  {
     id: "2",
     title: "The Science Behind Healthy Eating Habits",
     image:
@@ -220,6 +230,16 @@ export const blog = [
   },
   {
     id: "3",
+    title: "Exploring the Wonders of Space Travel",
+    image:
+      "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
+
+    subtitle: "A journey into the possibilities and challenges of space exploration.",
+    category: "travel",
+  },
+  {
+    id: "30",
     title: "Exploring the Wonders of Space Travel",
     image:
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
@@ -289,6 +309,16 @@ export const blog = [
     category: "lifestyle",
   },
   {
+    id: "102",
+    title: "Green Living:",
+    image:
+      "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
+
+    subtitle: "A more sustainable lifestyle.",
+    category: "lifestyle",
+  },
+  {
     id: "10",
     title: "Diving into the World of Virtual Reality Gaming",
     image:
@@ -297,6 +327,16 @@ export const blog = [
 
     subtitle: "A closer look at the immersive experience of VR gaming.",
     category: "gaming",
+  },
+  {
+    id: "01",
+    title: "The Impact of Artificial Intelligence on Business",
+    image:
+      "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
+
+    subtitle: "Exploring the role of AI in shaping the future of businesses.",
+    category: "businesses",
   },
   {
     id: "11",
