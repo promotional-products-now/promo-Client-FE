@@ -9,34 +9,21 @@ import { socialIcons } from "app/contents/blogSocialHandles";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CommentSchema } from "app/schema/comment.schema";
-import { blog } from "app/api_dummy";
+import { blog as blogs } from "app/api_dummy";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Blog Post" }, { name: "", content: "" }];
 };
 
-export async function loader({ params }: { params: { title: string } }) {
-  const post = blog.find((item) => item.title == params.title);
-  console.log({ title: params.title, post });
-  // Handle Not Found Error here
-  // if (!post) throw Error("Post not found");
+export async function loader({ params }: { params: { id: string } }) {
+  const post = blogs.find((item) => item.id == params.id);
 
   const data = { post };
   return data;
 }
 
-type BlogPost = {
-  id: number;
-  image: string;
-  title: string;
-  subtitle: string;
-  body: string;
-};
-
-const SingleBlog = () => {
+export default function BlogPost() {
   const { post } = useLoaderData<typeof loader>();
-
-  console.log({ post });
 
   const {
     register,
@@ -202,7 +189,7 @@ const SingleBlog = () => {
             <div className="border-b border-gray shadow-sm pb-4"></div>
           </div>
           <div className="flex flex-col gap-6">
-            {blog.map(
+            {blogs.map(
               (post, index) =>
                 index < 3 && (
                   <div className="flex items-center gap-3">
@@ -233,6 +220,4 @@ const SingleBlog = () => {
       </div>
     </div>
   );
-};
-
-export default SingleBlog;
+}
