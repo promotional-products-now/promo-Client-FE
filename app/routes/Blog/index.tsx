@@ -11,8 +11,8 @@ export const meta: MetaFunction = () => {
 
 const Blog = () => {
   return (
-    <div className="flex flex-col gap-10 w-full mx-auto p-4 lg:p-0 lg:w-4/5">
-      <div className="flex flex-col gap-1 text-center ">
+    <div className="flex flex-col gap-8 w-full mx-auto p-4 lg:p-0 lg:w-4/5">
+      <div className="flex flex-col gap-1 text-center pt-16 md:pt-0">
         <h2 className="text-2xl md:text-3xl font-bold">Our Blog</h2>
         <h3 className="text-default-500">Browse our latest news</h3>
       </div>
