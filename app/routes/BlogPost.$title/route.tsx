@@ -51,7 +51,7 @@ const SingleBlog = () => {
   };
 
   return (
-    <div className="w-full flex flex-wrap text-gray gap-10 mx-auto px-3 py-10 md:px-0 md:flex-nowrap md:w-5/6">
+    <div className="w-full flex flex-wrap text-gray gap-5 md:gap-10 mx-auto px-3 py-10 md:px-0 md:flex-nowrap md:w-5/6">
       <div className="w-full flex flex-col gap-5 md:w-2/3">
         <div>
           <Image
@@ -115,8 +115,8 @@ const SingleBlog = () => {
           <div className="w-full border"></div>
         </div>
 
-        <Form method="post" className="bg-zinc-50 p-5 my-5 flex flex-col gap-8">
-          <div className="text-black">
+        <Form method="post" className="bg-gray1 p-5 my-5 flex flex-col md:gap-8 py-10 md:py-5">
+          <div className="text-black mb-3 md:mb-0">
             <h2 className="font-bold text-2xl">Leave your reply</h2>
             <p className="text-sm">
               Your emaila ddress will not be published. Required fields are marked
@@ -126,6 +126,7 @@ const SingleBlog = () => {
             variant="underlined"
             labelPlacement="outside"
             placeholder="Comment"
+            classNames={{ innerWrapper: "h-32 md:h-fit" }}
             className="bg-white col-span-12 md:col-span-6 mb-6 md:mb-0"
             {...register("comment")}
             errorMessage={errors?.comment?.message}
@@ -149,21 +150,21 @@ const SingleBlog = () => {
             />
             <Input type="text" variant="underlined" label="Website" className="bg-white" />
           </div>
-          <div>
+          <div className="mt-8 md:pt-0">
             <Button
               color="default"
               radius="none"
-              className="bg-primary text-white py-3"
+              className="w-full md:w-fit bg-primary text-white py-3"
               onClick={handleSubmit(onSubmit)}
             >
-              Leave your comment
+              <p className="text-start">Leave your comment</p>
             </Button>
           </div>
         </Form>
       </div>
 
       <div className="w-full text-black flex flex-col gap-8 md:w-1/3">
-        <div className="w-full bg-zinc-50  px-5 py-8 flex flex-col gap-4">
+        <div className="w-full bg-gray1 px-5 py-8 flex flex-col gap-4">
           <div className="flex gap-2 items-center font-medium text-lg">
             <FaArrowRightLong />
             SEARCH
@@ -173,14 +174,14 @@ const SingleBlog = () => {
               type="text"
               radius="none"
               label="Search blog here"
-              className=" py-0 pl-2 h-[50px] border border-r-0 bg-white"
+              className=" py-0 pl-2 w-full h-[50px] border border-r-0"
             />
             <button className="bg-primary py-2 px-3 flex items-center justify-center">
               <BiSearch size={20} color="white" />
             </button>
           </div>
         </div>
-        <div className="w-full bg-zinc-50 px-5 py-8 flex flex-col gap-4 [&_p]:text-sm">
+        <div className="w-full bg-gray1 px-5 py-8 flex flex-col gap-4 [&_p]:text-sm">
           <div className="flex gap-2 items-center border-b pb-4 font-medium text-lg">
             <FaArrowRightLong />
             BLOG CATEGORY
@@ -193,7 +194,7 @@ const SingleBlog = () => {
           </div>
           <div className="pb-4 text-lg border-zinc-300 text-zinc-700">Tips & Tricks (7)</div>
         </div>
-        <div className="w-full bg-zinc-50  px-5 py-8 flex flex-col gap-4">
+        <div className="w-full bg-gray1  px-5 py-8 flex flex-col gap-4">
           <div>
             <div className="flex gap-2 items-center font-medium text-lg">
               <FaArrowRightLong />
