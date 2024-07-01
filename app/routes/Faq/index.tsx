@@ -10,20 +10,25 @@ export const meta: MetaFunction = () => {
 
 const Faq = () => {
   return (
-    <div className="flex flex-col gap-3 w-full mx-auto p-4 lg:p-0 lg:w-4/5 space-y-6">
-      <div className="flex flex-col gap-3 text-center">
+    <div className="flex flex-col gap-3 w-full mx-auto md:w-4/5 space-y-6">
+      <div className="flex flex-col gap-3 text-center pt-16 md:pt-0">
         <h2 className="text-2xl md:text-3xl font-bold">FAQs</h2>
-        <p className="text-default-500">
-          Here are the most frequenty asked questions. We are here to help you, so please feel free
-          to{" "}
-          <Link to="/contact" className="text-yellow font-semibold text-yellow-400 cursor-pointer">
-            Contact us
-          </Link>
-        </p>
+        <div className="px-2 md:px-0">
+          <p className="text-default-500 text-sm md:text-base">
+            Here are the most frequenty asked questions. We are here to help you, so please feel
+            free to{" "}
+            <Link
+              to="/contact"
+              className="text-yellow font-semibold text-yellow-400 cursor-pointer"
+            >
+              Contact us
+            </Link>
+          </p>
+        </div>
       </div>
 
-      <div className="flex flex-col gap-2">
-        <b className="text-left text-yellow">FAQ-Your Artwork and Logo</b>
+      <div className="flex flex-col gap-2 p-4 md:p-0">
+        <b className="text-left text-yellow ml-2">FAQ-Your Artwork and Logo</b>
         <Accordion variant="light" showDivider={false}>
           {questions &&
             questions.map((question) => (

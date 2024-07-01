@@ -25,11 +25,11 @@ export default function ContactUS() {
   };
   return (
     <div className="flex flex-col justify-center items-center mx-auto p-4 lg:p-0 lg:w-4/5">
-      <h2 className="text-2xl md:text-3xl font-bold">Contact us</h2>
-      <div className="grid grid-cols-1 gap-5 py-10 [&_p]:text-sm [&_p]:text-gray lg:grid-cols-3">
-        <div className="flex flex-col gap-5">
-          <div className="mb-2">
-            <b className="capitalize">give out team a call</b>
+      <h2 className="text-2xl md:text-3xl font-bold hidden md:block">Contact us</h2>
+      <div className="flex flex-col-reverse md:flex-row gap-12 md:gap-10 py-10 [&_p]:text-sm [&_p]:text-gray">
+        <div className="w-full md:w-4/12 flex flex-col gap-8 md:gap-5">
+          <div className="text-center md:text-start flex md:block flex-col gap-0.5">
+            <b className="capitalize mb-2 md:mb-0">give out team a call</b>
             <p>We'd be happy to hear how we can help you out.</p>
           </div>
           {LocationDetails.map((data) => (
@@ -53,13 +53,16 @@ export default function ContactUS() {
             </div>
           ))}
         </div>
-        <div className="col-span-2">
-          <div className="flex flex-col justify-between lg:flex-row">
-            <div>
+        <div className="w-full md:w-8/12">
+          <div className="flex flex-col justify-between lg:flex-row text-center md:text-start">
+            <div className="flex md:block mb-2 md:mb-0 flex-col gap-3">
+              <h2 className="text-2xl md:text-3xl font-bold block md:hidden">Contact us</h2>
               <b className="capitalize">How can we help you?</b>
               <p>Fill your information below to contact us</p>
             </div>
-            <span className="text-yellow">Promotional Merchandise at Guaranteed Lowest Prices</span>
+            <span className="hidden md:block text-yellow">
+              Promotional Merchandise at Guaranteed Lowest Prices
+            </span>
           </div>
           <Form method="post">
             <div className="w-full flex flex-col gap-4 space-y-4">
@@ -108,13 +111,14 @@ export default function ContactUS() {
                 labelPlacement="outside"
                 placeholder="Message"
                 className="col-span-12 md:col-span-6 mb-6 md:mb-0"
+                classNames={{ innerWrapper: "h-40 md:h-fit" }}
                 {...register("message")}
                 errorMessage={errors?.message?.message}
               />
-              <div>
+              <div className="">
                 <Button
                   color="primary"
-                  className="rounded-sm py-3 px-6"
+                  className="w-full md:w-fit rounded-sm py-3 px-6"
                   onClick={handleSubmit(onSubmit)}
                 >
                   Send Message

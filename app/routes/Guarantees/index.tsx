@@ -4,7 +4,7 @@ import { guarantees } from "app/contents/guarantees";
 const Guarantees = () => {
   return (
     <div className="flex flex-col gap-10 w-full p-4 lg:p-0 mx-auto md:w-4/5">
-      <div className="flex flex-col gap-2 text-center ">
+      <div className="flex flex-col gap-2 text-center pt-10 md:pt-0">
         <h2 className="text-2xl md:text-3xl font-bold">Our Guarantees</h2>
         <p className="text-gray text-medium">
           Here's a 5 Rock Solid Guarantees to give you peace of mind and confidence that your
@@ -12,11 +12,13 @@ const Guarantees = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2">
-        {guarantees.map((guarantee) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 border md:border-0 border-neutral-200">
+        {guarantees.map((guarantee, index) => (
           <div
             key={guarantee.id}
-            className="flex flex-col gap-3 py-3 px-3 border border-neutral-100 md:px-5"
+            className={`flex flex-col gap-3 py-4 px-3 md:border border-neutral-200 md:border-neutral-100 md:px-5 ${
+              index % 1 == 0 && "border-t"
+            }`}
           >
             <div className="flex flex-col items-center space-y-2 lg:block">
               <div className="lg:hidden">
@@ -24,7 +26,9 @@ const Guarantees = () => {
               </div>
               <div className="text-center md:text-left">
                 <p className="text-sm md:text-lg font-semibold text-primary">{guarantee.title}</p>
-                <p className="text-yellow text-sm md:text-lg font-normal">{guarantee.subTitle}</p>
+                <p className="text-yellow md:text-lg font-normal mt-2 md:mt-0">
+                  {guarantee.subTitle}
+                </p>
               </div>
             </div>
             <div className="flex gap-5">

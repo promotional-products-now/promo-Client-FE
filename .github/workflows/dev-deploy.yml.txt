@@ -1,0 +1,62 @@
+name: 'Build and Deploy to Development environment'
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy_to_development:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: (::DEVELOPMENT::) SSH to host(s) 
+        uses: appleboy/ssh-action@v1.0.3
+        env:
+          WORKING_DIR: '/srv/promo_fe_dev'
+          GIT_URL: 'git@github.com:promotional-products-now/promo-Client-FE.git'
+          NODE_VERSION: '20.12.0'
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          port: ${{ secrets.SERVER_PORT }}
+          key: ${{secrets.SERVICE_ACCOUNT_SSH_KEY }}
+          envs: WORKING_DIR,NODE_VERSION,GIT_URL
+          script: |
+            # This packages are required
+            # If any of this commands are not found
+            # the script will exit with status 1
+            #
+            echo "$(node -v)   <-- node version"
+            echo "$(npm -v)    <-- npm  version"
+            echo "$(pm2 -v)    <-- pm2  version"
+
+            if [ ! -d "$WORKING_DIR" ]
+            then
+              git clone "$GIT_URL" "$WORKING_DIR"
+            fi
+            
+            node -v
+            npm -v
+            
+            cd "$WORKING_DIR"
+           
+            echo "*** Getting git tag ***"
+            git reset --hard
+
+            git pull origin main
+
+            git checkout main
+
+            echo "**** Seting Doppler Token to $WORKING_DIR ****"
+            
+            export HISTIGNORE='doppler*'
+            echo ${{ secrets.DOPPLER_KEY_DEV }} | doppler configure set token --scope "$WORKING_DIR"
+
+            doppler secrets get DOPPLER_ENVIRONMENT DOPPLER_PROJECT DOPPLER_CONFIG 
+
+            echo "**** Running npm install in $WORKING_DIR ****"
+            
+            npm install --legacy-peer-deps
+            
+            echo "**** Starting Service with PM2 ****"
+            npm run reload:pm2:dev
