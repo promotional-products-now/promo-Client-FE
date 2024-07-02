@@ -24,7 +24,7 @@ export const SearchDropdown = () => {
   const [values, setValues] = useState<Selection>(new Set(["price", "lowest"]));
 
   return (
-    <Popover placement="bottom" backdrop="transparent">
+    <Popover placement="bottom-start" backdrop="transparent">
       <PopoverTrigger>
         <Button
           isIconOnly
@@ -37,7 +37,7 @@ export const SearchDropdown = () => {
       <PopoverContent className="p-1">
         <Card shadow="none" radius="none" className=" border-none bg-transparent">
           <CardBody className="p-3">
-            <div className="flex flex-col md:flex-row space-x-4">
+            <div className="flex flex-col md:flex-row space-x-4 max-w-[45rem]">
               <div className="space-y-4 p-4">
                 <div className="space-y-1">
                   <Input
@@ -99,12 +99,12 @@ export const SearchDropdown = () => {
                   </Button>
                 </div>
               </div>
-              <div className="space-y-4 p-4">
+              <div className="space-y-4 p-4 ">
                 <h3 className="text-lg font-semibold">Search by Colours</h3>
                 <span className="text-sm text-gray font-normal">
                   Select one or more colours to highlight products available
                 </span>
-                <div className="grid grid-cols-4 gap-3 bg-slate-100 p-4">
+                <div className="grid grid-cols-4 gap-2 w-full bg-zinc-100 p-4">
                   {colors.map((c, i) => (
                     <Button
                       isIconOnly
