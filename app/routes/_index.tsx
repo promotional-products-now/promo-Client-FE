@@ -172,7 +172,7 @@ export default function Index() {
             <div className="bg-white text-orange font-semibold text-lg p-4 absolute top-[-1.65rem]">
               WHAT'S HOT
             </div>
-            <div className="md:pt-4">
+            <div className="md:pt-8">
               <Carousel>
                 {items.map((item, index) => (
                   <div key={index} className="flex flex-row">

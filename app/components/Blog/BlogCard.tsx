@@ -10,8 +10,8 @@ interface BlogCardProps {
 
 const BlogCard = ({ image, title, subtitle }: BlogCardProps) => {
   return (
-    <Link to={`/blogpost/${title}`}>
-      <div className="cursor-pointer group h-[23rem] overflow-hidden bg-white-bg">
+    <Link to={`/blogpost/${title}`} className="w-full">
+      <div className="cursor-pointer group h-[23rem] w-full overflow-hidden bg-white-bg">
         <div className="w-full h-52 relative overflow-hidden p-0">
           <Image
             alt={title}

@@ -40,7 +40,7 @@ export function Footer() {
                     variant="bordered"
                     placeholder="Your email address"
                     startContent={<CiMail className="text-xl" />}
-                    className="rounded-s-[4px] rounded-e-none bg-transparent w-full overflow-hidden"
+                    className="rounded-s-[4px] h-12 rounded-e-none bg-transparent w-full overflow-hidden"
                     {...register("email")}
                     isInvalid={!!errors.email}
                   />

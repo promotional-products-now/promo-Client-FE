@@ -15,7 +15,7 @@ export default function Carousel({
 
   return (
     <div className="relative">
-      <div className="px-1 md:px-6 relative">
+      <div className="px-1 md:px-12 relative">
         <Swiper
           onSwiper={(swiper) => (swiperRef.current = swiper)}
           navigation={{
