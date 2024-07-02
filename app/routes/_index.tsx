@@ -33,7 +33,9 @@ export default function Index() {
           <div
             aria-label="Link Categories"
             className={` bg-white mr-3 -mt-4 hidden md:block divide-y divide-primary max-w-64 transition-height duration-300 ease-linear  ${
-              !isCategoryOpen ? "h-0 w-0" : "h-[28rem] 2xl:h-full w-full 2xl:min-w-80 "
+              !isCategoryOpen
+                ? "h-0 w-0"
+                : "h-[28rem] min-h-[26rem] 2xl:h-[51rem] w-full 2xl:min-w-80 "
             } `}
           >
             {/* category */}
