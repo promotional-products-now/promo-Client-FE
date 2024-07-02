@@ -43,7 +43,7 @@ export default function Carousel({
               // spaceBetween: 40,
             },
             1200: {
-              slidesPerView: numberOfItems || 4,
+              slidesPerView: numberOfItems || 3,
               // spaceBetween: 40,
             },
             3024: {
@@ -61,7 +61,7 @@ export default function Carousel({
       </div>
 
       <div
-        className="swiper-button-next"
+        className="swiper-button-next text-2xl"
         onClick={() => swiperRef.current && swiperRef.current.slideNext()}
       ></div>
       <div
