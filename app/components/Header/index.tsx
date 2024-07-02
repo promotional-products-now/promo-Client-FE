@@ -151,7 +151,7 @@ export function Header(props: HeaderT) {
           </div>
         </nav>
         {location.pathname === "/" ? (
-          <div className="flex justify-self-center mx-auto container bg-white w-max-ppn w-full !mt-20 sm:!mt-auto">
+          <div className="flex justify-self-center mx-auto container bg-white  w-full !mt-20 sm:!mt-auto">
             <SecondaryNav />
           </div>
         ) : (
