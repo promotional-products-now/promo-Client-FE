@@ -37,7 +37,7 @@ export function SecondaryNav() {
                   className="rounded-s-sm"
                   startContent={<SearchDropdown />}
                   classNames={{
-                    inputWrapper: ["border", "border-zinc-100"],
+                    inputWrapper: ["border", "border-zinc-100", "h-12"],
                     mainWrapper: "rounded-md",
                   }}
                 />
