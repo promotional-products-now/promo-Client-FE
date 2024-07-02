@@ -34,9 +34,9 @@ export const SearchDropdown = () => {
           <IoIosArrowDown />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="p-1">
-        <Card shadow="none" radius="none" className=" border-none bg-transparent">
-          <CardBody className="p-3">
+      <PopoverContent className="p-1 rounded-none">
+        <Card shadow="none" radius="none" className=" border-none bg-transparent rounded-none">
+          <CardBody className="p-3 rounded-none">
             <div className="flex flex-col md:flex-row space-x-4 max-w-[45rem]">
               <div className="space-y-4 p-4">
                 <div className="space-y-1">
