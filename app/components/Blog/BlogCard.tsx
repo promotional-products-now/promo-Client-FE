@@ -35,10 +35,12 @@ export const BlogCard = ({ image, title, category, id, body }: BlogCardProps) =>
           </div>
         </CardBody>
         <CardFooter className="bg-white-bg flex flex-col gap-4 justify-between px-4">
-          <h4 className="font-semibold text-base flex justify-start items-start text-left w-full">
+          <h4 className="font-semibold text-base flex justify-start items-start text-left w-full capitalize">
             {title}
           </h4>
-          <p className="text-default-500 line-clamp-3 text-left">{body}</p>
+          <div className="w-full text-start">
+            <p className="text-default-500 line-clamp-3 first-letter:capitalize">{body}</p>
+          </div>
           <div className="w-full">
             <Link
               to={`/blogs/${category}/${id}`}
