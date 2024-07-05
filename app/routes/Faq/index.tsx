@@ -37,7 +37,7 @@ const Faq = () => {
                 aria-label={`Accordion-${question.id}`}
                 startContent={
                   <div className="border-2 border-primary p-1 rounded">
-                    <FaQuestion size={10} className="text-primary" />
+                    <FaQuestion size={10} className="text-primary font-bold" />
                   </div>
                 }
                 title={question.title}
