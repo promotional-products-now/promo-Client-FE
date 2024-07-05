@@ -10,14 +10,26 @@ function ContactUs() {
           We are Promotional Promotional Products Now
         </h1>
 
-        <div className="flex flex-col gap-5 text-justify md:text-center">
-          {[1, 2, 3].map((_, i) => (
-            <p className="text-gray text-base" key={i}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, rerum hic. Quasi
-              dicta, quo temporibus consequatur atque, ex ad natus commodi cum eius itaque excepturi
-              voluptas qui numquam id? Saepe!
-            </p>
-          ))}
+        <div className="flex flex-col gap-5 text-justify md:text-center w-full md:w-10/12">
+          <p className="">
+            <a href="/" className="text-primary">
+              Promotional Products Now
+            </a>{" "}
+            is a progressive promotional products company founded on the belief that customer
+            satisfaction is of paramount and continuing importance.
+          </p>
+          <p className="">
+            Serving all organisations around Australia for over 20 years, our success to date is
+            directly contributed to the feedback received from our customers. Together with our
+            proven cost-saving strategies, which have driven down prices, you can be assured our
+            service, price, and product quality you receive from us will not be matched by our
+            competitors.
+          </p>
+          <p className="">
+            We are bound by the Code of Conduct of the Australasian Promotional Products Association
+            and together with our 5 Rock Solid Guarantees, you are well and truly protected in the
+            unlikely event something goes wrong with your order.
+          </p>
         </div>
 
         <div className="flex flex-row gap-8 md:w-1/2 w-full justify-center">

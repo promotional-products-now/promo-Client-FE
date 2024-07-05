@@ -32,7 +32,9 @@ export default function Index() {
           <div
             aria-label="Link Categories"
             className={` bg-white mr-3 -mt-4 hidden md:block divide-y divide-primary max-w-64 transition-height duration-300 ease-linear  ${
-              !isCategoryOpen ? "h-0 w-0" : "h-[28rem] 2xl:h-full w-full 2xl:min-w-80 "
+              !isCategoryOpen
+                ? "h-0 w-0"
+                : "h-[28rem] min-h-[26rem] 2xl:h-[51rem] w-full 2xl:min-w-80 "
             } `}
           >
             {/* category */}
@@ -169,7 +171,7 @@ export default function Index() {
             <div className="bg-white text-orange font-semibold text-lg p-4 absolute top-[-1.65rem]">
               WHAT'S HOT
             </div>
-            <div className="md:pt-4">
+            <div className="md:pt-8">
               <Carousel>
                 {items.map((item, index) => (
                   <div key={index} className="flex flex-row">

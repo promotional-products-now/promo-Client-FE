@@ -41,7 +41,7 @@ export const ProductCard = ({
             radius="none"
             src={image}
             removeWrapper
-            className="object-cover h-full w-full transition aspect-square inset-0"
+            className="object-cover border-2 border-zinc-100 h-full w-full transition aspect-square inset-0"
           />
 
           <div className="grid grid-cols-2 absolute bottom-0 opacity-0 group-hover:opacity-100 transition w-full z-20">
