@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { Form, Link } from "@remix-run/react";
+import axios from "axios";
 import { Select, SelectItem } from "@nextui-org/react";
 import { Button, Input, Textarea } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
@@ -12,17 +14,29 @@ export const meta: MetaFunction = () => {
 };
 
 export default function ContactUS() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<ContactUsSchema>({
     resolver: yupResolver(ContactUsSchema),
   });
 
-  const onSubmit = (data: ContactUsSchema) => {
-    console.log(data);
+  const onSubmit = async (data: ContactUsSchema) => {
+    setIsLoading(true);
+    const request = await axios.post(
+      "https://content-api-dev.promotionalproductsnow.au/enquiries",
+      data,
+    );
+    const response = await request.data;
+    setIsLoading(false);
+    if (!response.isError) {
+      reset();
+    }
   };
+
   return (
     <div className="flex flex-col justify-center items-center mx-auto p-4 lg:p-0 lg:w-4/5">
       <h2 className="text-2xl md:text-3xl font-bold hidden md:block">Contact us</h2>
@@ -71,8 +85,8 @@ export default function ContactUS() {
                   type="text"
                   variant="underlined"
                   label="Your Name"
-                  {...register("name")}
-                  errorMessage={errors?.name?.message}
+                  {...register("fullName")}
+                  errorMessage={errors?.fullName?.message}
                 />
 
                 <Input
@@ -119,6 +133,7 @@ export default function ContactUS() {
                 <Button
                   color="primary"
                   className="w-full md:w-fit rounded-sm py-3 px-6"
+                  disabled={isLoading}
                   onClick={handleSubmit(onSubmit)}
                 >
                   Send Message
