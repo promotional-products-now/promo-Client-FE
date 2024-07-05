@@ -1,6 +1,6 @@
 import { Link } from "@remix-run/react";
 import { Button, Image, Select, SelectItem } from "@nextui-org/react";
-import { IoIosArrowDown } from "react-icons/io";
+import { FaArrowDown } from "react-icons/fa";
 import { IconType } from "react-icons";
 import { ProductCard } from "../Product/ProductCard";
 import { items } from "app/api_dummy";
@@ -115,7 +115,7 @@ const ProductSection = ({ showmore, title, Icon }: ProductSectionProps) => {
             href="#"
             variant="solid"
             color="primary"
-            startContent={<IoIosArrowDown className="sm:text-2xl lg:text-xl" />}
+            startContent={<FaArrowDown className="sm:text-2xl lg:text-xl" />}
             className="bg-primary px-5 py-6 rounded-sm text-white-bg flex flex-row gap-5
              text-base font-semibold hover:opacity-80 transition text-center capitalize
               absolute bottom-0 left-2/4 translate-y-2/4 -translate-x-2/4"

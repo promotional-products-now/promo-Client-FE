@@ -1,8 +1,10 @@
 import { useLoaderData } from "@remix-run/react";
 import { Link } from "@remix-run/react";
 import { json } from "@remix-run/react";
-import { CiLocationOn, CiMail } from "react-icons/ci";
 import { FiPhoneCall } from "react-icons/fi";
+import { FaMapMarkerAlt } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+
 
 export async function loader() {
   return json({ ENV: { SALES_CONTACT: process.env.SALES_CONTACT } });
@@ -18,7 +20,7 @@ const ContactDetails = () => {
       <h2 className="mb-2 text-lg font-bold text-black dark:text-white">Contact Details</h2>
       <div className="">
         <div className="flex items-center gap-2 mb-2">
-          <CiLocationOn className="text-primary text-2xl" />
+          <FaMapMarkerAlt className="text-primary text-2xl" />
           <h2 className="text-xs font-semibold text-black">SHOWROOM AND OFFICE</h2>
         </div>
         <div className="">
@@ -31,7 +33,7 @@ const ContactDetails = () => {
           </p>
         </div>
         <div className="flex items-center gap-2 mb-2">
-          <CiLocationOn className="text-primary text-2xl" />
+          <MdEmail className="text-primary text-2xl" />
           <Link
             to="mailto:sales@promotionalproductsnow.com.au"
             className="text-xs font-normal text-gray line-clamp-2"

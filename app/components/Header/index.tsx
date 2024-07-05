@@ -1,7 +1,9 @@
 import { Link, Button, Image } from "@nextui-org/react";
 import { Link as RemixLink, json, useLoaderData, useLocation } from "@remix-run/react";
-import { MdOutlineLocalPhone, MdOutlineVerified } from "react-icons/md";
+import { MdOutlineLocalPhone } from "react-icons/md";
 import { HiOutlineShoppingBag } from "react-icons/hi";
+import { PiHandbagLight } from "react-icons/pi";
+import { FaAward } from "react-icons/fa6";
 import { SecondaryNav } from "./SecondaryNav";
 import { navLinks } from "./navLinks";
 import logo from "app/assets/logo.svg";
@@ -81,7 +83,7 @@ export function Header(props: HeaderT) {
                     to="guarantees"
                     variant="ghost"
                     startContent={
-                      <MdOutlineVerified className="text-2xl 2xl:text-3xl text-orange" />
+                      <FaAward className="text-2xl 2xl:text-3xl text-orange" />
                     }
                     className="border-2 border-orange rounded font-medium px-3"
                   >
@@ -106,7 +108,7 @@ export function Header(props: HeaderT) {
                     as={RemixLink}
                     to="/cart"
                     variant="ghost"
-                    startContent={<HiOutlineShoppingBag className="text-2xl  2xl:text-3xl" />}
+                    startContent={<PiHandbagLight className="text-2xl  2xl:text-3xl" />}
                     className="border-2 border-primary rounded font-medium px-3"
                   >
                     VIEW CART

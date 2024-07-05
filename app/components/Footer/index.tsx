@@ -2,7 +2,7 @@ import { Button, Image, Input } from "@nextui-org/react";
 import { Link } from "@remix-run/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { CiMail } from "react-icons/ci";
+import { MdEmail } from "react-icons/md";
 import { FaHome, FaShoppingCart, FaUser, FaThList } from "react-icons/fa";
 import logo from "app/assets/logo.svg";
 import { SubscribeSchema } from "app/schema/subscribe.schema";
@@ -39,7 +39,7 @@ export function Footer() {
                     radius="none"
                     variant="bordered"
                     placeholder="Your email address"
-                    startContent={<CiMail className="text-xl" />}
+                    startContent={<MdEmail className="text-xl" />}
                     classNames={{
                       inputWrapper: ["border", "border-zinc-100", "h-12"],
                       mainWrapper: "rounded-md",
@@ -68,14 +68,16 @@ export function Footer() {
                   <Image src={logo} className="h-12" />
                 </Link>
                 <div className="space-y-3">
-                  {[1, 2].map((_, i) => (
-                    <div key={i}>
+                  <div>
                       <p className="text-xs font-normal text-gray">
-                        Lorem ipsum dolor sit amet consectetur. Dui mattis faucibus mus tristique.
-                        Faucibus molestie faucibus dolor imperdiet urna volutpat.{" "}
+                      Promotional Products Now is a progressive promotional products company
+                      founded on the belief that customer satisfaction is of paramount  and continuing importance.
+                    </p>
+                    <p className="text-xs font-normal text-gray">
+                      Serving all organizations around Australia for over 20 years, our success  to date is directly contributed  to the feedback
+                      received from customers.
                       </p>
-                    </div>
-                  ))}
+                  </div>
                 </div>
                 <div className="space-y-4">
                   <h2 className="text-lg text-black font-semibold">Follow Us</h2>

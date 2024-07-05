@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "@remix-run/react";
 import { Button, Select, SelectItem, Tabs, Tab } from "@nextui-org/react";
-import { GoVerified } from "react-icons/go";
+import { LuCheckCircle } from "react-icons/lu";
 import { IoIosArrowDown } from "react-icons/io";
 import { ProductCard } from "app/components/Product/ProductCard";
 import { items } from "app/api_dummy";
@@ -34,7 +34,7 @@ const FeaturedProducts = ({ sectionlabel, gridno, showmore }: FeaturedProductsPr
       <div className="mt-16 flex flex-col gap-4 relative pb-20 container mx-auto">
         <div className="flex flex-col lg:flex-row md:flex-row justify-between item-center border-b border-gray md:p-5 !pb-0 pt-1 gap-4">
           <div className="flex space-x-3 items-center justify-center">
-            <GoVerified size={25} className="text-primary" />
+            <LuCheckCircle size={25} className="text-primary" />
             <span className="text-black text-2xl font-semibold text-center">{sectionlabel}</span>
           </div>
 
