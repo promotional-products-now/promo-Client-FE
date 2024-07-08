@@ -1,8 +1,8 @@
-import { BsCart3 } from "react-icons/bs";
-import { GoVerified } from "react-icons/go";
-import { TbMessage } from "react-icons/tb";
-import { FaRegNewspaper } from "react-icons/fa6";
 import { IconType } from "react-icons";
+import { ShopIcon } from "app/assets/ShopIcon";
+import { GuaranteeIcon } from "app/assets/GuaranteeIcon";
+import { FaqIcon } from "app/assets/FaqIcon";
+import { BlogIcon } from "app/assets/BlogIcon";
 
 export type ServicesT = {
   icon: IconType;
@@ -13,25 +13,25 @@ export type ServicesT = {
 
 export const services = [
   {
-    icon: BsCart3,
+    icon: ShopIcon,
     title: "Shopping now",
     action: "",
     id: "shopping",
   },
   {
-    icon: GoVerified,
+    icon: GuaranteeIcon,
     title: "Our Guarantees",
     action: "guarantees",
     id: "guarantees",
   },
   {
-    icon: TbMessage,
+    icon: FaqIcon,
     title: "Our FAQs",
     action: "faq",
     id: "faqs",
   },
   {
-    icon: FaRegNewspaper,
+    icon: BlogIcon,
     title: "Blog Articles",
     action: "blog",
     id: "blog",

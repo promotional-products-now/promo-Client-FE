@@ -44,7 +44,7 @@ const AboutPage = () => {
                 className="flex flex-row p-6 border-b-3 border border-neutral-200 border-b-primary border-b-blue rounded-sm justify-between"
               >
                 <div className="flex flex-col justify-around">
-                  <div className="text-primary font-semibold text-base text-start">
+                  <div className="text-primary font-bold text-base text-start">
                     {item.title}
                   </div>
                   <Link to={`/${item.action}`} className="text-black text-sm">
