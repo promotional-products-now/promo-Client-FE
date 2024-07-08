@@ -1,8 +1,8 @@
 import { IconType } from "react-icons";
-import { AiOutlineYoutube } from "react-icons/ai";
-import { BsTwitterX } from "react-icons/bs";
-import { FiFacebook } from "react-icons/fi";
-import { SlSocialGoogle, SlSocialLinkedin } from "react-icons/sl";
+import { TfiFacebook, TfiYoutube } from "react-icons/tfi";
+import { FaLinkedinIn } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { TiSocialGooglePlus } from "react-icons/ti";
 
 export type FooterT = {
   name: string;
@@ -60,9 +60,9 @@ export type SocialsT = {
 };
 
 export const socialLinks: SocialsT[] = [
-  { id: "facebook", icon: FiFacebook, pathname: "" },
-  { id: "youtube", icon: AiOutlineYoutube, pathname: "" },
-  { id: "linkedin", icon: SlSocialLinkedin, pathname: "" },
-  { id: "twitterx", icon: BsTwitterX, pathname: "" },
-  { id: "google", icon: SlSocialGoogle, pathname: "" },
+  { id: "facebook", icon: TfiFacebook, pathname: "" },
+  { id: "youtube", icon: TfiYoutube, pathname: "" },
+  { id: "linkedin", icon: FaLinkedinIn, pathname: "" },
+  { id: "twitterx", icon: FaXTwitter, pathname: "" },
+  { id: "google", icon: TiSocialGooglePlus, pathname: "" },
 ];
