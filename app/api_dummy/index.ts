@@ -11,7 +11,7 @@ export const items = [
     price: "$43.72",
     newPrice: "$37.29",
     qunatity: "10 min qty",
-    category: "trending",
+    category: "australianMade",
   },
 
   {
@@ -27,7 +27,7 @@ export const items = [
     price: "$43.72",
     newPrice: "$37.29",
     qunatity: "10 min qty",
-    category: "trending",
+    category: "australianMade",
   },
   {
     id: 3,
@@ -40,7 +40,7 @@ export const items = [
     price: "$43.72",
     newPrice: "$37.29",
     qunatity: "10 min qty",
-    category: "trending",
+    category: "australianMade",
   },
   {
     id: 4,
@@ -53,7 +53,7 @@ export const items = [
     price: "$43.72",
     newPrice: "$37.29",
     qunatity: "10 min qty",
-    category: "trending",
+    category: "bags",
   },
   {
     id: 5,
@@ -66,7 +66,7 @@ export const items = [
     price: "$43.72",
     newPrice: "$37.29",
     qunatity: "10 min qty",
-    category: "latest",
+    category: "ballons",
   },
   {
     id: 6,
@@ -79,7 +79,7 @@ export const items = [
     price: "$43.72",
     newPrice: "$37.29",
     qunatity: "10 min qty",
-    category: "latest",
+    category: "catering",
   },
   {
     id: 7,
@@ -92,7 +92,7 @@ export const items = [
     price: "$43.72",
     newPrice: "$37.29",
     qunatity: "10 min qty",
-    category: "latest",
+    category: "catering",
   },
   {
     id: 8,
@@ -105,7 +105,7 @@ export const items = [
     price: "$43.72",
     newPrice: "$37.29",
     qunatity: "10 min qty",
-    category: "latest",
+    category: "conference",
   },
   {
     id: 9,
@@ -118,7 +118,7 @@ export const items = [
     price: "$43.72",
     newPrice: "$37.29",
     qunatity: "10 min qty",
-    category: "aussie",
+    category: "cups",
   },
   {
     id: 10,
@@ -131,7 +131,7 @@ export const items = [
     price: "$43.72",
     newPrice: "$37.29",
     qunatity: "10 min qty",
-    category: "aussie",
+    category: "cups",
   },
   {
     id: 11,
@@ -144,7 +144,7 @@ export const items = [
     price: "$43.72",
     newPrice: "$37.29",
     qunatity: "10 min qty",
-    category: "aussie",
+    category: "cups",
   },
   {
     id: 12,

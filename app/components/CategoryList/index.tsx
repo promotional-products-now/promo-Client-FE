@@ -9,11 +9,11 @@ function CategoryList() {
           as={Link}
           showDivider
           key={cat.id}
-          href="#"
+          href={`/categories/${cat.category}`}
           className="text-left bg-white text-zinc-800 text-xs md:font-medium"
           classNames={{ title: " md:font-medium" }}
         >
-          {cat.category}
+          {cat.name}
         </ListboxItem>
       ))}
     </Listbox>
