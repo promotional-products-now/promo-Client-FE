@@ -60,7 +60,7 @@ export const ProductCard = ({
               className="bg-primary text-white"
               startContent={<BsCart3 />}
             >
-              View
+              View Product
             </Button>
           </div>
         </div>
