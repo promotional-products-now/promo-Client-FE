@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Form, Link } from "@remix-run/react";
-import axios from "axios";
 import { Select, SelectItem } from "@nextui-org/react";
 import { Button, Input, Textarea } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
@@ -8,6 +7,7 @@ import { MetaFunction } from "@remix-run/node";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LocationDetails } from "app/contents/contactLoactions";
 import { ContactUsSchema } from "app/schema/contactus.schema";
+import { sendConactMessageApi } from "app/api/contactUs.api";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Contact us" }, { name: "", content: "" }];
@@ -26,11 +26,8 @@ export default function ContactUS() {
 
   const onSubmit = async (data: ContactUsSchema) => {
     setIsLoading(true);
-    const request = await axios.post(
-      "https://content-api-dev.promotionalproductsnow.au/enquiries",
-      data,
-    );
-    const response = await request.data;
+    const { data: resonse } = await sendConactMessageApi(data);
+    const response = await resonse;
     setIsLoading(false);
     if (!response.isError) {
       reset();

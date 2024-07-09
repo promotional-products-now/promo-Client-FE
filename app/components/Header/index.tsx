@@ -8,6 +8,7 @@ import { SecondaryNav } from "./SecondaryNav";
 import { navLinks } from "./navLinks";
 import logo from "app/assets/logo.svg";
 import { FiLogIn } from "react-icons/fi";
+import { TbTruckDelivery } from "react-icons/tb";
 
 type HeaderT = {
   sidebarOpen: string | boolean | undefined;
@@ -82,9 +83,7 @@ export function Header(props: HeaderT) {
                     as={RemixLink}
                     to="guarantees"
                     variant="ghost"
-                    startContent={
-                      <FaAward className="text-2xl 2xl:text-3xl text-orange" />
-                    }
+                    startContent={<FaAward className="text-2xl 2xl:text-3xl text-orange" />}
                     className="border-2 border-orange rounded font-medium px-3"
                   >
                     OUR GUARANTEES
@@ -157,14 +156,36 @@ export function Header(props: HeaderT) {
             <SecondaryNav />
           </div>
         ) : (
-          <div className="hidden md:flex justify-end w-max-ppn">
+          // <div className="hidden md:flex justify-end">
+          //   <Button
+          //     as={Link}
+          //     href="/login"
+          //     size="lg"
+          //     variant="ghost"
+          //     startContent={<FiLogIn className="text-xl  2xl:text-2xl text-primary" />}
+          //     className="border border-primary rounded"
+          //   >
+          //     Login
+          //   </Button>
+          // </div>
+          <div className="hidden md:flex justify-end gap-2 ">
             <Button
-              as={Link}
-              href="/login"
+              as={RemixLink}
+              to="#"
               size="lg"
               variant="ghost"
-              startContent={<FiLogIn className="text-xl  2xl:text-2xl text-primary" />}
-              className="border border-primary rounded"
+              startContent={<TbTruckDelivery className="text-2xl text-orange" />}
+              className="border border-zinc-200 rounded text-sm font-medium px-3"
+            >
+              Fast Delivery Australia Wide
+            </Button>
+            <Button
+              as={RemixLink}
+              to="/login"
+              size="lg"
+              variant="ghost"
+              startContent={<FiLogIn className="text-xl text-primary" />}
+              className="border border-zinc-200 rounded font-medium text-sm px-3"
             >
               Login
             </Button>

@@ -1,6 +1,6 @@
 import { MetaFunction } from "@remix-run/node";
-import axios from "axios";
 import { useLoaderData } from "@remix-run/react";
+import { fetchAllBlogsApi } from "app/api/blog.api";
 import { BlogCard } from "app/components/Blog/BlogCard";
 
 export const meta: MetaFunction = () => {
@@ -17,7 +17,7 @@ interface BlogCardProps {
 }
 
 export async function loader() {
-  const { data } = await axios.get("https://content-api-dev.promotionalproductsnow.au/blog");
+  const { data } = await fetchAllBlogsApi();
   if (data.isError) {
     return { error: data.message, posts: [] };
   } else {

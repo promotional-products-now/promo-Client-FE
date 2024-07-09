@@ -170,13 +170,13 @@ export default function Index() {
 
           <div className="relative border-3 border-orange py-5 sm:py-2 px-2 sm:px-5">
             <div className="bg-white  p-4 absolute top-[-1.65rem]">
-              <div className='flex justify-between gap-2 font-semibold text-orange text-2xl'>
+              <div className="flex justify-between gap-2 font-semibold text-orange text-2xl">
                 <ImFire />
                 <h5>WHAT'S HOT</h5>
               </div>
             </div>
             <div className="md:pt-8">
-              <Carousel>
+              <Carousel numberOfItems={4}>
                 {items.map((item, index) => (
                   <div key={index} className="flex flex-row">
                     <ProductCard

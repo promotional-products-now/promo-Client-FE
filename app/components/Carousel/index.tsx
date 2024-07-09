@@ -39,7 +39,7 @@ export default function Carousel({
               // spaceBetween: 20,
             },
             768: {
-              slidesPerView: numberOfItems || 3,
+              slidesPerView: 3,
               // spaceBetween: 40,
             },
             1200: {
