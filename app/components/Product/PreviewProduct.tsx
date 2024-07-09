@@ -12,7 +12,11 @@ import { useAtomValue } from "jotai";
 import { FaStar } from "react-icons/fa6";
 import { productAtom } from "app/atoms/product.atom";
 import { BsCart3 } from "react-icons/bs";
-import Carousel from "../Carousel";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { A11y, Parallax, Navigation, Pagination } from "swiper/modules";
+import SwiperCore, { Swiper as SwiperInstance } from "swiper";
+import "../../style.css";
+import { useRef } from "react";
 
 export function PreviewProduct({
   isOpen,
@@ -21,20 +25,26 @@ export function PreviewProduct({
   isOpen: boolean;
   onOpenChange: () => void;
 }) {
+  const swiperRef = useRef<SwiperInstance | null>(null);
+
   const product = useAtomValue(productAtom);
 
   return (
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="3xl">
-      <ModalContent>
+    <Modal isOpen={isOpen} backdrop="transparent" onOpenChange={onOpenChange} size="3xl">
+      <ModalContent className=" rounded-none shadow-xl">
         <>
           <ModalHeader className="justify-center">
             <div className="flex flex-col gap-1 items-center justify-center">
-              <span className="text-lg md:text-xl font-semibold">{product?.title}</span>
+              <span className="text-lg md:text-xl xl:text-2xl 2xl:text-3xl font-medium">
+                {product?.title}
+              </span>
               <div className="flex items-center space-x-4">
-                <span className="text-xs">Product Code: pyun67858</span>
-                {[1, 2, 3, 4, 5].map((_, i) => (
-                  <FaStar key={i} className="text-xs text-orange" />
-                ))}
+                <span className="font-normal">Product Code: pyun67858</span>
+                <div className="flex gap-2">
+                  {[1, 2, 3, 4, 5].map((_, i) => (
+                    <FaStar key={i} className=" text-orange" />
+                  ))}
+                </div>
               </div>
             </div>
           </ModalHeader>
@@ -51,8 +61,8 @@ export function PreviewProduct({
               </div>
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <span className="text-lg md:text-xl font-normal">Description</span>
-                  <p className="text-xs text-gray font-normal">
+                  <span className="text-lg md:text-xl font-medium">Description</span>
+                  <p className=" font-normal text-zinc-700">
                     Lorem ipsum dolor sit amet consectetur. Nisi suspendisse enim mattis donec
                     mauris eget faucibus id id. Ullamcorper ante diam nibh adipiscing nisl pretium.
                     Urna quisque eget et risus lorem. Tristique scelerisque curabitur nunc viverra.
@@ -77,22 +87,62 @@ export function PreviewProduct({
             </div>
           </ModalBody>
           <ModalFooter className="justify-center border- border-red-600">
-            <div className="border- relative w-3/5">
-              <Carousel numberOfItems={3}>
-                {[1, 2, 3, 4, 4].map((_, i) => (
-                  <div key={i} className="h-24 relative rounded-sm flex items-center">
-                    <Image
-                      alt=""
-                      radius="md"
-                      src="https://images.pexels.com/photos/208984/pexels-photo-208984.jpeg"
-                      removeWrapper
-                      width={40}
-                      // className="object-cover transition aspect-square inset-0"
-                      className="absolute inset-0 h-full object-cover transition-transform transform-gpu aspect-square border-2 border-slate-500"
-                    />
-                  </div>
+            <div className="p-1 md:p-4  relative w-4/5">
+              <Swiper
+                // navigation={true}
+                onSwiper={(swiper) => (swiperRef.current = swiper)}
+                navigation={{
+                  nextEl: ".swiper-smallbutton-next",
+                  prevEl: ".swiper-smallbutton-prev",
+                  enabled: true,
+                }}
+                parallax={true}
+                pagination={{
+                  clickable: true,
+                }}
+                slidesPerView={1}
+                spaceBetween={20}
+                breakpoints={{
+                  320: {
+                    slidesPerView: 2.2,
+                    spaceBetween: 20,
+                  },
+                  640: {
+                    slidesPerView: 3,
+                  },
+                  768: {
+                    slidesPerView: 4,
+                  },
+                  1200: {
+                    slidesPerView: 4.6,
+                  },
+                }}
+                modules={[Navigation, Pagination, Parallax, A11y]}
+              >
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((_, i) => (
+                  <SwiperSlide>
+                    <div key={i} className="h-20 relative rounded-sm flex items-center">
+                      <Image
+                        alt=""
+                        radius="md"
+                        src="https://images.pexels.com/photos/208984/pexels-photo-208984.jpeg"
+                        removeWrapper
+                        width={60}
+                        // className="object-cover transition aspect-square inset-0"
+                        className="absolute inset-0 h-full object-cover transition-transform transform-gpu aspect-square border-2 border-slate-500"
+                      />
+                    </div>
+                  </SwiperSlide>
                 ))}
-              </Carousel>
+              </Swiper>
+              <div
+                className="swiper-button-next before:!text-small after:!text-small !left-[96%] !top-2/3"
+                onClick={() => swiperRef.current && swiperRef.current.slideNext()}
+              ></div>
+              <div
+                className="swiper-button-prev before:!text-small after:!text-small !left-[-4%] !top-2/3"
+                onClick={() => swiperRef.current && swiperRef.current.slidePrev()}
+              ></div>
             </div>
           </ModalFooter>
         </>

@@ -35,7 +35,7 @@ export default function Index() {
             className={` bg-white mr-3 -mt-4 hidden md:block divide-y divide-primary max-w-64 transition-height duration-300 ease-linear  ${
               !isCategoryOpen
                 ? "h-0 w-0"
-                : "h-[28rem] min-h-[26rem] 2xl:h-[51rem] w-full 2xl:min-w-80 "
+                : "h-[28rem] min-h-[26rem] 2xl:h-[51rem] w-full xl:min-w-72 2xl:min-w-96"
             } `}
           >
             {/* category */}
@@ -168,7 +168,7 @@ export default function Index() {
             </span>
           </div>
 
-          <div className="relative border-3 border-orange py-5 sm:py-2 px-2 sm:px-5">
+          <div className="relative border-3 border-orange py-5 sm:py-2 px-2 sm:px-5 2xl:px-12 xl:pb-6">
             <div className="bg-white  p-4 absolute top-[-1.65rem]">
               <div className="flex justify-between gap-2 font-semibold text-orange text-2xl">
                 <ImFire />

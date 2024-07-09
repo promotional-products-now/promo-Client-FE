@@ -1,7 +1,6 @@
 import { Link, Button, Image } from "@nextui-org/react";
 import { Link as RemixLink, json, useLoaderData, useLocation } from "@remix-run/react";
 import { MdOutlineLocalPhone } from "react-icons/md";
-import { HiOutlineShoppingBag } from "react-icons/hi";
 import { PiHandbagLight } from "react-icons/pi";
 import { FaAward } from "react-icons/fa6";
 import { SecondaryNav } from "./SecondaryNav";
@@ -36,7 +35,7 @@ export function Header(props: HeaderT) {
         <nav className="fixed sm:relative top-0 left-0 right-0 z-50 bg-white dark:bg-gray-900">
           <div className=" flex flex-wrap items-center justify-between mx-auto py-4">
             <Link as={RemixLink} href="/" className="hidden md:block">
-              <Image src={logo} className="h-12 " />
+              <Image src={logo} className="h-12 2xl:h-20 " />
             </Link>
             <div className="flex gap-3 items-center">
               <button
@@ -124,7 +123,7 @@ export function Header(props: HeaderT) {
             >
               <ul
                 className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 
-              rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
+              rounded-lg bg-gray-50 md:gap-x-8 2xl:gap-x-20 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
               >
                 {navLinks.map((link) => {
                   return (
@@ -156,18 +155,6 @@ export function Header(props: HeaderT) {
             <SecondaryNav />
           </div>
         ) : (
-          // <div className="hidden md:flex justify-end">
-          //   <Button
-          //     as={Link}
-          //     href="/login"
-          //     size="lg"
-          //     variant="ghost"
-          //     startContent={<FiLogIn className="text-xl  2xl:text-2xl text-primary" />}
-          //     className="border border-primary rounded"
-          //   >
-          //     Login
-          //   </Button>
-          // </div>
           <div className="hidden md:flex justify-end gap-2 ">
             <Button
               as={RemixLink}
