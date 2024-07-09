@@ -13,7 +13,7 @@ import { Button } from "@nextui-org/react";
 import { FiArrowRight } from "react-icons/fi";
 import { MetaFunction } from "@remix-run/react";
 import { RxCross2 } from "react-icons/rx";
-import { MdOutlineArrowRight } from "react-icons/md";
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { Input } from "@nextui-org/react";
 import { items } from "app/api_dummy";
 import { payment } from "app/api_dummy";
@@ -35,13 +35,13 @@ const CartPage = () => {
 
   return (
     <div className="space-y-10">
-      <div className="flex flex-row border-b border-white-border md:px-20 px-5 py-4 md:pb-6 md:py-0">
+      <div className="flex flex-row border-b border-white-border md:px-20 px-5 py-3 md:pb-3 md:py-0">
         <div className="flex flex-row items-center">
           <Link to="/">
-            <div className="text-gray">Home</div>
+            <div className="text-sm md:text-base text-gray">Home</div>
           </Link>
-          <MdOutlineArrowRight size={18} className="text-gray" />
-          <div className="text-base text-primary">Shopping cart</div>
+          <MdKeyboardDoubleArrowRight size={18} className="text-gray" />
+          <div className="text-sm md:text-base text-primary">Shopping cart</div>
         </div>
       </div>
 
