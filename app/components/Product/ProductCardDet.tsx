@@ -42,7 +42,7 @@ export function ProductCardDet({ product }: { product: ProductCardProps }) {
         <CardFooter className="p-0 flex flex-col items-start justify-start gap-3">
           <div className="p-2 space-y-3 flex flex-col items-start justify-start">
             <div className=" capitalize font-semibold text-sm">{product.title}</div>
-            {/* <div className="text-black text-xs">{product.subtitle}</div> */}
+            {/* <div className="text-black text-xs">{product.description}</div> */}
             <div className="flex text-sm justify-between">
               <div className="text-gray-700 flex gap-1">
                 <p className="text-xs">

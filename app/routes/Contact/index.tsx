@@ -101,20 +101,13 @@ export default function ContactUS() {
                   errorMessage={errors?.phone?.message}
                 />
                 <div>
-                  <Select
+                  <Input
+                    type="text"
                     variant="underlined"
                     label="Your Subject"
-                    className="w-full"
                     {...register("subject")}
                     errorMessage={errors?.subject?.message}
-                  >
-                    <SelectItem key="one" value={"one"}>
-                      Subject one
-                    </SelectItem>
-                    <SelectItem key="tow" value={"two"}>
-                      Subject two
-                    </SelectItem>
-                  </Select>
+                  />
                 </div>
               </div>
               <Textarea
@@ -129,6 +122,7 @@ export default function ContactUS() {
               <div className="">
                 <Button
                   color="primary"
+                  isLoading={isLoading}
                   className="w-full md:w-fit rounded-sm py-3 px-6"
                   disabled={isLoading}
                   onClick={handleSubmit(onSubmit)}

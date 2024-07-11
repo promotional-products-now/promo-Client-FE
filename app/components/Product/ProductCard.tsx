@@ -7,49 +7,51 @@ import { productAtom } from "app/atoms/product.atom";
 
 export type ProductCardProps = {
   image: string;
+  images?: string[];
+  productCode?: string;
   title: string;
-  subtitle: string;
+  description: string;
   price: string;
   newPrice: string;
   qunatity: string;
+  handlePreviewFn: (data: any) => void;
 };
 
 export const ProductCard = ({
   image,
+  images,
+  productCode,
   title,
-  subtitle,
+  description,
   price,
   newPrice,
   qunatity,
+  handlePreviewFn,
 }: ProductCardProps) => {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const setProduct = useSetAtom(productAtom);
-
-  const props = { image, title, subtitle, price, newPrice, qunatity };
-
-  const handlePreviewProd = () => {
-    onOpen();
-    setProduct(props); // doesn't really work...yikes
-  };
+  const props = { image, title, description, price, newPrice, qunatity, images, productCode };
 
   return (
     <>
       <div className="cursor-pointer group lg:max-w-80">
         <div className="aspect-square w-full relative overflow-hidden p-0 md:mb-4-">
-          <Image
-            alt={title}
-            radius="none"
-            src={image}
-            removeWrapper
-            className="object-cover border-2 border-zinc-100 h-full w-full transition aspect-square inset-0"
-          />
+          {image ? (
+            <Image
+              alt={title}
+              radius="none"
+              src={image}
+              removeWrapper
+              className="object-cover border-2 border-zinc-100 h-full w-full transition aspect-square inset-0"
+            />
+          ) : (
+            <div className="bg-slate-100 h-full w-full"></div>
+          )}
 
           <div className="grid grid-cols-2 absolute bottom-0 opacity-0 group-hover:opacity-100 transition w-full z-20">
             <Button
               radius="none"
               className="bg-orange text-white"
               startContent={<FiEye />}
-              onPress={handlePreviewProd}
+              onPress={() => handlePreviewFn(props)}
             >
               Preview
             </Button>
@@ -67,20 +69,20 @@ export const ProductCard = ({
 
         <div className="overflow-visible text-justify py-2">
           <div className="text-primary capitalize font-semibold  2x:text-lg">{title}</div>
-          <p className="text-black text-small mb-2">{subtitle}</p>
+          <p className="text-black text-small mb-2">{description}</p>
           <div className="flex flex-row text-sm justify-between">
-            <div className="text-gray-700 flex flex-row gap-1">
-              <span className="text-small">
-                from <span className="text-orange text-small">{price}</span> to
-                <span className="text-primary text-small"> {newPrice}</span>
-              </span>
-            </div>
-            <div className="text-xs">{qunatity}</div>
+            {price && (
+              <div className="text-gray-700 flex flex-row gap-1">
+                <span className="text-small">
+                  from <span className="text-orange text-small">{price}</span> to
+                  <span className="text-primary text-small"> {newPrice}</span>
+                </span>
+              </div>
+            )}
+            {qunatity && <div className="text-xs">{qunatity}</div>}
           </div>
         </div>
       </div>
-
-      <PreviewProduct isOpen={isOpen} onOpenChange={onOpenChange} />
     </>
   );
 };

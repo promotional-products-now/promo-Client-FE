@@ -98,7 +98,7 @@ export default function BlogPost() {
         </div>
 
         <div className="text-justify md:text-left">
-          <p>{post && post.subtitle}</p>
+          <p>{post && post.description}</p>
         </div>
 
         <div className="flex flex-col gap-2">

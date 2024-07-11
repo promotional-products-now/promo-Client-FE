@@ -1,11 +1,13 @@
 import { Link, useParams } from "@remix-run/react";
-import { Select, SelectItem } from "@nextui-org/react";
+import { Select, SelectItem, useDisclosure } from "@nextui-org/react";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { GoVerified } from "react-icons/go";
 import { ProductCard } from "app/components/Product/ProductCard";
 import { allCategories } from "app/utils/homeAllCategories";
 import { items } from "app/api_dummy";
 import { useMemo } from "react";
+import { useSetAtom } from "jotai";
+import { productAtom } from "app/atoms/product.atom";
 
 const options = [
   { value: "low-high", label: "low to high" },
@@ -14,6 +16,10 @@ const options = [
 ];
 
 const CategoryPage = () => {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const setProduct = useSetAtom(productAtom);
+
   let { category } = useParams();
 
   const currentCategory = allCategories?.find((a) => a);
@@ -25,6 +31,11 @@ const CategoryPage = () => {
 
     return prodCat;
   }, []);
+
+  const handlePreviewProd = (product: any) => {
+    onOpen();
+    setProduct(product);
+  };
 
   return (
     <div className="space-y-6">
@@ -103,10 +114,11 @@ const CategoryPage = () => {
                   key={index}
                   image={item.image}
                   title={item.title}
-                  subtitle={item.subtitle}
+                  description={item.description}
                   price={item.price}
                   newPrice={item.newPrice}
                   qunatity={item.qunatity}
+                  handlePreviewFn={(data) => handlePreviewProd(data)}
                 />
               );
             })}

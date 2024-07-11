@@ -39,7 +39,7 @@ export function PreviewProduct({
                 {product?.title}
               </span>
               <div className="flex items-center space-x-4">
-                <span className="font-normal">Product Code: pyun67858</span>
+                <span className="font-normal">Product Code: {product?.productCode}</span>
                 <div className="flex gap-2">
                   {[1, 2, 3, 4, 5].map((_, i) => (
                     <FaStar key={i} className=" text-orange" />
@@ -54,7 +54,7 @@ export function PreviewProduct({
                 <Image
                   alt=""
                   radius="none"
-                  src="https://images.pexels.com/photos/208984/pexels-photo-208984.jpeg"
+                  src={product?.image}
                   removeWrapper
                   className="object-cover h-full w-full transition aspect-square inset-0"
                 />
@@ -62,15 +62,7 @@ export function PreviewProduct({
               <div className="space-y-4">
                 <div className="space-y-2">
                   <span className="text-lg md:text-xl font-medium">Description</span>
-                  <p className=" font-normal text-zinc-700">
-                    Lorem ipsum dolor sit amet consectetur. Nisi suspendisse enim mattis donec
-                    mauris eget faucibus id id. Ullamcorper ante diam nibh adipiscing nisl pretium.
-                    Urna quisque eget et risus lorem. Tristique scelerisque curabitur nunc viverra.
-                    Faucibus sit at imperdiet nunc amet a posuere nunc elementum. Sed quis eget
-                    mauris blandit facilisis. Vitae in pharetra id sit in. Nunc ultrices ultrices
-                    odio tortor iaculis id. Elit purus amet porttitor enim at diam etiam tristique
-                    eget.
-                  </p>
+                  <p className=" font-normal text-zinc-700">{product?.description}</p>
                 </div>
                 <div className="grid grid-cols-2">
                   <Button
@@ -119,21 +111,23 @@ export function PreviewProduct({
                 }}
                 modules={[Navigation, Pagination, Parallax, A11y]}
               >
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((_, i) => (
-                  <SwiperSlide>
-                    <div key={i} className="h-20 relative rounded-sm flex items-center">
-                      <Image
-                        alt=""
-                        radius="md"
-                        src="https://images.pexels.com/photos/208984/pexels-photo-208984.jpeg"
-                        removeWrapper
-                        width={60}
-                        // className="object-cover transition aspect-square inset-0"
-                        className="absolute inset-0 h-full object-cover transition-transform transform-gpu aspect-square border-2 border-slate-500"
-                      />
-                    </div>
-                  </SwiperSlide>
-                ))}
+                {product?.images &&
+                  product?.images?.length > 0 &&
+                  product?.images.map((image, i) => (
+                    <SwiperSlide>
+                      <div key={i} className="h-20 relative rounded-sm flex items-center">
+                        <Image
+                          alt=""
+                          radius="md"
+                          src={image}
+                          removeWrapper
+                          width={60}
+                          // className="object-cover transition aspect-square inset-0"
+                          className="absolute inset-0 h-full object-cover transition-transform transform-gpu aspect-square border-2 border-slate-500"
+                        />
+                      </div>
+                    </SwiperSlide>
+                  ))}
               </Swiper>
               <div
                 className="swiper-button-next before:!text-small after:!text-small !left-[96%] !top-2/3"

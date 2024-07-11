@@ -1,6 +1,10 @@
 const CONTENT_BASE_URL =
   process.env.NODE_ENV !== "production"
-    ? "https://content-api-dev.promotionalproductsnow.au"
+    ? "http://localhost:3083"
     : "https://content-api-prd.promotionalproductsnow.au";
 
-export { CONTENT_BASE_URL };
+const API_BASEURL =
+  process.env.NODE_ENV !== "production" || process.env.NODE_ENV !== ("prd" as string)
+    ? "http://localhost:3002/api/v1"
+    : "https://ppn-server.azurewebsites.net/";
+export { CONTENT_BASE_URL, API_BASEURL };

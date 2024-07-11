@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { Link } from "@remix-run/react";
-import { Button, Select, SelectItem, Tabs, Tab } from "@nextui-org/react";
+import { Button, Select, SelectItem, Tabs, Tab, useDisclosure } from "@nextui-org/react";
 import { LuCheckCircle } from "react-icons/lu";
 import { IoIosArrowDown } from "react-icons/io";
 import { ProductCard } from "app/components/Product/ProductCard";
 import { items } from "app/api_dummy";
+import { useSetAtom } from "jotai";
+import { productAtom } from "app/atoms/product.atom";
+import { PreviewProduct } from "../Product/PreviewProduct";
 
 interface FeaturedProductsProps {
   sectionlabel: string;
@@ -19,6 +22,10 @@ const options = [
 ];
 
 const FeaturedProducts = ({ sectionlabel, gridno, showmore }: FeaturedProductsProps) => {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const setProduct = useSetAtom(productAtom);
+
   const [filterItems, setFilterItems] = useState(items);
 
   const selectFilter = (selectItems: string) => {
@@ -27,6 +34,11 @@ const FeaturedProducts = ({ sectionlabel, gridno, showmore }: FeaturedProductsPr
     });
 
     setFilterItems(updatedFilter);
+  };
+
+  const handlePreviewProd = (product: any) => {
+    onOpen();
+    setProduct(product);
   };
 
   return (
@@ -111,10 +123,11 @@ const FeaturedProducts = ({ sectionlabel, gridno, showmore }: FeaturedProductsPr
               key={index}
               image={item.image}
               title={item.title}
-              subtitle={item.subtitle}
+              description={item.description}
               price={item.price}
               newPrice={item.newPrice}
               qunatity={item.qunatity}
+              handlePreviewFn={(data) => handlePreviewProd(data)}
             />
           ))}
         </div>
@@ -132,6 +145,7 @@ const FeaturedProducts = ({ sectionlabel, gridno, showmore }: FeaturedProductsPr
           </div>
         )}
       </div>
+      <PreviewProduct isOpen={isOpen} onOpenChange={onOpenChange} />
     </div>
   );
 };

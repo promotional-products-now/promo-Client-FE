@@ -6,7 +6,7 @@ export const items = [
     title: "Sequoias Two Bottle Cooler",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
-    subtitle:
+    description:
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
@@ -22,7 +22,7 @@ export const items = [
     title: "Sequoias Two Bottle Cooler",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
-    subtitle:
+    description:
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
@@ -35,7 +35,7 @@ export const items = [
     image:
       "https://images.pexels.com/photos/266784/pexels-photo-266784.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
     title: "Sequoias Two Bottle Cooler",
-    subtitle:
+    description:
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
@@ -48,7 +48,7 @@ export const items = [
     image:
       "https://images.pexels.com/photos/979503/pexels-photo-979503.jpeg?auto=compress&cs=tinysrgb&w=600",
     title: "Sequoias Two Bottle Cooler",
-    subtitle:
+    description:
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
@@ -61,7 +61,7 @@ export const items = [
     image:
       "https://images.pexels.com/photos/3777622/pexels-photo-3777622.jpeg?auto=compress&cs=tinysrgb&w=600",
     title: "Sequoias Two Bottle Cooler",
-    subtitle:
+    description:
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
@@ -74,7 +74,7 @@ export const items = [
     image:
       "https://images.pexels.com/photos/177809/pexels-photo-177809.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     title: "Sequoias Two Bottle Cooler",
-    subtitle:
+    description:
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
@@ -87,7 +87,7 @@ export const items = [
     image:
       "https://images.pexels.com/photos/177809/pexels-photo-177809.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     title: "Sequoias Two Bottle Cooler",
-    subtitle:
+    description:
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
@@ -100,7 +100,7 @@ export const items = [
     image:
       "https://images.pexels.com/photos/177809/pexels-photo-177809.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     title: "Sequoias Two Bottle Cooler",
-    subtitle:
+    description:
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
@@ -113,7 +113,7 @@ export const items = [
     image:
       "https://images.pexels.com/photos/177809/pexels-photo-177809.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     title: "Sequoias Two Bottle Cooler",
-    subtitle:
+    description:
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
@@ -126,7 +126,7 @@ export const items = [
     image:
       "https://images.pexels.com/photos/177809/pexels-photo-177809.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     title: "Sequoias Two Bottle Cooler",
-    subtitle:
+    description:
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
@@ -139,7 +139,7 @@ export const items = [
     image:
       "https://images.pexels.com/photos/177809/pexels-photo-177809.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     title: "Sequoias Two Bottle Cooler",
-    subtitle:
+    description:
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
@@ -152,7 +152,7 @@ export const items = [
     image:
       "https://images.pexels.com/photos/177809/pexels-photo-177809.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     title: "Sequoias Two Bottle Cooler",
-    subtitle:
+    description:
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
@@ -165,7 +165,7 @@ export const items = [
     image:
       "https://images.pexels.com/photos/177809/pexels-photo-177809.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     title: "Sequoias Two Bottle Cooler",
-    subtitle:
+    description:
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
@@ -178,7 +178,7 @@ export const items = [
     image:
       "https://images.pexels.com/photos/177809/pexels-photo-177809.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     title: "Sequoias Two Bottle Cooler",
-    subtitle:
+    description:
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
@@ -195,7 +195,7 @@ export const blog = [
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
-    subtitle: "Exploring the role of AI in shaping the future of businesses.",
+    description: "Exploring the role of AI in shaping the future of businesses.",
     category: "businesses",
   },
   {
@@ -205,7 +205,7 @@ export const blog = [
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
-    subtitle: "Discover tips and tricks to enhance your artistic journey.",
+    description: "Discover tips and tricks to enhance your artistic journey.",
     category: "creativity",
   },
   {
@@ -215,7 +215,7 @@ export const blog = [
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
-    subtitle: "Discover tips and tricks to enhance your artistic journey.",
+    description: "Discover tips and tricks to enhance your artistic journey.",
     category: "creativity",
   },
   {
@@ -225,7 +225,7 @@ export const blog = [
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
-    subtitle: "Understanding the nutritional principles for a balanced diet.",
+    description: "Understanding the nutritional principles for a balanced diet.",
     category: "habits",
   },
   {
@@ -235,7 +235,7 @@ export const blog = [
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
-    subtitle: "A journey into the possibilities and challenges of space exploration.",
+    description: "A journey into the possibilities and challenges of space exploration.",
     category: "travel",
   },
   {
@@ -245,7 +245,7 @@ export const blog = [
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
-    subtitle: "A journey into the possibilities and challenges of space exploration.",
+    description: "A journey into the possibilities and challenges of space exploration.",
     category: "travel",
   },
   {
@@ -255,7 +255,7 @@ export const blog = [
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
-    subtitle: "Tips for fostering better communication and collaboration at work.",
+    description: "Tips for fostering better communication and collaboration at work.",
     category: "communication",
   },
   {
@@ -265,7 +265,7 @@ export const blog = [
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
-    subtitle: "Adopting eco-friendly habits for a more sustainable lifestyle.",
+    description: "Adopting eco-friendly habits for a more sustainable lifestyle.",
     category: "lifestyle",
   },
   {
@@ -275,7 +275,7 @@ export const blog = [
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
-    subtitle: "A closer look at the immersive experience of VR gaming.",
+    description: "A closer look at the immersive experience of VR gaming.",
     category: "gaming",
   },
   {
@@ -285,7 +285,7 @@ export const blog = [
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
-    subtitle: "Analyzing the changing landscape of digital marketing in the modern era.",
+    description: "Analyzing the changing landscape of digital marketing in the modern era.",
     category: "marketing",
   },
   {
@@ -295,7 +295,7 @@ export const blog = [
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
-    subtitle: "A more sustainable lifestyle.",
+    description: "A more sustainable lifestyle.",
     category: "lifestyle",
   },
   {
@@ -305,7 +305,7 @@ export const blog = [
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
-    subtitle: "Adopting eco-friendly habits for a more sustainable lifestyle.",
+    description: "Adopting eco-friendly habits for a more sustainable lifestyle.",
     category: "lifestyle",
   },
   {
@@ -315,7 +315,7 @@ export const blog = [
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
-    subtitle: "A more sustainable lifestyle.",
+    description: "A more sustainable lifestyle.",
     category: "lifestyle",
   },
   {
@@ -325,7 +325,7 @@ export const blog = [
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
-    subtitle: "A closer look at the immersive experience of VR gaming.",
+    description: "A closer look at the immersive experience of VR gaming.",
     category: "gaming",
   },
   {
@@ -335,7 +335,7 @@ export const blog = [
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
-    subtitle: "Exploring the role of AI in shaping the future of businesses.",
+    description: "Exploring the role of AI in shaping the future of businesses.",
     category: "businesses",
   },
   {
@@ -345,7 +345,7 @@ export const blog = [
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
-    subtitle: "Analyzing the changing landscape of digital marketing in the modern era.",
+    description: "Analyzing the changing landscape of digital marketing in the modern era.",
     category: "marketing",
   },
   {
@@ -355,7 +355,7 @@ export const blog = [
       "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi odit laboriosam asperiores.",
 
-    subtitle: "A more sustainable lifestyle.",
+    description: "A more sustainable lifestyle.",
     category: "lifestyle",
   },
 ];

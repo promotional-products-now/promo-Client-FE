@@ -10,8 +10,8 @@ export const meta: MetaFunction = () => {
 interface BlogCardProps {
   image: string;
   title: string;
-  category: string;
-  subtitle: string;
+  category: { _id: string; title: string };
+  description: string;
   _id: string;
   body: string;
 }
@@ -39,12 +39,13 @@ const Blog = () => {
           <BlogCard
             key={post?._id}
             title={post?.title}
-            subtitle={post?.subtitle}
+            description={post?.description}
             image={
+              post.image ??
               "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg"
             }
             id={post?._id}
-            category={post?.category}
+            category={post?.category?.title}
             body={post?.body}
           />
         ))}

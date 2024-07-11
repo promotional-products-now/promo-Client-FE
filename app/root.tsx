@@ -12,6 +12,7 @@ import {
 } from "@remix-run/react";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import { NextUIProvider } from "@nextui-org/react";
+import { ToastContainer } from "react-toastify";
 import { Header } from "app/components/Header";
 import { Footer } from "app/components/Footer";
 import { Sidebar } from "app/components/Sidebar";
@@ -19,6 +20,7 @@ import { Sidebar } from "app/components/Sidebar";
 import stylesheet from "./tailwind.css";
 import SwiperStyle from "./style.css";
 import { useState } from "react";
+import "react-toastify/dist/ReactToastify.css";
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
@@ -67,6 +69,7 @@ export default function App() {
             </main>
             <Footer />
           </div>
+          <ToastContainer />
           <ScrollRestoration />
           <Scripts />
           <LiveReload />

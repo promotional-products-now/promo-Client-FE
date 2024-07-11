@@ -1,33 +1,73 @@
-import React from 'react'
-import { Link, Form, MetaFunction } from "@remix-run/react";
+import React from "react";
+import { Link, Form, MetaFunction, useActionData } from "@remix-run/react";
 import { Input, Button, Checkbox, Divider } from "@nextui-org/react";
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { LoginSchema } from 'app/schema/login.schema';
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { LoginSchema } from "app/schema/login.schema";
+import { json, redirect } from "@remix-run/node";
+import { loginApi } from "app/api/auth.api";
+import { ActionFunction } from "@remix-run/node";
+import { getSession, commitSession } from "../../sessions";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Login" }, { name: "", content: "" }];
 };
 
+export const action: ActionFunction = async ({ request }) => {
+  const session = await getSession(request.headers.get("Cookie"));
+  const formData = await request.formData();
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
+
+  try {
+    const response = await loginApi({ email, password });
+    console.log({ xplayload: response.data.payload,otp:response.data.otp });
+
+    const { accessToken, _id, email: emailAddress } = response.data.payload;
+
+    session.set("uid", _id);
+    session.set("email", emailAddress.address);
+    session.set("accessToken", accessToken);
+
+    return redirect("/otp", {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    });
+  } catch (error) {
+    console.log(error);
+
+    return json({ success: false, error: error });
+  }
+};
+
 export default function Login(): JSX.Element {
-  const { register, handleSubmit, formState: { errors } } = useForm<LoginSchema>({
-    resolver: yupResolver(LoginSchema)
-  })
+  const actionData = useActionData();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginSchema>({
+    resolver: yupResolver(LoginSchema),
+  });
 
   const onSubmit = (data: LoginSchema) => {
     console.log(data);
+  };
 
-  }
   return (
     <div>
       <div className="py-4 md:py-8">
-        <h1 className="text-2xl md:text-3xl text-dark  font-bold text-center">
-          Login your account
+        <h1 className="text-2xl md:text-3xl text-dark font-bold text-center">
+          Login to your account
         </h1>
-        <p className="mt-4 text-lg font-semibold text-dark text-center">Fill your account details below</p>
+        <p className="mt-4 text-lg font-semibold text-dark text-center">
+          Fill your account details below
+        </p>
 
         <div className="flex flex-col justify-center items-center px-6">
-          <div className="md:px-2 py-6  w-full md:w-2/5">
+          <div className="md:px-2 py-6 w-full md:w-2/5">
             <Form method="post">
               <div className="py-4 md:py-12 flex flex-col justify-center items-center space-y-6">
                 <div className="w-full">
@@ -60,7 +100,7 @@ export default function Login(): JSX.Element {
                   />
                 </div>
 
-                <div className="py-6  w-full">
+                <div className="py-6 w-full">
                   <Button
                     type="submit"
                     variant="solid"
@@ -68,7 +108,6 @@ export default function Login(): JSX.Element {
                     className="font-semibold w-full"
                     size="lg"
                     radius="none"
-                    onClick={handleSubmit(onSubmit)}
                   >
                     LOGIN
                   </Button>

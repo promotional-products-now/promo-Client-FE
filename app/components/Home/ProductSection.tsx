@@ -1,9 +1,12 @@
 import { Link } from "@remix-run/react";
-import { Button, Image, Select, SelectItem } from "@nextui-org/react";
+import { Button, Image, Select, SelectItem, useDisclosure } from "@nextui-org/react";
 import { FaArrowDown } from "react-icons/fa";
 import { IconType } from "react-icons";
 import { ProductCard } from "../Product/ProductCard";
 import { items } from "app/api_dummy";
+import { useSetAtom } from "jotai";
+import { productAtom } from "app/atoms/product.atom";
+import { PreviewProduct } from "../Product/PreviewProduct";
 
 const options = [
   { value: "AUSTRALIAN MADE PRODUCTS", label: "AUSTRALIAN MADE PRODUCTS" },
@@ -23,6 +26,14 @@ interface ProductSectionProps {
 }
 
 const ProductSection = ({ showmore, title, Icon }: ProductSectionProps) => {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const setProduct = useSetAtom(productAtom);
+
+  const handlePreviewProd = (product: any) => {
+    onOpen();
+    setProduct(product);
+  };
   return (
     <div className="bg-white-bg mt-20 px-3 md:px-6 lg:px-8 xl:px-12">
       <div className="relative flex flex-col justify-center items-center container mx-auto">
@@ -99,10 +110,11 @@ const ProductSection = ({ showmore, title, Icon }: ProductSectionProps) => {
                   key={index}
                   image={item.image}
                   title={item.title}
-                  subtitle={item.subtitle}
+                  description={item.description}
                   price={item.price}
                   newPrice={item.newPrice}
                   qunatity={item.qunatity}
+                  handlePreviewFn={(data) => handlePreviewProd(data)}
                 />
               );
             })}
@@ -125,6 +137,7 @@ const ProductSection = ({ showmore, title, Icon }: ProductSectionProps) => {
           // </div>
         )}
       </div>
+      <PreviewProduct isOpen={isOpen} onOpenChange={onOpenChange} />
     </div>
   );
 };

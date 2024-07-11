@@ -1,5 +1,5 @@
-import { useAtom } from "jotai";
-import { Button, Image, Link, ScrollShadow } from "@nextui-org/react";
+import { useAtom, useSetAtom } from "jotai";
+import { Button, Image, Link, ScrollShadow, useDisclosure } from "@nextui-org/react";
 import type { MetaFunction } from "@remix-run/node";
 import { GiClothes } from "react-icons/gi";
 import { ImFire } from "react-icons/im";
@@ -15,6 +15,10 @@ import CategoryList from "app/components/CategoryList";
 import { isCategoryListOpen } from "app/atoms/category.atom";
 import { BlogCard } from "app/components/Blog/BlogCard";
 import { blog, items } from "app/api_dummy";
+import { fetchProductsApi } from "app/api/products.api";
+import { useLoaderData } from "@remix-run/react";
+import { PreviewProduct } from "app/components/Product/PreviewProduct";
+import { productAtom } from "app/atoms/product.atom";
 
 export const meta: MetaFunction = () => {
   return [
@@ -23,8 +27,24 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+export const loader = async () => {
+  const { data } = await fetchProductsApi({});
+  return data.docs;
+};
+
 export default function Index() {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const setProduct = useSetAtom(productAtom);
+
+  const products = useLoaderData<typeof loader>();
+
   const [isCategoryOpen, setIsCategoryOpen] = useAtom(isCategoryListOpen);
+
+  const handlePreviewProd = (product: any) => {
+    onOpen();
+    setProduct(product);
+  };
 
   return (
     <>
@@ -177,19 +197,24 @@ export default function Index() {
             </div>
             <div className="md:pt-8">
               <Carousel numberOfItems={4}>
-                {items.map((item, index) => (
-                  <div key={index} className="flex flex-row">
-                    <ProductCard
-                      key={index}
-                      image={item.image}
-                      title={item.title}
-                      subtitle={item.subtitle}
-                      price={item.price}
-                      newPrice={item.newPrice}
-                      qunatity={item.qunatity}
-                    />
-                  </div>
-                ))}
+                {products.map((item: any) => {
+                  // console.log({ products: item });
+                  return (
+                    <div key={item.id} className="flex flex-row">
+                      <ProductCard
+                        image={item.overview.heroImage}
+                        images={item.product.images}
+                        title={item.overview.name}
+                        productCode={item.overview.code}
+                        description={item.product.description}
+                        price={item.price}
+                        newPrice={item.newPrice}
+                        qunatity={item.overview.minQty}
+                        handlePreviewFn={(data) => handlePreviewProd(data)}
+                      />
+                    </div>
+                  );
+                })}
               </Carousel>
             </div>
           </div>
@@ -231,7 +256,7 @@ export default function Index() {
                 <div key={item.id} className="flex flex-col md:flex-row gap-1 sm:mx-2 md:mx-1">
                   <BlogCard
                     title={item.title}
-                    subtitle={item.subtitle}
+                    description={item.description}
                     image={item.image}
                     id={item.id}
                     category={item.category}
@@ -243,6 +268,7 @@ export default function Index() {
           </div>
         </section>
       </div>
+      <PreviewProduct isOpen={isOpen} onOpenChange={onOpenChange} />
     </>
   );
 }
