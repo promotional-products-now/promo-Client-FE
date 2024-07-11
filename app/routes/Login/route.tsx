@@ -85,7 +85,7 @@ export default function Login(): JSX.Element {
 
   return (
     <div>
-      <ToastContainer />
+      <ToastContainer containerId="loginToast" />
       <div className="py-4 md:py-8">
         <h1 className="text-2xl md:text-3xl text-dark font-bold text-center">
           Login to your account
@@ -136,6 +136,7 @@ export default function Login(): JSX.Element {
                     className="font-semibold w-full"
                     size="lg"
                     radius="none"
+                    isLoading={isSubmitting}
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? "Logging in..." : "LOGIN"}

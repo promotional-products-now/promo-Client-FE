@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, Link } from "@remix-run/react";
 import { Select, SelectItem } from "@nextui-org/react";
 import { Button, Input, Textarea } from "@nextui-org/react";
@@ -7,7 +7,9 @@ import { MetaFunction } from "@remix-run/node";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LocationDetails } from "app/contents/contactLoactions";
 import { ContactUsSchema } from "app/schema/contactus.schema";
-import { sendConactMessageApi } from "app/api/contactUs.api";
+import { sendContactMessageApi } from "../../api/contactUs.api";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Contact us" }, { name: "", content: "" }];
@@ -26,21 +28,30 @@ export default function ContactUS() {
 
   const onSubmit = async (data: ContactUsSchema) => {
     setIsLoading(true);
-    const { data: resonse } = await sendConactMessageApi(data);
-    const response = await resonse;
-    setIsLoading(false);
-    if (!response.isError) {
-      reset();
+    try {
+      const response = await sendContactMessageApi(data);
+      setIsLoading(false);
+      if (response.status === 200) {
+        console.log("nice");
+        toast.success("Message sent successfully!");
+        reset();
+      } else {
+        toast.error("Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      setIsLoading(false);
+      toast.error("An error occurred. Please try again.");
     }
   };
 
   return (
     <div className="flex flex-col justify-center items-center mx-auto p-4 lg:p-0 lg:w-4/5">
+      <ToastContainer containerId="loginToast" />
       <h2 className="text-2xl md:text-3xl font-bold hidden md:block">Contact us</h2>
       <div className="flex flex-col-reverse md:flex-row gap-12 md:gap-10 py-10 [&_p]:text-sm [&_p]:text-gray">
         <div className="w-full md:w-4/12 flex flex-col gap-8 md:gap-5">
           <div className="text-center md:text-start flex md:block flex-col gap-0.5">
-            <b className="capitalize mb-2 md:mb-0">give out team a call</b>
+            <b className="capitalize mb-2 md:mb-0">Give our team a call</b>
             <p>We'd be happy to hear how we can help you out.</p>
           </div>
           {LocationDetails.map((data) => (
@@ -48,7 +59,9 @@ export default function ContactUS() {
               <Link
                 to={data.href}
                 className={
-                  data.href == "" ? "flex gap-3 cursor-default" : "flex gap-3 hover:[&_p]:underline"
+                  data.href === ""
+                    ? "flex gap-3 cursor-default"
+                    : "flex gap-3 hover:[&_p]:underline"
                 }
               >
                 <div>
@@ -75,7 +88,7 @@ export default function ContactUS() {
               Promotional Merchandise at Guaranteed Lowest Prices
             </span>
           </div>
-          <Form method="post">
+          <Form method="post" onSubmit={handleSubmit(onSubmit)}>
             <div className="w-full flex flex-col gap-4 space-y-4">
               <div className="grid grid-cols-1 gap-x-4 gap-y-9 md:grid-cols-2">
                 <Input
@@ -85,7 +98,6 @@ export default function ContactUS() {
                   {...register("fullName")}
                   errorMessage={errors?.fullName?.message}
                 />
-
                 <Input
                   type="email"
                   variant="underlined"
@@ -125,7 +137,7 @@ export default function ContactUS() {
                   isLoading={isLoading}
                   className="w-full md:w-fit rounded-sm py-3 px-6"
                   disabled={isLoading}
-                  onClick={handleSubmit(onSubmit)}
+                  type="submit"
                 >
                   Send Message
                 </Button>

@@ -20,13 +20,13 @@ export async function loader({ params }: { params: { cat: string } }) {
 const Blog = () => {
   const loaderData = useLoaderData<typeof loader>();
 
-  let { category } = useParams();
+  let { cat } = useParams();
 
   return (
     <div className="flex flex-col gap-10 w-full mx-auto p-4 lg:p-0 lg:w-4/5">
       <div className="flex flex-col gap-1 text-center ">
-        <h2 className="text-2xl md:text-3xl font-bold capitalize">{category} Blog</h2>
-        <h3 className="text-default-500">Browse our latest {category} posts</h3>
+        <h2 className="text-2xl md:text-3xl font-bold capitalize">{cat} Blog</h2>
+        <h3 className="text-default-500">Browse our latest {cat} posts</h3>
       </div>
       <div className="grid grid-cols-1 gap-y-8 gap-x-5 sm:grid-cols-2 md:grid-cols-3">
         {loaderData.posts &&
