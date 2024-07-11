@@ -1,9 +1,6 @@
-import { Card, CardHeader, CardBody, Image, Link, Button, useDisclosure } from "@nextui-org/react";
-import { useSetAtom } from "jotai";
+import { Image, Link, Button } from "@nextui-org/react";
 import { BsCart3 } from "react-icons/bs";
 import { FiEye } from "react-icons/fi";
-import { PreviewProduct } from "./PreviewProduct";
-import { productAtom } from "app/atoms/product.atom";
 
 export type ProductCardProps = {
   image: string;
@@ -69,7 +66,7 @@ export const ProductCard = ({
 
         <div className="overflow-visible text-justify py-2">
           <div className="text-primary capitalize font-semibold  2x:text-lg">{title}</div>
-          <p className="text-black text-small mb-2">{description}</p>
+          <p className="text-black text-small mb-2 line-clamp-4">{description}</p>
           <div className="flex flex-row text-sm justify-between">
             {price && (
               <div className="text-gray-700 flex flex-row gap-1">
@@ -79,7 +76,7 @@ export const ProductCard = ({
                 </span>
               </div>
             )}
-            {qunatity && <div className="text-xs">{qunatity}</div>}
+            {/* {qunatity && <div className="text-xs">{qunatity}</div>} */}
           </div>
         </div>
       </div>

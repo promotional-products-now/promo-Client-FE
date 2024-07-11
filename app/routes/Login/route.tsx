@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Form, MetaFunction, useActionData } from "@remix-run/react";
 import { Input, Button, Checkbox, Divider } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
@@ -8,10 +8,17 @@ import { json, redirect } from "@remix-run/node";
 import { loginApi } from "app/api/auth.api";
 import { ActionFunction } from "@remix-run/node";
 import { getSession, commitSession } from "../../sessions";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Login" }, { name: "", content: "" }];
 };
+
+interface ActionData {
+  success: boolean;
+  error?: string;
+}
 
 export const action: ActionFunction = async ({ request }) => {
   const session = await getSession(request.headers.get("Cookie"));
@@ -21,7 +28,6 @@ export const action: ActionFunction = async ({ request }) => {
 
   try {
     const response = await loginApi({ email, password });
-    console.log({ xplayload: response.data.payload,otp:response.data.otp });
 
     const { accessToken, _id, email: emailAddress } = response.data.payload;
 
@@ -34,15 +40,15 @@ export const action: ActionFunction = async ({ request }) => {
         "Set-Cookie": await commitSession(session),
       },
     });
-  } catch (error) {
-    console.log(error);
-
-    return json({ success: false, error: error });
+  } catch (error: any) {
+    // console.log(error);
+    return json({ success: false, error: error.message } as ActionData);
   }
 };
 
 export default function Login(): JSX.Element {
-  const actionData = useActionData();
+  const actionData = useActionData<ActionData>();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
     register,
@@ -52,12 +58,34 @@ export default function Login(): JSX.Element {
     resolver: yupResolver(LoginSchema),
   });
 
-  const onSubmit = (data: LoginSchema) => {
-    console.log(data);
+  const onSubmit = async () => {
+    setIsSubmitting(true);
+    const form = document.getElementById("loginForm") as HTMLFormElement;
+
+    if (form) {
+      // e.preventDefault();
+      // const formData = new FormData(form);
+      // formData.append("otp", data.otp);
+
+      form.submit();
+    }
+    // The form submission is handled by Remix <Form>, no additional logic needed here
   };
+
+  useEffect(() => {
+    if (actionData && actionData.error) {
+      setIsSubmitting(false);
+      toast.error(actionData.error, {
+        toastId: "loginError",
+      });
+    } else if (actionData && actionData.success) {
+      setIsSubmitting(false);
+    }
+  }, [actionData]);
 
   return (
     <div>
+      <ToastContainer />
       <div className="py-4 md:py-8">
         <h1 className="text-2xl md:text-3xl text-dark font-bold text-center">
           Login to your account
@@ -68,7 +96,7 @@ export default function Login(): JSX.Element {
 
         <div className="flex flex-col justify-center items-center px-6">
           <div className="md:px-2 py-6 w-full md:w-2/5">
-            <Form method="post">
+            <Form id="loginForm" method="post" onSubmit={handleSubmit(onSubmit)}>
               <div className="py-4 md:py-12 flex flex-col justify-center items-center space-y-6">
                 <div className="w-full">
                   <Input
@@ -108,8 +136,9 @@ export default function Login(): JSX.Element {
                     className="font-semibold w-full"
                     size="lg"
                     radius="none"
+                    disabled={isSubmitting}
                   >
-                    LOGIN
+                    {isSubmitting ? "Logging in..." : "LOGIN"}
                   </Button>
                 </div>
 

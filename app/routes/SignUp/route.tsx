@@ -8,12 +8,18 @@ import { signupApi } from "app/api/auth.api";
 import { redirect, json } from "@remix-run/node";
 import { ActionFunction } from "@remix-run/node";
 import { commitSession, getSession } from "app/utils/session.server";
-// import { authenticator } from "~/auth.server";
-// import { getSession, commitSession } from "../../../sessions.server";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import React from "react";
 
 export const meta: MetaFunction = () => {
   return [{ title: "SignUp" }, { name: "", content: "" }];
 };
+
+interface ActionData {
+  success: boolean;
+  error?: string;
+}
 
 export const action: ActionFunction = async ({ request }) => {
   const session = await getSession(request.headers.get("Cookie"));
@@ -39,7 +45,6 @@ export const action: ActionFunction = async ({ request }) => {
       lastName,
       location: { address, city, state, postCode },
     });
-    console.log({ response });
 
     const { payload } = response.data;
     if (payload) {
@@ -51,15 +56,14 @@ export const action: ActionFunction = async ({ request }) => {
         },
       });
     }
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
-    return json({ success: false, error: error });
+    return json({ success: false, error: error.message });
   }
 };
 
 export default function SignUp(): JSX.Element {
-  const actionData = useActionData();
-  // const transition = useTransition();
+  const actionData = useActionData<ActionData>();
 
   const {
     register,
@@ -70,32 +74,23 @@ export default function SignUp(): JSX.Element {
   });
 
   const onSubmit: SubmitHandler<SignUpSchema> = async (data) => {
-    const formData = new FormData();
-    // Object.keys(data).forEach((key) => {
-    //   const value = data[key as keyof SignUpSchema];
-    //   if (value !== undefined) {
-    //     formData.append(key, value);
-    //   }
-    // });
-
-    // await fetch("/signup", {
-    //   method: "post",
-    //   body: formData,
-    // });
     const form = document.getElementById("otpForm") as HTMLFormElement;
-
     if (form) {
-      // e.preventDefault();
-      // const formData = new FormData(form);
-      // formData.append("otp", data.otp);
-
-      console.log("ok", form);
       form.submit();
     }
   };
 
+  React.useEffect(() => {
+    if (actionData && actionData.error) {
+      toast.error(actionData.error, {
+        toastId: "signupError",
+      });
+    }
+  }, [actionData]);
+
   return (
     <div className="py-8">
+      <ToastContainer />
       <div className="space-y-4 px-2">
         <h1 className="text-2xl md:text-3xl text-dark font-bold text-center">
           Welcome to Promotional Products Now
