@@ -6,7 +6,7 @@ const { serverBuildDirectory } = require("./remix.config");
   const buildPath = path.resolve(process.cwd(), serverBuildDirectory);
 
   const app = createApp(buildPath);
-  const port = 6583;
+  const port = 8080;
 
   app.listen(port, () => {
     // eslint-disable-next-line
