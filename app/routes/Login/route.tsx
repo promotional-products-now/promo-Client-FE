@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Form, MetaFunction, useActionData } from "@remix-run/react";
 import { Input, Button, Checkbox, Divider } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
