@@ -13,6 +13,7 @@ type OTPFormData = {
 };
 
 type ActionData = {
+  success: boolean;
   error?: string;
 };
 
@@ -59,10 +60,12 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function OtpPage() {
   const actionData = useActionData<ActionData>();
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<OTPFormData>();
   const [timeLeft, setTimeLeft] = useState(60);
 
@@ -78,6 +81,8 @@ export default function OtpPage() {
   };
 
   const onSubmit: SubmitHandler<OTPFormData> = async (data, e) => {
+    setIsSubmitting(true);
+
     const form = document.getElementById("otpForm") as HTMLFormElement;
 
     if (form && e) {
@@ -88,7 +93,10 @@ export default function OtpPage() {
 
   useEffect(() => {
     if (actionData?.error) {
+      setIsSubmitting(false);
       toast.error(actionData.error);
+    } else if (actionData && actionData.success) {
+      setIsSubmitting(false);
     }
   }, [actionData]);
 
@@ -113,20 +121,20 @@ export default function OtpPage() {
           {...register("otp")}
           errorMessage={errors?.otp?.message}
         />
-        {errors?.otp && <p className="text-red-500 text-center mx-auto">{errors.otp.message}</p>}
         <div className="flex justify-center items-center">
           <Button
             type="submit"
             disabled={isSubmitting}
             variant="solid"
             color="primary"
-            className="mt-4 mx-auto"
+            className="mt-4 mx-auto w-full"
+            isLoading={isSubmitting}
           >
-            Verify OTP
+            {isSubmitting ? "Verifying..." : "Verify OTP"}
           </Button>
         </div>
       </Form>
-      <div className="mt-4">
+      <div className="mt-4 flex justify-between  items-center gap-4">
         <p>{timeLeft > 0 ? `Resend OTP in ${timeLeft} seconds` : "Didn't receive the OTP?"}</p>
         {timeLeft === 0 && (
           <Button variant="solid" color="primary" onClick={handleResendOtp}>

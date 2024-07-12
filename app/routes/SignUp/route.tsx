@@ -88,12 +88,14 @@ export default function SignUp(): JSX.Element {
       toast.error(actionData.error, {
         toastId: "signupError",
       });
+    } else if (actionData && actionData.success) {
+      setIsSubmitting(false);
     }
   }, [actionData]);
 
   return (
     <div className="py-8">
-      <ToastContainer />
+      <ToastContainer containerId="loginToast" />
       <div className="space-y-4 px-2">
         <h1 className="text-2xl md:text-3xl text-dark font-bold text-center">
           Welcome to Promotional Products Now
@@ -306,7 +308,7 @@ export default function SignUp(): JSX.Element {
               isLoading={isSubmitting}
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Creating Account..." : "CREATE YOUR ACCOUNT"}
+              {isSubmitting ? "Creating Your Account..." : "CREATE YOUR ACCOUNT"}
             </Button>
           </div>
         </div>
