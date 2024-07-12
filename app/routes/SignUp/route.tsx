@@ -244,12 +244,12 @@ export default function SignUp(): JSX.Element {
 
           <div className="flex flex-col sm:flex-row gap-4 w-full">
             <div className="w-full">
-              <p className="text-base font-semibold text-dark">CITY</p>
+              <p className="text-base font-semibold text-dark">SUBURB</p>
               <Select
                 aria-label="city"
                 isInvalid={!!errors?.city?.message}
                 variant="underlined"
-                placeholder="Your city"
+                placeholder="Your suburb"
                 color="primary"
                 size="lg"
                 {...register("city")}
