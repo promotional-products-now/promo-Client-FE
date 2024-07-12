@@ -109,6 +109,7 @@ export default function Login(): JSX.Element {
                     className="w-full text-base text-dark font-semibold"
                     color="primary"
                     {...register("email")}
+                    isInvalid={!!errors?.email?.message}
                     errorMessage={errors?.email?.message}
                   />
                 </div>
@@ -124,6 +125,7 @@ export default function Login(): JSX.Element {
                     className="w-full text-base text-dark font-semibold"
                     color="primary"
                     {...register("password")}
+                    isInvalid={!!errors?.password?.message}
                     errorMessage={errors?.password?.message}
                   />
                 </div>

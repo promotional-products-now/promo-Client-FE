@@ -1,3 +1,4 @@
+import React from "react";
 import { Input, Button, Select, SelectItem } from "@nextui-org/react";
 import { Link, MetaFunction, useActionData, Form } from "@remix-run/react";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -10,7 +11,6 @@ import { ActionFunction } from "@remix-run/node";
 import { commitSession, getSession } from "app/utils/session.server";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import React from "react";
 
 export const meta: MetaFunction = () => {
   return [{ title: "SignUp" }, { name: "", content: "" }];
