@@ -48,7 +48,7 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function Login(): JSX.Element {
   const actionData = useActionData<ActionData>();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const {
     register,

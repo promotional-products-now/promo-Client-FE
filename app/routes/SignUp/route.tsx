@@ -64,6 +64,7 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function SignUp(): JSX.Element {
   const actionData = useActionData<ActionData>();
+  const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
 
   const {
     register,
@@ -74,6 +75,7 @@ export default function SignUp(): JSX.Element {
   });
 
   const onSubmit: SubmitHandler<SignUpSchema> = async (data) => {
+    setIsSubmitting(true);
     const form = document.getElementById("otpForm") as HTMLFormElement;
     if (form) {
       form.submit();
@@ -82,6 +84,7 @@ export default function SignUp(): JSX.Element {
 
   React.useEffect(() => {
     if (actionData && actionData.error) {
+      setIsSubmitting(false);
       toast.error(actionData.error, {
         toastId: "signupError",
       });
@@ -300,10 +303,10 @@ export default function SignUp(): JSX.Element {
               className="font-semibold w-full"
               size="lg"
               radius="none"
-              // isDisabled={transition.state === "submitting"}
+              isLoading={isSubmitting}
+              disabled={isSubmitting}
             >
-              CREATE YOUR ACCOUNT
-              {/* {transition.state === "submitting" ? "Submitting..." : "CREATE YOUR ACCOUNT"} */}
+              {isSubmitting ? "Creating Account..." : "CREATE YOUR ACCOUNT"}
             </Button>
           </div>
         </div>
