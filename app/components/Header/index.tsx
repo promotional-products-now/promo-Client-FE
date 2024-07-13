@@ -1,5 +1,5 @@
 import { Link, Button, Image } from "@nextui-org/react";
-import { Link as RemixLink, json, useLoaderData, useLocation } from "@remix-run/react";
+import { Link as RemixLink, json, redirect, useLoaderData, useLocation } from "@remix-run/react";
 import { MdOutlineLocalPhone } from "react-icons/md";
 import { PiHandbagLight } from "react-icons/pi";
 import { FaAward } from "react-icons/fa6";
@@ -8,6 +8,7 @@ import { navLinks } from "./navLinks";
 import logo from "app/assets/logo.svg";
 import { FiLogIn } from "react-icons/fi";
 import { TbTruckDelivery } from "react-icons/tb";
+import { getSession, commitSession } from "../../sessions";
 
 type HeaderT = {
   sidebarOpen: string | boolean | undefined;
@@ -152,7 +153,8 @@ export function Header(props: HeaderT) {
         </nav>
         {location.pathname === "/" ? (
           <div className="flex justify-self-center mx-auto container bg-white  w-full !mt-20 sm:!mt-auto">
-            <SecondaryNav />
+            {data.userId}
+            <SecondaryNav uid={data.userId} />
           </div>
         ) : (
           <div className="hidden md:flex justify-end gap-2 ">
@@ -183,6 +185,12 @@ export function Header(props: HeaderT) {
   );
 }
 
-export async function loader() {
-  return json({ ENV: { SALES_CONTACT: process.env.SALES_CONTACT } });
+export async function loader({ request }: any) {
+  const session = await getSession(request.headers.get("Cookie"));
+  const userId = session.get("uid");
+  console.log({ userId, session });
+  // if (!userId) {
+  //   return redirect("/login");
+  // }
+  return json({ userId, ENV: { SALES_CONTACT: process.env.SALES_CONTACT } });
 }

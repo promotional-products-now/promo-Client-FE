@@ -6,7 +6,7 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { SearchDropdown } from "./SearchDropdown";
 import { isCategoryListOpen } from "app/atoms/category.atom";
 
-export function SecondaryNav() {
+export function SecondaryNav({ uid }: any) {
   const [isCategoryOpen, setIsCategoryOpen] = useAtom(isCategoryListOpen);
 
   return (
@@ -63,16 +63,18 @@ export function SecondaryNav() {
             >
               Fast Delivery Australia Wide
             </Button>
-            <Button
-              as={Link}
-              to="/login"
-              size="lg"
-              variant="ghost"
-              startContent={<FiLogIn className="text-xl text-primary" />}
-              className="border border-zinc-200 rounded font-medium text-sm px-3"
-            >
-              Login
-            </Button>
+            {!uid && (
+              <Button
+                as={Link}
+                to="/login"
+                size="lg"
+                variant="ghost"
+                startContent={<FiLogIn className="text-xl text-primary" />}
+                className="border border-zinc-200 rounded font-medium text-sm px-3"
+              >
+                Login
+              </Button>
+            )}
           </div>
         </div>
       </div>
