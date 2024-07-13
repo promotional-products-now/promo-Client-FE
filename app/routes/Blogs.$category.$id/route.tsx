@@ -1,26 +1,32 @@
 import { Link, Form, MetaFunction, useLoaderData } from "@remix-run/react";
+import axios from "axios";
 import { Button, Image, Input, Tabs, Tab, Textarea } from "@nextui-org/react";
-import { BiUser, BiChat, BiSearch } from "react-icons/bi";
+import { BiUser, BiChat, BiSearch, BiShareAlt } from "react-icons/bi";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { socialIcons } from "app/contents/blogSocialHandles";
 import { CommentSchema } from "app/schema/comment.schema";
+import { CONTENT_BASE_URL } from "app/api/api";
 import { blog as blogs } from "app/api_dummy";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Blog Post" }, { name: "", content: "" }];
 };
 
-export async function loader({ params }: { params: { id: string } }) {
-  const post = blogs.find((item) => item.id == params.id);
-
-  const data = { post };
-  return data;
+export async function loader({ params }: { params: { category: string; id: string } }) {
+  if (params.id) {
+    const { data } = await axios.get(`${CONTENT_BASE_URL}/blog/${params.id}`);
+    if (data.isError) {
+      return { error: data.message, category: params.category, post: [] };
+    } else {
+      return { category: params.category, post: data.payload };
+    }
+  }
 }
 
 export default function BlogPost() {
-  const { post } = useLoaderData<typeof loader>();
+  const { post, category } = useLoaderData<typeof loader>();
 
   const {
     register,
@@ -29,6 +35,10 @@ export default function BlogPost() {
   } = useForm<CommentSchema>({
     resolver: yupResolver(CommentSchema),
   });
+
+  const copyPostLink = async () => {
+    await navigator.clipboard.writeText(`http://localhost:3000/blogs/${category}/${post._id}`);
+  };
 
   const onSubmit = (data: CommentSchema) => {
     console.log(data);
@@ -44,7 +54,10 @@ export default function BlogPost() {
             width="100%"
             alt=""
             className="h-[200px] object-cover lg:h-[450px]"
-            src={post && post.image}
+            src={
+              post.image ??
+              "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg"
+            }
           />
           <div className="flex flex-col gap-10 my-5">
             <h2 className="font-bold text-2xl text-black md:text-3xl">{post && post.title}</h2>
@@ -98,7 +111,7 @@ export default function BlogPost() {
         </div>
 
         <div className="text-justify md:text-left">
-          <p>{post && post.description}</p>
+          <p>{post && post.body}</p>
         </div>
 
         <div className="flex flex-col gap-2">
@@ -106,6 +119,9 @@ export default function BlogPost() {
           <div className="flex flex-col gap-4 justify-between items-center md:flex-row">
             <h2 className="font-bold text-black text-2xl">Share this blog article</h2>
             <div className="flex flex-wrap gap-3">
+              <div className="bg-gray p-2 cursor-pointer active:opacity-80" onClick={copyPostLink}>
+                <BiShareAlt size={25} color="white" />
+              </div>
               {socialIcons.map((socialIcon) => (
                 <Link
                   to={socialIcon.href}

@@ -1,3 +1,4 @@
+import React from "react";
 import { Input, Button, Select, SelectItem } from "@nextui-org/react";
 import { Link, MetaFunction, useActionData, Form } from "@remix-run/react";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -10,7 +11,6 @@ import { ActionFunction } from "@remix-run/node";
 import { commitSession, getSession } from "app/utils/session.server";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import React from "react";
 
 export const meta: MetaFunction = () => {
   return [{ title: "SignUp" }, { name: "", content: "" }];
@@ -64,6 +64,7 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function SignUp(): JSX.Element {
   const actionData = useActionData<ActionData>();
+  const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
 
   const {
     register,
@@ -74,6 +75,7 @@ export default function SignUp(): JSX.Element {
   });
 
   const onSubmit: SubmitHandler<SignUpSchema> = async (data) => {
+    setIsSubmitting(true);
     const form = document.getElementById("otpForm") as HTMLFormElement;
     if (form) {
       form.submit();
@@ -82,15 +84,18 @@ export default function SignUp(): JSX.Element {
 
   React.useEffect(() => {
     if (actionData && actionData.error) {
+      setIsSubmitting(false);
       toast.error(actionData.error, {
         toastId: "signupError",
       });
+    } else if (actionData && actionData.success) {
+      setIsSubmitting(false);
     }
   }, [actionData]);
 
   return (
     <div className="py-8">
-      <ToastContainer />
+      <ToastContainer containerId="loginToast" />
       <div className="space-y-4 px-2">
         <h1 className="text-2xl md:text-3xl text-dark font-bold text-center">
           Welcome to Promotional Products Now
@@ -300,10 +305,10 @@ export default function SignUp(): JSX.Element {
               className="font-semibold w-full"
               size="lg"
               radius="none"
-              // isDisabled={transition.state === "submitting"}
+              isLoading={isSubmitting}
+              disabled={isSubmitting}
             >
-              CREATE YOUR ACCOUNT
-              {/* {transition.state === "submitting" ? "Submitting..." : "CREATE YOUR ACCOUNT"} */}
+              {isSubmitting ? "Creating Your Account..." : "CREATE YOUR ACCOUNT"}
             </Button>
           </div>
         </div>
