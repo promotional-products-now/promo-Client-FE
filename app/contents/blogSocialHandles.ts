@@ -1,5 +1,4 @@
 import {
-  BiShareAlt,
   BiLogoGoogle,
   BiLogoTwitter,
   BiLogoFacebook,
@@ -9,7 +8,6 @@ import {
 } from "react-icons/bi";
 
 export const socialIcons = [
-  { id: "65dbb", icon: BiShareAlt, href: "", color: "gray" },
   { id: "283d", icon: BiLogoGoogle, href: "", color: "#4285F4" },
   { id: "9bf7", icon: BiLogoTwitter, href: "", color: "#000000" },
   { id: "a6ed", icon: BiLogoFacebook, href: "", color: "#1877F2" },
