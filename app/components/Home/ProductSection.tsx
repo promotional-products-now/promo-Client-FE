@@ -23,9 +23,10 @@ interface ProductSectionProps {
   Icon: IconType;
   title?: string;
   showmore?: boolean;
+  products?: [];
 }
 
-const ProductSection = ({ showmore, title, Icon }: ProductSectionProps) => {
+const ProductSection = ({ products, showmore, title, Icon }: ProductSectionProps) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const setProduct = useSetAtom(productPreviewAtom);
@@ -104,20 +105,26 @@ const ProductSection = ({ showmore, title, Icon }: ProductSectionProps) => {
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-            {items.slice(0, 6).map((item, index) => {
-              return (
-                <ProductCard
-                  key={index}
-                  image={item.image}
-                  title={item.title}
-                  description={item.description}
-                  price={item.price}
-                  newPrice={item.newPrice}
-                  qunatity={item.qunatity}
-                  handlePreviewFn={(data) => handlePreviewProd(data)}
-                />
-              );
-            })}
+            {products &&
+              products.length > 0 &&
+              products.slice(0, 9).map((item: any) => {
+                return (
+                  <ProductCard
+                    key={item.id}
+                    image={item.overview.heroImage}
+                    images={item.product.images}
+                    title={item.overview.name}
+                    productCode={item.overview.code}
+                    description={item.product.description}
+                    price={0}
+                    newPrice={""}
+                    qunatity={item.overview.minQty}
+                    handlePreviewFn={(data) => handlePreviewProd(data)}
+                    category={item.product.categorisation.productType.typeName}
+                    id={item.id}
+                  />
+                );
+              })}
           </div>
         </div>
 

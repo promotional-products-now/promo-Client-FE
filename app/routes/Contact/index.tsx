@@ -32,7 +32,7 @@ export default function ContactUS() {
       const response = await sendContactMessageApi(data);
       setIsLoading(false);
       if (response.status === 200) {
-        console.log("nice");
+
         toast.success("Message sent successfully!");
         reset();
       } else {

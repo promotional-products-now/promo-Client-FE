@@ -73,7 +73,7 @@ export default function BlogPost() {
   };
 
   const onSubmit = async (data: CommentSchema) => {
-    console.log(data);
+
     try {
       const postComment = await blogCommentApi({
         blogId: post._id,
