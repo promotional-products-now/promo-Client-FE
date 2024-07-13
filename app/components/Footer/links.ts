@@ -10,8 +10,8 @@ export type FooterT = {
 };
 
 export const aboutLinks: FooterT[] = [
-  { name: "Message from Sales Manager", pathname: "/" },
-  { name: "Company Profile", pathname: "/" },
+  { name: "Message from Sales Manager", pathname: "/national-sales-manager" },
+  { name: "Company Profile", pathname: "/about" },
   { name: "Terms & Conditions", pathname: "/terms-&-conditions" },
   { name: "Privacy Policy", pathname: "/privacy-policy" },
   { name: "Contact", pathname: "/contact" },
@@ -29,18 +29,18 @@ export const companyInfo: FooterT[] = [
 export const categoryLinks: FooterT[] = [
   { name: "24 Hour Product", pathname: "/" },
   { name: "3 Day Express", pathname: "/" },
-  { name: "Australian Made Products", pathname: "/" },
-  { name: "Bags", pathname: "/" },
-  { name: "Balloons", pathname: "/" },
-  { name: "Caps & Hats", pathname: "/" },
-  { name: "Catering & Barware", pathname: "/" },
-  { name: "Chocolates", pathname: "/" },
-  { name: "Clothing", pathname: "/" },
-  { name: "Confectionery", pathname: "/" },
-  { name: "Conference & Trade Shows", pathname: "/" },
-  { name: "Cups", pathname: "/" },
-  { name: "Drink Bottles", pathname: "/" },
-  { name: "Eco Friendly Products", pathname: "/" },
+  { name: "Australian Made Products", pathname: "/categories/australianMade" },
+  { name: "Bags", pathname: "/categories/bags" },
+  { name: "Balloons", pathname: "/categories/ballons" },
+  { name: "Caps & Hats", pathname: "/categories/caps_and_hats" },
+  { name: "Catering & Barware", pathname: "/categories/catering" },
+  { name: "Chocolates", pathname: "/categories/chocolates" },
+  { name: "Clothing", pathname: "/categories/clothing" },
+  { name: "Confectionery", pathname: "/categories/confectionary" },
+  { name: "Conference & Trade Shows", pathname: "/categories/conference" },
+  { name: "Cups", pathname: "/categories/cups" },
+  { name: "Drink Bottles", pathname: "/categories/drinks_bottle" },
+  { name: "Eco Friendly Products", pathname: "/categories/eco_friendly_products" },
 ];
 
 export const otherLinks: FooterT[] = [

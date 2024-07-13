@@ -4,11 +4,11 @@ import WorkInProgressImg from "app/assets/Work-in-progress.png";
 
 const Message = () => {
   return (
-    <div className="w-full flex flex-wrap-reverse gap-y-6 px-2 md:py-5">
+    <div className="w-full flex flex-wrap-reverse gap-y-6 px-4 md:py-5 lg:w-4/5 mx-auto">
       <div className="w-full flex flex-col gap-2 text-sm text-gray leading-loose md:w-full lg:w-1/2">
         <div className="relative mb-3">
-          <h2 className="font-bold text-lg">Message from National Sales Manager</h2>
-          <div className="absolute h-[3px] w-[40px] mt-1 bg-yellow"></div>
+          <h2 className="font-bold text-xl">Message from National Sales Manager</h2>
+          <div className="absolute h-1 w-10 mt-1 bg-yellow"></div>
         </div>
         <p>
           There are many variations of passages of Lorem Ipsum available, but the majority have

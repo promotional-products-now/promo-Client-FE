@@ -67,16 +67,17 @@ export function Footer() {
                 <Link to="/" className="flex items-center">
                   <Image src={logo} className="h-12" />
                 </Link>
-                <div className="space-y-3">
-                  <div>
-                      <p className="text-xs font-normal text-gray">
-                      Promotional Products Now is a progressive promotional products company
-                      founded on the belief that customer satisfaction is of paramount  and continuing importance.
+                <div>
+                  <div className="space-y-3">
+                    <p className="text-xs font-normal text-gray">
+                      Promotional Products Now is a progressive promotional products company founded
+                      on the belief that customer satisfaction is of paramount and continuing
+                      importance.
                     </p>
                     <p className="text-xs font-normal text-gray">
-                      Serving all organizations around Australia for over 20 years, our success  to date is directly contributed  to the feedback
-                      received from customers.
-                      </p>
+                      Serving all organizations around Australia for over 20 years, our success to
+                      date is directly contributed to the feedback received from customers.
+                    </p>
                   </div>
                 </div>
                 <div className="space-y-4">
@@ -93,7 +94,7 @@ export function Footer() {
                   </div>
                 </div>
                 <p className="text-xs font-normal text-gray">
-                  Copyright 2023 Promotional Products Now
+                  Copyright {new Date().getFullYear()} Promotional Products Now
                 </p>
               </div>
 

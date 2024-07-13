@@ -96,6 +96,7 @@ export default function ContactUS() {
                   variant="underlined"
                   label="Your Name"
                   {...register("fullName")}
+                  isInvalid={!!errors?.fullName?.message}
                   errorMessage={errors?.fullName?.message}
                 />
                 <Input
@@ -103,6 +104,7 @@ export default function ContactUS() {
                   variant="underlined"
                   label="Your Email"
                   {...register("email")}
+                  isInvalid={!!errors?.email?.message}
                   errorMessage={errors?.email?.message}
                 />
                 <Input
@@ -110,6 +112,7 @@ export default function ContactUS() {
                   variant="underlined"
                   label="Your Phone"
                   {...register("phone")}
+                  isInvalid={!!errors?.phone?.message}
                   errorMessage={errors?.phone?.message}
                 />
                 <div>
@@ -118,6 +121,7 @@ export default function ContactUS() {
                     variant="underlined"
                     label="Your Subject"
                     {...register("subject")}
+                    isInvalid={!!errors?.subject?.message}
                     errorMessage={errors?.subject?.message}
                   />
                 </div>
@@ -129,17 +133,19 @@ export default function ContactUS() {
                 className="col-span-12 md:col-span-6 mb-6 md:mb-0"
                 classNames={{ innerWrapper: "h-40 md:h-fit" }}
                 {...register("message")}
+                isInvalid={!!errors?.message?.message}
                 errorMessage={errors?.message?.message}
               />
-              <div className="">
+              <div>
                 <Button
                   color="primary"
+                  variant="solid"
                   isLoading={isLoading}
                   className="w-full md:w-fit rounded-sm py-3 px-6"
                   disabled={isLoading}
                   type="submit"
                 >
-                  Send Message
+                  {isLoading ? "Sending Message..." : "Send Message"}
                 </Button>
               </div>
             </div>
