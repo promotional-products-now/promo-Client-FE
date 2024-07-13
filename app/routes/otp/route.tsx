@@ -29,17 +29,17 @@ export const action: ActionFunction = async ({ request }) => {
     if (!otp) {
       return json({ error: "OTP is required" }, { status: 400 });
     }
-    console.log();
+
     const email = session.get("email");
     const uid = session.get("uid");
-    console.log({ uid, email, session: session });
+
     if (!email) {
       return json({ error: "Email not found in session" }, { status: 400 });
     }
 
     // Validate OTP here (add your own logic)
     const response = await validatOtpApi({ email, otp });
-    console.log({ data: response.data });
+
     if (response && response.data) {
       const { accessToken, user } = response.data;
       session.set("accessToken", accessToken);
