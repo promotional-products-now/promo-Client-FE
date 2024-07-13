@@ -8,7 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { socialIcons } from "app/contents/blogSocialHandles";
 import { CommentSchema } from "app/schema/comment.schema";
 import { CONTENT_BASE_URL } from "app/api/api";
-import { blog as blogs } from "app/api_dummy";
+import { fetchAllBlogsApi } from "app/api/blog.api";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Blog Post" }, { name: "", content: "" }];
@@ -17,16 +17,37 @@ export const meta: MetaFunction = () => {
 export async function loader({ params }: { params: { category: string; id: string } }) {
   if (params.id) {
     const { data } = await axios.get(`${CONTENT_BASE_URL}/blog/${params.id}`);
-    if (data.isError) {
-      return { error: data.message, category: params.category, post: [] };
-    } else {
-      return { category: params.category, post: data.payload };
-    }
+
+    const blog = data.isError
+      ? { error: data.message, category: params.category, post: [] }
+      : { category: params.category, post: data.payload };
+
+    const request = await fetchAllBlogsApi();
+    const response = await request.data;
+
+    const blogs = response.isError ? [] : response.payload;
+
+    return {
+      blog,
+      blogs,
+    };
   }
 }
 
+interface Category {
+  title: string;
+}
+
+interface BlogPostType {
+  _id: string;
+  title: string;
+  image?: string;
+  category: Category;
+}
+
 export default function BlogPost() {
-  const { post, category } = useLoaderData<typeof loader>();
+  const { blog, blogs } = useLoaderData<typeof loader>();
+  const { post } = blog;
 
   const {
     register,
@@ -37,7 +58,7 @@ export default function BlogPost() {
   });
 
   const copyPostLink = async () => {
-    await navigator.clipboard.writeText(`http://localhost:3000/blogs/${category}/${post._id}`);
+    await navigator.clipboard.writeText(`http://localhost:3000/blogs/${blog.category}/${post._id}`);
   };
 
   const onSubmit = (data: CommentSchema) => {
@@ -226,7 +247,7 @@ export default function BlogPost() {
           </div>
           <div className="flex flex-col gap-6">
             {blogs.map(
-              (post, index) =>
+              (post: BlogPostType, index: number) =>
                 index < 3 && (
                   <div className="flex items-center gap-3">
                     <Image
@@ -235,14 +256,15 @@ export default function BlogPost() {
                       width="100%"
                       alt=""
                       className="w-[10rem] h-[6rem] object-cover"
-                      src={post.image}
+                      src={
+                        post?.image ??
+                        "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg"
+                      }
                     />
                     <div className="flex flex-col gap-1">
-                      <h3 className="line-clamp-2  mb-2">
-                        How Customers Appreciation Helps Your B2B Sales
-                      </h3>
+                      <h3 className="line-clamp-2  mb-2">{post?.title}</h3>
                       <Link
-                        to={`/blogpost/${post.title}`}
+                        to={`/blogs/${post?.category?.title}/${post._id}`}
                         className="text-sm hover:underline text-orange"
                       >
                         READ MORE
