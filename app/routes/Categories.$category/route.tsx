@@ -7,7 +7,7 @@ import { allCategories } from "app/utils/homeAllCategories";
 import { items } from "app/api_dummy";
 import { useMemo } from "react";
 import { useSetAtom } from "jotai";
-import { productAtom } from "app/atoms/product.atom";
+import { productPreviewAtom } from "app/atoms/product.atom";
 
 const options = [
   { value: "low-high", label: "low to high" },
@@ -18,7 +18,7 @@ const options = [
 const CategoryPage = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-  const setProduct = useSetAtom(productAtom);
+  const setProduct = useSetAtom(productPreviewAtom);
 
   let { category } = useParams();
 

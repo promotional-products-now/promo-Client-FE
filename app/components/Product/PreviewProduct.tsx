@@ -10,11 +10,11 @@ import {
 } from "@nextui-org/react";
 import { useAtomValue } from "jotai";
 import { FaStar } from "react-icons/fa6";
-import { productAtom } from "app/atoms/product.atom";
+import { productPreviewAtom } from "app/atoms/product.atom";
 import { BsCart3 } from "react-icons/bs";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { A11y, Parallax, Navigation, Pagination } from "swiper/modules";
-import SwiperCore, { Swiper as SwiperInstance } from "swiper";
+import { Swiper as SwiperInstance } from "swiper";
 import "../../style.css";
 import { useRef } from "react";
 
@@ -26,8 +26,7 @@ export function PreviewProduct({
   onOpenChange: () => void;
 }) {
   const swiperRef = useRef<SwiperInstance | null>(null);
-
-  const product = useAtomValue(productAtom);
+  const product = useAtomValue(productPreviewAtom);
 
   return (
     <Modal isOpen={isOpen} backdrop="transparent" onOpenChange={onOpenChange} size="3xl">
@@ -67,7 +66,7 @@ export function PreviewProduct({
                 <div className="grid grid-cols-2">
                   <Button
                     as={Link}
-                    href={`/products/${product?.title}`}
+                    href={`/products/${product?.category}/${product?.id}`}
                     radius="none"
                     className="bg-primary text-white"
                     startContent={<BsCart3 />}
