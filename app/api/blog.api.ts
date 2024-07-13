@@ -8,4 +8,27 @@ const fetchAllBlogsApi = async () => {
 const fetchAllBlogsCategoryApi = async (arg: string) => {
   return await axios.get(`${CONTENT_BASE_URL}/blog/category?category=${arg}`);
 };
-export { fetchAllBlogsApi, fetchAllBlogsCategoryApi };
+
+const fetchSingleBlogApi = async (id: string) => {
+  const result = await axios.get(`${CONTENT_BASE_URL}/blog/${id}?populate=comments`);
+
+  return result;
+};
+
+const blogCommentApi = async (params: {
+  blogId: string;
+  comment: string;
+  author?: string;
+  email: string;
+  phone: string;
+}) => {
+  const result = await axios.post(`${CONTENT_BASE_URL}/blog/${params.blogId}/comment/`, {
+    blog: params.blogId,
+    body: params.comment,
+    email: params.email,
+    phone: params.phone,
+    author: params.author,
+  });
+  return result;
+};
+export { fetchAllBlogsApi, fetchAllBlogsCategoryApi, fetchSingleBlogApi, blogCommentApi };

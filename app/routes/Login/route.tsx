@@ -29,10 +29,11 @@ export const action: ActionFunction = async ({ request }) => {
   try {
     const response = await loginApi({ email, password });
 
-    const { accessToken, _id, email: emailAddress } = response.data.payload;
+    const { accessToken, _id, email: emailAddress, phone } = response.data.payload;
 
     session.set("uid", _id);
     session.set("email", emailAddress.address);
+    session.set("phone", phone);
     session.set("accessToken", accessToken);
 
     return redirect("/otp", {

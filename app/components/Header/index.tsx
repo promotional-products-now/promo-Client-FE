@@ -18,7 +18,7 @@ type HeaderT = {
 export function Header(props: HeaderT) {
   const location = useLocation();
   let data = useLoaderData<typeof loader>();
-
+  console.log({ data });
   const handleOpenSidebar = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
     props.setSidebarOpen(!props.sidebarOpen);
@@ -35,7 +35,7 @@ export function Header(props: HeaderT) {
       <div className="container mx-auto pb-4 ">
         <nav className="fixed sm:relative top-0 left-0 right-0 z-50 bg-white dark:bg-gray-900">
           <div className=" flex flex-wrap items-center justify-between mx-auto py-4">
-            <Link as={RemixLink} href="/" className="hidden md:block">
+            <Link as={RemixLink} to="/" className="hidden md:block">
               <Image src={logo} className="h-12 2xl:h-20 " />
             </Link>
             <div className="flex gap-3 items-center">
@@ -153,8 +153,7 @@ export function Header(props: HeaderT) {
         </nav>
         {location.pathname === "/" ? (
           <div className="flex justify-self-center mx-auto container bg-white  w-full !mt-20 sm:!mt-auto">
-            {data.userId}
-            <SecondaryNav uid={data.userId} />
+            <SecondaryNav uid={data.user.uid} />
           </div>
         ) : (
           <div className="hidden md:flex justify-end gap-2 ">
@@ -168,16 +167,18 @@ export function Header(props: HeaderT) {
             >
               Fast Delivery Australia Wide
             </Button>
-            <Button
-              as={RemixLink}
-              to="/login"
-              size="lg"
-              variant="ghost"
-              startContent={<FiLogIn className="text-xl text-primary" />}
-              className="border border-zinc-200 rounded font-medium text-sm px-3"
-            >
-              Login
-            </Button>
+            {!data.user.uid && (
+              <Button
+                as={RemixLink}
+                to="/login"
+                size="lg"
+                variant="ghost"
+                startContent={<FiLogIn className="text-xl text-primary" />}
+                className="border border-zinc-200 rounded font-medium text-sm px-3"
+              >
+                Login
+              </Button>
+            )}
           </div>
         )}
       </div>
@@ -187,10 +188,7 @@ export function Header(props: HeaderT) {
 
 export async function loader({ request }: any) {
   const session = await getSession(request.headers.get("Cookie"));
-  const userId = session.get("uid");
-  console.log({ userId, session });
-  // if (!userId) {
-  //   return redirect("/login");
-  // }
-  return json({ userId, ENV: { SALES_CONTACT: process.env.SALES_CONTACT } });
+  const uid = session.get("uid");
+
+  return json({ user: { uid }, ENV: { SALES_CONTACT: process.env.SALES_CONTACT } });
 }
