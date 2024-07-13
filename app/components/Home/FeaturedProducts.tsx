@@ -6,7 +6,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { ProductCard } from "app/components/Product/ProductCard";
 import { items } from "app/api_dummy";
 import { useSetAtom } from "jotai";
-import { productAtom } from "app/atoms/product.atom";
+import { productPreviewAtom } from "app/atoms/product.atom";
 import { PreviewProduct } from "../Product/PreviewProduct";
 
 interface FeaturedProductsProps {
@@ -24,7 +24,7 @@ const options = [
 const FeaturedProducts = ({ sectionlabel, gridno, showmore }: FeaturedProductsProps) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-  const setProduct = useSetAtom(productAtom);
+  const setProduct = useSetAtom(productPreviewAtom);
 
   const [filterItems, setFilterItems] = useState(items);
 

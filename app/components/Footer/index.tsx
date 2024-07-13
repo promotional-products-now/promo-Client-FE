@@ -86,7 +86,7 @@ export function Footer() {
                     {socialLinks.map((link) => {
                       const IconTag = link.icon;
                       return (
-                        <Link to={link.pathname} className="">
+                        <Link to={link.pathname} key={link.id} className="">
                           <IconTag className="text-primary text-2xl" />
                         </Link>
                       );

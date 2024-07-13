@@ -18,7 +18,7 @@ import { blog, items } from "app/api_dummy";
 import { fetchProductsApi } from "app/api/products.api";
 import { useLoaderData } from "@remix-run/react";
 import { PreviewProduct } from "app/components/Product/PreviewProduct";
-import { productAtom } from "app/atoms/product.atom";
+import { productPreviewAtom } from "app/atoms/product.atom";
 
 export const meta: MetaFunction = () => {
   return [
@@ -28,14 +28,14 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader = async () => {
-  const { data } = await fetchProductsApi({});
+  const { data } = await fetchProductsApi();
   return data.docs;
 };
 
 export default function Index() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-  const setProduct = useSetAtom(productAtom);
+  const setProductPrevData = useSetAtom(productPreviewAtom);
 
   const products = useLoaderData<typeof loader>();
 
@@ -43,7 +43,7 @@ export default function Index() {
 
   const handlePreviewProd = (product: any) => {
     onOpen();
-    setProduct(product);
+    setProductPrevData(product);
   };
 
   return (
@@ -198,7 +198,9 @@ export default function Index() {
             <div className="md:pt-8">
               <Carousel numberOfItems={4}>
                 {products.map((item: any) => {
-                  // console.log({ products: item });
+                  // const price = item.product.prices.priceGroups;
+                  // const initPrice = "";
+                  // const lastPrice = item[price.length - 1];
                   return (
                     <div key={item.id} className="flex flex-row">
                       <ProductCard
@@ -207,10 +209,12 @@ export default function Index() {
                         title={item.overview.name}
                         productCode={item.overview.code}
                         description={item.product.description}
-                        price={item.price}
-                        newPrice={item.newPrice}
+                        price={0}
+                        newPrice={""}
                         qunatity={item.overview.minQty}
                         handlePreviewFn={(data) => handlePreviewProd(data)}
+                        id={item.id}
+                        category={item.product.categorisation.productType.typeName}
                       />
                     </div>
                   );
