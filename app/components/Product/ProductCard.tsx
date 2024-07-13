@@ -8,10 +8,12 @@ export type ProductCardProps = {
   productCode?: string;
   title: string;
   description: string;
-  price: string;
+  price: number;
   newPrice: string;
-  qunatity: string;
+  qunatity: number;
   handlePreviewFn: (data: any) => void;
+  category: string;
+  id: string;
 };
 
 export const ProductCard = ({
@@ -23,9 +25,22 @@ export const ProductCard = ({
   price,
   newPrice,
   qunatity,
+  category,
+  id,
   handlePreviewFn,
 }: ProductCardProps) => {
-  const props = { image, title, description, price, newPrice, qunatity, images, productCode };
+  const props = {
+    image,
+    title,
+    description,
+    price,
+    newPrice,
+    qunatity,
+    images,
+    productCode,
+    category,
+    id,
+  };
 
   return (
     <>
@@ -54,7 +69,7 @@ export const ProductCard = ({
             </Button>
             <Button
               as={Link}
-              href={`/products/${title}`}
+              href={`/products/${category}/${id}`}
               radius="none"
               className="bg-primary text-white"
               startContent={<BsCart3 />}
