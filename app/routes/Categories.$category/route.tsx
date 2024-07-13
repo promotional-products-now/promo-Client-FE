@@ -1,4 +1,4 @@
-import { Link, useParams } from "@remix-run/react";
+import { Link, useLoaderData, useParams } from "@remix-run/react";
 import { Select, SelectItem, useDisclosure } from "@nextui-org/react";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { GoVerified } from "react-icons/go";
@@ -8,6 +8,7 @@ import { items } from "app/api_dummy";
 import { useMemo } from "react";
 import { useSetAtom } from "jotai";
 import { productPreviewAtom } from "app/atoms/product.atom";
+import { fetchProductByCategory } from "app/api/products.api";
 
 const options = [
   { value: "low-high", label: "low to high" },
@@ -15,7 +16,17 @@ const options = [
   { value: "new", label: "New" },
 ];
 
+//export const fetchProductByCategory = async (category: string) => {
+
+export async function loader({ params }: { params: { category: string } }) {
+  const { data } = await fetchProductByCategory(params.category);
+
+  return data;
+}
+
 const CategoryPage = () => {
+  const loaderData = useLoaderData<typeof loader>();
+
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const setProduct = useSetAtom(productPreviewAtom);
@@ -108,20 +119,26 @@ const CategoryPage = () => {
         </div>
         <div className="flex flex-col gap-10 md:px-20 px-5 w-full">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            {categoryProducts.map((item, index) => {
-              return (
-                <ProductCard
-                  key={index}
-                  image={item.image}
-                  title={item.title}
-                  description={item.description}
-                  price={item.price}
-                  newPrice={item.newPrice}
-                  qunatity={item.qunatity}
-                  handlePreviewFn={(data) => handlePreviewProd(data)}
-                />
-              );
-            })}
+            {loaderData &&
+              loaderData.length > 0 &&
+              loaderData.map((item: any) => {
+                return (
+                  <ProductCard
+                    key={item.id}
+                    image={item.overview.heroImage}
+                    images={item.product.images}
+                    title={item.overview.name}
+                    productCode={item.overview.code}
+                    description={item.product.description}
+                    price={item.price}
+                    newPrice={item.newPrice}
+                    qunatity={item.qunatity}
+                    handlePreviewFn={(data) => handlePreviewProd(data)}
+                    category={item.product.categorisation.productType.typeName}
+                    id={item.id}
+                  />
+                );
+              })}
           </div>
         </div>
       </div>

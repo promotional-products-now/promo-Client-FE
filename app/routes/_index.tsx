@@ -15,7 +15,11 @@ import CategoryList from "app/components/CategoryList";
 import { isCategoryListOpen } from "app/atoms/category.atom";
 import { BlogCard } from "app/components/Blog/BlogCard";
 import { blog, items } from "app/api_dummy";
-import { fetchProductsApi } from "app/api/products.api";
+import {
+  fetchProductByCategory,
+  fetchProductCategories,
+  fetchProductsApi,
+} from "app/api/products.api";
 import { useLoaderData } from "@remix-run/react";
 import { PreviewProduct } from "app/components/Product/PreviewProduct";
 import { productPreviewAtom } from "app/atoms/product.atom";
@@ -29,7 +33,17 @@ export const meta: MetaFunction = () => {
 
 export const loader = async () => {
   const { data } = await fetchProductsApi();
-  return data.docs;
+  const categories = await fetchProductCategories();
+  const { data: healthProducts } = await fetchProductByCategory("Health & Personal");
+  const { data: clothingProducts } = await fetchProductByCategory("Clothing");
+  const { data: homeAndLivingProducts } = await fetchProductByCategory("Home & Living");
+  return {
+    products: data.docs,
+    categories,
+    healthProducts,
+    clothingProducts,
+    homeAndLivingProducts,
+  };
 };
 
 export default function Index() {
@@ -37,7 +51,7 @@ export default function Index() {
 
   const setProductPrevData = useSetAtom(productPreviewAtom);
 
-  const products = useLoaderData<typeof loader>();
+  const loaderData = useLoaderData<typeof loader>();
 
   const [isCategoryOpen, setIsCategoryOpen] = useAtom(isCategoryListOpen);
 
@@ -60,7 +74,7 @@ export default function Index() {
           >
             {/* category */}
             <ScrollShadow className="w-full h-full ">
-              <CategoryList />
+              <CategoryList categories={loaderData.categories} />
             </ScrollShadow>
           </div>
           <div
@@ -197,28 +211,29 @@ export default function Index() {
             </div>
             <div className="md:pt-8">
               <Carousel numberOfItems={4}>
-                {products.map((item: any) => {
-                  // const price = item.product.prices.priceGroups;
-                  // const initPrice = "";
-                  // const lastPrice = item[price.length - 1];
-                  return (
-                    <div key={item.id} className="flex flex-row">
-                      <ProductCard
-                        image={item.overview.heroImage}
-                        images={item.product.images}
-                        title={item.overview.name}
-                        productCode={item.overview.code}
-                        description={item.product.description}
-                        price={0}
-                        newPrice={""}
-                        qunatity={item.overview.minQty}
-                        handlePreviewFn={(data) => handlePreviewProd(data)}
-                        id={item.id}
-                        category={item.product.categorisation.productType.typeName}
-                      />
-                    </div>
-                  );
-                })}
+                {loaderData &&
+                  loaderData.products.map((item: any) => {
+                    // const price = item.product.prices.priceGroups;
+                    // const initPrice = "";
+                    // const lastPrice = item[price.length - 1];
+                    return (
+                      <div key={item.id} className="flex flex-row">
+                        <ProductCard
+                          image={item.overview.heroImage}
+                          images={item.product.images}
+                          title={item.overview.name}
+                          productCode={item.overview.code}
+                          description={item.product.description}
+                          price={0}
+                          newPrice={""}
+                          qunatity={item.overview.minQty}
+                          handlePreviewFn={(data) => handlePreviewProd(data)}
+                          id={item.id}
+                          category={item.product.categorisation.productType.typeName}
+                        />
+                      </div>
+                    );
+                  })}
               </Carousel>
             </div>
           </div>
@@ -226,11 +241,20 @@ export default function Index() {
       </div>
 
       <div className="md:px-0 flex flex-col space-y-20 pb-20">
-        <ProductSection Icon={PiFirstAidKitLight} title="Health & Fitness" />
+        <ProductSection
+          Icon={PiFirstAidKitLight}
+          title="Health & Fitness"
+          products={loaderData.healthProducts}
+        />
         <FeaturedProducts sectionlabel="Featured Products" gridno={10} />
-        <ProductSection Icon={GiClothes} title="Mens Wear" />
+        <ProductSection Icon={GiClothes} title="Mens Wear" products={loaderData.clothingProducts} />
         <FeaturedProducts sectionlabel="New Arrivals" gridno={5} />
-        <ProductSection Icon={FaFemale} title="Womens Wear" showmore />
+        <ProductSection
+          Icon={FaFemale}
+          title="Home & Living"
+          showmore
+          products={loaderData.homeAndLivingProducts}
+        />
         <ContactUs />
         <section className="bg-white-bg p-10 ">
           <div className="mt-4 flex flex-col justify-center items-center gap-4 w-full w-max-ppn">

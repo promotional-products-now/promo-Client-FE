@@ -18,7 +18,7 @@ type HeaderT = {
 export function Header(props: HeaderT) {
   const location = useLocation();
   let data = useLoaderData<typeof loader>();
-  console.log({ data });
+
   const handleOpenSidebar = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
     props.setSidebarOpen(!props.sidebarOpen);
