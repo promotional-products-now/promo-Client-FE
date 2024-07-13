@@ -5,7 +5,7 @@ import { IconType } from "react-icons";
 import { ProductCard } from "../Product/ProductCard";
 import { items } from "app/api_dummy";
 import { useSetAtom } from "jotai";
-import { productAtom } from "app/atoms/product.atom";
+import { productPreviewAtom } from "app/atoms/product.atom";
 import { PreviewProduct } from "../Product/PreviewProduct";
 
 const options = [
@@ -28,7 +28,7 @@ interface ProductSectionProps {
 const ProductSection = ({ showmore, title, Icon }: ProductSectionProps) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-  const setProduct = useSetAtom(productAtom);
+  const setProduct = useSetAtom(productPreviewAtom);
 
   const handlePreviewProd = (product: any) => {
     onOpen();
