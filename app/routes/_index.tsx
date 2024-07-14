@@ -23,6 +23,8 @@ import {
 import { useLoaderData } from "@remix-run/react";
 import { PreviewProduct } from "app/components/Product/PreviewProduct";
 import { productPreviewAtom } from "app/atoms/product.atom";
+import { fetchAllBlogsApi } from "app/api/blog.api";
+import { BlogCardProps } from "../components/Blog/interface";
 
 export const meta: MetaFunction = () => {
   return [
@@ -32,17 +34,36 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader = async () => {
-  const { data } = await fetchProductsApi();
-  const categories = await fetchProductCategories();
-  const { data: healthProducts } = await fetchProductByCategory("Health & Personal");
-  const { data: clothingProducts } = await fetchProductByCategory("Clothing");
-  const { data: homeAndLivingProducts } = await fetchProductByCategory("Home & Living");
+  async function getProductsAndCategories() {
+    const [productsResponse, categoriesResponse, blog] = await Promise.all([
+      fetchProductsApi(),
+      fetchProductCategories(),
+      fetchAllBlogsApi(),
+    ]);
+    return { products: productsResponse.data.docs, categories: categoriesResponse };
+  }
+
+  const [
+    { products, categories },
+    healthProductsResponse,
+    clothingProductsResponse,
+    homeAndLivingProductsResponse,
+    blog,
+  ] = await Promise.all([
+    getProductsAndCategories(),
+    fetchProductByCategory("Health & Personal"),
+    fetchProductByCategory("Clothing"),
+    fetchProductByCategory("Home & Living"),
+    fetchAllBlogsApi({ limit: 10 }),
+  ]);
+
   return {
-    products: data.docs,
+    products,
     categories,
-    healthProducts,
-    clothingProducts,
-    homeAndLivingProducts,
+    blog: blog.data.payload,
+    healthProducts: healthProductsResponse.data,
+    clothingProducts: clothingProductsResponse.data,
+    homeAndLivingProducts: homeAndLivingProductsResponse.data,
   };
 };
 
@@ -74,7 +95,9 @@ export default function Index() {
           >
             {/* category */}
             <ScrollShadow className="w-full h-full ">
-              <CategoryList categories={loaderData.categories} />
+              {loaderData && loaderData.categories && (
+                <CategoryList categories={loaderData.categories} />
+              )}
             </ScrollShadow>
           </div>
           <div
@@ -244,16 +267,22 @@ export default function Index() {
         <ProductSection
           Icon={PiFirstAidKitLight}
           title="Health & Fitness"
-          products={loaderData.healthProducts}
+          products={loaderData && loaderData.healthProducts ? loaderData.healthProducts : []}
         />
         <FeaturedProducts sectionlabel="Featured Products" gridno={10} />
-        <ProductSection Icon={GiClothes} title="Mens Wear" products={loaderData.clothingProducts} />
+        <ProductSection
+          Icon={GiClothes}
+          title="Mens Wear"
+          products={loaderData && loaderData.clothingProducts ? loaderData.clothingProducts : []}
+        />
         <FeaturedProducts sectionlabel="New Arrivals" gridno={5} />
         <ProductSection
           Icon={FaFemale}
           title="Home & Living"
           showmore
-          products={loaderData.homeAndLivingProducts}
+          products={
+            loaderData && loaderData.homeAndLivingProducts ? loaderData.homeAndLivingProducts : []
+          }
         />
         <ContactUs />
         <section className="bg-white-bg p-10 ">
@@ -280,18 +309,20 @@ export default function Index() {
 
           <div className="md:mx-4">
             <Carousel numberOfItems={3}>
-              {blog.map((item) => (
-                <div key={item.id} className="flex flex-col md:flex-row gap-1 sm:mx-2 md:mx-1">
-                  <BlogCard
-                    title={item.title}
-                    description={item.description}
-                    image={item.image}
-                    id={item.id}
-                    category={item.category}
-                    body={item.body}
-                  />
-                </div>
-              ))}
+              {loaderData &&
+                loaderData.blog.length > 0 &&
+                loaderData.blog.map((post: BlogCardProps) => (
+                  <div key={post._id} className="flex flex-col md:flex-row gap-1 sm:mx-2 md:mx-1">
+                    <BlogCard
+                      title={post.title}
+                      description={post.description}
+                      imageSrc={post.imageSrc}
+                      _id={post._id}
+                      category={post.category}
+                      body={post.body}
+                    />
+                  </div>
+                ))}
             </Carousel>
           </div>
         </section>

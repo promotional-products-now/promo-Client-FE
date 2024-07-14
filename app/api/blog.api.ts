@@ -1,8 +1,10 @@
 import axios from "axios";
 import { CONTENT_BASE_URL } from "./api";
 
-const fetchAllBlogsApi = async () => {
-  return await axios.get(`${CONTENT_BASE_URL}/blog?populate=category`);
+const fetchAllBlogsApi = async (query?: any) => {
+  return await axios.get(
+    `${CONTENT_BASE_URL}/blog?populate=category&limit=${query && query.limit ? query.limit : 20}`,
+  );
 };
 
 const fetchAllBlogsCategoryApi = async (arg: string) => {

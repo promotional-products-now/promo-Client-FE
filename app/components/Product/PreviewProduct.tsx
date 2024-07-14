@@ -17,6 +17,7 @@ import { A11y, Parallax, Navigation, Pagination } from "swiper/modules";
 import { Swiper as SwiperInstance } from "swiper";
 import "../../style.css";
 import { useRef } from "react";
+import { isMobile } from "react-device-detect";
 
 export function PreviewProduct({
   isOpen,
@@ -29,7 +30,13 @@ export function PreviewProduct({
   const product = useAtomValue(productPreviewAtom);
 
   return (
-    <Modal isOpen={isOpen} backdrop="transparent" onOpenChange={onOpenChange} size="3xl">
+    <Modal
+      isOpen={isOpen}
+      placement={isMobile ? "bottom-center" : "auto"}
+      backdrop="transparent"
+      onOpenChange={onOpenChange}
+      size="3xl"
+    >
       <ModalContent className=" rounded-none shadow-xl">
         <>
           <ModalHeader className="justify-center">
@@ -47,7 +54,7 @@ export function PreviewProduct({
               </div>
             </div>
           </ModalHeader>
-          <ModalBody>
+          <ModalBody className="p-1 md:p4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="">
                 <Image
@@ -77,8 +84,8 @@ export function PreviewProduct({
               </div>
             </div>
           </ModalBody>
-          <ModalFooter className="justify-center border- border-red-600">
-            <div className="p-1 md:p-4  relative w-4/5">
+          <ModalFooter className="justify-center border- border-red-600 p-2 md:p-4">
+            <div className="p-1 md:p-4  relative w-11/12 md:w-4/5">
               <Swiper
                 // navigation={true}
                 onSwiper={(swiper) => (swiperRef.current = swiper)}

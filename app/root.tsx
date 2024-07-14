@@ -22,6 +22,8 @@ import SwiperStyle from "./style.css";
 import { useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { getSession } from "./sessions";
+import nprogressStyles from "nprogress/nprogress.css";
+import { ProgressBar } from "./nprogress";
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
@@ -36,6 +38,7 @@ export const links: LinksFunction = () => [
     rel: "stylesheet",
     href: "https://cdn.jsdelivr.net/npm/swiper@11.0.7/modules/pagination.min.css",
   },
+  { rel: "stylesheet", href: nprogressStyles },
 ];
 
 export default function App() {
@@ -70,6 +73,7 @@ export default function App() {
             </main>
             <Footer />
           </div>
+          <ProgressBar />
           <ToastContainer containerId={"ppn"} />
           <ScrollRestoration />
           <Scripts />

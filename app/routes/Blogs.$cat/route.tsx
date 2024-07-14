@@ -35,12 +35,9 @@ const Blog = () => {
               key={post?._id}
               title={post?.title}
               description={post?.description}
-              image={
-                post.image ??
-                "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg"
-              }
-              id={post?._id}
-              category={post?.category?.title}
+              imageSrc={post.image}
+              _id={post?._id}
+              category={post?.category}
               body={post?.body}
             />
           ))}
