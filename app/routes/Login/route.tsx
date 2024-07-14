@@ -85,7 +85,7 @@ export default function Login(): JSX.Element {
   }, [actionData]);
 
   return (
-    <div>
+    <div className="mt-12 md:mt-0">
       <ToastContainer containerId="loginToast" />
       <div className="py-4 md:py-8">
         <h1 className="text-2xl md:text-3xl text-dark font-bold text-center">

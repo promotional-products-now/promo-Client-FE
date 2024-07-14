@@ -35,9 +35,16 @@ export function Header(props: HeaderT) {
       <div className="container mx-auto pb-4 ">
         <nav className="fixed sm:relative top-0 left-0 right-0 z-50 bg-white dark:bg-gray-900">
           <div className=" flex flex-wrap items-center justify-between mx-auto py-4">
-            <Link as={RemixLink} to="/" className="hidden md:block">
-              <Image src={logo} className="h-12 2xl:h-20 " />
-            </Link>
+            {location.pathname === "/" ? (
+              <span className="hidden md:block">
+                {" "}
+                <Image src={logo} className="h-12 2xl:h-20 " />
+              </span>
+            ) : (
+              <Link as={RemixLink} to="/" className="hidden md:block">
+                <Image src={logo} className="h-12 2xl:h-20 " />
+              </Link>
+            )}
             <div className="flex gap-3 items-center">
               <button
                 data-collapse-toggle="navbar-sticky"
@@ -136,14 +143,18 @@ export function Header(props: HeaderT) {
                           : ""
                       }`}
                     >
-                      <Link
-                        as={RemixLink}
-                        to={link.pathname}
-                        aria-current="page"
-                        className="text-black  2xl:text-xl"
-                      >
-                        {link.name}
-                      </Link>
+                      {location.pathname === link.pathname ? (
+                        <span> {link.name}</span>
+                      ) : (
+                        <Link
+                          as={RemixLink}
+                          to={link.pathname}
+                          aria-current="page"
+                          className="text-black  2xl:text-xl"
+                        >
+                          {link.name}
+                        </Link>
+                      )}
                     </li>
                   );
                 })}

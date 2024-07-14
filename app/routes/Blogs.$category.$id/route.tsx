@@ -98,7 +98,7 @@ export default function BlogPost() {
             alt=""
             className="h-[200px] object-cover lg:h-[450px]"
             src={
-              post.image ??
+              post.imageSrc ??
               "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg"
             }
           />

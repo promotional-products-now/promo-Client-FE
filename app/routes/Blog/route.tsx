@@ -2,19 +2,11 @@ import { MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { fetchAllBlogsApi } from "app/api/blog.api";
 import { BlogCard } from "app/components/Blog/BlogCard";
+import { BlogCardProps } from "../../components/Blog/interface";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Blog" }, { name: "description", content: "" }];
 };
-
-interface BlogCardProps {
-  image: string;
-  title: string;
-  category: { _id: string; title: string };
-  description: string;
-  _id: string;
-  body: string;
-}
 
 export async function loader() {
   const { data } = await fetchAllBlogsApi();
@@ -40,12 +32,12 @@ const Blog = () => {
             key={post?._id}
             title={post?.title}
             description={post?.description}
-            image={
-              post.image ??
+            imageSrc={
+              post.imageSrc ??
               "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg"
             }
-            id={post?._id}
-            category={post?.category?.title}
+            _id={post?._id}
+            category={post?.category}
             body={post?.body}
           />
         ))}
