@@ -1,4 +1,5 @@
 import { Image, Link, Button } from "@nextui-org/react";
+import { toSnakeCase } from "app/utils/fn";
 import { BsCart3 } from "react-icons/bs";
 import { FiEye } from "react-icons/fi";
 
@@ -69,7 +70,7 @@ export const ProductCard = ({
             </Button>
             <Button
               as={Link}
-              href={`/products/${category}/${id}`}
+              href={`/products/${category ? toSnakeCase(category) : "_"}/${id}`}
               radius="none"
               className="bg-primary text-white"
               startContent={<BsCart3 />}

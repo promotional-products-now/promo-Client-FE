@@ -1,7 +1,7 @@
 import { Link } from "@remix-run/react";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import { FaArrowRightLong } from "react-icons/fa6";
-import { BlogCardProps } from "./interface";
+import { BlogCardProps } from "../../routes/Blog/interface";
 
 export const BlogCard = ({ imageSrc, title, category, _id, body }: BlogCardProps) => {
   return (

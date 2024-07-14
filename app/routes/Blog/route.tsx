@@ -2,7 +2,7 @@ import { MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { fetchAllBlogsApi } from "app/api/blog.api";
 import { BlogCard } from "app/components/Blog/BlogCard";
-import { BlogCardProps } from "../../components/Blog/interface";
+import { BlogCardProps } from "./interface";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Blog" }, { name: "description", content: "" }];
