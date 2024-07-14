@@ -32,6 +32,7 @@ import "../../style.css";
 import { ProductAboutCard } from "app/components/Product/ProductInfoCard";
 import { productAtom } from "app/atoms/product.atom";
 import { getProductInfo } from "app/api/products.api";
+import { removeSnakeCase } from "app/utils/fn";
 
 const fakeFilter = [
   { label: "Red", value: "red" },
@@ -65,7 +66,9 @@ export default function ProductDetailsRoute() {
               <div className="text-sm md:text-base text-gray">Home</div>
             </Link>
             <MdKeyboardDoubleArrowRight size={18} className="text-gray" />
-            <span className="text-sm md:text-base text-gray">{category}</span>
+            <span className="text-sm md:text-base text-gray">
+              {removeSnakeCase(category || "")}
+            </span>
             <MdKeyboardDoubleArrowRight size={18} className="text-gray" />
             <span className="text-sm md:text-base text-primary">{productF?.overview?.name}</span>
           </div>

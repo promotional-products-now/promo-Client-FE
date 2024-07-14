@@ -3,6 +3,8 @@ import { TfiFacebook, TfiYoutube } from "react-icons/tfi";
 import { FaLinkedinIn } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { TiSocialGooglePlus } from "react-icons/ti";
+import allCategory from "app/utils/categories";
+import { toSnakeCase } from "app/utils/fn";
 
 export type FooterT = {
   name: string;
@@ -26,22 +28,11 @@ export const companyInfo: FooterT[] = [
   { name: "Contact Us", pathname: "/contact" },
 ];
 
-export const categoryLinks: FooterT[] = [
-  { name: "24 Hour Product", pathname: "/" },
-  { name: "3 Day Express", pathname: "/" },
-  { name: "Australian Made Products", pathname: "/categories/australianMade" },
-  { name: "Bags", pathname: "/categories/bags" },
-  { name: "Balloons", pathname: "/categories/ballons" },
-  { name: "Caps & Hats", pathname: "/categories/caps_and_hats" },
-  { name: "Catering & Barware", pathname: "/categories/catering" },
-  { name: "Chocolates", pathname: "/categories/chocolates" },
-  { name: "Clothing", pathname: "/categories/clothing" },
-  { name: "Confectionery", pathname: "/categories/confectionary" },
-  { name: "Conference & Trade Shows", pathname: "/categories/conference" },
-  { name: "Cups", pathname: "/categories/cups" },
-  { name: "Drink Bottles", pathname: "/categories/drinks_bottle" },
-  { name: "Eco Friendly Products", pathname: "/categories/eco_friendly_products" },
-];
+export const categoryLinks: FooterT[] = allCategory.map((cat) => {
+  return { name: cat.name, pathname: `/categories/${toSnakeCase(cat.name)}` };
+});
+
+
 
 export const otherLinks: FooterT[] = [
   { name: "Terms & Conditions", pathname: "/terms-&-conditions" },

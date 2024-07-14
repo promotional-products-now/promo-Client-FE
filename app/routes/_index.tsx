@@ -14,7 +14,6 @@ import { AppaIcon } from "app/assets/appaIcon";
 import CategoryList from "app/components/CategoryList";
 import { isCategoryListOpen } from "app/atoms/category.atom";
 import { BlogCard } from "app/components/Blog/BlogCard";
-import { blog, items } from "app/api_dummy";
 import {
   fetchProductByCategory,
   fetchProductCategories,
@@ -24,7 +23,9 @@ import { useLoaderData } from "@remix-run/react";
 import { PreviewProduct } from "app/components/Product/PreviewProduct";
 import { productPreviewAtom } from "app/atoms/product.atom";
 import { fetchAllBlogsApi } from "app/api/blog.api";
-import { BlogCardProps } from "../components/Blog/interface";
+import { BlogCardProps } from "./Blog/interface";
+import HealthImage from "app/assets/category/health.jpg";
+import ClothingImage from "app/assets/category/clothing.jpg";
 
 export const meta: MetaFunction = () => {
   return [
@@ -265,20 +266,26 @@ export default function Index() {
 
       <div className="md:px-0 flex flex-col space-y-20 pb-20">
         <ProductSection
+          categoryName="Health & Personal"
+          heroImage={HealthImage}
           Icon={PiFirstAidKitLight}
           title="Health & Fitness"
           products={loaderData && loaderData.healthProducts ? loaderData.healthProducts : []}
         />
         <FeaturedProducts sectionlabel="Featured Products" gridno={10} />
         <ProductSection
+          heroImage={ClothingImage}
           Icon={GiClothes}
           title="Mens Wear"
+          categoryName="Clothing"
           products={loaderData && loaderData.clothingProducts ? loaderData.clothingProducts : []}
         />
         <FeaturedProducts sectionlabel="New Arrivals" gridno={5} />
         <ProductSection
+          heroImage=""
           Icon={FaFemale}
           title="Home & Living"
+          categoryName="Home & Living"
           showmore
           products={
             loaderData && loaderData.homeAndLivingProducts ? loaderData.homeAndLivingProducts : []

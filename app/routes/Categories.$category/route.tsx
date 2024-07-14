@@ -9,6 +9,7 @@ import { useMemo } from "react";
 import { useSetAtom } from "jotai";
 import { productPreviewAtom } from "app/atoms/product.atom";
 import { fetchProductByCategory } from "app/api/products.api";
+import { removeSnakeCase } from "app/utils/fn";
 
 const options = [
   { value: "low-high", label: "low to high" },
@@ -58,7 +59,7 @@ const CategoryPage = () => {
             </Link>
             <MdKeyboardDoubleArrowRight size={18} className="text-gray" />
             <span className="text-sm md:text-base text-primary capitalize">
-              {currentCategory?.name}
+              {removeSnakeCase(currentCategory?.name || "")}
             </span>
           </div>
         </div>
@@ -124,7 +125,7 @@ const CategoryPage = () => {
               loaderData.map((item: any) => {
                 return (
                   <ProductCard
-                    key={item.id}
+                    key={item?._id || item?.id}
                     image={item.overview.heroImage}
                     images={item.product.images}
                     title={item.overview.name}
@@ -135,7 +136,7 @@ const CategoryPage = () => {
                     qunatity={item.qunatity}
                     handlePreviewFn={(data) => handlePreviewProd(data)}
                     category={item.product.categorisation.productType.typeName}
-                    id={item.id}
+                    id={item?._id || item?.id}
                   />
                 );
               })}
