@@ -4,10 +4,12 @@ import { BiUser, BiChat, BiSearch, BiShareAlt } from "react-icons/bi";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { socialIcons } from "app/contents/blogSocialHandles";
 import { CommentSchema } from "app/schema/comment.schema";
 import { blogCommentApi, fetchAllBlogsApi, fetchSingleBlogApi } from "app/api/blog.api";
 import { getSession } from "app/sessions";
+
+import SocialShareButton from "app/components/SocialIconBtn";
+import { icons } from "app/contents/socialIcons";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Blog Post" }, { name: "", content: "" }];
@@ -170,18 +172,14 @@ export default function BlogPost() {
           <div className="flex flex-col gap-4 justify-between items-center md:flex-row">
             <h2 className="font-bold text-black text-2xl">Share this blog article</h2>
             <div className="flex flex-wrap gap-3">
-              <div className="bg-gray p-2 cursor-pointer active:opacity-80" onClick={copyPostLink}>
-                <BiShareAlt size={25} color="white" />
-              </div>
-              {socialIcons.map((socialIcon) => (
-                <Link
-                  to={socialIcon.href}
-                  key={socialIcon.id}
-                  style={{ backgroundColor: socialIcon.color }}
-                  className="p-2"
-                >
-                  <socialIcon.icon size={25} color="white" />
-                </Link>
+              {icons.map(({ id, IconBtn, Icon, href, color }) => (
+                <SocialShareButton
+                  key={id}
+                  IconBtn={IconBtn}
+                  Icon={Icon}
+                  href={href}
+                  color={color}
+                />
               ))}
             </div>
           </div>
@@ -279,7 +277,7 @@ export default function BlogPost() {
             </div>
             <div className="border-b border-gray shadow-sm pb-4"></div>
           </div>
-          <div className="flex flex-colconsole.log gap-6">
+          <div className="flex flex-col gap-6">
             {blogs &&
               blogs.length > 0 &&
               blogs.map(
