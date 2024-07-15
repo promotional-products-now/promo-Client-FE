@@ -24,18 +24,23 @@ export const meta: MetaFunction = () => {
 };
 
 function groupFAQsBySection(faqs: FAQ[]): GroupedFAQs {
-  return faqs.reduce((acc: GroupedFAQs, faq: FAQ) => {
-    if (!acc[faq.section]) {
-      acc[faq.section] = [];
-    }
-    acc[faq.section].push(faq);
-    return acc;
-  }, {});
+  if (faqs) {
+    return faqs.reduce((acc: GroupedFAQs, faq: FAQ) => {
+      if (!acc[faq.section]) {
+        acc[faq.section] = [];
+      }
+      acc[faq.section].push(faq);
+      return acc;
+    }, {});
+  }
+  return {};
 }
 
 export const loader = async () => {
   const { data } = await fetchFaqApi({});
-  const groupedFAQs = groupFAQsBySection(data.payload);
+  console.log({ data: data.payload.data });
+
+  const groupedFAQs = groupFAQsBySection(data?.payload?.data || []);
 
   return groupedFAQs;
 };

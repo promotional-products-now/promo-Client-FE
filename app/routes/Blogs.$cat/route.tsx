@@ -9,11 +9,11 @@ export const meta: MetaFunction = () => {
 };
 
 export async function loader({ params }: { params: { cat: string } }) {
-  const { data } = await fetchAllBlogsCategoryApi(params.cat);
+  const { data } = await fetchAllBlogsCategoryApi({ category: params.cat, page: 1 });
   if (data.isError) {
     return { error: data.message, posts: [] };
   } else {
-    return { posts: data.payload };
+    return { posts: data?.payload?.data || [] };
   }
 }
 
@@ -29,7 +29,9 @@ const Blog = () => {
         <h3 className="text-default-500">Browse our latest {cat} posts</h3>
       </div>
       <div className="grid grid-cols-1 gap-y-8 gap-x-5 sm:grid-cols-2 md:grid-cols-3">
-        {loaderData.posts &&
+        {loaderData &&
+          loaderData.posts.length > 0 &&
+          loaderData.posts &&
           loaderData.posts.map((post: any) => (
             <BlogCard
               key={post?._id}

@@ -35,7 +35,7 @@ export async function loader({
     const request = await fetchAllBlogsApi();
     const response = await request.data;
 
-    const blogs = response.isError ? [] : response.payload;
+    const blogs = response.isError ? [] : response?.payload?.data;
     return {
       blog,
       blogs,
@@ -73,7 +73,6 @@ export default function BlogPost() {
   };
 
   const onSubmit = async (data: CommentSchema) => {
-
     try {
       const postComment = await blogCommentApi({
         blogId: post._id,
@@ -280,34 +279,36 @@ export default function BlogPost() {
             </div>
             <div className="border-b border-gray shadow-sm pb-4"></div>
           </div>
-          <div className="flex flex-col gap-6">
-            {blogs.map(
-              (post: BlogPostType, index: number) =>
-                index < 3 && (
-                  <div className="flex items-center gap-3">
-                    <Image
-                      shadow="none"
-                      radius="none"
-                      width="100%"
-                      alt=""
-                      className="w-[10rem] h-[6rem] object-cover"
-                      src={
-                        post?.image ??
-                        "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg"
-                      }
-                    />
-                    <div className="flex flex-col gap-1">
-                      <h3 className="line-clamp-2  mb-2">{post?.title}</h3>
-                      <Link
-                        to={`/blogs/${post?.category?.title}/${post._id}`}
-                        className="text-sm hover:underline text-orange"
-                      >
-                        READ MORE
-                      </Link>
+          <div className="flex flex-colconsole.log gap-6">
+            {blogs &&
+              blogs.length > 0 &&
+              blogs.map(
+                (post: BlogPostType, index: number) =>
+                  index < 3 && (
+                    <div className="flex items-center gap-3">
+                      <Image
+                        shadow="none"
+                        radius="none"
+                        width="100%"
+                        alt=""
+                        className="w-[10rem] h-[6rem] object-cover"
+                        src={
+                          post?.image ??
+                          "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg"
+                        }
+                      />
+                      <div className="flex flex-col gap-1">
+                        <h3 className="line-clamp-2  mb-2">{post?.title}</h3>
+                        <Link
+                          to={`/blogs/${post?.category?.title}/${post._id}`}
+                          className="text-sm hover:underline text-orange"
+                        >
+                          READ MORE
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                ),
-            )}
+                  ),
+              )}
           </div>
         </div>
       </div>

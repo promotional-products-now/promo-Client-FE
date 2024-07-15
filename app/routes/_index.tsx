@@ -61,7 +61,7 @@ export const loader = async () => {
   return {
     products,
     categories,
-    blog: blog.data.payload,
+    blog: blog.data?.payload?.data || [],
     healthProducts: healthProductsResponse.data,
     clothingProducts: clothingProductsResponse.data,
     homeAndLivingProducts: homeAndLivingProductsResponse.data,
