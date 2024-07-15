@@ -35,6 +35,7 @@
     "react-icons": "^5.0.1",
     "react-markdown": "^9.0.1",
     "react-otp-input": "^3.1.1",
+    "react-share": "^5.1.0",
     "react-toastify": "^10.0.5",
     "remix-auth": "^3.7.0",
     "remix-auth-webauthn": "^0.3.4",

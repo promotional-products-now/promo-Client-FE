@@ -9,6 +9,7 @@ import { socialIcons } from "app/contents/blogSocialHandles";
 import { CommentSchema } from "app/schema/comment.schema";
 import { CONTENT_BASE_URL } from "app/api/api";
 import { fetchAllBlogsApi } from "app/api/blog.api";
+import { FacebookShareButton } from "react-share";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Blog Post" }, { name: "", content: "" }];
@@ -24,9 +25,9 @@ export async function loader({ params }: { params: { category: string; id: strin
 
     const request = await fetchAllBlogsApi();
     const response = await request.data;
-
     const blogs = response.isError ? [] : response.payload;
 
+    // console.log(blogs);
     return {
       blog,
       blogs,
@@ -48,6 +49,8 @@ interface BlogPostType {
 export default function BlogPost() {
   const { blog, blogs } = useLoaderData<typeof loader>();
   const { post } = blog;
+
+  console.log(blogs);
 
   const {
     register,
@@ -143,6 +146,9 @@ export default function BlogPost() {
               <div className="bg-gray p-2 cursor-pointer active:opacity-80" onClick={copyPostLink}>
                 <BiShareAlt size={25} color="white" />
               </div>
+              <FacebookShareButton url={`http://localhost:3000/blogs/${blog.category}/${post._id}`}>
+                <BiShareAlt size={25} />
+              </FacebookShareButton>
               {socialIcons.map((socialIcon) => (
                 <Link
                   to={socialIcon.href}
@@ -246,33 +252,34 @@ export default function BlogPost() {
             <div className="border-b border-gray shadow-sm pb-4"></div>
           </div>
           <div className="flex flex-col gap-6">
-            {blogs.map(
-              (post: BlogPostType, index: number) =>
-                index < 3 && (
-                  <div className="flex items-center gap-3">
-                    <Image
-                      shadow="none"
-                      radius="none"
-                      width="100%"
-                      alt=""
-                      className="w-[10rem] h-[6rem] object-cover"
-                      src={
-                        post?.image ??
-                        "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg"
-                      }
-                    />
-                    <div className="flex flex-col gap-1">
-                      <h3 className="line-clamp-2  mb-2">{post?.title}</h3>
-                      <Link
-                        to={`/blogs/${post?.category?.title}/${post._id}`}
-                        className="text-sm hover:underline text-orange"
-                      >
-                        READ MORE
-                      </Link>
+            {blogs &&
+              blogs.map(
+                (post: BlogPostType, index: number) =>
+                  index < 3 && (
+                    <div className="flex items-center gap-3">
+                      <Image
+                        shadow="none"
+                        radius="none"
+                        width="100%"
+                        alt=""
+                        className="w-[10rem] h-[6rem] object-cover"
+                        src={
+                          post?.image ??
+                          "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg"
+                        }
+                      />
+                      <div className="flex flex-col gap-1">
+                        <h3 className="line-clamp-2  mb-2">{post?.title}</h3>
+                        <Link
+                          to={`/blogs/${post?.category?.title}/${post._id}`}
+                          className="text-sm hover:underline text-orange"
+                        >
+                          READ MORE
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                ),
-            )}
+                  ),
+              )}
           </div>
         </div>
       </div>
