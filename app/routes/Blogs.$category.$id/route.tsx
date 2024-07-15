@@ -4,10 +4,12 @@ import { BiUser, BiChat, BiSearch, BiShareAlt } from "react-icons/bi";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { socialIcons } from "app/contents/blogSocialHandles";
 import { CommentSchema } from "app/schema/comment.schema";
 import { blogCommentApi, fetchAllBlogsApi, fetchSingleBlogApi } from "app/api/blog.api";
 import { getSession } from "app/sessions";
+
+import SocialShareButton from "app/components/SocialIconBtn";
+import { icons } from "app/contents/socialIcons";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Blog Post" }, { name: "", content: "" }];
@@ -35,7 +37,7 @@ export async function loader({
     const request = await fetchAllBlogsApi();
     const response = await request.data;
 
-    const blogs = response.isError ? [] : response.payload;
+    const blogs = response.isError ? [] : response?.payload?.data;
     return {
       blog,
       blogs,
@@ -73,7 +75,6 @@ export default function BlogPost() {
   };
 
   const onSubmit = async (data: CommentSchema) => {
-
     try {
       const postComment = await blogCommentApi({
         blogId: post._id,
@@ -171,18 +172,14 @@ export default function BlogPost() {
           <div className="flex flex-col gap-4 justify-between items-center md:flex-row">
             <h2 className="font-bold text-black text-2xl">Share this blog article</h2>
             <div className="flex flex-wrap gap-3">
-              <div className="bg-gray p-2 cursor-pointer active:opacity-80" onClick={copyPostLink}>
-                <BiShareAlt size={25} color="white" />
-              </div>
-              {socialIcons.map((socialIcon) => (
-                <Link
-                  to={socialIcon.href}
-                  key={socialIcon.id}
-                  style={{ backgroundColor: socialIcon.color }}
-                  className="p-2"
-                >
-                  <socialIcon.icon size={25} color="white" />
-                </Link>
+              {icons.map(({ id, IconBtn, Icon, href, color }) => (
+                <SocialShareButton
+                  key={id}
+                  IconBtn={IconBtn}
+                  Icon={Icon}
+                  href={href}
+                  color={color}
+                />
               ))}
             </div>
           </div>
@@ -281,33 +278,35 @@ export default function BlogPost() {
             <div className="border-b border-gray shadow-sm pb-4"></div>
           </div>
           <div className="flex flex-col gap-6">
-            {blogs.map(
-              (post: BlogPostType, index: number) =>
-                index < 3 && (
-                  <div className="flex items-center gap-3">
-                    <Image
-                      shadow="none"
-                      radius="none"
-                      width="100%"
-                      alt=""
-                      className="w-[10rem] h-[6rem] object-cover"
-                      src={
-                        post?.image ??
-                        "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg"
-                      }
-                    />
-                    <div className="flex flex-col gap-1">
-                      <h3 className="line-clamp-2  mb-2">{post?.title}</h3>
-                      <Link
-                        to={`/blogs/${post?.category?.title}/${post._id}`}
-                        className="text-sm hover:underline text-orange"
-                      >
-                        READ MORE
-                      </Link>
+            {blogs &&
+              blogs.length > 0 &&
+              blogs.map(
+                (post: BlogPostType, index: number) =>
+                  index < 3 && (
+                    <div className="flex items-center gap-3">
+                      <Image
+                        shadow="none"
+                        radius="none"
+                        width="100%"
+                        alt=""
+                        className="w-[10rem] h-[6rem] object-cover"
+                        src={
+                          post?.image ??
+                          "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg"
+                        }
+                      />
+                      <div className="flex flex-col gap-1">
+                        <h3 className="line-clamp-2  mb-2">{post?.title}</h3>
+                        <Link
+                          to={`/blogs/${post?.category?.title}/${post._id}`}
+                          className="text-sm hover:underline text-orange"
+                        >
+                          READ MORE
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                ),
-            )}
+                  ),
+              )}
           </div>
         </div>
       </div>

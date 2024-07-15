@@ -4,7 +4,7 @@ import { Form, useActionData } from "@remix-run/react";
 import { ActionFunction, json, redirect } from "@remix-run/node";
 import { getSession, commitSession } from "../../sessions";
 import { Button, Input } from "@nextui-org/react";
-import { validatOtpApi } from "app/api/auth.api";
+import { validateOtpApi } from "app/api/auth.api";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -38,7 +38,7 @@ export const action: ActionFunction = async ({ request }) => {
     }
 
     // Validate OTP here (add your own logic)
-    const response = await validatOtpApi({ email, otp });
+    const response = await validateOtpApi({ email, otp });
 
     if (response && response.data) {
       const { accessToken, user } = response.data;
