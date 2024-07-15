@@ -71,7 +71,9 @@ export default function ContactUS() {
                 </div>
                 <div>
                   <span className="text-sm text-yellow uppercase font-semibold">{data.title}</span>
-                  <p className="text-sm font-normal text-gray">{data.body}</p>
+                  <p className="text-sm font-normal text-gray whitespace-pre-wrap	">
+                    {Array.isArray(data.body) ? data.body.join("\n ") : data.body}
+                  </p>
                 </div>
               </Link>
             </div>
