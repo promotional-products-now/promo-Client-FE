@@ -1,10 +1,9 @@
-import { Form } from "@remix-run/react";
+import { Form, Link, useLoaderData, useParams } from "@remix-run/react";
+import { useRef } from "react";
 import {
   Accordion,
   AccordionItem,
   Button,
-  Card,
-  CardBody,
   Checkbox,
   Divider,
   Image,
@@ -21,35 +20,68 @@ import {
 import { BsCart3, BsCheck2Square, BsInfoCircle } from "react-icons/bs";
 import { FaStar } from "react-icons/fa6";
 import { HiOutlineUser } from "react-icons/hi";
-import { MdOutlineDiscount } from "react-icons/md";
+import { MdKeyboardDoubleArrowRight, MdOutlineDiscount } from "react-icons/md";
 import { TbTruckDelivery } from "react-icons/tb";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
+import { useAtom } from "jotai";
+import { Swiper as SwiperInstance } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { A11y, Parallax, Navigation, Pagination } from "swiper/modules";
 import { SendPriceModal } from "app/components/Product/SendPriceModal";
-import { ProductCardDet } from "app/components/Product/ProductCardDet";
-import { items } from "app/api_dummy";
-import Carousel from "../../components/Carousel";
+import "../../style.css";
+import { ProductAboutCard } from "app/components/Product/ProductInfoCard";
+import { productAtom } from "app/atoms/product.atom";
+import { getProductInfo } from "app/api/products.api";
+import { removeSnakeCase } from "app/utils/fn";
 
 const fakeFilter = [
   { label: "Red", value: "red" },
-  { label: "Blue", value: "b;ue" },
+  { label: "Blue", value: "blue" },
   { label: "Yellow", value: "yellow" },
 ];
 
 const cardData = ["ABOUT", "DETAILS", "ADDITIONAL INFO"];
 
-export default function Route() {
+export const loader = async ({ params }: { params: { id: string } }) => {
+  const data = await getProductInfo(params.id);
+  if (!data) {
+    return null;
+  }
+  return data;
+};
+
+export default function ProductDetailsRoute() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const swiperRef = useRef<SwiperInstance | null>(null);
+  const productF = useLoaderData<typeof loader>();
+  const { category } = useParams();
+  const [currentProd, setCurrentProd] = useAtom(productAtom);
 
   return (
     <>
-      <div className="w-4/5 mx-auto">
-        <div className="space-y-6 md:space-y-16">
+      <div className="space-y-6 md:space-y-10">
+        <div className="flex flex-row border-b border-white-border md:px-20 px-5 py-3 md:pb-3 md:py-0">
+          <div className="flex flex-row items-center">
+            <Link to="/">
+              <div className="text-sm md:text-base text-gray">Home</div>
+            </Link>
+            <MdKeyboardDoubleArrowRight size={18} className="text-gray" />
+            <span className="text-sm md:text-base text-gray">
+              {removeSnakeCase(category || "")}
+            </span>
+            <MdKeyboardDoubleArrowRight size={18} className="text-gray" />
+            <span className="text-sm md:text-base text-primary">{productF?.overview?.name}</span>
+          </div>
+        </div>
+        <div className="w-4/5 mx-auto space-y-6 md:space-y-10">
           <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-3 md:gap-10">
             <div className=" w-full order-2 md:order-1 md:px-6 flex-col items-center">
               <div className="w-full text-center">
-                <div className="text-xl md:text-2xl font-semibold text-center">Memory USB</div>
+                <div className="text-xl md:text-2xl font-semibold text-center">
+                  {productF?.overview?.name}
+                </div>
                 <div className="flex items-center w-fit mx-auto gap-4 mb-4">
-                  <div className="text-lg ">Product Code: pyun67858</div>
+                  <div className="text-lg ">Product Code: {productF?.overview?.code}</div>
                   {[1, 2, 3, 4, 5].map((_, i) => (
                     <div className="flex items-center ">
                       <FaStar key={i} className="text-xs text-orange" />
@@ -57,28 +89,69 @@ export default function Route() {
                   ))}
                 </div>
               </div>
-              <div className="">
-                <Carousel numberOfItems={3}>
-                  {[1, 2, 3, 4, 4].map((_, i) => (
-                    <div key={i} className="h-24 relative rounded-sm flex items-center">
-                      <Image
-                        alt=""
-                        radius="none"
-                        src="https://images.pexels.com/photos/208984/pexels-photo-208984.jpeg"
-                        removeWrapper
-                        fallbackSrc
-                        className="absolute inset-0 w-full h-full object-cover transition-transform transform-gpu aspect-square border-2 border-gray"
-                      />
-                    </div>
+
+              <div className="relative">
+                <Swiper
+                  onSwiper={(swiper) => (swiperRef.current = swiper)}
+                  navigation={{
+                    nextEl: ".swiper-smallbutton-next",
+                    prevEl: ".swiper-smallbutton-prev",
+                    enabled: true,
+                  }}
+                  parallax={true}
+                  pagination={{
+                    clickable: true,
+                  }}
+                  slidesPerView={1}
+                  spaceBetween={20}
+                  breakpoints={{
+                    320: {
+                      slidesPerView: 2.2,
+                      spaceBetween: 20,
+                    },
+                    640: {
+                      slidesPerView: 3,
+                    },
+                    768: {
+                      slidesPerView: 4,
+                    },
+                    1200: {
+                      slidesPerView: 4.6,
+                    },
+                  }}
+                  modules={[Navigation, Pagination, Parallax, A11y]}
+                >
+                  {productF?.product?.images.map((img: string) => (
+                    <SwiperSlide>
+                      <div key={img} className="h-20 relative rounded-sm flex items-center">
+                        <Image
+                          alt=""
+                          radius="md"
+                          src={img}
+                          removeWrapper
+                          fallbackSrc
+                          width={60}
+                          className="absolute inset-0 h-full object-cover transition-transform transform-gpu aspect-square border border-neutral-300"
+                        />
+                      </div>
+                    </SwiperSlide>
                   ))}
-                </Carousel>
+                </Swiper>
+                <div
+                  className="swiper-button-next before:!text-small after:!text-small !left-[96%] !top-2/3"
+                  onClick={() => swiperRef.current && swiperRef.current.slideNext()}
+                ></div>
+                <div
+                  className="swiper-button-prev before:!text-small after:!text-small !left-[-4%] !top-2/3"
+                  onClick={() => swiperRef.current && swiperRef.current.slidePrev()}
+                ></div>
               </div>
             </div>
             <div className="order-1">
               <Image
                 alt=""
                 radius="sm"
-                src="https://images.pexels.com/photos/208984/pexels-photo-208984.jpeg"
+                src={productF?.overview?.heroImage}
                 removeWrapper
                 className="object-cover w-full h-96 transition aspect-square inset-0"
               />
@@ -371,35 +444,7 @@ export default function Route() {
           </Form>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-10">
-            {cardData.map((dd, i) => (
-              <div key={i} className="">
-                <div className="px-8 py-2 border border-b-0 border-primary w-fit">
-                  <span className="text-primary">{dd}</span>
-                </div>
-                <Card shadow="none" className="full rounded-none border border-primary bg-gray1">
-                  <CardBody className="px-4 md:px-8 space-y-3">
-                    <div className="">
-                      <span className="font-semibold text-sm">Description</span>
-                      <p className="text-xs md:text-sm">
-                        Lorem ipsum dolor sit amet consectetur. A quis pellentesque diam orci vitae
-                        venenatis a tellus. Ornare amet vulputate accumsan suspendisse. Viverra
-                        malesuada et non euismod. Augue faucibus dui orci vestibulum. Lorem ipsum
-                        dolor sit amet consectetur. A quis pellentesque diam orci vitae venenatis a
-                        tellus. Ornare amet vulputate accumsan suspendisse. Viverra malesuada et non
-                        euismod. Augue faucibus dui orci vestibulum.
-                      </p>
-                    </div>
-                    <div>
-                      <span className="font-semibold text-sm">Please Note:</span>
-                      <p className="text-xs md:text-sm">
-                        Lorem ipsum dolor sit amet consectetur. A quis pellentesque diam orci vitae
-                        venenatis a tellus.{" "}
-                      </p>
-                    </div>
-                  </CardBody>
-                </Card>
-              </div>
-            ))}
+            <ProductAboutCard title={cardData[0]} desc={productF?.product?.description} />
           </div>
 
           <div className="space-y-6">
@@ -437,11 +482,11 @@ export default function Route() {
               </Select>
             </div>
             {/* Use useMemo and change listings according to selected tab and  */}
-            <div className="gap-4 md:gap-8 grid grid-cols-2 sm:grid-cols-4">
+            {/* <div className="gap-4 md:gap-8 grid grid-cols-2 sm:grid-cols-4">
               {items.slice(1, 5).map((item, index) => (
                 <ProductCardDet product={item} key={index} />
               ))}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

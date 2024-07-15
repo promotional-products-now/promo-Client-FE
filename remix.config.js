@@ -1,14 +1,13 @@
 /** @type {import('@remix-run/dev').AppConfig} */
 export default {
   tailwind: true,
-  ignoredRouteFiles: ["**/.*"],
+  ignoredRouteFiles: ["**/.*", "**/*.css"],
 
   appDirectory: "app",
   assetsBuildDirectory: "public/build",
   future: {
     /* any enabled future flags */
   },
-  ignoredRouteFiles: ["**/*.css"],
   publicPath: "/build/",
   // routes(defineRoutes) {
   //   return defineRoutes((route) => {

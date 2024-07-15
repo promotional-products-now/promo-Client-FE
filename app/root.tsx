@@ -21,6 +21,9 @@ import stylesheet from "./tailwind.css";
 import SwiperStyle from "./style.css";
 import { useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
+import { getSession } from "./sessions";
+import nprogressStyles from "nprogress/nprogress.css";
+import { ProgressBar } from "./nprogress";
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
@@ -35,6 +38,7 @@ export const links: LinksFunction = () => [
     rel: "stylesheet",
     href: "https://cdn.jsdelivr.net/npm/swiper@11.0.7/modules/pagination.min.css",
   },
+  { rel: "stylesheet", href: nprogressStyles },
 ];
 
 export default function App() {
@@ -69,6 +73,7 @@ export default function App() {
             </main>
             <Footer />
           </div>
+          <ProgressBar />
           <ToastContainer containerId={"ppn"} />
           <ScrollRestoration />
           <Scripts />
@@ -85,6 +90,9 @@ export default function App() {
   );
 }
 
-export async function loader() {
-  return json({ ENV: { SALES_CONTACT: process.env.SALES_CONTACT } });
+export async function loader({ request }: any) {
+  const session = await getSession(request.headers.get("Cookie"));
+  const uid = session.get("uid");
+
+  return json({ user: { uid }, ENV: { SALES_CONTACT: process.env.SALES_CONTACT } });
 }

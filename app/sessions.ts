@@ -5,6 +5,7 @@ type SessionData = {
   email: string;
   uid: string;
   accessToken: string;
+  phone?: string;
 };
 
 type SessionFlashData = {

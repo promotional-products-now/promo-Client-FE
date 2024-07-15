@@ -1,5 +1,5 @@
 import { Link, Button, Image } from "@nextui-org/react";
-import { Link as RemixLink, json, useLoaderData, useLocation } from "@remix-run/react";
+import { Link as RemixLink, json, redirect, useLoaderData, useLocation } from "@remix-run/react";
 import { MdOutlineLocalPhone } from "react-icons/md";
 import { PiHandbagLight } from "react-icons/pi";
 import { FaAward } from "react-icons/fa6";
@@ -8,6 +8,7 @@ import { navLinks } from "./navLinks";
 import logo from "app/assets/logo.svg";
 import { FiLogIn } from "react-icons/fi";
 import { TbTruckDelivery } from "react-icons/tb";
+import { getSession, commitSession } from "../../sessions";
 
 type HeaderT = {
   sidebarOpen: string | boolean | undefined;
@@ -34,9 +35,16 @@ export function Header(props: HeaderT) {
       <div className="container mx-auto pb-4 ">
         <nav className="fixed sm:relative top-0 left-0 right-0 z-50 bg-white dark:bg-gray-900">
           <div className=" flex flex-wrap items-center justify-between mx-auto py-4">
-            <Link as={RemixLink} href="/" className="hidden md:block">
-              <Image src={logo} className="h-12 2xl:h-20 " />
-            </Link>
+            {location.pathname === "/" ? (
+              <span className="hidden md:block">
+                {" "}
+                <Image src={logo} className="h-12 2xl:h-20 " />
+              </span>
+            ) : (
+              <Link as={RemixLink} to="/" className="hidden md:block">
+                <Image src={logo} className="h-12 2xl:h-20 " />
+              </Link>
+            )}
             <div className="flex gap-3 items-center">
               <button
                 data-collapse-toggle="navbar-sticky"
@@ -135,14 +143,18 @@ export function Header(props: HeaderT) {
                           : ""
                       }`}
                     >
-                      <Link
-                        as={RemixLink}
-                        to={link.pathname}
-                        aria-current="page"
-                        className="text-black  2xl:text-xl"
-                      >
-                        {link.name}
-                      </Link>
+                      {location.pathname === link.pathname ? (
+                        <span> {link.name}</span>
+                      ) : (
+                        <Link
+                          as={RemixLink}
+                          to={link.pathname}
+                          aria-current="page"
+                          className="text-black  2xl:text-xl"
+                        >
+                          {link.name}
+                        </Link>
+                      )}
                     </li>
                   );
                 })}
@@ -152,7 +164,7 @@ export function Header(props: HeaderT) {
         </nav>
         {location.pathname === "/" ? (
           <div className="flex justify-self-center mx-auto container bg-white  w-full !mt-20 sm:!mt-auto">
-            <SecondaryNav />
+            <SecondaryNav uid={data.user.uid} />
           </div>
         ) : (
           <div className="hidden md:flex justify-end gap-2 ">
@@ -166,16 +178,18 @@ export function Header(props: HeaderT) {
             >
               Fast Delivery Australia Wide
             </Button>
-            <Button
-              as={RemixLink}
-              to="/login"
-              size="lg"
-              variant="ghost"
-              startContent={<FiLogIn className="text-xl text-primary" />}
-              className="border border-zinc-200 rounded font-medium text-sm px-3"
-            >
-              Login
-            </Button>
+            {!data.user.uid && (
+              <Button
+                as={RemixLink}
+                to="/login"
+                size="lg"
+                variant="ghost"
+                startContent={<FiLogIn className="text-xl text-primary" />}
+                className="border border-zinc-200 rounded font-medium text-sm px-3"
+              >
+                Login
+              </Button>
+            )}
           </div>
         )}
       </div>
@@ -183,6 +197,9 @@ export function Header(props: HeaderT) {
   );
 }
 
-export async function loader() {
-  return json({ ENV: { SALES_CONTACT: process.env.SALES_CONTACT } });
+export async function loader({ request }: any) {
+  const session = await getSession(request.headers.get("Cookie"));
+  const uid = session.get("uid");
+
+  return json({ user: { uid }, ENV: { SALES_CONTACT: process.env.SALES_CONTACT } });
 }

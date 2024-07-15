@@ -29,10 +29,11 @@ export const action: ActionFunction = async ({ request }) => {
   try {
     const response = await loginApi({ email, password });
 
-    const { accessToken, _id, email: emailAddress } = response.data.payload;
+    const { accessToken, _id, email: emailAddress, phone } = response.data.payload;
 
     session.set("uid", _id);
     session.set("email", emailAddress.address);
+    session.set("phone", phone);
     session.set("accessToken", accessToken);
 
     return redirect("/otp", {
@@ -84,7 +85,7 @@ export default function Login(): JSX.Element {
   }, [actionData]);
 
   return (
-    <div>
+    <div className="mt-12 md:mt-0">
       <ToastContainer containerId="loginToast" />
       <div className="py-4 md:py-8">
         <h1 className="text-2xl md:text-3xl text-dark font-bold text-center">

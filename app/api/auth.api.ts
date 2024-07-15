@@ -6,9 +6,9 @@ export const signupApi = async (data: any) => {
 };
 
 export const loginApi = async (payload: { email: string; password: string }) => {
-  console.log({ payload });
+
   const result = await axios.post(`${API_BASEURL}/auth/login`, payload);
-  console.log({ result, payload });
+
   return result; 
 };
 

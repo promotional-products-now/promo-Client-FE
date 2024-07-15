@@ -14,11 +14,18 @@ import { AppaIcon } from "app/assets/appaIcon";
 import CategoryList from "app/components/CategoryList";
 import { isCategoryListOpen } from "app/atoms/category.atom";
 import { BlogCard } from "app/components/Blog/BlogCard";
-import { blog, items } from "app/api_dummy";
-import { fetchProductsApi } from "app/api/products.api";
+import {
+  fetchProductByCategory,
+  fetchProductCategories,
+  fetchProductsApi,
+} from "app/api/products.api";
 import { useLoaderData } from "@remix-run/react";
 import { PreviewProduct } from "app/components/Product/PreviewProduct";
-import { productAtom } from "app/atoms/product.atom";
+import { productPreviewAtom } from "app/atoms/product.atom";
+import { fetchAllBlogsApi } from "app/api/blog.api";
+import { BlogCardProps } from "./Blog/interface";
+import HealthImage from "app/assets/category/health.jpg";
+import ClothingImage from "app/assets/category/clothing.jpg";
 
 export const meta: MetaFunction = () => {
   return [
@@ -28,22 +35,51 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader = async () => {
-  const { data } = await fetchProductsApi({});
-  return data.docs;
+  async function getProductsAndCategories() {
+    const [productsResponse, categoriesResponse, blog] = await Promise.all([
+      fetchProductsApi(),
+      fetchProductCategories(),
+      fetchAllBlogsApi(),
+    ]);
+    return { products: productsResponse.data.docs, categories: categoriesResponse };
+  }
+
+  const [
+    { products, categories },
+    healthProductsResponse,
+    clothingProductsResponse,
+    homeAndLivingProductsResponse,
+    blog,
+  ] = await Promise.all([
+    getProductsAndCategories(),
+    fetchProductByCategory("Health & Personal"),
+    fetchProductByCategory("Clothing"),
+    fetchProductByCategory("Home & Living"),
+    fetchAllBlogsApi({ limit: 10 }),
+  ]);
+
+  return {
+    products,
+    categories,
+    blog: blog.data?.payload?.data || [],
+    healthProducts: healthProductsResponse.data,
+    clothingProducts: clothingProductsResponse.data,
+    homeAndLivingProducts: homeAndLivingProductsResponse.data,
+  };
 };
 
 export default function Index() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-  const setProduct = useSetAtom(productAtom);
+  const setProductPrevData = useSetAtom(productPreviewAtom);
 
-  const products = useLoaderData<typeof loader>();
+  const loaderData = useLoaderData<typeof loader>();
 
   const [isCategoryOpen, setIsCategoryOpen] = useAtom(isCategoryListOpen);
 
   const handlePreviewProd = (product: any) => {
     onOpen();
-    setProduct(product);
+    setProductPrevData(product);
   };
 
   return (
@@ -60,7 +96,9 @@ export default function Index() {
           >
             {/* category */}
             <ScrollShadow className="w-full h-full ">
-              <CategoryList />
+              {loaderData && loaderData.categories && (
+                <CategoryList categories={loaderData.categories} />
+              )}
             </ScrollShadow>
           </div>
           <div
@@ -197,24 +235,29 @@ export default function Index() {
             </div>
             <div className="md:pt-8">
               <Carousel numberOfItems={4}>
-                {products.map((item: any) => {
-                  // console.log({ products: item });
-                  return (
-                    <div key={item.id} className="flex flex-row">
-                      <ProductCard
-                        image={item.overview.heroImage}
-                        images={item.product.images}
-                        title={item.overview.name}
-                        productCode={item.overview.code}
-                        description={item.product.description}
-                        price={item.price}
-                        newPrice={item.newPrice}
-                        qunatity={item.overview.minQty}
-                        handlePreviewFn={(data) => handlePreviewProd(data)}
-                      />
-                    </div>
-                  );
-                })}
+                {loaderData &&
+                  loaderData.products.map((item: any) => {
+                    // const price = item.product.prices.priceGroups;
+                    // const initPrice = "";
+                    // const lastPrice = item[price.length - 1];
+                    return (
+                      <div key={item.id} className="flex flex-row">
+                        <ProductCard
+                          image={item.overview.heroImage}
+                          images={item.product.images}
+                          title={item.overview.name}
+                          productCode={item.overview.code}
+                          description={item.product.description}
+                          price={0}
+                          newPrice={""}
+                          qunatity={item.overview.minQty}
+                          handlePreviewFn={(data) => handlePreviewProd(data)}
+                          id={item.id}
+                          category={item.product.categorisation.productType.typeName}
+                        />
+                      </div>
+                    );
+                  })}
               </Carousel>
             </div>
           </div>
@@ -222,11 +265,32 @@ export default function Index() {
       </div>
 
       <div className="md:px-0 flex flex-col space-y-20 pb-20">
-        <ProductSection Icon={PiFirstAidKitLight} title="Health & Fitness" />
+        <ProductSection
+          categoryName="Health & Personal"
+          heroImage={HealthImage}
+          Icon={PiFirstAidKitLight}
+          title="Health & Fitness"
+          products={loaderData && loaderData.healthProducts ? loaderData.healthProducts : []}
+        />
         <FeaturedProducts sectionlabel="Featured Products" gridno={10} />
-        <ProductSection Icon={GiClothes} title="Mens Wear" />
+        <ProductSection
+          heroImage={ClothingImage}
+          Icon={GiClothes}
+          title="Mens Wear"
+          categoryName="Clothing"
+          products={loaderData && loaderData.clothingProducts ? loaderData.clothingProducts : []}
+        />
         <FeaturedProducts sectionlabel="New Arrivals" gridno={5} />
-        <ProductSection Icon={FaFemale} title="Womens Wear" showmore />
+        <ProductSection
+          heroImage=""
+          Icon={FaFemale}
+          title="Home & Living"
+          categoryName="Home & Living"
+          showmore
+          products={
+            loaderData && loaderData.homeAndLivingProducts ? loaderData.homeAndLivingProducts : []
+          }
+        />
         <ContactUs />
         <section className="bg-white-bg p-10 ">
           <div className="mt-4 flex flex-col justify-center items-center gap-4 w-full w-max-ppn">
@@ -252,18 +316,20 @@ export default function Index() {
 
           <div className="md:mx-4">
             <Carousel numberOfItems={3}>
-              {blog.map((item) => (
-                <div key={item.id} className="flex flex-col md:flex-row gap-1 sm:mx-2 md:mx-1">
-                  <BlogCard
-                    title={item.title}
-                    description={item.description}
-                    image={item.image}
-                    id={item.id}
-                    category={item.category}
-                    body={item.body}
-                  />
-                </div>
-              ))}
+              {loaderData &&
+                loaderData.blog.length > 0 &&
+                loaderData.blog.map((post: BlogCardProps) => (
+                  <div key={post._id} className="flex flex-col md:flex-row gap-1 sm:mx-2 md:mx-1">
+                    <BlogCard
+                      title={post.title}
+                      description={post.description}
+                      imageSrc={post.imageSrc}
+                      _id={post._id}
+                      category={post.category}
+                      body={post.body}
+                    />
+                  </div>
+                ))}
             </Carousel>
           </div>
         </section>

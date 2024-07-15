@@ -32,7 +32,7 @@ export default function ContactUS() {
       const response = await sendContactMessageApi(data);
       setIsLoading(false);
       if (response.status === 200) {
-        console.log("nice");
+
         toast.success("Message sent successfully!");
         reset();
       } else {
@@ -71,7 +71,9 @@ export default function ContactUS() {
                 </div>
                 <div>
                   <span className="text-sm text-yellow uppercase font-semibold">{data.title}</span>
-                  <p className="text-sm font-normal text-gray">{data.body}</p>
+                  <p className="text-sm font-normal text-gray whitespace-pre-wrap	">
+                    {Array.isArray(data.body) ? data.body.join("\n ") : data.body}
+                  </p>
                 </div>
               </Link>
             </div>
@@ -96,6 +98,7 @@ export default function ContactUS() {
                   variant="underlined"
                   label="Your Name"
                   {...register("fullName")}
+                  isInvalid={!!errors?.fullName?.message}
                   errorMessage={errors?.fullName?.message}
                 />
                 <Input
@@ -103,6 +106,7 @@ export default function ContactUS() {
                   variant="underlined"
                   label="Your Email"
                   {...register("email")}
+                  isInvalid={!!errors?.email?.message}
                   errorMessage={errors?.email?.message}
                 />
                 <Input
@@ -110,6 +114,7 @@ export default function ContactUS() {
                   variant="underlined"
                   label="Your Phone"
                   {...register("phone")}
+                  isInvalid={!!errors?.phone?.message}
                   errorMessage={errors?.phone?.message}
                 />
                 <div>
@@ -118,6 +123,7 @@ export default function ContactUS() {
                     variant="underlined"
                     label="Your Subject"
                     {...register("subject")}
+                    isInvalid={!!errors?.subject?.message}
                     errorMessage={errors?.subject?.message}
                   />
                 </div>
@@ -129,17 +135,19 @@ export default function ContactUS() {
                 className="col-span-12 md:col-span-6 mb-6 md:mb-0"
                 classNames={{ innerWrapper: "h-40 md:h-fit" }}
                 {...register("message")}
+                isInvalid={!!errors?.message?.message}
                 errorMessage={errors?.message?.message}
               />
-              <div className="">
+              <div>
                 <Button
                   color="primary"
+                  variant="solid"
                   isLoading={isLoading}
                   className="w-full md:w-fit rounded-sm py-3 px-6"
                   disabled={isLoading}
                   type="submit"
                 >
-                  Send Message
+                  {isLoading ? "Sending Message..." : "Send Message"}
                 </Button>
               </div>
             </div>

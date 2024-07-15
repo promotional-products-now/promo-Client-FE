@@ -94,7 +94,7 @@ export default function SignUp(): JSX.Element {
   }, [actionData]);
 
   return (
-    <div className="py-8">
+    <div className="py-8 mt-12 md:mt-0">
       <ToastContainer containerId="loginToast" />
       <div className="space-y-4 px-2">
         <h1 className="text-2xl md:text-3xl text-dark font-bold text-center">
@@ -244,12 +244,12 @@ export default function SignUp(): JSX.Element {
 
           <div className="flex flex-col sm:flex-row gap-4 w-full">
             <div className="w-full">
-              <p className="text-base font-semibold text-dark">CITY</p>
+              <p className="text-base font-semibold text-dark">SUBURB</p>
               <Select
                 aria-label="city"
                 isInvalid={!!errors?.city?.message}
                 variant="underlined"
-                placeholder="Your city"
+                placeholder="Your suburb"
                 color="primary"
                 size="lg"
                 {...register("city")}

@@ -5,8 +5,10 @@ import { IconType } from "react-icons";
 import { ProductCard } from "../Product/ProductCard";
 import { items } from "app/api_dummy";
 import { useSetAtom } from "jotai";
-import { productAtom } from "app/atoms/product.atom";
+import { productPreviewAtom } from "app/atoms/product.atom";
 import { PreviewProduct } from "../Product/PreviewProduct";
+import allCategories from "app/utils/categories";
+import { toSnakeCase } from "app/utils/fn";
 
 const options = [
   { value: "AUSTRALIAN MADE PRODUCTS", label: "AUSTRALIAN MADE PRODUCTS" },
@@ -23,12 +25,38 @@ interface ProductSectionProps {
   Icon: IconType;
   title?: string;
   showmore?: boolean;
+  heroImage: string;
+  categoryName: string;
+  products?: [];
 }
 
-const ProductSection = ({ showmore, title, Icon }: ProductSectionProps) => {
+interface IsubCategory {
+  _id: String;
+  name: String;
+  category: String;
+  id: String;
+}
+interface Icategory {
+  _id: String;
+  name: String;
+  id: String;
+  subCategory: IsubCategory[];
+}
+
+const ProductSection = ({
+  products,
+  showmore,
+  title,
+  Icon,
+  heroImage,
+  categoryName,
+}: ProductSectionProps) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-  const setProduct = useSetAtom(productAtom);
+  const setProduct = useSetAtom(productPreviewAtom);
+  const getCategory = (): IsubCategory[] | any => {
+    return allCategories.find((cat) => cat.name === categoryName)?.subCategory;
+  };
 
   const handlePreviewProd = (product: any) => {
     onOpen();
@@ -53,44 +81,52 @@ const ProductSection = ({ showmore, title, Icon }: ProductSectionProps) => {
           </div>
 
           <div className="relative md:flex flex-row justify-start items-center left-0 hidden">
-            <div className="relative w-[275px] border h-full z-20 ">
-              <div className="md:relative absolute mx-6 flex flex-col gap-4 top-[50%] -translate-y-[50%] -p-6 z-20 outline-red-900">
-                <div className="w-14 h-14">
-                  <Icon className="text-white h-full w-full transition aspect-auto" />
-                </div>
-
-                <div className="text-white-bg text-2xl">{title}</div>
-
-                {[1, 2, 4, 5, 6, 7, 8].map((_, index) => (
-                  <ul className="flex flex-col gap-4">
-                    <Link to={"/"}>
-                      <li key={index} className="text-white-bg">
-                        AUSTRALIAN MADE PRODUCTS{" "}
-                      </li>
-                    </Link>
-                  </ul>
-                ))}
-
-                <div className="w-3/4 mt-5">
-                  <Button
-                    as={Link}
-                    href="#"
-                    className="bg-white-bg px-3 py-3 rounded-sm  text-black text-base font-semibold hover:opacity-80 transition text-center capitalize"
-                    size="md"
-                    variant="ghost"
-                  >
-                    View Collection
-                  </Button>
-                </div>
-              </div>
+            <div className="relative w-[17.2rem] border h-full z-20 ">
               <Image
-                src="https://images.pexels.com/photos/7674483/pexels-photo-7674483.jpeg?auto=compress&cs=tinysrgb&w=600"
+                src={
+                  heroImage ??
+                  "https://images.pexels.com/photos/7674483/pexels-photo-7674483.jpeg?auto=compress&cs=tinysrgb&w=600"
+                }
                 alt="overlay"
                 removeWrapper
                 radius="none"
-                className=" h-full w-full transition aspect-auto absolute inset-0"
+                className="   bg-primary  h-full w-full transition aspect-auto absolute top-0 bottom-0 left-0 right-0"
               />
-              <div className="bg-primary inset-0 absolute opacity-60 z-20"></div>
+              <div className=" bg-blue-500/50 	 absolute z-20 top-0 bottom-0 left-0 right-0">
+                <div className="absolute flex flex-col gap-4 h-full justify-center items-left bg-primary/50  bg-blend-darken top-0 left-0 bottom-0 right-0 p-4 md:p-6">
+                  <div className="w-14 h-14">
+                    <Icon className="text-white h-full w-full transition aspect-auto" />
+                  </div>
+                  <div className="text-white text-2xl">{title}</div>
+
+                  {getCategory() &&
+                    getCategory()
+                      .slice(0, 15)
+                      .map((cat: IsubCategory) => (
+                        <div className="flex flex-col gap-y-auto">
+                          <div>
+                            <div key={`id_${cat._id}`} className="text-white">
+                              {cat.name}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+
+                  {categoryName && (
+                    <div className="w-3/4 mt-5">
+                      <Button
+                        as={Link}
+                        to={`/categories/${toSnakeCase(categoryName)}`}
+                        className="bg-white-bg px-3 py-3 rounded-sm  text-black text-base font-semibold hover:opacity-80 transition text-center capitalize"
+                        size="md"
+                        variant="ghost"
+                      >
+                        View Collection
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
 
             <div className="w-[302px] h-[600.11px] absolute md:right-1 lg:right-1 hidden md:block">
@@ -104,20 +140,26 @@ const ProductSection = ({ showmore, title, Icon }: ProductSectionProps) => {
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-            {items.slice(0, 6).map((item, index) => {
-              return (
-                <ProductCard
-                  key={index}
-                  image={item.image}
-                  title={item.title}
-                  description={item.description}
-                  price={item.price}
-                  newPrice={item.newPrice}
-                  qunatity={item.qunatity}
-                  handlePreviewFn={(data) => handlePreviewProd(data)}
-                />
-              );
-            })}
+            {products &&
+              products.length > 0 &&
+              products.slice(0, 9).map((item: any) => {
+                return (
+                  <ProductCard
+                    key={item.id}
+                    image={item.overview.heroImage}
+                    images={item.product.images}
+                    title={item.overview.name}
+                    productCode={item.overview.code}
+                    description={item.product.description}
+                    price={0}
+                    newPrice={""}
+                    qunatity={item.overview.minQty}
+                    handlePreviewFn={(data) => handlePreviewProd(data)}
+                    category={item.product.categorisation.productType.typeName}
+                    id={item.id}
+                  />
+                );
+              })}
           </div>
         </div>
 
