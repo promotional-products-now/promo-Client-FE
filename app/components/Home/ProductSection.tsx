@@ -143,9 +143,9 @@ const ProductSection = ({
             {products &&
               products.length > 0 &&
               products.slice(0, 9).map((item: any) => {
+                console.log({ item });
                 return (
                   <ProductCard
-                    key={item.id}
                     image={item.overview.heroImage}
                     images={item.product.images}
                     title={item.overview.name}
@@ -154,9 +154,9 @@ const ProductSection = ({
                     price={0}
                     newPrice={""}
                     qunatity={item.overview.minQty}
-                    handlePreviewFn={(data) => handlePreviewProd(data)}
+                    id={item.id || item._id}
                     category={item.product.categorisation.productType.typeName}
-                    id={item.id}
+                    handlePreviewFn={(data) => handlePreviewProd(data)}
                   />
                 );
               })}

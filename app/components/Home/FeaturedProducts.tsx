@@ -13,6 +13,7 @@ interface FeaturedProductsProps {
   sectionlabel: string;
   gridno: number;
   showmore?: boolean;
+  products: any[];
 }
 
 const options = [
@@ -21,7 +22,7 @@ const options = [
   { value: "new", label: "New" },
 ];
 
-const FeaturedProducts = ({ sectionlabel, gridno, showmore }: FeaturedProductsProps) => {
+const FeaturedProducts = ({ sectionlabel, gridno, showmore, products }: FeaturedProductsProps) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const setProduct = useSetAtom(productPreviewAtom);
@@ -118,18 +119,23 @@ const FeaturedProducts = ({ sectionlabel, gridno, showmore }: FeaturedProductsPr
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-4">
-          {filterItems.slice(0, gridno).map((item, index) => (
-            <ProductCard
-              key={index}
-              image={item.image}
-              title={item.title}
-              description={item.description}
-              price={item.price}
-              newPrice={item.newPrice}
-              qunatity={item.qunatity}
-              handlePreviewFn={(data) => handlePreviewProd(data)}
-            />
-          ))}
+          {products &&
+            products.length > 0 &&
+            products.map((item, index) => (
+              <ProductCard
+                image={item.overview.heroImage}
+                images={item.product.images}
+                title={item.overview.name}
+                productCode={item.overview.code}
+                description={item.product.description}
+                price={0}
+                newPrice={""}
+                qunatity={item.overview.minQty}
+                id={item.id}
+                category={item.product.categorisation.productType.typeName}
+                handlePreviewFn={(data) => handlePreviewProd(data)}
+              />
+            ))}
         </div>
         {showmore && (
           <div className="flex flex-row gap-2 items-center justify-center w-2/6 left-[50%] absolute -translate-x-[50%] bottom-0 ">
