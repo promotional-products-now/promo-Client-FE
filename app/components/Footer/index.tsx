@@ -163,6 +163,7 @@ const NavItem = ({ icon, label }: any) => (
 export async function loader({ request }: any) {
   const session = await getSession(request.headers.get("Cookie"));
   const uid = session.get("uid");
+console.log(uid, "kekei");
 
   return json({ user: { uid } });
 }
