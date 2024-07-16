@@ -14,7 +14,7 @@ export type FooterT = {
 export const aboutLinks: FooterT[] = [
   { name: "Message from Sales Manager", pathname: "/national-sales-manager" },
   { name: "Company Profile", pathname: "/about" },
-  { name: "Terms & Conditions", pathname: "/terms-&-conditions" },
+  { name: "Terms & Conditions", pathname: "/terms-conditions" },
   { name: "Privacy Policy", pathname: "/privacy-policy" },
   { name: "Contact", pathname: "/contact" },
 ];
@@ -32,10 +32,8 @@ export const categoryLinks: FooterT[] = allCategory.map((cat) => {
   return { name: cat.name, pathname: `/categories/${toSnakeCase(cat.name)}` };
 });
 
-
-
 export const otherLinks: FooterT[] = [
-  { name: "Terms & Conditions", pathname: "/terms-&-conditions" },
+  { name: "Terms & Conditions", pathname: "/terms-conditions" },
   { name: "Privacy Statement", pathname: "/privacy-policy" },
 ];
 

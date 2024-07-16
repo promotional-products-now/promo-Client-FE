@@ -3,9 +3,19 @@ import { useLoaderData } from "@remix-run/react";
 import { fetchAllBlogsApi } from "app/api/blog.api";
 import { BlogCard } from "app/components/Blog/BlogCard";
 import { BlogCardProps } from "./interface";
+import { SEOHandle } from "@nasa-gcn/remix-seo";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Blog" }, { name: "description", content: "" }];
+};
+
+export const handle: SEOHandle = {
+  getSitemapEntries: async (request) => {
+    const { data } = await fetchAllBlogsApi();
+    return data?.payload?.data.map((blog: any) => {
+      return { route: `/blog/${blog.category.title || "_"}/${blog._id}`, priority: 0.7 };
+    });
+  },
 };
 
 export async function loader() {

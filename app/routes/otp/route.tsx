@@ -7,6 +7,7 @@ import { Button, Input } from "@nextui-org/react";
 import { validateOtpApi } from "app/api/auth.api";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { SEOHandle } from "@nasa-gcn/remix-seo";
 
 type OTPFormData = {
   otp: string;
@@ -15,6 +16,10 @@ type OTPFormData = {
 type ActionData = {
   success: boolean;
   error?: string;
+};
+
+export const handle: SEOHandle = {
+  getSitemapEntries: () => null,
 };
 
 export const action: ActionFunction = async ({ request }) => {

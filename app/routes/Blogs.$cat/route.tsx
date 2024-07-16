@@ -1,12 +1,13 @@
 import { useLoaderData, useParams } from "@remix-run/react";
 import { MetaFunction } from "@remix-run/node";
 import { BlogCard } from "app/components/Blog/BlogCard";
-import { blog as blogPosts } from "app/api_dummy";
 import { fetchAllBlogsCategoryApi } from "app/api/blog.api";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Blog" }, { name: "description", content: "" }];
 };
+
+
 
 export async function loader({ params }: { params: { cat: string } }) {
   const { data } = await fetchAllBlogsCategoryApi({ category: params.cat, page: 1 });

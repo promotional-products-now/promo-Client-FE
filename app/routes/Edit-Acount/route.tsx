@@ -4,6 +4,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SignUpSchema } from "app/schema/signup.schema";
 import { statesData, cityData } from "app/mock/signUpData";
+import { SEOHandle } from "@nasa-gcn/remix-seo";
+
+export const handle: SEOHandle = {
+  getSitemapEntries: () => null,
+};
 
 export default function EditAccount(): JSX.Element {
   const {
