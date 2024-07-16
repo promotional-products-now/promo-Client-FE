@@ -1,8 +1,14 @@
 import axios from "axios";
 import { API_BASEURL } from "./api";
 
-export const fetchProductsApi = async () => {
-  return await axios.get(`${API_BASEURL}/products?limit=20&page=2`);
+export const fetchProductsApi = async ({
+  page = 1,
+  limit = 20,
+}: {
+  page?: number;
+  limit?: number;
+}) => {
+  return await axios.get(`${API_BASEURL}/products?limit=${limit}&page=${page}`);
 };
 
 export const getProductInfo = async (productId: string) => {

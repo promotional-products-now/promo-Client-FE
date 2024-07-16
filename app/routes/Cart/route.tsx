@@ -17,9 +17,14 @@ import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { Input } from "@nextui-org/react";
 import { items } from "app/api_dummy";
 import { payment } from "app/api_dummy";
+import { SEOHandle } from "@nasa-gcn/remix-seo";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Cart" }, { name: "", content: "" }];
+};
+
+export const handle: SEOHandle = {
+  getSitemapEntries: () => null,
 };
 
 const CartPage = () => {

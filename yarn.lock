@@ -866,6 +866,13 @@
     unist-util-visit "^4.0.0"
     vfile "^5.0.0"
 
+"@nasa-gcn/remix-seo@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@nasa-gcn/remix-seo/-/remix-seo-2.0.1.tgz#236c53ed70aceff7632abcdfd21532e066b1f2fd"
+  integrity sha512-g9biDdYfsdFBnOU7lM+7vPGEXSEMRnWmfVLDQ98pT0PnTT/O3pFuA+s3DA0Mj9IwnAq9IcLs2Wee/aL6fvEA+A==
+  dependencies:
+    lodash "^4.17.21"
+
 "@nextui-org/accordion@2.0.35":
   version "2.0.35"
   resolved "https://registry.yarnpkg.com/@nextui-org/accordion/-/accordion-2.0.35.tgz#381cc4b514a4ab7f06dfc8d151ebf88c000c685c"
@@ -2744,7 +2751,7 @@
     "@react-types/overlays" "^3.8.7"
     "@react-types/shared" "^3.23.1"
 
-"@remix-run/css-bundle@^2.8.0":
+"@remix-run/css-bundle@^2.10.2":
   version "2.10.2"
   resolved "https://registry.yarnpkg.com/@remix-run/css-bundle/-/css-bundle-2.10.2.tgz#bf0e21e616490cb5f891a048ee28bf4af12622dc"
   integrity sha512-rtnDV62iR6l+l70BcQeDIGPkaF0WZoscxD0FXPR+IrBXMcfz44T3PcnmXEeY0bUmBc3VXkBOKWSJzKU4m3gYFA==
@@ -3336,6 +3343,11 @@ acorn@^8.0.0, acorn@^8.11.3, acorn@^8.9.0:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.12.1.tgz#71616bdccbe25e27a54439e0046e89ca76df2248"
   integrity sha512-tcpGyI9zbizT9JbV6oYE477V6mTlXvvi0T0G3SNIYE2apm/G5huBa1+K89VGeovbg+jycCrfhl3ADxErOuO6Jg==
 
+add@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/add/-/add-2.0.6.tgz#248f0a9f6e5a528ef2295dbeec30532130ae2235"
+  integrity sha512-j5QzrmsokwWWp6kUcJQySpbG+xfOBqqKnup3OIk1pz+kB/80SLorZ9V8zHFLO92Lcd+hbvq8bT+zOGoPkmBV0Q==
+
 aggregate-error@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/aggregate-error/-/aggregate-error-3.1.0.tgz#92670ff50f5359bdb7a3e0d40d0ec30c5737687a"
@@ -3813,6 +3825,11 @@ chownr@^2.0.0:
   resolved "https://registry.yarnpkg.com/chownr/-/chownr-2.0.0.tgz#15bfbe53d2eab4cf70f18a8cd68ebe5b3cb1dece"
   integrity sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==
 
+classnames@^2.3.2:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.5.1.tgz#ba774c614be0f016da105c858e7159eae8e7687b"
+  integrity sha512-saHYOzhIQs6wy2sVxTM6bUDsQO4F50V9RQ22qBpEdCW+I+/Wmke2HOl6lS6dTpdxVhb88/I6+Hs+438c3lfUow==
+
 clean-stack@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/clean-stack/-/clean-stack-2.2.0.tgz#ee8472dbb129e727b31e8a10a427dee9dfe4008b"
@@ -4047,7 +4064,7 @@ data-view-byte-offset@^1.0.0:
     es-errors "^1.3.0"
     is-data-view "^1.0.1"
 
-debug@2.6.9:
+debug@2.6.9, debug@^2.1.3:
   version "2.6.9"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
   integrity sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==
@@ -5868,6 +5885,13 @@ jsonfile@^6.0.1:
     universalify "^2.0.0"
   optionalDependencies:
     graceful-fs "^4.1.6"
+
+jsonp@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/jsonp/-/jsonp-0.2.1.tgz#a65b4fa0f10bda719a05441ea7b94c55f3e15bae"
+  integrity sha512-pfog5gdDxPdV4eP7Kg87M8/bHgshlZ5pybl+yKxAnCZ5O7lCIn7Ixydj03wOlnDQesky2BPyA91SQ+5Y/mNwzw==
+  dependencies:
+    debug "^2.1.3"
 
 "jsx-ast-utils@^2.4.1 || ^3.0.0", jsx-ast-utils@^3.3.5:
   version "3.3.5"
@@ -7697,6 +7721,14 @@ react-router@6.24.1:
   dependencies:
     "@remix-run/router" "1.17.1"
 
+react-share@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/react-share/-/react-share-5.1.0.tgz#27eff763e5c233c8765cacf595b039093cb9b408"
+  integrity sha512-OvyfMtj/0UzH1wi90OdHhZVJ6WUC/+IeWvBwppeZozwIGyAjQgyR0QXlHOrxVHVECqnGvcpBaFTXVrqouTieaw==
+  dependencies:
+    classnames "^2.3.2"
+    jsonp "^0.2.1"
+
 react-style-singleton@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/react-style-singleton/-/react-style-singleton-2.2.1.tgz#f99e420492b2d8f34d38308ff660b60d0b1205b4"
@@ -9206,6 +9238,11 @@ yaml@^2.3.4:
   version "2.4.5"
   resolved "https://registry.yarnpkg.com/yaml/-/yaml-2.4.5.tgz#60630b206dd6d84df97003d33fc1ddf6296cca5e"
   integrity sha512-aBx2bnqDzVOyNKfsysjA2ms5ZlnjSAW2eG3/L5G/CSujfjLJTJsEw1bGw8kCf04KodQWk1pxlGnZ56CRxiawmg==
+
+yarn@^1.22.22:
+  version "1.22.22"
+  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.22.22.tgz#ac34549e6aa8e7ead463a7407e1c7390f61a6610"
+  integrity sha512-prL3kGtyG7o9Z9Sv8IPfBNrWTDmXB4Qbes8A9rEzt6wkJV8mUvoirjU0Mp3GGAU06Y0XQyA3/2/RQFVuK7MTfg==
 
 yocto-queue@^0.1.0:
   version "0.1.0"

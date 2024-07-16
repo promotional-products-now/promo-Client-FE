@@ -13,11 +13,15 @@ import { RiMastercardLine } from "react-icons/ri";
 import AlternateAddressForm from "app/components/Checkout/AlternateAddressForm";
 import CheckoutOrder from "app/components/Checkout/CheckoutOrder";
 import { ValidId } from "app/components/Checkout/ValidId";
+import { SEOHandle } from "@nasa-gcn/remix-seo";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Checkout" }, { name: "", content: "" }];
 };
 
+export const handle: SEOHandle = {
+  getSitemapEntries: () => null,
+};
 
 const options = [
   { value: "low-high", label: "low to high" },

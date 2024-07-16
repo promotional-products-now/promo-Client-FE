@@ -7,8 +7,10 @@ const fetchAllBlogsApi = async (query?: any) => {
   );
 };
 
-const fetchAllBlogsCategoryApi = async (arg: string) => {
-  return await axios.get(`${CONTENT_BASE_URL}/blog/category?category=${arg}`);
+const fetchAllBlogsCategoryApi = async (query: any) => {
+  return await axios.get(
+    `${CONTENT_BASE_URL}/blog/category?category=${query.category}&page=${query.page}`,
+  );
 };
 
 const fetchSingleBlogApi = async (id: string) => {

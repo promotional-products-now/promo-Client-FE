@@ -33,13 +33,11 @@ export const meta: MetaFunction = () => {
     { name: "description", content: "Welcome to Promotional Products Now" },
   ];
 };
-
 export const loader = async () => {
   async function getProductsAndCategories() {
-    const [productsResponse, categoriesResponse, blog] = await Promise.all([
-      fetchProductsApi(),
+    const [productsResponse, categoriesResponse] = await Promise.all([
+      fetchProductsApi({ page: 20 }),
       fetchProductCategories(),
-      fetchAllBlogsApi(),
     ]);
     return { products: productsResponse.data.docs, categories: categoriesResponse };
   }
@@ -49,19 +47,22 @@ export const loader = async () => {
     healthProductsResponse,
     clothingProductsResponse,
     homeAndLivingProductsResponse,
-    blog,
+    blogResponse,
+    leastProductsResponse,
   ] = await Promise.all([
     getProductsAndCategories(),
     fetchProductByCategory("Health & Personal"),
     fetchProductByCategory("Clothing"),
     fetchProductByCategory("Home & Living"),
     fetchAllBlogsApi({ limit: 10 }),
+    fetchProductsApi({ page: 1 }),
   ]);
 
   return {
     products,
     categories,
-    blog: blog.data.payload,
+    leastProducts: leastProductsResponse.data.docs,
+    blog: blogResponse.data?.payload?.data || [],
     healthProducts: healthProductsResponse.data,
     clothingProducts: clothingProductsResponse.data,
     homeAndLivingProducts: homeAndLivingProductsResponse.data,
@@ -272,7 +273,7 @@ export default function Index() {
           title="Health & Fitness"
           products={loaderData && loaderData.healthProducts ? loaderData.healthProducts : []}
         />
-        <FeaturedProducts sectionlabel="Featured Products" gridno={10} />
+        {/* <FeaturedProducts sectionlabel="Featured Products" gridno={10} /> */}
         <ProductSection
           heroImage={ClothingImage}
           Icon={GiClothes}
@@ -280,7 +281,11 @@ export default function Index() {
           categoryName="Clothing"
           products={loaderData && loaderData.clothingProducts ? loaderData.clothingProducts : []}
         />
-        <FeaturedProducts sectionlabel="New Arrivals" gridno={5} />
+        <FeaturedProducts
+          sectionlabel="New Arrivals"
+          gridno={5}
+          products={loaderData && loaderData.leastProducts ? loaderData.leastProducts : []}
+        />
         <ProductSection
           heroImage=""
           Icon={FaFemale}

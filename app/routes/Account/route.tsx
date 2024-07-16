@@ -5,9 +5,13 @@ import { LuMapPin } from "react-icons/lu";
 import { FaEyeSlash } from "react-icons/fa";
 import { RecentOrderCard } from "app/components/Product/RecentOrderCard";
 import { recentOrders } from "app/mock/recentOrderData";
+import { SEOHandle } from "@nasa-gcn/remix-seo";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Details" }, { name: "", content: "" }];
+};
+export const handle: SEOHandle = {
+  getSitemapEntries: () => null,
 };
 
 export default function Detatils(): JSX.Element {
