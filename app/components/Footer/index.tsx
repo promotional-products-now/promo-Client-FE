@@ -1,5 +1,5 @@
 import { Button, Image, Input } from "@nextui-org/react";
-import { Link } from "@remix-run/react";
+import { json, Link, useLoaderData } from "@remix-run/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { MdEmail } from "react-icons/md";
@@ -9,6 +9,7 @@ import { SubscribeSchema } from "app/schema/subscribe.schema";
 import { FooterLinkComp } from "./FooterLinkComp";
 import { aboutLinks, categoryLinks, companyInfo, faqLinks, otherLinks, socialLinks } from "./links";
 import ContactDetails from "./ContactDetails";
+import { getSession } from "app/sessions";
 
 export function Footer() {
   const {
@@ -124,6 +125,8 @@ export function Footer() {
 }
 
 const BottomNavigation = () => {
+  let data = useLoaderData<typeof loader>();
+
   return (
     <div className="fixed z-50 bottom-0 left-0 w-full bg-white  text-zinc-600 text-xl shadow-md">
       <div className="flex justify-around py-2">
@@ -136,9 +139,15 @@ const BottomNavigation = () => {
         <Link to="/cart">
           <NavItem icon={<FaShoppingCart />} label="Cart" />
         </Link>
-        <Link to="/login">
-          <NavItem icon={<FaUser />} label="Account" />
-        </Link>
+        {data.user.uid ? (
+          <Link to="/account">
+            <NavItem icon={<FaUser />} label="Account" />
+          </Link>
+        ) : (
+          <Link to="/login">
+            <NavItem icon={<FaUser />} label="Account" />
+          </Link>
+        )}
       </div>
     </div>
   );
@@ -150,3 +159,11 @@ const NavItem = ({ icon, label }: any) => (
     <span className="text-xs">{label}</span>
   </div>
 );
+
+export async function loader({ request }: any) {
+  const session = await getSession(request.headers.get("Cookie"));
+  const uid = session.get("uid");
+console.log(uid, "kekei");
+
+  return json({ user: { uid } });
+}
