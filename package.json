@@ -21,7 +21,7 @@
     "@hookform/resolvers": "^3.3.4",
     "@nasa-gcn/remix-seo": "^2.0.1",
     "@nextui-org/react": "^2.2.9",
-    "@remix-run/css-bundle": "^2.10.2",
+    "@remix-run/css-bundle": "^2.10.3",
     "@remix-run/node": "^2.6.0",
     "@remix-run/react": "^2.6.0",
     "@remix-run/serve": "^2.6.0",

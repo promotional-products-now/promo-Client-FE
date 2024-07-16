@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link, Form, MetaFunction, useLoaderData } from "@remix-run/react";
 import { Button, Image, Input, Tabs, Tab, Textarea } from "@nextui-org/react";
 import { BiUser, BiChat, BiSearch, BiShareAlt } from "react-icons/bi";
@@ -60,6 +61,8 @@ interface BlogPostType {
 export default function BlogPost() {
   const { blog, blogs, user } = useLoaderData<typeof loader>();
   const { post } = blog;
+
+  const [query, setQuery] = useState<string>("");
 
   const {
     register,
@@ -250,10 +253,14 @@ export default function BlogPost() {
               radius="none"
               label="Search blog here"
               className=" py-0 pl-2 w-full h-[50px] border border-r-0"
+              onValueChange={setQuery}
             />
-            <button className="bg-primary py-2 px-3 flex items-center justify-center">
+            <Link
+              to={`/query/${query}`}
+              className="bg-primary py-2 px-3 flex items-center justify-center"
+            >
               <BiSearch size={20} color="white" />
-            </button>
+            </Link>
           </div>
         </div>
         <div className="w-full bg-gray1 px-5 py-8 flex flex-col gap-4 [&_p]:text-sm">
