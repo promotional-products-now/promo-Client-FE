@@ -1,5 +1,7 @@
+import { useMemo, useState } from "react";
 import { MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import { Pagination } from "@nextui-org/react";
 import { fetchAllBlogsApi } from "app/api/blog.api";
 import { BlogCard } from "app/components/Blog/BlogCard";
 import { BlogCardProps } from "./interface";
@@ -23,12 +25,13 @@ export async function loader() {
   if (data.isError) {
     return { error: data.message, posts: [] };
   } else {
-    return { posts: data?.payload?.data || [] };
+    return { posts: data.payload.data || [] };
   }
 }
 
 const Blog = () => {
   const loaderData = useLoaderData<typeof loader>();
+  const [currentPage, setCurrentPage] = useState(1);
 
   return (
     <div className="flex flex-col gap-10 lg:gap-7 w-full mx-auto p-4 lg:p-0 lg:w-4/5">
@@ -54,6 +57,17 @@ const Blog = () => {
               body={post?.body}
             />
           ))}
+      </div>
+      <div className="flex items-center justify-center">
+        {loaderData.posts?.length > 0 && (
+          <Pagination
+            variant="light"
+            size="sm"
+            total={loaderData?.posts?.pages}
+            page={currentPage}
+            onChange={setCurrentPage}
+          />
+        )}
       </div>
     </div>
   );
