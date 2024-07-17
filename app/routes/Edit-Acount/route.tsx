@@ -1,14 +1,23 @@
 import { Input, Button, Select, SelectItem } from "@nextui-org/react";
-import { Link, Form } from "@remix-run/react";
+import { Link, Form, json } from "@remix-run/react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SignUpSchema } from "app/schema/signup.schema";
 import { statesData, cityData } from "app/mock/signUpData";
 import { SEOHandle } from "@nasa-gcn/remix-seo";
+import { getSession } from "app/sessions";
 
 export const handle: SEOHandle = {
   getSitemapEntries: () => null,
 };
+
+export async function loader({ request }: any) {
+  const session = await getSession(request.headers.get("Cookie"));
+  const uid = session.get("uid");
+  console.log({ uid });
+
+  return json({ user: { uid }, ENV: { SALES_CONTACT: process.env.SALES_CONTACT } });
+}
 
 export default function EditAccount(): JSX.Element {
   const {

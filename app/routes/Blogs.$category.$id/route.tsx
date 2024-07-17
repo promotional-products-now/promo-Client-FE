@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { Link, Form, MetaFunction, useLoaderData } from "@remix-run/react";
-import { Button, Image, Input, Tabs, Tab, Textarea } from "@nextui-org/react";
+import { Button, Image, Input, Tabs, Tab, Textarea, Tooltip } from "@nextui-org/react";
 import { BiUser, BiChat, BiSearch, BiShareAlt } from "react-icons/bi";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { useForm } from "react-hook-form";
@@ -61,6 +62,8 @@ export default function BlogPost() {
   const { blog, blogs, user } = useLoaderData<typeof loader>();
   const { post } = blog;
 
+  const [query, setQuery] = useState<string>("");
+
   const {
     register,
     handleSubmit,
@@ -70,7 +73,7 @@ export default function BlogPost() {
     defaultValues: { email: user.email, phone: user.phone },
   });
 
-  const copyPostLink = async () => {
+  const handlePostPostUrl = async () => {
     await navigator.clipboard.writeText(`http://localhost:3000/blogs/${blog.category}/${post._id}`);
   };
 
@@ -171,7 +174,12 @@ export default function BlogPost() {
           <div className="w-full border border-lightGray shadow-md"></div>
           <div className="flex flex-col gap-4 justify-between items-center md:flex-row">
             <h2 className="font-bold text-black text-2xl">Share this blog article</h2>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3 items-start">
+              <Tooltip showArrow={false} content="Copy" color="foreground">
+                <button onClick={handlePostPostUrl} className="bg-gray text-white px-2 py-1.5">
+                  <BiShareAlt size={30} />
+                </button>
+              </Tooltip>
               {icons.map(({ id, IconBtn, Icon, href, color }) => (
                 <SocialShareButton
                   key={id}
@@ -250,10 +258,14 @@ export default function BlogPost() {
               radius="none"
               label="Search blog here"
               className=" py-0 pl-2 w-full h-[50px] border border-r-0"
+              onValueChange={setQuery}
             />
-            <button className="bg-primary py-2 px-3 flex items-center justify-center">
+            <Link
+              to={`/query/${query}`}
+              className="bg-primary py-2 px-3 flex items-center justify-center"
+            >
               <BiSearch size={20} color="white" />
-            </button>
+            </Link>
           </div>
         </div>
         <div className="w-full bg-gray1 px-5 py-8 flex flex-col gap-4 [&_p]:text-sm">
