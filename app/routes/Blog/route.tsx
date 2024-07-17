@@ -20,12 +20,23 @@ export const handle: SEOHandle = {
   },
 };
 
-export async function loader() {
-  const { data } = await fetchAllBlogsApi();
-  if (data.isError) {
-    return { error: data.message, posts: [] };
+export async function loader({ request }: any) {
+  const searchTerm = new URL(request.url).searchParams.get("q");
+  if (searchTerm) {
+    console.log({ searchTerm });
+    const { data } = await fetchAllBlogsApi({ title: searchTerm });
+    if (data.isError) {
+      return { error: data.message, posts: [] };
+    } else {
+      return { posts: data.payload.data || [] };
+    }
   } else {
-    return { posts: data.payload.data || [] };
+    const { data } = await fetchAllBlogsApi();
+    if (data.isError) {
+      return { error: data.message, posts: [] };
+    } else {
+      return { posts: data.payload.data || [] };
+    }
   }
 }
 
@@ -59,7 +70,7 @@ const Blog = () => {
           ))}
       </div>
       <div className="flex items-center justify-center">
-        {loaderData.posts?.length > 0 && (
+        {loaderData && loaderData.posts?.length > 0 && (
           <Pagination
             variant="light"
             size="sm"

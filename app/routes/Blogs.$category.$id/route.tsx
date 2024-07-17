@@ -1,12 +1,17 @@
 import { useState } from "react";
 import { Link, Form, MetaFunction, useLoaderData } from "@remix-run/react";
-import { Button, Image, Input, Tabs, Tab, Textarea, Tooltip } from "@nextui-org/react";
+import { Button, Image, Input, Tabs, Tab, Textarea, Tooltip, Avatar } from "@nextui-org/react";
 import { BiUser, BiChat, BiSearch, BiShareAlt } from "react-icons/bi";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CommentSchema } from "app/schema/comment.schema";
-import { blogCommentApi, fetchAllBlogsApi, fetchSingleBlogApi } from "app/api/blog.api";
+import {
+  blogCommentApi,
+  fetchAllBlogsApi,
+  fetchSingleBlogApi,
+  fetchBlogsCategoryApi,
+} from "app/api/blog.api";
 import { getSession } from "app/sessions";
 
 import SocialShareButton from "app/components/SocialIconBtn";
@@ -29,20 +34,24 @@ export async function loader({
   const uid = session.get("uid");
 
   if (params.id) {
-    const { data } = await fetchSingleBlogApi(params.id);
+    // Fetch data concurrently//blogCategories
+    const [singleBlogData, allBlogsData, blogCategories] = await Promise.all([
+      fetchSingleBlogApi(params.id),
+      fetchAllBlogsApi(),
+      fetchBlogsCategoryApi(),
+    ]);
 
-    const blog = data.isError
-      ? { error: data.message, category: params.category, post: [] }
-      : { category: params.category, post: data.payload };
+    const blog = singleBlogData.data.isError
+      ? { error: singleBlogData.data.message, category: params.category, post: [] }
+      : { category: params.category, post: singleBlogData.data.payload };
 
-    const request = await fetchAllBlogsApi();
-    const response = await request.data;
+    const blogs = allBlogsData.data.isError ? [] : allBlogsData.data.payload?.data;
 
-    const blogs = response.isError ? [] : response?.payload?.data;
     return {
       blog,
       blogs,
       user: { email, phone, uid },
+      blogCategories: blogCategories?.data?.payload?.data || [],
     };
   }
 }
@@ -59,7 +68,8 @@ interface BlogPostType {
 }
 
 export default function BlogPost() {
-  const { blog, blogs, user } = useLoaderData<typeof loader>();
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const { blog, blogs, user, blogCategories } = useLoaderData<typeof loader>();
   const { post } = blog;
 
   const [query, setQuery] = useState<string>("");
@@ -78,16 +88,20 @@ export default function BlogPost() {
   };
 
   const onSubmit = async (data: CommentSchema) => {
+    setIsSubmitting(true);
     try {
       const postComment = await blogCommentApi({
         blogId: post._id,
         comment: data.comment,
         author: user.uid,
+        firstName: data.firstName,
+        lastName: data.lastName,
         email: data.email,
-        phone: data.phone,
-      });
+        phone: data.phone as string,
+      }).then(() => setIsSubmitting(false));
     } catch (err) {
-      console.log(err);
+      setIsSubmitting(false);
+      console.error(err);
     }
   };
 
@@ -141,8 +155,23 @@ export default function BlogPost() {
                   ) : (
                     <div>
                       {post &&
-                        post.comments.map((comments: any) => {
-                          return <div>{comments.body}</div>;
+                        post.comments.map((comment: any) => {
+                          return (
+                            <div className="bg-zinc-50 rounded-md mb-2">
+                              <div className="flex gap-2 items-center font-medium p-2 mb-1 border-b border-zinc-100">
+                                <Avatar name={comment.firstName} />
+                                <div>
+                                  {comment.lastName} {comment.firstName}
+                                  {comment && !comment.firstName && (
+                                    <div className="p-2  font-normal">{comment.body}</div>
+                                  )}
+                                </div>
+                              </div>
+                              {comment && comment.firstName && (
+                                <div className="p-2">{comment.body}</div>
+                              )}
+                            </div>
+                          );
                         })}
                     </div>
                   )}
@@ -202,18 +231,40 @@ export default function BlogPost() {
           <div className="text-black mb-3 md:mb-0">
             <h2 className="font-bold text-2xl">Leave your reply</h2>
             <p className="text-sm">
-              Your emaila ddress will not be published. Required fields are marked
+              Your email address will not be published. Required fields are marked
             </p>
           </div>
+
           <Textarea
             variant="underlined"
             labelPlacement="outside"
-            placeholder="Comment"
+            placeholder="Comment*"
             classNames={{ innerWrapper: "h-32 md:h-fit" }}
             className="bg-white col-span-12 md:col-span-6 mb-6 md:mb-0"
             {...register("comment")}
+            isInvalid={!!errors?.comment?.message}
             errorMessage={errors?.comment?.message}
           />
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <Input
+              type="text"
+              variant="underlined"
+              label="First Name*"
+              className="bg-white"
+              {...register("firstName")}
+              isInvalid={!!errors?.firstName?.message}
+              errorMessage={errors?.firstName?.message}
+            />
+            <Input
+              type="text"
+              variant="underlined"
+              label="Last Name"
+              className="bg-white"
+              {...register("lastName")}
+              isInvalid={!!errors?.lastName?.message}
+              errorMessage={errors?.lastName?.message}
+            />
+          </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             <Input
               type="text"
@@ -221,22 +272,25 @@ export default function BlogPost() {
               label="Your phone"
               className="bg-white"
               {...register("phone")}
+              isInvalid={!!errors?.phone?.message}
               errorMessage={errors?.phone?.message}
             />
             <Input
               type="text"
               variant="underlined"
-              label="Email"
+              label="Email*"
               className="bg-white"
               {...register("email")}
+              isInvalid={!!errors?.email?.message}
               errorMessage={errors?.email?.message}
             />
-            {/* <Input type="text" variant="underlined" label="Website" className="bg-white" /> */}
           </div>
           <div className="mt-8 md:pt-0">
             <Button
               type="submit"
               color="default"
+              disabled={isSubmitting}
+              isLoading={isSubmitting}
               radius="none"
               className="w-full md:w-fit bg-primary text-white py-3"
             >
@@ -256,12 +310,12 @@ export default function BlogPost() {
             <Input
               type="text"
               radius="none"
-              label="Search blog here"
+              label="Search blog by title"
               className=" py-0 pl-2 w-full h-[50px] border border-r-0"
               onValueChange={setQuery}
             />
             <Link
-              to={`/query/${query}`}
+              to={`/Blog/?q=${query}`}
               className="bg-primary py-2 px-3 flex items-center justify-center"
             >
               <BiSearch size={20} color="white" />
@@ -273,13 +327,18 @@ export default function BlogPost() {
             <FaArrowRightLong />
             BLOG CATEGORY
           </div>
-          <div className="border-b border-zinc-300 pb-4 text-lg  text-zinc-700">
-            Corporate Gifts (28)
-          </div>
-          <div className="border-b border-zinc-300 pb-4 text-lg  text-zinc-700">
-            Promotional Products (33)
-          </div>
-          <div className="pb-4 text-lg border-zinc-300 text-zinc-700">Tips & Tricks (7)</div>
+
+          {blogCategories &&
+            blogCategories.length > 0 &&
+            blogCategories.map((category: { _id: String; title: string }) => {
+              return (
+                <Link key={category._id as string} to={`/blogs/${category?.title}`}>
+                  <div className="border-b border-zinc-300 pb-4 text-lg  text-zinc-700">
+                    {category?.title || ""}
+                  </div>
+                </Link>
+              );
+            })}
         </div>
         <div className="w-full bg-gray1  px-5 py-8 flex flex-col gap-4">
           <div>

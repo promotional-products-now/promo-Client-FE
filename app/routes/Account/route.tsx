@@ -6,7 +6,7 @@ import { FaEyeSlash } from "react-icons/fa";
 import { RecentOrderCard } from "app/components/Product/RecentOrderCard";
 import { recentOrders } from "app/mock/recentOrderData";
 import { SEOHandle } from "@nasa-gcn/remix-seo";
-import { fetchUserAccountDetails } from "app/api/auth.api";
+import { fetchUserAccountDetailsApi } from "app/api/user.api";
 import { getSession } from "app/sessions";
 
 export const meta: MetaFunction = () => {
@@ -24,9 +24,9 @@ export async function loader({ request }: any) {
     return redirect("/login");
   }
 
-  const userDetails = await fetchUserAccountDetails(userUid as string);
+  const userDetails = await fetchUserAccountDetailsApi(userUid as string);
   if (!userDetails) {
-    throw new Response("Not found", { status: 400 });
+    throw new Response("Not found", { status: 404 });
   }
   return json(userDetails.data);
 }

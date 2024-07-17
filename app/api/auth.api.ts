@@ -36,8 +36,3 @@ export const changePassword = async (payload: {
     },
   );
 };
-
-export const fetchUserAccountDetails = async (id: string) => {
-  const result = await axios.get(`${API_BASEURL}/users/${id}`);
-  return result;
-};

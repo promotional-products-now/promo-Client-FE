@@ -1,11 +1,14 @@
 import { Input, Button, Select, SelectItem } from "@nextui-org/react";
-import { Link, Form, json } from "@remix-run/react";
+import { Link, Form, json, useLoaderData, redirect } from "@remix-run/react";
 import { useForm } from "react-hook-form";
+import { ActionFunction } from "@remix-run/node";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { SignUpSchema } from "app/schema/signup.schema";
+import { EditAccountSchema } from "app/schema/editAccountInfo.schema";
 import { statesData, cityData } from "app/mock/signUpData";
 import { SEOHandle } from "@nasa-gcn/remix-seo";
 import { getSession } from "app/sessions";
+import { fetchUserAccountDetailsApi, updateUserDetailsApi } from "app/api/user.api";
+import { useState } from "react";
 
 export const handle: SEOHandle = {
   getSitemapEntries: () => null,
@@ -14,22 +17,91 @@ export const handle: SEOHandle = {
 export async function loader({ request }: any) {
   const session = await getSession(request.headers.get("Cookie"));
   const uid = session.get("uid");
-  console.log({ uid });
 
-  return json({ user: { uid }, ENV: { SALES_CONTACT: process.env.SALES_CONTACT } });
+  if (!uid) {
+    return redirect("/login");
+  }
+
+  const { data } = await fetchUserAccountDetailsApi(uid);
+  if (!data) {
+    throw new Response("User Not found", { status: 404 });
+  }
+  console.log({ data });
+  return json({ user: data });
 }
 
+interface ActionData {
+  success: boolean;
+  error?: string;
+}
+
+export const action: ActionFunction = async ({ request }) => {
+  const session = await getSession(request.headers.get("Cookie"));
+  const uid = session.get("uid");
+
+  const formData = await request.formData();
+  const email = formData.get("email") as string;
+  const firstName = formData.get("firstName") as string;
+  const lastName = formData.get("lastName") as string;
+  const phone = formData.get("phone") as string;
+  const address1 = formData.get("address1") as string;
+  const address2 = formData.get("address2") as string;
+  const city = formData.get("city") as string;
+  const state = formData.get("state") as string;
+  const postCode = formData.get("postCode") as string;
+
+  try {
+    const response = await updateUserDetailsApi(uid as string, {
+      email,
+      firstName,
+      lastName,
+      phone,
+      location: {
+        address1,
+        address2,
+        city,
+        state,
+        postCode,
+      },
+    });
+
+    return json({ success: true } as ActionData);
+  } catch (error: any) {
+    return json({ success: false, error: error.message } as ActionData);
+  }
+};
+
 export default function EditAccount(): JSX.Element {
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  const loaderData = useLoaderData<typeof loader>();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignUpSchema>({
-    resolver: yupResolver(SignUpSchema),
+  } = useForm<EditAccountSchema>({
+    defaultValues: {
+      email: loaderData?.user?.email?.address || "",
+      firstName: loaderData?.user?.firstName || "",
+      lastName: loaderData?.user?.lastName || "",
+      phone: loaderData?.user?.phone || "",
+      address1: loaderData?.user?.location?.address || "",
+      city: loaderData?.user?.location?.city || "",
+      state: loaderData?.user?.location?.state || "",
+      postCode: loaderData?.user?.location?.postCode || "",
+    },
+    resolver: yupResolver(EditAccountSchema),
   });
 
-  const onSubmit = (data: SignUpSchema) => {
-    console.log(data);
+  const onSubmit = async () => {
+    setIsSubmitting(true);
+    const form = document.getElementById("editUserForm") as HTMLFormElement;
+
+    if (form) {
+      form.submit();
+    }
+    // The form submission is handled by Remix <Form>, no additional logic needed here
   };
 
   return (
@@ -42,7 +114,9 @@ export default function EditAccount(): JSX.Element {
         </div>
 
         <Form
+          id="editUserForm"
           method="post"
+          onSubmit={handleSubmit(onSubmit)}
           className="w-full  overflow-hidden py-4 px-4 md:py-12 flex flex-col items-center justify-center"
         >
           <div className="w-full md:w-4/5 xl:w-3/5 2xl:w-2/4  overflow-hidden py-4 md:py-8 space-y-4">
@@ -104,35 +178,6 @@ export default function EditAccount(): JSX.Element {
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 ">
-              <div className="w-full">
-                <p className="text-base font-bold text-dark">PASSWORD</p>
-                <Input
-                  type="password"
-                  variant="underlined"
-                  labelPlacement="outside"
-                  size="lg"
-                  placeholder="Your password"
-                  color="primary"
-                  {...register("password")}
-                  errorMessage={errors?.password?.message}
-                />
-              </div>
-              <div className="w-full">
-                <p className="text-base  font-bold text-dark">REPEAT PASSWORD</p>
-                <Input
-                  type="password"
-                  variant="underlined"
-                  labelPlacement="outside"
-                  size="lg"
-                  placeholder="Confirm password"
-                  color="primary"
-                  {...register("confirmPassword")}
-                  errorMessage={errors?.confirmPassword?.message}
-                />
-              </div>
-            </div>
-
             <div className="w-full">
               <p className="text-base font-bold text-dark">ADDRESS 1</p>
               <Input
@@ -163,7 +208,7 @@ export default function EditAccount(): JSX.Element {
 
             <div className="flex flex-col sm:flex-row gap-4 w-full">
               <div className="w-full">
-                <p className="text-base font-bold text-dark">CITY</p>{" "}
+                <p className="text-base font-bold text-dark">SUBURB</p>
                 <Select
                   aria-label="city"
                   variant="underlined"
@@ -191,9 +236,9 @@ export default function EditAccount(): JSX.Element {
                   {...register("state")}
                   errorMessage={errors?.state?.message}
                 >
-                  {statesData.map((states) => (
-                    <SelectItem key={states.value} value={states.value}>
-                      {states.label}
+                  {statesData.map((state) => (
+                    <SelectItem key={state.value} value={state.value}>
+                      {state.label}
                     </SelectItem>
                   ))}
                 </Select>
@@ -216,7 +261,7 @@ export default function EditAccount(): JSX.Element {
 
             <div className="py-8 w-full mx-auto flex flex-wrap md:flex-nowrap justify-between gap-8">
               <Button
-                type="submit"
+                type="button"
                 variant="solid"
                 className="bg-yellow text-white font-bold w-full"
                 size="lg"
@@ -226,12 +271,13 @@ export default function EditAccount(): JSX.Element {
               </Button>
               <Button
                 type="submit"
+                isLoading={isSubmitting}
+                disabled={isSubmitting}
                 variant="solid"
                 color="primary"
                 className="font-bold w-full"
                 size="lg"
                 radius="none"
-                onClick={handleSubmit(onSubmit)}
               >
                 Update Details
               </Button>
