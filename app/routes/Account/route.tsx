@@ -1,4 +1,4 @@
-import { Link, MetaFunction } from "@remix-run/react";
+import { json, Link, MetaFunction, redirect, useLoaderData } from "@remix-run/react";
 import { Divider } from "@nextui-org/react";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { LuMapPin } from "react-icons/lu";
@@ -6,6 +6,8 @@ import { FaEyeSlash } from "react-icons/fa";
 import { RecentOrderCard } from "app/components/Product/RecentOrderCard";
 import { recentOrders } from "app/mock/recentOrderData";
 import { SEOHandle } from "@nasa-gcn/remix-seo";
+import { fetchUserAccountDetails } from "app/api/auth.api";
+import { getSession } from "app/sessions";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Details" }, { name: "", content: "" }];
@@ -14,8 +16,29 @@ export const handle: SEOHandle = {
   getSitemapEntries: () => null,
 };
 
+export async function loader({ request }: any) {
+  const session = await getSession(request.headers.get("Cookie"));
+  const userUid = session.get("uid");
 
+  if (!userUid) {
+    return redirect("/login");
+  }
+
+  const userDetails = await fetchUserAccountDetails(userUid as string);
+  if (!userDetails) {
+    throw new Response("Not found", { status: 400 });
+  }
+  return json(userDetails.data);
+}
+
+const maskPassword = (password: string) => {
+  return "*".repeat(password.length / 3);
+};
 export default function Detatils(): JSX.Element {
+  const userDetails = useLoaderData<typeof loader>();
+
+  const maskedPassword = maskPassword(userDetails.password);
+
   return (
     <>
       <div className="py-4 md:py-8 space-y-8">
@@ -23,7 +46,7 @@ export default function Detatils(): JSX.Element {
         <div className="grid  grid-cols-1  md:grid-cols-3  gap-4 py-4 px-2 md:px-6 w-full md:w-5/6 mx-auto">
           <div className="space-y-4">
             <h1 className="text-dark text-lg md:text-xl  xl:text-3xl font-semibold">
-              Alex Martenis
+              {userDetails.firstName} {userDetails.lastName}
             </h1>
 
             <div>
@@ -31,7 +54,7 @@ export default function Detatils(): JSX.Element {
               <div className="flex gap-3 py-3">
                 <MdOutlineMailOutline className="text-primary text-xl" />
                 <div className="space-y-2">
-                  <p>alex@marteni@gmail.com</p>
+                  <p>{userDetails.email.address}</p>
                   <Link to="#" className="text-base text-yellow font-semibold">
                     Edit account info
                   </Link>
@@ -41,7 +64,7 @@ export default function Detatils(): JSX.Element {
               <div className="flex  gap-3 py-3">
                 <FaEyeSlash className="text-primary text-xl" />
                 <div className="space-y-2">
-                  <p>*********</p>
+                  <p>{maskedPassword}</p>
                   <Link to="/change-password" className="text-base text-yellow font-semibold">
                     Change Password
                   </Link>
@@ -51,7 +74,12 @@ export default function Detatils(): JSX.Element {
               <div className="flex gap-3 py-3">
                 <LuMapPin className="text-primary text-xl" />
                 <div className="space-y-2">
-                  <p>Sydney, Australia</p>
+                  <p>{userDetails.location.address},</p>
+                  <p>{userDetails.location.city},</p>
+                  <p>{userDetails.location.state},</p>
+                  <p>
+                    {userDetails.location.country}, {userDetails.location.postCode}
+                  </p>
                 </div>
               </div>
               <Divider className="my-4 w-3/4" />
