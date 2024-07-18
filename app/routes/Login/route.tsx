@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Form, MetaFunction, useActionData } from "@remix-run/react";
 import { Input, Button, Checkbox, Divider } from "@nextui-org/react";
 import { useForm } from "react-hook-form";
@@ -29,11 +29,10 @@ export const action: ActionFunction = async ({ request }) => {
   try {
     const response = await loginApi({ email, password });
 
-    const { accessToken, _id, email: emailAddress, phone } = response.data.payload;
+    const { accessToken, _id, email: emailAddress } = response.data.payload;
 
     session.set("uid", _id);
     session.set("email", emailAddress.address);
-    session.set("phone", phone);
     session.set("accessToken", accessToken);
 
     return redirect("/otp", {
@@ -42,35 +41,28 @@ export const action: ActionFunction = async ({ request }) => {
       },
     });
   } catch (error: any) {
-    // console.log(error);
     return json({ success: false, error: error.message } as ActionData);
   }
 };
 
 export default function Login(): JSX.Element {
   const actionData = useActionData<ActionData>();
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginSchema>({
+  } = useForm({
     resolver: yupResolver(LoginSchema),
   });
 
-  const onSubmit = async () => {
+  const onSubmit = async (data: any) => {
     setIsSubmitting(true);
     const form = document.getElementById("loginForm") as HTMLFormElement;
-
     if (form) {
-      // e.preventDefault();
-      // const formData = new FormData(form);
-      // formData.append("otp", data.otp);
-
       form.submit();
     }
-    // The form submission is handled by Remix <Form>, no additional logic needed here
   };
 
   useEffect(() => {
@@ -85,7 +77,7 @@ export default function Login(): JSX.Element {
   }, [actionData]);
 
   return (
-    <div className="mt-12 md:mt-0">
+    <div>
       <ToastContainer containerId="loginToast" />
       <div className="py-4 md:py-8">
         <h1 className="text-2xl md:text-3xl text-dark font-bold text-center">
@@ -110,7 +102,6 @@ export default function Login(): JSX.Element {
                     className="w-full text-base text-dark font-semibold"
                     color="primary"
                     {...register("email")}
-                    isInvalid={!!errors?.email?.message}
                     errorMessage={errors?.email?.message}
                   />
                 </div>
@@ -126,7 +117,6 @@ export default function Login(): JSX.Element {
                     className="w-full text-base text-dark font-semibold"
                     color="primary"
                     {...register("password")}
-                    isInvalid={!!errors?.password?.message}
                     errorMessage={errors?.password?.message}
                   />
                 </div>

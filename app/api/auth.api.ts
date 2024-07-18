@@ -12,6 +12,7 @@ export const loginApi = async (payload: { email: string; password: string }) => 
 };
 
 export const validateOtpApi = async (payload: { email: string; otp: string }) => {
+  console.log({ payload });
   return await axios.post(`${API_BASEURL}/auth/validate-user`, payload);
 };
 

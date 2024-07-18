@@ -7910,11 +7910,6 @@ remix-auth@^3.6.0, remix-auth@^3.7.0:
   dependencies:
     uuid "^8.3.2"
 
-remix-hook-form@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/remix-hook-form/-/remix-hook-form-5.0.1.tgz#c6fc963c2fab8d23794ecb1e49ce1e0831f826af"
-  integrity sha512-7rjuIfx6JzemPKv2Y31IWpNTar3KeWRwJ2klJzchWSwgioPkloahqnwM89MBiAXDOFMYt2TcGR8SSl1PVTTuqQ==
-
 "require-like@>= 0.1.1":
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/require-like/-/require-like-0.1.2.tgz#ad6f30c13becd797010c468afa775c0c0a6b47fa"
@@ -8282,6 +8277,7 @@ string-hash@^1.1.1:
   integrity sha512-kJUvRUFK49aub+a7T1nNE66EJbZBMnBgoC1UbCZ5n6bsZKBRga4KgBRTMn/pFkeCZSYtNeSyMxPDM0AXWELk2A==
 
 "string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0:
+  name string-width-cjs
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==

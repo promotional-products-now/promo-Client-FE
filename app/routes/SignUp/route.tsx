@@ -76,7 +76,7 @@ export default function SignUp(): JSX.Element {
 
   const onSubmit: SubmitHandler<SignUpSchema> = async (data) => {
     setIsSubmitting(true);
-    const form = document.getElementById("otpForm") as HTMLFormElement;
+    const form = document.getElementById("signUpForm") as HTMLFormElement;
     if (form) {
       form.submit();
     }
@@ -93,6 +93,7 @@ export default function SignUp(): JSX.Element {
     }
   }, [actionData]);
 
+  console.log({ errors });
   return (
     <div className="py-8 mt-12 md:mt-0">
       <ToastContainer containerId="loginToast" />
@@ -114,11 +115,12 @@ export default function SignUp(): JSX.Element {
       </div>
 
       <Form
-        id="otpForm"
+        id="signUpForm"
         method="post"
         className="w-full overflow-hidden py-4 px-4 md:py-12 flex flex-col items-center justify-center"
         onSubmit={handleSubmit(onSubmit)}
       >
+        xy{errors?.lastName?.message}
         <div className="w-full md:w-4/5 xl:w-3/5 2xl:w-2/4 overflow-hidden py-4 md:py-8 space-y-4">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="w-full">
@@ -268,11 +270,11 @@ export default function SignUp(): JSX.Element {
                 aria-label="state"
                 variant="underlined"
                 placeholder="Your state"
-                isInvalid={!!errors?.state?.message}
                 color="primary"
                 size="lg"
                 {...register("state")}
                 errorMessage={errors?.state?.message}
+                isInvalid={!!errors?.state?.message}
               >
                 {statesData.map((state) => (
                   <SelectItem key={state.value} value={state.value}>
