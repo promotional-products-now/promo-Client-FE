@@ -103,6 +103,7 @@ export default function Login(): JSX.Element {
                     color="primary"
                     {...register("email")}
                     errorMessage={errors?.email?.message}
+                    isInvalid={!!errors?.email?.message}
                   />
                 </div>
 
@@ -118,6 +119,7 @@ export default function Login(): JSX.Element {
                     color="primary"
                     {...register("password")}
                     errorMessage={errors?.password?.message}
+                    isInvalid={!!errors?.email?.message}
                   />
                 </div>
 

@@ -2,6 +2,7 @@ import axios from "axios";
 import { API_BASEURL } from "./api";
 
 export const signupApi = async (data: any) => {
+
   return await axios.post(`${API_BASEURL}/auth/signup`, data);
 };
 

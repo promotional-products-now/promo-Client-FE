@@ -48,6 +48,7 @@ export const action: ActionFunction = async ({ request }) => {
 
     const { payload } = response.data;
     if (payload) {
+      console.log({ payload });
       session.set("email", payload.address);
 
       return redirect("/otp", {
@@ -70,11 +71,13 @@ export default function SignUp(): JSX.Element {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignUpSchema>({
+  } = useForm({
     resolver: yupResolver(SignUpSchema),
   });
 
-  const onSubmit: SubmitHandler<SignUpSchema> = async (data) => {
+  const onSubmit: SubmitHandler<SignUpSchema> = async (data, e) => {
+    if (e) e.preventDefault();
+
     setIsSubmitting(true);
     const form = document.getElementById("signUpForm") as HTMLFormElement;
     if (form) {
@@ -84,6 +87,7 @@ export default function SignUp(): JSX.Element {
 
   React.useEffect(() => {
     if (actionData && actionData.error) {
+      console.log({ actionError: actionData.error });
       setIsSubmitting(false);
       toast.error(actionData.error, {
         toastId: "signupError",
@@ -94,6 +98,7 @@ export default function SignUp(): JSX.Element {
   }, [actionData]);
 
   console.log({ errors });
+
   return (
     <div className="py-8 mt-12 md:mt-0">
       <ToastContainer containerId="loginToast" />
@@ -120,7 +125,6 @@ export default function SignUp(): JSX.Element {
         className="w-full overflow-hidden py-4 px-4 md:py-12 flex flex-col items-center justify-center"
         onSubmit={handleSubmit(onSubmit)}
       >
-        xy{errors?.lastName?.message}
         <div className="w-full md:w-4/5 xl:w-3/5 2xl:w-2/4 overflow-hidden py-4 md:py-8 space-y-4">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="w-full">
