@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Form, MetaFunction, useLoaderData } from "@remix-run/react";
+import { Link, Form, MetaFunction, useLoaderData, json } from "@remix-run/react";
 import { Button, Image, Input, Tabs, Tab, Textarea, Tooltip, Avatar } from "@nextui-org/react";
 import { BiUser, BiChat, BiSearch, BiShareAlt } from "react-icons/bi";
 import { FaArrowRightLong } from "react-icons/fa6";
@@ -16,45 +16,60 @@ import { getSession } from "app/sessions";
 
 import SocialShareButton from "app/components/SocialIconBtn";
 import { icons } from "app/contents/socialIcons";
+import axios from "axios";
+import { LoaderFunction } from "@remix-run/node";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Blog Post" }, { name: "", content: "" }];
 };
 
-export async function loader({
-  params,
-  request,
-}: {
-  request: Request;
-  params: { category: string; id: string };
-}) {
+export const loader: LoaderFunction = async ({ request, params }) => {
   const session = await getSession(request.headers.get("Cookie"));
   const email = session.get("email");
   const phone = session.get("phone");
   const uid = session.get("uid");
 
   if (params.id) {
-    // Fetch data concurrently//blogCategories
-    const [singleBlogData, allBlogsData, blogCategories] = await Promise.all([
-      fetchSingleBlogApi(params.id),
-      fetchAllBlogsApi(),
-      fetchBlogsCategoryApi(),
-    ]);
+    try {
+      // Fetch data concurrently
+      const [singleBlogData, allBlogsData, blogCategories] = await Promise.all([
+        fetchSingleBlogApi(params.id),
+        fetchAllBlogsApi(),
+        fetchBlogsCategoryApi(),
+      ]);
 
-    const blog = singleBlogData.data.isError
-      ? { error: singleBlogData.data.message, category: params.category, post: [] }
-      : { category: params.category, post: singleBlogData.data.payload };
+      const blog = singleBlogData.data.isError
+        ? { error: singleBlogData.data.message, category: params.category, post: [] }
+        : { category: params.category, post: singleBlogData.data.payload };
 
-    const blogs = allBlogsData.data.isError ? [] : allBlogsData.data.payload?.data;
+      const blogs = allBlogsData.data.isError ? [] : allBlogsData.data.payload?.data;
 
-    return {
-      blog,
-      blogs,
-      user: { email, phone, uid },
-      blogCategories: blogCategories?.data?.payload?.data || [],
-    };
+      return json({
+        blog,
+        blogs,
+        user: { email, phone, uid },
+        blogCategories: blogCategories?.data?.payload?.data || [],
+      });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Response(error.message, {
+          status: error.response?.status || 500,
+          statusText: error.response?.statusText || "Internal Server Error",
+        });
+      } else {
+        throw new Response("An unexpected error occurred", {
+          status: 500,
+          statusText: "Internal Server Error",
+        });
+      }
+    }
+  } else {
+    throw new Response("Blog ID not provided", {
+      status: 400,
+      statusText: "Bad Request",
+    });
   }
-}
+};
 
 interface Category {
   title: string;

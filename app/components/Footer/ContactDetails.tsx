@@ -13,7 +13,7 @@ export async function loader() {
 const ContactDetails = () => {
   const data = useLoaderData<typeof loader>();
 
-  const SALESCONTACT = data.ENV.SALES_CONTACT;
+  const SALESCONTACT = data && data.ENV ? data.ENV.SALES_CONTACT : "";
 
   return (
     <div>

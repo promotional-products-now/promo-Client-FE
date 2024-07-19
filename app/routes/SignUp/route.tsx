@@ -48,7 +48,6 @@ export const action: ActionFunction = async ({ request }) => {
 
     const { payload } = response.data;
     if (payload) {
-      console.log({ payload });
       session.set("email", payload.address);
 
       return redirect("/otp", {
@@ -87,7 +86,6 @@ export default function SignUp(): JSX.Element {
 
   React.useEffect(() => {
     if (actionData && actionData.error) {
-      console.log({ actionError: actionData.error });
       setIsSubmitting(false);
       toast.error(actionData.error, {
         toastId: "signupError",
@@ -96,8 +94,6 @@ export default function SignUp(): JSX.Element {
       setIsSubmitting(false);
     }
   }, [actionData]);
-
-  console.log({ errors });
 
   return (
     <div className="py-8 mt-12 md:mt-0">

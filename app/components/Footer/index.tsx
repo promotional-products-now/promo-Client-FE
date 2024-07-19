@@ -139,7 +139,7 @@ const BottomNavigation = () => {
         <Link to="/cart">
           <NavItem icon={<FaShoppingCart />} label="Cart" />
         </Link>
-        {data.user.uid ? (
+        {data && data.user && data.user.uid ? (
           <Link to="/account">
             <NavItem icon={<FaUser />} label="Account" />
           </Link>
@@ -163,7 +163,6 @@ const NavItem = ({ icon, label }: any) => (
 export async function loader({ request }: any) {
   const session = await getSession(request.headers.get("Cookie"));
   const uid = session.get("uid");
-console.log(uid, "kekei");
 
   return json({ user: { uid } });
 }

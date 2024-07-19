@@ -47,7 +47,7 @@ export default function ForgotPassword(): JSX.Element {
   const otpCallBackFn = (arg: any) => {
     setPage("newPassword");
     if (arg && arg) {
-      console.log({ arg });
+
       setUid(arg?.data?.user?._id || "");
       setAccessToken(arg?.data?.accessToken || "");
     }

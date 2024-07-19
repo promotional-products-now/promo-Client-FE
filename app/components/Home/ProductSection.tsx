@@ -143,7 +143,7 @@ const ProductSection = ({
             {products &&
               products.length > 0 &&
               products.slice(0, 9).map((item: any) => {
-                console.log({ item });
+
                 return (
                   <ProductCard
                     image={item.overview.heroImage}

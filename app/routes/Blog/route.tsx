@@ -23,7 +23,7 @@ export const handle: SEOHandle = {
 export async function loader({ request }: any) {
   const searchTerm = new URL(request.url).searchParams.get("q");
   if (searchTerm) {
-    console.log({ searchTerm });
+
     const { data } = await fetchAllBlogsApi({ title: searchTerm });
     if (data.isError) {
       return { error: data.message, posts: [] };

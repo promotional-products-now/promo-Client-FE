@@ -1,6 +1,6 @@
 import { useAtom, useSetAtom } from "jotai";
 import { Button, Image, Link, ScrollShadow, useDisclosure } from "@nextui-org/react";
-import type { MetaFunction } from "@remix-run/node";
+import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { GiClothes } from "react-icons/gi";
 import { ImFire } from "react-icons/im";
 import { PiFirstAidKitLight } from "react-icons/pi";
@@ -19,13 +19,14 @@ import {
   fetchProductCategories,
   fetchProductsApi,
 } from "app/api/products.api";
-import { useLoaderData } from "@remix-run/react";
+import { json, useLoaderData } from "@remix-run/react";
 import { PreviewProduct } from "app/components/Product/PreviewProduct";
 import { productPreviewAtom } from "app/atoms/product.atom";
 import { fetchAllBlogsApi } from "app/api/blog.api";
 import { BlogCardProps } from "./Blog/interface";
 import HealthImage from "app/assets/category/health.jpg";
 import ClothingImage from "app/assets/category/clothing.jpg";
+import axios from "axios";
 
 export const meta: MetaFunction = () => {
   return [
@@ -33,42 +34,57 @@ export const meta: MetaFunction = () => {
     { name: "description", content: "Welcome to Promotional Products Now" },
   ];
 };
-export const loader = async () => {
-  async function getProductsAndCategories() {
-    const [productsResponse, categoriesResponse] = await Promise.all([
-      fetchProductsApi({ page: 20 }),
-      fetchProductCategories(),
+export const loader: LoaderFunction = async () => {
+  try {
+    async function getProductsAndCategories() {
+      const [productsResponse, categoriesResponse] = await Promise.all([
+        fetchProductsApi({ page: 20 }),
+        fetchProductCategories(),
+      ]);
+      return { products: productsResponse.data.docs, categories: categoriesResponse };
+    }
+
+    const [
+      { products, categories },
+      healthProductsResponse,
+      clothingProductsResponse,
+      homeAndLivingProductsResponse,
+      blogResponse,
+      leastProductsResponse,
+    ] = await Promise.all([
+      getProductsAndCategories(),
+      fetchProductByCategory("Health & Personal"),
+      fetchProductByCategory("Clothing"),
+      fetchProductByCategory("Home & Living"),
+      fetchAllBlogsApi({ limit: 10 }),
+      fetchProductsApi({ page: 1 }),
     ]);
-    return { products: productsResponse.data.docs, categories: categoriesResponse };
+
+    return json({
+      products,
+      categories,
+      leastProducts: leastProductsResponse.data.docs,
+      blog: blogResponse.data?.payload?.data || [],
+      healthProducts: healthProductsResponse.data,
+      clothingProducts: clothingProductsResponse.data,
+      homeAndLivingProducts: homeAndLivingProductsResponse.data,
+    });
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error("Axios error:", error.message);
+      throw new Response(error.message, {
+        status: error.response?.status || 500,
+        statusText: error.response?.statusText || "Internal Server Error",
+      });
+    } else {
+      console.error("Unexpected error:", error);
+      throw new Response("An unexpected error occurred", {
+        status: 500,
+        statusText: "Internal Server Error",
+      });
+    }
   }
-
-  const [
-    { products, categories },
-    healthProductsResponse,
-    clothingProductsResponse,
-    homeAndLivingProductsResponse,
-    blogResponse,
-    leastProductsResponse,
-  ] = await Promise.all([
-    getProductsAndCategories(),
-    fetchProductByCategory("Health & Personal"),
-    fetchProductByCategory("Clothing"),
-    fetchProductByCategory("Home & Living"),
-    fetchAllBlogsApi({ limit: 10 }),
-    fetchProductsApi({ page: 1 }),
-  ]);
-
-  return {
-    products,
-    categories,
-    leastProducts: leastProductsResponse.data.docs,
-    blog: blogResponse.data?.payload?.data || [],
-    healthProducts: healthProductsResponse.data,
-    clothingProducts: clothingProductsResponse.data,
-    homeAndLivingProducts: homeAndLivingProductsResponse.data,
-  };
 };
-
 export default function Index() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 

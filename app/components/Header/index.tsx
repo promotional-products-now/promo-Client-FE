@@ -24,7 +24,7 @@ export function Header(props: HeaderT) {
     props.setSidebarOpen(!props.sidebarOpen);
   };
 
-  const SALESCONTACT = data.ENV.SALES_CONTACT;
+  const SALESCONTACT = data && data.ENV ? data.ENV.SALES_CONTACT : "";
 
   return (
     <header
@@ -164,7 +164,7 @@ export function Header(props: HeaderT) {
         </nav>
         {location.pathname === "/" ? (
           <div className="flex justify-self-center mx-auto container bg-white  w-full !mt-20 sm:!mt-auto">
-            <SecondaryNav uid={data.user.uid} />
+            <SecondaryNav uid={data && data.user ? data.user.uid : null} />
           </div>
         ) : (
           <div className="hidden md:flex justify-end gap-2 ">
@@ -178,7 +178,7 @@ export function Header(props: HeaderT) {
             >
               Fast Delivery Australia Wide
             </Button>
-            {!data.user.uid && (
+            {(!data || !data.user.uid) && (
               <Button
                 as={RemixLink}
                 to="/login"

@@ -36,7 +36,7 @@ export const action: ActionFunction = async ({ request }) => {
     }
 
     const email = session.get("email");
-console.log({ email });
+
     if (!email) {
       return json({ error: "Email not found in session" }, { status: 400 });
     }

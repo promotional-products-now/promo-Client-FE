@@ -26,7 +26,7 @@ export async function loader({ request }: any) {
   if (!data) {
     throw new Response("User Not found", { status: 404 });
   }
-  console.log({ data });
+
   return json({ user: data });
 }
 
