@@ -7,31 +7,52 @@
     "build": "remix build",
     "dev": "remix dev --manual",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
-    "start": "remix-serve ./build/index.js",
-    "typecheck": "tsc"
+    "start": "PORT=6583 remix-serve ./build/index.js",
+    "start:prd": "PORT=8080 remix-serve ./build/index.js",
+    "typecheck": "tsc",
+    "start:pm2:dev": "npm run build && pm2 start pm2.config.cjs --env development --only promo_fe_dev",
+    "reload:pm2:dev": "npm run build && pm2 reload pm2.config.cjs --env development --only promo_fe_dev",
+    "start:pm2:stg": "npm run build && pm2 start pm2.config.cjs --env staging --only promo_fe_stg",
+    "reload:pm2:stg": "npm run build && pm2 reload pm2.config.cjs --env staging --only promo_fe_stg",
+    "start:pm2:prd": "npm run build && pm2 start pm2.config.cjs --env production --only promo_fe_prd",
+    "reload:pm2:prd": "npm run build && pm2 reload pm2.config.cjs --env production --only promo_fe_prd"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
+    "@nasa-gcn/remix-seo": "^2.0.1",
     "@nextui-org/react": "^2.2.9",
-    "@remix-run/css-bundle": "^2.8.0",
+    "@remix-run/css-bundle": "^2.10.3",
     "@remix-run/node": "^2.6.0",
     "@remix-run/react": "^2.6.0",
     "@remix-run/serve": "^2.6.0",
+    "add": "^2.0.6",
+    "axios": "^1.7.2",
     "framer-motion": "^11.0.3",
     "gray-matter": "^4.0.3",
     "isbot": "^4.1.0",
     "jotai": "^2.7.0",
+    "nprogress": "^0.2.0",
     "react": "^18.2.0",
+    "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.50.1",
     "react-icons": "^5.0.1",
     "react-markdown": "^9.0.1",
+    "react-otp-input": "^3.1.1",
+    "react-share": "^5.1.0",
+    "react-toastify": "^10.0.5",
+    "remix-auth": "^3.7.0",
+    "remix-auth-webauthn": "^0.3.4",
+    "swiper": "^11.0.7",
+    "yarn": "^1.22.22",
     "yup": "^1.3.3"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.6.0",
+    "@types/nprogress": "^0.2.3",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
+    "@types/react-slick": "^0.23.13",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
     "eslint": "^8.38.0",
     "eslint-config-prettier": "^9.0.0",
@@ -45,5 +66,6 @@
   },
   "engines": {
     "node": ">=18.0.0"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

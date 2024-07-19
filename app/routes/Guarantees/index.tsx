@@ -1,32 +1,30 @@
-import { BiCheckShield } from "react-icons/bi";
+import { GuaranteeIcon } from "app/assets/GuaranteeIcon";
 import { guarantees } from "app/contents/guarantees";
 
 const Guarantees = () => {
   return (
-    <div className="flex flex-col gap-10 w-full mx-auto py-10 text-sm leading-6">
-      <div className="flex flex-col gap-1 text-center ">
-        <h1 className="text-xl font-extrabold">Our Guarantees</h1>
-        <p className="text-foreground-500">
+    <div className="flex flex-col gap-10 w-full p-4 lg:p-0 mx-auto md:w-4/5">
+      <div className="flex flex-col gap-2 text-center pt-10 md:pt-0">
+        <h2 className="text-2xl md:text-3xl font-bold">Our Guarantees</h2>
+        <p className="text-gray text-xl">
           Here is a 5 Rock Solid Guarantees to give you peace of mind and confidence that your
-          satisfaction is our number 1 priority at all times.
+          satisfaction is our <br /> number 1 priority at all times.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap- md:grid-cols-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
         {guarantees.map((guarantee) => (
           <div
             key={guarantee.id}
-            className="flex flex-col gap-3 py-3 px-3 border border-neutral-100 md:px-5"
+            className="py-6 px-4 flex flex-col md:flex-row justify-center items-center md:justify-between gap-4 border border-neutral-100"
           >
-            <div>
-              <p className="text-lg text-primary">{guarantee.title}</p>
-              <p className="text-yellow">{guarantee.subTitle}</p>
+            <div className="space-y-4 text-center md:text-start">
+              <h3 className="text-lg font-bold text-primary">{guarantee.title}</h3>
+              <p className="text-base font-medium text-yellow">{guarantee.description}</p>
+              <p className="text-base text-gray font-medium">{guarantee.body}</p>
             </div>
-            <div className="flex gap-5">
-              <p className="text-gray leading-6">{guarantee.body}</p>
-              <div>
-                <BiCheckShield size={50} className="hidden text-primary md:block" />
-              </div>
+            <div className="order-first md:order-last">
+              <GuaranteeIcon />
             </div>
           </div>
         ))}

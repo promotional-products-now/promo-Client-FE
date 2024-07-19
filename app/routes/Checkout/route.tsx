@@ -5,6 +5,7 @@ import { CheckoutSchema } from "app/schema/checkout.schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Image, Input, Link, Divider } from "@nextui-org/react";
 import { Select, SelectItem } from "@nextui-org/react";
+import { MetaFunction } from "@remix-run/node";
 import { GoUpload } from "react-icons/go";
 import { Textarea } from "@nextui-org/react";
 import { SiVisa, SiAmericanexpress } from "react-icons/si";
@@ -12,6 +13,15 @@ import { RiMastercardLine } from "react-icons/ri";
 import AlternateAddressForm from "app/components/Checkout/AlternateAddressForm";
 import CheckoutOrder from "app/components/Checkout/CheckoutOrder";
 import { ValidId } from "app/components/Checkout/ValidId";
+import { SEOHandle } from "@nasa-gcn/remix-seo";
+
+export const meta: MetaFunction = () => {
+  return [{ title: "Checkout" }, { name: "", content: "" }];
+};
+
+export const handle: SEOHandle = {
+  getSitemapEntries: () => null,
+};
 
 const options = [
   { value: "low-high", label: "low to high" },

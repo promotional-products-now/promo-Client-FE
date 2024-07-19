@@ -11,7 +11,7 @@ export const SignUpSchema = yup.object().shape({
     .required("Confirm your Password")
     .oneOf([yup.ref("password")], "Passwords must match"),
   address1: yup.string().required("Address 1  is required"),
-  address2: yup.string().required("Address 2 is required"),
+  address2: yup.string().optional(),
   city: yup.string().required("City is required"),
   state: yup.string().required("State is required"),
   postCode: yup.string().required("Post Code is required"),

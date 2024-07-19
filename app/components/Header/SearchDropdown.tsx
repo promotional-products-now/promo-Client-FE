@@ -24,16 +24,20 @@ export const SearchDropdown = () => {
   const [values, setValues] = useState<Selection>(new Set(["price", "lowest"]));
 
   return (
-    <Popover placement="bottom" backdrop="transparent">
+    <Popover placement="bottom-start" backdrop="transparent">
       <PopoverTrigger>
-        <Button isIconOnly variant="faded" className="border-none">
+        <Button
+          isIconOnly
+          variant="light"
+          className=" items-center rounded-none border-r border-r-zinc-200 "
+        >
           <IoIosArrowDown />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="p-1">
-        <Card shadow="none" radius="none" className=" border-none bg-transparent">
-          <CardBody className="p-3">
-            <div className="flex flex-col md:flex-row space-x-4">
+      <PopoverContent className="p-1 rounded-none">
+        <Card shadow="none" radius="none" className=" border-none bg-transparent rounded-none">
+          <CardBody className="p-3 rounded-none">
+            <div className="flex flex-col md:flex-row space-x-4 max-w-[45rem]">
               <div className="space-y-4 p-4">
                 <div className="space-y-1">
                   <Input
@@ -71,7 +75,6 @@ export const SearchDropdown = () => {
                       startContent="$"
                       endContent={<IoIosArrowDown />}
                     />
-
                   </div>
                 </div>
                 <div className="flex w-full max-w-full flex-col gap-2">
@@ -96,12 +99,12 @@ export const SearchDropdown = () => {
                   </Button>
                 </div>
               </div>
-              <div className="space-y-4 p-4">
+              <div className="space-y-4 p-4 ">
                 <h3 className="text-lg font-semibold">Search by Colours</h3>
                 <span className="text-sm text-gray font-normal">
                   Select one or more colours to highlight products available
                 </span>
-                <div className="grid grid-cols-4 gap-3 bg-slate-100 p-4">
+                <div className="grid grid-cols-4 gap-2 w-full bg-zinc-100 p-4">
                   {colors.map((c, i) => (
                     <Button
                       isIconOnly
