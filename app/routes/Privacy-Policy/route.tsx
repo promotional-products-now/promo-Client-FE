@@ -7,9 +7,14 @@ export default function Privacy(): JSX.Element {
   const { content } = useLoaderData<typeof loader>();
 
   return (
-    <div className="space-y-4">
-      <h1 className="text-center text-black text-2xl md:text-3xl font-bold">Privacy Policy</h1>
-      <div className="flex flex-col gap-3 w-full mx-auto p-4 lg:py-10 lg:px-5 lg:w-4/5">
+    <div itemScope itemType="https://schema.org/PrivacyPolicy" className="space-y-4">
+      <h1 itemProp="name" className="text-center text-black text-2xl md:text-3xl font-bold">
+        Privacy Policy
+      </h1>
+      <div
+        itemProp="text"
+        className="flex flex-col gap-3 w-full mx-auto p-4 lg:py-10 lg:px-5 lg:w-4/5"
+      >
         <Legal content={content} />
       </div>
     </div>
