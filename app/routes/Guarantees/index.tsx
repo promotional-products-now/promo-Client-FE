@@ -1,6 +1,13 @@
+import { MetaFunction } from "@remix-run/node";
 import { GuaranteeIcon } from "app/assets/GuaranteeIcon";
 import { guarantees } from "app/contents/guarantees";
 
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Guarantees | Promotional Products Now " },
+    { name: "description", content: "Welcome to Promotional Products Now" },
+  ];
+};
 const Guarantees = () => {
   return (
     <div className="flex flex-col gap-10 w-full p-4 lg:p-0 mx-auto md:w-4/5">

@@ -20,7 +20,10 @@ import { payment } from "app/api_dummy";
 import { SEOHandle } from "@nasa-gcn/remix-seo";
 
 export const meta: MetaFunction = () => {
-  return [{ title: "Cart" }, { name: "", content: "" }];
+  return [
+    { title: "Cart | Promotional Products Now " },
+    { name: "description", content: "Welcome to Promotional Products Now" },
+  ];
 };
 
 export const handle: SEOHandle = {

@@ -20,7 +20,10 @@ interface GroupedFAQs {
 }
 
 export const meta: MetaFunction = () => {
-  return [{ title: "App" }, { name: "description", content: "Welcome to Remix!" }];
+  return [
+    { title: "FAQ | Promotional Products Now " },
+    { name: "description", content: "Welcome to Promotional Products Now" },
+  ];
 };
 
 function groupFAQsBySection(faqs: FAQ[]): GroupedFAQs {
