@@ -1,8 +1,14 @@
 import fs from "fs";
 import path from "path";
 import Legal from "app/components/Legal";
-import { useLoaderData } from "@remix-run/react";
+import { MetaFunction, useLoaderData } from "@remix-run/react";
 
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Privacy Policy | Promotional Products Now " },
+    { name: "description", content: "Welcome to Promotional Products Now" },
+  ];
+};
 export default function Privacy(): JSX.Element {
   const { content } = useLoaderData<typeof loader>();
 

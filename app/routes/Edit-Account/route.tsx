@@ -1,7 +1,7 @@
 import { Input, Button, Select, SelectItem } from "@nextui-org/react";
 import { Link, Form, json, useLoaderData, redirect } from "@remix-run/react";
 import { useForm } from "react-hook-form";
-import { ActionFunction } from "@remix-run/node";
+import { ActionFunction, MetaFunction } from "@remix-run/node";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { EditAccountSchema } from "app/schema/editAccountInfo.schema";
 import { statesData, cityData } from "app/mock/signUpData";
@@ -9,6 +9,13 @@ import { SEOHandle } from "@nasa-gcn/remix-seo";
 import { getSession } from "app/sessions";
 import { fetchUserAccountDetailsApi, updateUserDetailsApi } from "app/api/user.api";
 import { useState } from "react";
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Edit Account | Promotional Products Now " },
+    { name: "description", content: "Welcome to Promotional Products Now" },
+  ];
+};
 
 export const handle: SEOHandle = {
   getSitemapEntries: () => null,

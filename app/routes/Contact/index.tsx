@@ -12,7 +12,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const meta: MetaFunction = () => {
-  return [{ title: "Contact us" }, { name: "", content: "" }];
+  return [
+    { title: "Contact Us | Promotional Products Now " },
+    { name: "description", content: "Welcome to Promotional Products Now" },
+  ];
 };
 
 export default function ContactUS() {

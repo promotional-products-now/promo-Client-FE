@@ -3,7 +3,14 @@ import { MetaFunction } from "@remix-run/node";
 import { ServicesT, services } from "app/contents/aboutServices";
 
 export const meta: MetaFunction = () => {
-  return [{ title: "About Us" }, { name: "description", content: "" }];
+  return [
+    { title: "About Us | Promotional Products Now" },
+    {
+      name: "description",
+      content:
+        "Promotional Products Now is a progressive promotional products company founded on the belief that customer satisfaction is of paramount and continuing importance",
+    },
+  ];
 };
 
 
