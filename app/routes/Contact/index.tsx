@@ -10,6 +10,7 @@ import { ContactUsSchema } from "app/schema/contactus.schema";
 import { sendContactMessageApi } from "../../api/contactUs.api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { contactSeo } from "app/seo/contactSchema";
 
 export const meta: MetaFunction = () => {
   return [
@@ -35,7 +36,6 @@ export default function ContactUS() {
       const response = await sendContactMessageApi(data);
       setIsLoading(false);
       if (response.status === 200) {
-
         toast.success("Message sent successfully!");
         reset();
       } else {
@@ -48,11 +48,7 @@ export default function ContactUS() {
   };
 
   return (
-    <div
-      itemScope
-      itemType="https://schema.org/Organization"
-      className="flex flex-col justify-center items-center mx-auto p-4 lg:p-0 lg:w-4/5"
-    >
+    <div className="flex flex-col justify-center items-center mx-auto p-4 lg:p-0 lg:w-4/5">
       <ToastContainer containerId="loginToast" />
       <h2 className="text-2xl md:text-3xl font-bold hidden md:block">Contact us</h2>
       <div className="flex flex-col-reverse md:flex-row gap-12 md:gap-10 py-10 [&_p]:text-sm [&_p]:text-gray">
@@ -62,7 +58,7 @@ export default function ContactUS() {
             <p>We'd be happy to hear how we can help you out.</p>
           </div>
           {LocationDetails.map((data) => (
-            <div itemProp="address" key={data.id} className="flex gap-3">
+            <div key={data.id} className="flex gap-3">
               <Link
                 to={data.href}
                 className={
@@ -78,10 +74,7 @@ export default function ContactUS() {
                 </div>
                 <div>
                   <span className="text-sm text-yellow uppercase font-semibold">{data.title}</span>
-                  <p
-                    itemProp="contact"
-                    className="text-sm font-normal text-gray whitespace-pre-wrap"
-                  >
+                  <p className="text-sm font-normal text-gray whitespace-pre-wrap">
                     {Array.isArray(data.body) ? data.body.join("\n ") : data.body}
                   </p>
                 </div>
@@ -164,6 +157,7 @@ export default function ContactUS() {
           </Form>
         </div>
       </div>
+      <script type="application/ld+json">{JSON.stringify(contactSeo)}</script>
     </div>
   );
 }
