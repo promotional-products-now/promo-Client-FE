@@ -1,4 +1,4 @@
-import { Form, Link, useLoaderData, useParams } from "@remix-run/react";
+import { Form, Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react";
 import { useRef } from "react";
 import {
   Accordion,
@@ -34,6 +34,12 @@ import { productAtom } from "app/atoms/product.atom";
 import { getProductInfo } from "app/api/products.api";
 import { removeSnakeCase } from "app/utils/fn";
 
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Product | Promotional Products Now " },
+    { name: "description", content: "Welcome to Promotional Products Now" },
+  ];
+};
 const fakeFilter = [
   { label: "Red", value: "red" },
   { label: "Blue", value: "blue" },

@@ -6,9 +6,11 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { ChangePasswordSchema } from 'app/schema/changePassword.schema'
 
 export const meta: MetaFunction = () => {
-  return [{ title: "Change Password" }, { name: "", content: "" }];
+  return [
+    { title: "Change Password | Promotional Products Now " },
+    { name: "description", content: "Welcome to Promotional Products Now" },
+  ];
 };
-
 
 export default function ChangePassword(): JSX.Element {
 

@@ -1,7 +1,14 @@
 import { BiUser } from "react-icons/bi";
 import { Image } from "@nextui-org/react";
 import WorkInProgressImg from "app/assets/Work-in-progress.png";
+import { MetaFunction } from "@remix-run/node";
 
+export const meta: MetaFunction = () => {
+  return [
+    { title: "NSM | Promotional Products Now " },
+    { name: "description", content: "Welcome to Promotional Products Now" },
+  ];
+};
 const Message = () => {
   return (
     <div className="w-full flex flex-wrap-reverse gap-y-6 px-4 md:py-5 lg:w-4/5 mx-auto">

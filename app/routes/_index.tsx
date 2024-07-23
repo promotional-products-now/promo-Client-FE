@@ -30,7 +30,7 @@ import axios from "axios";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Promotional Products Now" },
+    { title: "Home | Promotional Products Now " },
     { name: "description", content: "Welcome to Promotional Products Now" },
   ];
 };

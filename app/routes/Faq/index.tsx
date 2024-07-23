@@ -1,7 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
 import { Accordion, AccordionItem } from "@nextui-org/react";
 import { FaQuestion } from "react-icons/fa";
-import { questions } from "app/contents/faqs";
 import { Link, useLoaderData } from "@remix-run/react";
 import { fetchFaqApi } from "app/api/faq.api";
 
@@ -20,7 +19,10 @@ interface GroupedFAQs {
 }
 
 export const meta: MetaFunction = () => {
-  return [{ title: "App" }, { name: "description", content: "Welcome to Remix!" }];
+  return [
+    { title: "FAQ | Promotional Products Now " },
+    { name: "description", content: "Welcome to Promotional Products Now" },
+  ];
 };
 
 function groupFAQsBySection(faqs: FAQ[]): GroupedFAQs {
@@ -49,14 +51,21 @@ const Faq = () => {
   const groupedFAQs = useLoaderData<GroupedFAQs>();
 
   return (
-    <div className="flex flex-col gap-3 w-full mx-auto md:w-4/5 space-y-6">
+    <div
+      itemScope
+      itemType="https://schema.org/FrequentlyAskedQuestion"
+      className="flex flex-col gap-3 w-full mx-auto md:w-4/5 space-y-6"
+    >
       <div className="flex flex-col gap-3 text-center pt-16 md:pt-0">
-        <h2 className="text-2xl md:text-3xl font-bold">FAQs</h2>
+        <h2 itemProp="name" className="text-2xl md:text-3xl font-bold">
+          FAQs
+        </h2>
         <div className="px-2 md:px-0">
           <p className="text-default-500 text-sm md:text-base">
             Here are the most frequenty asked questions. We are here to help you, so please feel
             free to{" "}
             <Link
+              itemProp="url"
               to="/contact"
               className="text-yellow font-semibold text-yellow-400 cursor-pointer"
             >
@@ -69,12 +78,14 @@ const Faq = () => {
       <div className="flex flex-col gap-2 p-4 md:p-0">
         {Object.keys(groupedFAQs).map((section) => (
           <div key={section}>
-            {/* <h2>{section}</h2> */}
-            <h2 className="text-left text-yellow ml-2">FAQ-{section}</h2>
+            <h2 itemProp="name" className="text-left text-yellow ml-2">
+              FAQ-{section}
+            </h2>
             {groupedFAQs[section].map((faq) => (
               <Accordion variant="light" showDivider={false}>
                 <AccordionItem
                   key={faq._id}
+                  itemProp="title"
                   aria-label={`Accordion-${faq._id}`}
                   startContent={
                     <div className="border-2 border-primary p-1 rounded">
@@ -89,7 +100,9 @@ const Faq = () => {
                 >
                   <div className="border-t border-neutral-200 mb-2"></div>
                   <div className="w-full px-3">
-                    <p className="text-foreground-600 text-sm leading-loose">{faq.answer}</p>
+                    <p itemProp="answer" className="text-foreground-600 text-sm leading-loose">
+                      {faq.answer}
+                    </p>
                   </div>
                 </AccordionItem>
               </Accordion>

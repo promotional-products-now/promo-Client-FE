@@ -16,7 +16,10 @@ import { ValidId } from "app/components/Checkout/ValidId";
 import { SEOHandle } from "@nasa-gcn/remix-seo";
 
 export const meta: MetaFunction = () => {
-  return [{ title: "Checkout" }, { name: "", content: "" }];
+  return [
+    { title: "Checkout | Promotional Products Now " },
+    { name: "description", content: "Welcome to Promotional Products Now" },
+  ];
 };
 
 export const handle: SEOHandle = {
