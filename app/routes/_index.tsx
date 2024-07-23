@@ -27,6 +27,7 @@ import { BlogCardProps } from "./Blog/interface";
 import HealthImage from "app/assets/category/health.jpg";
 import ClothingImage from "app/assets/category/clothing.jpg";
 import axios from "axios";
+import { homePageSchema } from "./_index_seo";
 
 export const meta: MetaFunction = () => {
   return [
@@ -356,6 +357,10 @@ export default function Index() {
         </section>
       </div>
       <PreviewProduct isOpen={isOpen} onOpenChange={onOpenChange} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homePageSchema(loaderData)) }}
+      />
     </>
   );
 }
