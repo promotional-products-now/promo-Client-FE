@@ -85,6 +85,7 @@ export const loader: LoaderFunction = async () => {
     }
   }
 };
+
 export default function Index() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 

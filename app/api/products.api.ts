@@ -8,7 +8,8 @@ export const fetchProductsApi = async ({
   page?: number;
   limit?: number;
 }) => {
-  return await axios.get(`${API_BASEURL}/products?limit=${limit}&page=${page}`);
+  const res = await axios.get(`${API_BASEURL}/products?limit=${limit}&page=${page}`);
+  return res;
 };
 
 export const getProductInfo = async (productId: string) => {
@@ -17,9 +18,9 @@ export const getProductInfo = async (productId: string) => {
 };
 
 export const fetchProductCategories = async () => {
-  const { data } = await axios.get(`${API_BASEURL}/products/categories`);
+  const res = await axios.get(`${API_BASEURL}/product-category`);
 
-  return data;
+  return res.data;
 };
 
 export const fetchProductByCategory = async (category: string) => {
