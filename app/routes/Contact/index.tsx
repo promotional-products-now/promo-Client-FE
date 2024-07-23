@@ -10,7 +10,7 @@ import { ContactUsSchema } from "app/schema/contactus.schema";
 import { sendContactMessageApi } from "../../api/contactUs.api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { contactSeo } from "app/seo/contactSchema";
+import { contactSeo } from "./seo";
 
 export const meta: MetaFunction = () => {
   return [
