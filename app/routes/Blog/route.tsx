@@ -6,6 +6,7 @@ import { fetchAllBlogsApi } from "app/api/blog.api";
 import { BlogCard } from "app/components/Blog/BlogCard";
 import { BlogCardProps } from "./interface";
 import { SEOHandle } from "@nasa-gcn/remix-seo";
+import { blogSchema } from "./seo";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Blog" }, { name: "description", content: "" }];
@@ -23,7 +24,6 @@ export const handle: SEOHandle = {
 export async function loader({ request }: any) {
   const searchTerm = new URL(request.url).searchParams.get("q");
   if (searchTerm) {
-
     const { data } = await fetchAllBlogsApi({ title: searchTerm });
     if (data.isError) {
       return { error: data.message, posts: [] };
@@ -50,16 +50,12 @@ const Blog = () => {
         <h2 className="text-2xl md:text-3xl font-bold">Our Blog</h2>
         <h3 className="text-default-500">Browse our latest news</h3>
       </div>
-      <div
-        itemScope
-        itemType="https://schema.org/Blog"
-        className="grid grid-cols-1 gap-y-8 gap-x-5 sm:grid-cols-2 md:grid-cols-3"
-      >
+      <div className="grid grid-cols-1 gap-y-8 gap-x-5 sm:grid-cols-2 md:grid-cols-3">
         {loaderData &&
           loaderData.posts &&
           loaderData.posts.length > 0 &&
           loaderData?.posts?.map((post: BlogCardProps) => (
-            <div itemScope itemType="https://schema.org/BlogPosting" key={post?._id}>
+            <div key={post?._id}>
               <BlogCard
                 title={post?.title}
                 description={post?.description}
@@ -85,6 +81,10 @@ const Blog = () => {
           />
         )}
       </div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema(loaderData.posts)) }}
+      />
     </div>
   );
 };
