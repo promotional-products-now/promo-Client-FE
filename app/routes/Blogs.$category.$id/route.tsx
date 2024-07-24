@@ -20,7 +20,10 @@ import axios from "axios";
 import { LoaderFunction } from "@remix-run/node";
 
 export const meta: MetaFunction = () => {
-  return [{ title: "Blog Post" }, { name: "", content: "" }];
+  return [
+    { title: "Blog Post | Promotional Products Now " },
+    { name: "description", content: "Welcome to Promotional Products Now" },
+  ];
 };
 
 export const loader: LoaderFunction = async ({ request, params }) => {

@@ -9,7 +9,10 @@ import { SEOHandle } from "@nasa-gcn/remix-seo";
 import { blogSchema } from "./seo";
 
 export const meta: MetaFunction = () => {
-  return [{ title: "Blog" }, { name: "description", content: "" }];
+  return [
+    { title: "Blog | Promotional Products Now " },
+    { name: "description", content: "Welcome to Promotional Products Now" },
+  ];
 };
 
 export const handle: SEOHandle = {

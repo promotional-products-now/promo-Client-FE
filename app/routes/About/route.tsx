@@ -1,11 +1,18 @@
 import { Link } from "@remix-run/react";
 import { MetaFunction } from "@remix-run/node";
 import { ServicesT, services } from "app/contents/aboutServices";
+import { organizationSchema, servicesSchema } from "./seo";
 
 export const meta: MetaFunction = () => {
-  return [{ title: "About Us" }, { name: "description", content: "" }];
+  return [
+    { title: "About Us | Promotional Products Now" },
+    {
+      name: "description",
+      content:
+        "Promotional Products Now is a progressive promotional products company founded on the belief that customer satisfaction is of paramount and continuing importance",
+    },
+  ];
 };
-
 
 const AboutPage = () => {
   return (
@@ -22,14 +29,14 @@ const AboutPage = () => {
             is a progressive promotional products company founded on the belief that customer
             satisfaction is of paramount and continuing importance.
           </p>
-          <p className="">
+          <p>
             Serving all organisations around Australia for over 20 years, our success to date is
             directly contributed to the feedback received from our customers. Together with our
             proven cost-saving strategies, which have driven down prices, you can be assured our
             service, price, and product quality you receive from us will not be matched by our
             competitors.
           </p>
-          <p className="">
+          <p>
             We are bound by the Code of Conduct of the Australasian Promotional Products Association
             and together with our 5 Rock Solid Guarantees, you are well and truly protected in the
             unlikely event something goes wrong with your order.
@@ -44,9 +51,7 @@ const AboutPage = () => {
                 className="flex flex-row p-6 border-b-3 border border-neutral-200 border-b-primary border-b-blue rounded-sm justify-between"
               >
                 <div className="flex flex-col justify-around">
-                  <div className="text-primary font-bold text-base text-start">
-                    {item.title}
-                  </div>
+                  <div className="text-primary font-bold text-base text-start">{item.title}</div>
                   <Link to={`/${item.action}`} className="text-black text-sm">
                     Click here
                   </Link>
@@ -59,6 +64,14 @@ const AboutPage = () => {
           })}
         </div>
       </div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesSchema) }}
+      />
     </div>
   );
 };

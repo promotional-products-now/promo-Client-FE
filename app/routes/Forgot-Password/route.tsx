@@ -15,7 +15,10 @@ type ActionData = {
 };
 
 export const meta: MetaFunction = () => {
-  return [{ title: "Forgot Password" }, { name: "", content: "" }];
+  return [
+    { title: "Forgot Password | Promotional Products Now " },
+    { name: "description", content: "Welcome to Promotional Products Now" },
+  ];
 };
 
 export default function ForgotPassword(): JSX.Element {
