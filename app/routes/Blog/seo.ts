@@ -13,12 +13,12 @@ export const blogSchema = (posts: BlogCardProps[]) => {
     "@type": "Blog",
     name: "Our Blog",
     description: "Browse our latest news and updates.",
-    url: "", //Website url,
+    url: "https://app.promotionalproductsnow.au/",
     blogPost: posts.map((post) => ({
       "@type": "BlogPosting",
       headline: post.title,
       description: post.description,
-      url: ``, // Website url
+      url: `https://app.promotionalproductsnow.au/`,
       datePublished: post.publishedDate,
       author: {
         "@type": "Person",
