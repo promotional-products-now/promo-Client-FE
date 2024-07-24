@@ -6,9 +6,13 @@ import { fetchAllBlogsApi } from "app/api/blog.api";
 import { BlogCard } from "app/components/Blog/BlogCard";
 import { BlogCardProps } from "./interface";
 import { SEOHandle } from "@nasa-gcn/remix-seo";
+import { blogSchema } from "./seo";
 
 export const meta: MetaFunction = () => {
-  return [{ title: "Blog" }, { name: "description", content: "" }];
+  return [
+    { title: "Blog | Promotional Products Now " },
+    { name: "description", content: "Welcome to Promotional Products Now" },
+  ];
 };
 
 export const handle: SEOHandle = {
@@ -23,7 +27,6 @@ export const handle: SEOHandle = {
 export async function loader({ request }: any) {
   const searchTerm = new URL(request.url).searchParams.get("q");
   if (searchTerm) {
-
     const { data } = await fetchAllBlogsApi({ title: searchTerm });
     if (data.isError) {
       return { error: data.message, posts: [] };
@@ -55,18 +58,19 @@ const Blog = () => {
           loaderData.posts &&
           loaderData.posts.length > 0 &&
           loaderData?.posts?.map((post: BlogCardProps) => (
-            <BlogCard
-              key={post?._id}
-              title={post?.title}
-              description={post?.description}
-              imageSrc={
-                post.imageSrc ??
-                "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg"
-              }
-              _id={post?._id}
-              category={post?.category}
-              body={post?.body}
-            />
+            <div key={post?._id}>
+              <BlogCard
+                title={post?.title}
+                description={post?.description}
+                imageSrc={
+                  post.imageSrc ??
+                  "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg"
+                }
+                _id={post?._id}
+                category={post?.category}
+                body={post?.body}
+              />
+            </div>
           ))}
       </div>
       <div className="flex items-center justify-center">
@@ -80,6 +84,10 @@ const Blog = () => {
           />
         )}
       </div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema(loaderData.posts)) }}
+      />
     </div>
   );
 };

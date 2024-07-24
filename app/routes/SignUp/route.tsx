@@ -13,7 +13,10 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const meta: MetaFunction = () => {
-  return [{ title: "SignUp" }, { name: "", content: "" }];
+  return [
+    { title: "Sign Up | Promotional Products Now " },
+    { name: "description", content: "Welcome to Promotional Products Now" },
+  ];
 };
 
 interface ActionData {

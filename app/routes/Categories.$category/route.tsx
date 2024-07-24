@@ -1,4 +1,4 @@
-import { Link, useLoaderData, useParams } from "@remix-run/react";
+import { Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react";
 import { Select, SelectItem, useDisclosure } from "@nextui-org/react";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { GoVerified } from "react-icons/go";
@@ -17,6 +17,12 @@ const options = [
   { value: "new", label: "New" },
 ];
 
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Categories | Promotional Products Now " },
+    { name: "description", content: "Welcome to Promotional Products Now" },
+  ];
+};
 //export const fetchProductByCategory = async (category: string) => {
 
 export async function loader({ params }: { params: { category: string } }) {
