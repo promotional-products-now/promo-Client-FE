@@ -10,9 +10,13 @@ import { ContactUsSchema } from "app/schema/contactus.schema";
 import { sendContactMessageApi } from "../../api/contactUs.api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { contactSeo } from "./seo";
 
 export const meta: MetaFunction = () => {
-  return [{ title: "Contact us" }, { name: "", content: "" }];
+  return [
+    { title: "Contact Us | Promotional Products Now " },
+    { name: "description", content: "Welcome to Promotional Products Now" },
+  ];
 };
 
 export default function ContactUS() {
@@ -32,7 +36,6 @@ export default function ContactUS() {
       const response = await sendContactMessageApi(data);
       setIsLoading(false);
       if (response.status === 200) {
-
         toast.success("Message sent successfully!");
         reset();
       } else {
@@ -71,7 +74,7 @@ export default function ContactUS() {
                 </div>
                 <div>
                   <span className="text-sm text-yellow uppercase font-semibold">{data.title}</span>
-                  <p className="text-sm font-normal text-gray whitespace-pre-wrap	">
+                  <p className="text-sm font-normal text-gray whitespace-pre-wrap">
                     {Array.isArray(data.body) ? data.body.join("\n ") : data.body}
                   </p>
                 </div>
@@ -154,6 +157,7 @@ export default function ContactUS() {
           </Form>
         </div>
       </div>
+      <script type="application/ld+json">{JSON.stringify(contactSeo)}</script>
     </div>
   );
 }

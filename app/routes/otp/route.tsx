@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Form, useActionData } from "@remix-run/react";
-import { ActionFunction, json, redirect } from "@remix-run/node";
+import { ActionFunction, json, MetaFunction, redirect } from "@remix-run/node";
 import { getSession, commitSession } from "../../sessions";
 import { Button, Input } from "@nextui-org/react";
 import { validateOtpApi } from "app/api/auth.api";
@@ -62,6 +62,12 @@ export const action: ActionFunction = async ({ request }) => {
   }
 };
 
+export const meta: MetaFunction = () => {
+  return [
+    { title: "OTP | Promotional Products Now " },
+    { name: "description", content: "Welcome to Promotional Products Now" },
+  ];
+};
 export default function OtpPage() {
   const actionData = useActionData<ActionData>();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);

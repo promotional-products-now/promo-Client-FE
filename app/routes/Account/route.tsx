@@ -10,7 +10,10 @@ import { fetchUserAccountDetailsApi } from "app/api/user.api";
 import { getSession } from "app/sessions";
 
 export const meta: MetaFunction = () => {
-  return [{ title: "Details" }, { name: "", content: "" }];
+  return [
+    { title: "Details | Promotional Products Now " },
+    { name: "description", content: "Welcome to Promotional Products Now" },
+  ];
 };
 export const handle: SEOHandle = {
   getSitemapEntries: () => null,

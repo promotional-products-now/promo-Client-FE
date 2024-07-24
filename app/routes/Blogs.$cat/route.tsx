@@ -4,10 +4,11 @@ import { BlogCard } from "app/components/Blog/BlogCard";
 import { fetchAllBlogsCategoryApi } from "app/api/blog.api";
 
 export const meta: MetaFunction = () => {
-  return [{ title: "Blog" }, { name: "description", content: "" }];
+  return [
+    { title: "Blog | Promotional Products Now " },
+    { name: "description", content: "Welcome to Promotional Products Now" },
+  ];
 };
-
-
 
 export async function loader({ params }: { params: { cat: string } }) {
   const { data } = await fetchAllBlogsCategoryApi({ category: params.cat, page: 1 });
