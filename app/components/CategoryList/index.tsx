@@ -1,12 +1,10 @@
 import { Link, Listbox, ListboxItem } from "@nextui-org/react";
-import { useLoaderData } from "@remix-run/react";
-import { fetchProductCategories } from "app/api/products.api";
 import { toSnakeCase } from "app/utils/fn";
 
 interface categoryI {
   name: string;
   id: string;
-  totalProducts: number;
+  totalProduct: number;
 }
 
 function CategoryList(props: any) {
@@ -25,7 +23,7 @@ function CategoryList(props: any) {
             classNames={{ title: " md:font-medium" }}
           >
             {cat.name}{" "}
-            <span className="text-primary-400 text-sm font-normal">({cat.totalProducts})</span>
+            <span className="text-primary-400 text-sm font-normal">({cat.totalProduct})</span>
           </ListboxItem>
         ))}
     </Listbox>
