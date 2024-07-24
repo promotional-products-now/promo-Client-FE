@@ -4,7 +4,7 @@ export const contactSeo = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "Promotional Products Now",
-  url: "https://www.promotionalproductsnow.com",
+  url: "https://app.promotionalproductsnow.au/",
   contactPoint: {
     "@type": "ContactPoint",
     telephone: LocationDetails[2].href,
