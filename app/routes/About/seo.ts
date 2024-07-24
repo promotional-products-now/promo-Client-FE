@@ -4,14 +4,14 @@ export const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "Promotional Products Now",
-  url: "", //Site url
+  url: "https://app.promotionalproductsnow.au/",
   description:
     "A progressive promotional products company founded on the belief that customer satisfaction is of paramount and continuing importance.",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Australia",
   },
-  sameAs: "", //Site url
+  sameAs: "https://app.promotionalproductsnow.au/",
 };
 
 export const servicesSchema = {
