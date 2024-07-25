@@ -1,7 +1,10 @@
 import fs from "fs";
 import path from "path";
 import Legal from "app/components/Legal";
-import { MetaFunction, useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
+import type { MetaFunction } from "@remix-run/node";
+import { privacyPolicySchema } from "./seo";
+
 
 export const meta: MetaFunction = () => {
   return [
@@ -18,6 +21,10 @@ export default function Privacy(): JSX.Element {
       <div className="flex flex-col gap-3 w-full mx-auto p-4 lg:py-10 lg:px-5 lg:w-4/5">
         <Legal content={content} />
       </div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(privacyPolicySchema(content)) }}
+      />
     </div>
   );
 }

@@ -24,7 +24,8 @@ export const fetchProductCategories = async () => {
 };
 
 export const fetchProductByCategory = async (category: string) => {
-  const res = await axios.get(`${API_BASEURL}/products/categories/${category}?limit=6`);
+  const res = await axios.get(`${API_BASEURL}/products/categories/${category}`);
+
   return res;
 };
 
