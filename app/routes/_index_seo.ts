@@ -38,6 +38,7 @@ interface Data {
     title: string;
     description: string;
     imageSrc: string;
+    slug: string;
     category: {
       title: string;
     };
@@ -50,64 +51,85 @@ export const homePageSchema = (data: Data) => {
     "@context": "https://schema.org",
     "@type": "WebPage",
     name: "Promotional Products Now",
+    url: "https://promotionalproductsnow.au/",
     description: "Welcome to Promotional Products Now",
-    mainEntity: {
-      "@type": "WebPage",
-      name: "Home",
-      hasPart: [
-        {
-          "@type": "Product",
-          name: "Featured Products",
-          offers: data.products.map((product: { [key: string]: any }) => ({
-            "@type": "Offer",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: "https://promotionalproductsnow.au/search?q={search_term_string}",
+      "query-input": "required name=search_term_string",
+    },
+    mainEntity: [
+      {
+        "@type": "ItemList",
+        name: "Featured Products",
+        itemListElement: data.products.map((product, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          item: {
+            "@type": "Product",
             name: product.overview.name,
             description: product.product.description,
-            priceCurrency: "USD",
-            price: product.product.prices?.price || 0,
-          })),
-        },
-        {
-          "@type": "ProductCategory",
-          name: "Health & Personal",
-          hasProduct: data.healthProducts.map((product: { [key: string]: any }) => ({
+            offers: {
+              "@type": "Offer",
+              priceCurrency: "USD",
+              price: product.product.prices?.price || 0,
+            },
+          },
+        })),
+      },
+      {
+        "@type": "ItemList",
+        name: "Health & Personal",
+        itemListElement: data.healthProducts.map((product, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          item: {
             "@type": "Product",
             name: product.overview.name,
             description: product.product.description,
             category: "Health & Personal",
-          })),
-        },
-        {
-          "@type": "ProductCategory",
-          name: "Clothing",
-          hasProduct: data.clothingProducts.map((product: { [key: string]: any }) => ({
+          },
+        })),
+      },
+      {
+        "@type": "ItemList",
+        name: "Clothing",
+        itemListElement: data.clothingProducts.map((product, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          item: {
             "@type": "Product",
             name: product.overview.name,
             description: product.product.description,
             category: "Clothing",
-          })),
-        },
-        {
-          "@type": "ProductCategory",
-          name: "Home & Living",
-          hasProduct: data.homeAndLivingProducts.map((product: { [key: string]: any }) => ({
+          },
+        })),
+      },
+      {
+        "@type": "ItemList",
+        name: "Home & Living",
+        itemListElement: data.homeAndLivingProducts.map((product, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          item: {
             "@type": "Product",
             name: product.overview.name,
             description: product.product.description,
             category: "Home & Living",
-          })),
-        },
-        {
-          "@type": "Blog",
-          name: "Our Blog",
-          blogPost: data.blog.map((post: { [key: string]: any }) => ({
-            "@type": "BlogPosting",
-            headline: post.title,
-            description: post.description,
-            image: post.imageSrc,
-            url: `/blog/${post.category.title || "_"}/${post._id}`,
-          })),
-        },
-      ],
-    },
+          },
+        })),
+      },
+      {
+        "@type": "Blog",
+        name: "Our Blog",
+        blogPost: data.blog.map((post) => ({
+          "@type": "BlogPosting",
+          headline: post.title,
+          description: post.description,
+          image: post.imageSrc,
+          url: `/blog/${post.category.title || "_"}/${post.slug}`,
+        })),
+      },
+    ],
   };
 };

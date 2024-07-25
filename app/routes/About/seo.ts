@@ -1,31 +1,31 @@
 import { services } from "app/contents/aboutServices";
+import {
+  schemaAddress,
+  schemaContactPoint,
+  schemaSocialLinks,
+  schemaorganization,
+} from "app/utils/schema.org";
 
 export const organizationSchema = {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Promotional Products Now",
-  url: "", //Site url
+  "@type": "AboutPage",
+  name: "About Us | Promotional Products Now",
+  url: "https://promotionalproductsnow.au/about",
   description:
-    "A progressive promotional products company founded on the belief that customer satisfaction is of paramount and continuing importance.",
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Australia",
-  },
-  sameAs: "", //Site url
+    "Promotional Products Now is a progressive promotional products company dedicated to customer satisfaction, serving Australia for over 20 years with unmatched service, price, and product quality.",
+  address: schemaAddress,
+  contactPoint: schemaContactPoint,
+  sameAs: schemaSocialLinks,
 };
 
 export const servicesSchema = {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Promotional Products Now",
+  ...schemaorganization,
   service: services.map((service) => ({
     "@type": "Service",
     name: service.title,
     serviceType: service.title,
-    url: `https://yourwebsite.com/${service.action}`,
-    provider: {
-      "@type": "Organization",
-      name: "Promotional Products Now",
-    },
+    url: `https://promotionalproductsnow.au/${service.action}`,
+    provider: schemaorganization,
   })),
 };
