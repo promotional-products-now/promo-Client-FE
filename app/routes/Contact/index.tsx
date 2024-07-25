@@ -157,7 +157,10 @@ export default function ContactUS() {
           </Form>
         </div>
       </div>
-      <script type="application/ld+json">{JSON.stringify(contactSeo)}</script>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactSeo) }}
+      />
     </div>
   );
 }

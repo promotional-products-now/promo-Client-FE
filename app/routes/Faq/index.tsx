@@ -3,6 +3,7 @@ import { Accordion, AccordionItem } from "@nextui-org/react";
 import { FaQuestion } from "react-icons/fa";
 import { Link, useLoaderData } from "@remix-run/react";
 import { fetchFaqApi } from "app/api/faq.api";
+import { faqSchema } from "./seo";
 
 interface FAQ {
   title: string;
@@ -110,6 +111,10 @@ const Faq = () => {
           </div>
         ))}
       </div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(groupedFAQs)) }}
+      />
     </div>
   );
 };

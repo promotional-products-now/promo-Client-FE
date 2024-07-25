@@ -2,17 +2,22 @@ export const guaranteeSchema = (guarantees: { title: string; description: string
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Our Guarantees",
+    name: "Guarantees | Promotional Products Now",
+    url: "https://promotionalproductsnow.au/guarantees",
     description:
-      "Here is a 5 Rock Solid Guarantees to give you peace of mind and confidence that your satisfaction is our number 1 priority at all times.",
-    itemListElement: guarantees.map((guarantee, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      item: {
-        "@type": "Service",
-        name: guarantee.title,
-        description: guarantee.description,
+      "Promotional Products Now provides five rock-solid guarantees to ensure customer satisfaction, including on-time delivery, product satisfaction, extended warranty, communication guarantee, and order size flexibility.",
+    mainEntity: [
+      {
+        itemListElement: guarantees.map((guarantee, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          item: {
+            "@type": "Service",
+            name: guarantee.title,
+            description: guarantee.description,
+          },
+        })),
       },
-    })),
+    ],
   };
 };

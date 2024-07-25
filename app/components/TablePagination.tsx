@@ -37,6 +37,7 @@ export default function TablePagination({
           Previous
         </Button>
         <Select
+          isDisabled={totalPages <= 1}
           items={filterLimits}
           defaultSelectedKeys={["10"]}
           variant="flat"

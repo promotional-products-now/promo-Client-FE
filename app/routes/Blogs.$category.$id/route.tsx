@@ -102,7 +102,9 @@ export default function BlogPost() {
   });
 
   const handlePostPostUrl = async () => {
-    await navigator.clipboard.writeText(`http://localhost:3000/blogs/${blog.category}/${post._id}`);
+    await navigator.clipboard.writeText(
+      `https://promotionalproductsnow.au/blogs/${blog.category}/${post.slug}`,
+    );
   };
 
   const onSubmit = async (data: CommentSchema) => {
