@@ -1,15 +1,14 @@
+import { SetStateAction, useCallback, useMemo, useState } from "react";
 import { Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react";
 import { Select, SelectItem, useDisclosure } from "@nextui-org/react";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { GoVerified } from "react-icons/go";
 import { ProductCard } from "app/components/Product/ProductCard";
-import { allCategories } from "app/utils/homeAllCategories";
-import { items } from "app/api_dummy";
-import { useMemo } from "react";
 import { useSetAtom } from "jotai";
 import { productPreviewAtom } from "app/atoms/product.atom";
 import { fetchProductByCategory } from "app/api/products.api";
 import { removeSnakeCase } from "app/utils/fn";
+import TablePagination from "app/components/TablePagination";
 
 const options = [
   { value: "low-high", label: "low to high" },
@@ -23,7 +22,6 @@ export const meta: MetaFunction = () => {
     { name: "description", content: "Welcome to Promotional Products Now" },
   ];
 };
-//export const fetchProductByCategory = async (category: string) => {
 
 export async function loader({ params }: { params: { category: string } }) {
   const { data } = await fetchProductByCategory(params.category);
@@ -33,27 +31,62 @@ export async function loader({ params }: { params: { category: string } }) {
 
 const CategoryPage = () => {
   const loaderData = useLoaderData<typeof loader>();
-
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
+  const { onOpen } = useDisclosure();
   const setProduct = useSetAtom(productPreviewAtom);
-
-  let { category } = useParams();
-
-  const currentCategory = allCategories?.find((a) => a);
-
-  const categoryProducts = useMemo(() => {
-    const prodCat = items.filter((item) => {
-      return item.category == category;
-    });
-
-    return prodCat;
-  }, []);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+  const { category } = useParams();
 
   const handlePreviewProd = (product: any) => {
     onOpen();
     setProduct(product);
   };
+
+  const filteredProducts = useMemo(() => {
+    const normalizedData = Array.isArray(loaderData) ? loaderData.flat() : [];
+
+    const totalItems = normalizedData.length;
+    const totalPages = Math.ceil(totalItems / limit);
+
+    const adjustedCurrentPage = Math.min(currentPage, totalPages);
+
+    const products = normalizedData.slice(
+      (adjustedCurrentPage - 1) * limit,
+      adjustedCurrentPage * limit,
+    );
+
+    return {
+      totalPages,
+      hasPrevious: adjustedCurrentPage > 1,
+      hasNext: adjustedCurrentPage < totalPages,
+      nextPage: adjustedCurrentPage < totalPages ? adjustedCurrentPage + 1 : 0,
+      prevPage: adjustedCurrentPage > 1 ? adjustedCurrentPage - 1 : 0,
+      limit,
+      products,
+    };
+  }, [loaderData, currentPage, limit]);
+
+  const handleNext = useCallback(
+    (pageNumber: number) => {
+      if (filteredProducts.hasNext && !pageNumber) {
+        setCurrentPage(filteredProducts.nextPage);
+      } else {
+        setCurrentPage(pageNumber);
+      }
+    },
+    [filteredProducts.hasNext, filteredProducts.nextPage],
+  );
+
+  const handlePrevious = useCallback(() => {
+    if (filteredProducts.hasPrevious) {
+      setCurrentPage(filteredProducts.prevPage);
+    }
+  }, [filteredProducts.hasPrevious, filteredProducts.prevPage]);
+
+  const handleChangeLimit = useCallback((newLimit: SetStateAction<number>) => {
+    setLimit(newLimit);
+    setCurrentPage(1);
+  }, []);
 
   return (
     <div className="space-y-6">
@@ -65,7 +98,7 @@ const CategoryPage = () => {
             </Link>
             <MdKeyboardDoubleArrowRight size={18} className="text-gray" />
             <span className="text-sm md:text-base text-primary capitalize">
-              {removeSnakeCase(currentCategory?.name || "")}
+              {removeSnakeCase(category || "")}
             </span>
           </div>
         </div>
@@ -73,7 +106,7 @@ const CategoryPage = () => {
       <div className="space-y-4 md:space-y-8">
         <div className="flex items-center justify-center">
           <span className="text-lg md:text-2xl font-semibold capitalize">
-            {currentCategory?.name}
+            {removeSnakeCase(category || "")}
           </span>
         </div>
 
@@ -126,26 +159,34 @@ const CategoryPage = () => {
         </div>
         <div className="flex flex-col gap-10 md:px-20 px-5 w-full">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            {loaderData &&
-              loaderData.length > 0 &&
-              loaderData.map((item: any) => {
-                return (
-                  <ProductCard
-                    key={item?._id || item?.id}
-                    image={item.overview.heroImage}
-                    images={item.product.images}
-                    title={item.overview.name}
-                    productCode={item.overview.code}
-                    description={item.product.description}
-                    price={item.price}
-                    newPrice={item.newPrice}
-                    qunatity={item.qunatity}
-                    handlePreviewFn={(data) => handlePreviewProd(data)}
-                    category={item.product.categorisation.productType.typeName}
-                    id={item?._id || item?.id}
-                  />
-                );
-              })}
+            {filteredProducts.products.map((item) => {
+              return (
+                <ProductCard
+                  key={item?._id || item?.id}
+                  image={item.overview.heroImage}
+                  images={item.product.images}
+                  title={item.overview.name}
+                  productCode={item.overview.code}
+                  description={item.product.description}
+                  price={item.price}
+                  newPrice={item.newPrice}
+                  qunatity={item.qunatity}
+                  handlePreviewFn={(data) => handlePreviewProd(data)}
+                  category={item.product.categorisation.productType.typeName}
+                  id={item?._id || item?.id}
+                />
+              );
+            })}
+          </div>
+
+          <div className="flex w-full justify-center px-5 pb-1">
+            <TablePagination
+              totalPages={filteredProducts.totalPages}
+              currentPage={currentPage}
+              handlePrevious={handlePrevious}
+              handleNext={(p) => handleNext(p as number)}
+              setLimit={handleChangeLimit}
+            />
           </div>
         </div>
       </div>
