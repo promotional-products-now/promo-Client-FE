@@ -1,6 +1,7 @@
 export interface BlogCardProps {
   _id: string;
   title: string;
+  category: { _id: string; title: string };
   description: string;
   authorName: string;
   imageSrc: string;
@@ -20,7 +21,7 @@ export const blogSchema = (posts: BlogCardProps[]) => {
       "@type": "BlogPosting",
       headline: post.title,
       description: post.description,
-      url: `https://app.promotionalproductsnow.au/${post.slug}`,
+      url: `https://app.promotionalproductsnow.au/${post?.category?.title || "_"}/${post?.slug}`,
       datePublished: post.createdAt,
       author: {
         "@type": "Person",
