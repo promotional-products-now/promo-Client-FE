@@ -89,8 +89,8 @@ export default function ProductDetailsRoute() {
                 <div className="flex items-center w-fit mx-auto gap-4 mb-4">
                   <div className="text-lg ">Product Code: {productF?.overview?.code}</div>
                   {[1, 2, 3, 4, 5].map((_, i) => (
-                    <div className="flex items-center ">
-                      <FaStar key={i} className="text-xs text-orange" />
+                    <div key={i} className="flex items-center ">
+                      <FaStar className="text-xs text-orange" />
                     </div>
                   ))}
                 </div>

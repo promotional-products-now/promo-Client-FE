@@ -3,7 +3,7 @@ import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { BlogCardProps } from "../../routes/Blog/interface";
 
-export const BlogCard = ({ imageSrc, title, category, _id, body }: BlogCardProps) => {
+export const BlogCard = ({ imageSrc, title, category, body, slug }: BlogCardProps) => {
   return (
     <Card isPressable className="rounded-none shadow-none" radius="sm">
       <CardBody className="overflow-visible p-0 relative">
@@ -31,7 +31,7 @@ export const BlogCard = ({ imageSrc, title, category, _id, body }: BlogCardProps
         )}
       </CardBody>
       <CardFooter className="bg-white-bg flex flex-col gap-4 justify-between px-4">
-        <Link to={`/blogs/${category?.title ?? "_"}/${_id}`}>
+        <Link to={`/blogs/${category?.title ?? "_"}/${slug}`}>
           <h4 className="font-semibold text-base flex justify-start items-start text-left w-full capitalize">
             {title}
           </h4>
@@ -40,7 +40,7 @@ export const BlogCard = ({ imageSrc, title, category, _id, body }: BlogCardProps
           </div>
           <div className="w-full">
             <Link
-              to={`/blogs/${category?.title ?? "_"}/${_id}`}
+              to={`/blogs/${category?.title ?? "_"}/${slug}`}
               className="flex items-center gap-2 text-medium uppercase"
             >
               <FaArrowRightLong className="text-primary" />

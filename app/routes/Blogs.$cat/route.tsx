@@ -38,6 +38,7 @@ const Blog = () => {
             <BlogCard
               key={post?._id}
               title={post?.title}
+              slug={post?.slug || post?.title}
               description={post?.description}
               imageSrc={post.image}
               _id={post?._id}

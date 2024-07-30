@@ -20,8 +20,8 @@ const fetchAllBlogsCategoryApi = async (query: any) => {
   );
 };
 
-const fetchSingleBlogApi = async (id: string) => {
-  const result = await axios.get(`${CONTENT_BASE_URL}/blog/${id}?populate=comments`);
+const fetchSingleBlogApi = async (slug: string) => {
+  const result = await axios.get(`${CONTENT_BASE_URL}/blog/slug/${slug}?populate=comments`);
 
   return result;
 };

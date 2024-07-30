@@ -81,6 +81,7 @@ interface Category {
 interface BlogPostType {
   _id: string;
   title: string;
+  slug: string;
   image?: string;
   category: Category;
 }
@@ -177,7 +178,7 @@ export default function BlogPost() {
                       {post &&
                         post.comments.map((comment: any) => {
                           return (
-                            <div className="bg-zinc-50 rounded-md mb-2">
+                            <div key={comment?._id} className="bg-zinc-50 rounded-md mb-2">
                               <div className="flex gap-2 items-center font-medium p-2 mb-1 border-b border-zinc-100">
                                 <Avatar name={comment.firstName} />
                                 <div>
@@ -374,7 +375,7 @@ export default function BlogPost() {
               blogs.map(
                 (post: BlogPostType, index: number) =>
                   index < 3 && (
-                    <div className="flex items-center gap-3">
+                    <div key={post?._id} className="flex items-center gap-3">
                       <Image
                         shadow="none"
                         radius="none"
@@ -389,7 +390,7 @@ export default function BlogPost() {
                       <div className="flex flex-col gap-1">
                         <h3 className="line-clamp-2  mb-2">{post?.title}</h3>
                         <Link
-                          to={`/blogs/${post?.category?.title}/${post._id}`}
+                          to={`/blogs/${post?.category?.title}/${post?.slug}`}
                           className="text-sm hover:underline text-orange"
                         >
                           READ MORE

@@ -103,11 +103,9 @@ const ProductSection = ({
                     getCategory()
                       .slice(0, 15)
                       .map((cat: IsubCategory) => (
-                        <div className="flex flex-col gap-y-auto">
+                        <div key={`id_${cat._id}`} className="flex flex-col gap-y-auto">
                           <div>
-                            <div key={`id_${cat._id}`} className="text-white">
-                              {cat.name}
-                            </div>
+                            <div className="text-white">{cat.name}</div>
                           </div>
                         </div>
                       ))}
@@ -143,19 +141,19 @@ const ProductSection = ({
             {products &&
               products.length > 0 &&
               products.slice(0, 9).map((item: any) => {
-
                 return (
                   <ProductCard
-                    image={item.overview.heroImage}
-                    images={item.product.images}
-                    title={item.overview.name}
-                    productCode={item.overview.code}
-                    description={item.product.description}
+                    key={item._id || item.id}
+                    image={item?.overview?.heroImage}
+                    images={item?.product?.images}
+                    title={item?.overview?.name}
+                    productCode={item?.overview?.code}
+                    description={item?.product?.description}
                     price={0}
                     newPrice={""}
-                    qunatity={item.overview.minQty}
-                    id={item.id || item._id}
-                    category={item.product.categorisation.productType.typeName}
+                    qunatity={item?.overview?.minQty}
+                    id={item?._id || item?.id}
+                    category={item?.product?.categorisation?.productType?.typeName}
                     handlePreviewFn={(data) => handlePreviewProd(data)}
                   />
                 );

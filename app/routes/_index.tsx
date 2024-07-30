@@ -260,7 +260,7 @@ export default function Index() {
                     // const initPrice = "";
                     // const lastPrice = item[price.length - 1];
                     return (
-                      <div key={item.id} className="flex flex-row">
+                      <div key={item._id || item?.id} className="flex flex-row">
                         <ProductCard
                           image={item.overview.heroImage}
                           images={item.product.images}
@@ -271,7 +271,7 @@ export default function Index() {
                           newPrice={""}
                           qunatity={item.overview.minQty}
                           handlePreviewFn={(data) => handlePreviewProd(data)}
-                          id={item.id}
+                          id={item._id || item.id}
                           category={item.product.categorisation.productType.typeName}
                         />
                       </div>
@@ -345,6 +345,7 @@ export default function Index() {
                   <div key={post._id} className="flex flex-col md:flex-row gap-1 sm:mx-2 md:mx-1">
                     <BlogCard
                       title={post.title}
+                      slug={post?.slug || post?.title}
                       description={post.description}
                       imageSrc={post.imageSrc}
                       _id={post._id}

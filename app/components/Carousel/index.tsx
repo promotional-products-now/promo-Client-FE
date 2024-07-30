@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { A11y, Parallax, Navigation } from "swiper/modules";
 import SwiperCore, { Swiper as SwiperInstance } from "swiper";
@@ -55,7 +56,7 @@ export default function Carousel({
         >
           {children &&
             children.map((node) => {
-              return <SwiperSlide>{node}</SwiperSlide>;
+              return <SwiperSlide key={uuidv4()}>{node}</SwiperSlide>;
             })}
         </Swiper>
       </div>

@@ -83,7 +83,7 @@ const Faq = () => {
               FAQ-{section}
             </h2>
             {groupedFAQs[section].map((faq) => (
-              <Accordion variant="light" showDivider={false}>
+              <Accordion variant="light" key={faq._id} showDivider={false}>
                 <AccordionItem
                   key={faq._id}
                   itemProp="title"

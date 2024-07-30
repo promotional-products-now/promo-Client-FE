@@ -121,7 +121,10 @@ export function PreviewProduct({
                   product?.images?.length > 0 &&
                   product?.images.map((image, i) => (
                     <SwiperSlide>
-                      <div key={i} className="h-20 relative rounded-sm flex items-center">
+                      <div
+                        key={`${i}_${image}`}
+                        className="h-20 relative rounded-sm flex items-center"
+                      >
                         <Image
                           alt=""
                           radius="md"

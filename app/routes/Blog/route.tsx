@@ -19,7 +19,7 @@ export const handle: SEOHandle = {
   getSitemapEntries: async (request) => {
     const { data } = await fetchAllBlogsApi();
     return data?.payload?.data.map((blog: any) => {
-      return { route: `/blog/${blog.category.title || "_"}/${blog._id}`, priority: 0.7 };
+      return { route: `/blog/${blog.category.title || "_"}/${blog.slug}`, priority: 0.7 };
     });
   },
 };
@@ -61,6 +61,7 @@ const Blog = () => {
             <div key={post?._id}>
               <BlogCard
                 title={post?.title}
+                slug={post?.slug || post?.title}
                 description={post?.description}
                 imageSrc={
                   post.imageSrc ??

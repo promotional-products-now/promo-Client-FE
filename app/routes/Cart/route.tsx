@@ -175,7 +175,7 @@ const CartPage = () => {
             <div className="flex flex-row items-center">
               {payment.map((item) => {
                 return (
-                  <div className="w-18 flex-1 ">
+                  <div key={item.image} className="w-18 flex-1 ">
                     <Image src={item.image} className="w-full h-full object-cover aspect-auto" />
                   </div>
                 );
