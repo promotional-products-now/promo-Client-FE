@@ -24,13 +24,14 @@ import { FaAward } from "react-icons/fa6";
 import { SecondaryNav } from "./SecondaryNav";
 import { navLinks } from "./navLinks";
 import logo from "app/assets/logo.svg";
-import { FiLogIn, FiSearch } from "react-icons/fi";
+import { FiLogIn, FiMenu, FiSearch } from "react-icons/fi";
 import { TbTruckDelivery } from "react-icons/tb";
 import { getSession, commitSession } from "../../sessions";
 import { useEffect, useState } from "react";
 import { fetchBannerApi } from "app/api/banner/banner.api";
 import { IBanner, IPopup } from "app/api/banner/types";
 import { SearchDropdown } from "./SearchDropdown";
+import { allCategories } from "app/utils/homeAllCategories";
 
 type HeaderT = {
   sidebarOpen: string | boolean | undefined;
@@ -202,9 +203,8 @@ export function Header(props: HeaderT) {
               </div>
             </div>
           </nav>
-          <SecondaryNav uid={data && data.user ? data.user.uid : null} />
 
-          {/* {location.pathname === "/" ? (
+          {location.pathname === "/" ? (
             <div className="flex justify-self-center mx-auto container bg-white  w-full !mt-20 sm:!mt-auto">
               <SecondaryNav uid={data && data.user ? data.user.uid : null} />
             </div>
@@ -213,27 +213,45 @@ export function Header(props: HeaderT) {
               <div className="flex flex-col space-y-3 w-full">
                 <div className="flex items-center justify-between space-x-3 w-full">
                   <div className="hidden md:flex flex-col space-y-3">
-                    {/* <div className=" min-w-64 xl:min-w-72 2xl:min-w-96 flex items-center gap-2 text-white bg-primary p-1 font-medium  rounded-none text-sm  rounded-t-md">
-                      <Button
-                        onClick={() => setIsCategoryOpen(!isCategoryOpen)}
-                        isIconOnly
-                        className="bg-transparent text-lg text-white"
-                      >
-                        <FiMenu />
-                      </Button>{" "}
-                      All Products Categoeries
-                    </div> */}
-                    <Dropdown backdrop="blur">
+                    <Dropdown
+                      showArrow
+                      classNames={{
+                        base: "before:bg-default-200 xl:min-w-72 2xl:min-w-96",
+                        content: "p-0 border-small border-divider bg-background",
+                      }}
+                    >
                       <DropdownTrigger>
-                        <Button variant="bordered">All Products Categoeries</Button>
+                        <Button className="bg-transparent text-white  min-w-64 xl:min-w-72 2xl:min-w-96 flex items-center gap-2  bg-primary p-1 font-medium ">
+                          <div className="text-xl">
+                            <FiMenu />
+                          </div>{" "}
+                          All Products Categoeries
+                        </Button>
                       </DropdownTrigger>
-                      <DropdownMenu variant="faded" aria-label="Static Actions">
-                        <DropdownItem key="new">New file</DropdownItem>
-                        <DropdownItem key="copy">Copy link</DropdownItem>
-                        <DropdownItem key="edit">Edit file</DropdownItem>
-                        <DropdownItem key="delete" className="text-danger" color="danger">
-                          Delete file
-                        </DropdownItem>
+                      <DropdownMenu
+                        variant="flat"
+                        aria-label="categories"
+                        itemClasses={{
+                          base: [
+                            "rounded-md",
+                            "text-default-500",
+                            "transition-opacity",
+                            "data-[hover=true]:text-foreground",
+                            "data-[hover=true]:bg-default-100",
+                            "dark:data-[hover=true]:bg-default-50",
+                            "data-[selectable=true]:focus:bg-default-50",
+                            "data-[pressed=true]:opacity-70",
+                            "data-[focus-visible=true]:ring-default-500",
+                          ],
+                        }}
+                      >
+                        {allCategories.map((category) => {
+                          return (
+                            <DropdownItem key={category.name} className="text-pretty">
+                              {category.name}
+                            </DropdownItem>
+                          );
+                        })}
                       </DropdownMenu>
                     </Dropdown>
                   </div>
@@ -291,7 +309,7 @@ export function Header(props: HeaderT) {
                 </div>
               </div>
             </div>
-          )} */}
+          )}
         </div>
       </div>
       <Modal isOpen={isOpen} placement={popup?.position ?? "auto"} onOpenChange={onOpenChange}>

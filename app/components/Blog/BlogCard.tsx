@@ -11,8 +11,9 @@ export const BlogCard = ({ imageSrc, title, category, body, slug }: BlogCardProp
           shadow="none"
           radius="none"
           width="100%"
+          height={200}
           alt={title}
-          className="h-[200px] object-fill lg:h-[180px]"
+          classNames={{ wrapper: "h-[13rem] max-h-[13rem] object-fill lg:h-[11.5rem]" }}
           src={
             imageSrc ??
             "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg"
