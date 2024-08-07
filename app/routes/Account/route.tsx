@@ -46,7 +46,7 @@ export default function Detatils(): JSX.Element {
     <>
       <div className="py-4 md:py-8 space-y-8">
         <h1 className="text-2xl md:text-3xl text-dark  text-center font-bold">Account Details</h1>
-        <div className="grid  grid-cols-1  md:grid-cols-3  gap-4 py-4 px-2 md:px-6 w-full md:w-5/6 mx-auto">
+        <div className="grid  grid-cols-1  md:grid-cols-3  gap-4 py-4 px-2 md:px-6 w-full mx-auto">
           <div className="space-y-4">
             <h1 className="text-dark text-lg md:text-xl  xl:text-3xl font-semibold">
               {userDetails.firstName} {userDetails.lastName}

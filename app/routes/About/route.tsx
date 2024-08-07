@@ -16,7 +16,7 @@ export const meta: MetaFunction = () => {
 
 const AboutPage = () => {
   return (
-    <div className="flex flex-col gap-3 w-full mx-auto p-4 lg:p-0 lg:w-4/5">
+    <div className="flex flex-col gap-3 w-full mx-auto py-4 px-0 lg:p-0 ">
       <div className="flex justify-center">
         <h2 className="text-2xl md:text-3xl font-bold">Company Profile</h2>
       </div>

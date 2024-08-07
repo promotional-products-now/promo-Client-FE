@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { A11y, Parallax, Navigation } from "swiper/modules";
 import SwiperCore, { Swiper as SwiperInstance } from "swiper";
+
 import "../../style.css";
 
 export default function Carousel({
@@ -12,11 +13,16 @@ export default function Carousel({
   children: React.ReactNode[];
   numberOfItems?: number;
 }) {
+  const divRef = useRef<HTMLDivElement>(null);
+
   const swiperRef = useRef<SwiperInstance | null>(null);
 
+  React.useEffect(() => {
+    divRef.current?.focus();
+  }, []);
   return (
     <div className="relative">
-      <div className="px-1 md:px-12 relative">
+      <div className="px-1 md:px-12 relative" ref={divRef} tabIndex={-1}>
         <Swiper
           onSwiper={(swiper) => (swiperRef.current = swiper)}
           navigation={{
@@ -24,7 +30,7 @@ export default function Carousel({
             prevEl: ".swiper-button-prev",
             enabled: true,
           }}
-          parallax={true}
+          // parallax={true}
           pagination={{
             clickable: true,
           }}
@@ -44,11 +50,11 @@ export default function Carousel({
               // spaceBetween: 40,
             },
             1200: {
-              slidesPerView: numberOfItems || 3,
+              slidesPerView: numberOfItems ? numberOfItems : 3,
               // spaceBetween: 40,
             },
             3024: {
-              slidesPerView: numberOfItems || 4,
+              slidesPerView: numberOfItems ? numberOfItems : 4,
               // spaceBetween: 50,
             },
           }}
@@ -62,10 +68,12 @@ export default function Carousel({
       </div>
 
       <div
+        aria-disabled="false"
         className="swiper-button-next text-2xl"
         onClick={() => swiperRef.current && swiperRef.current.slideNext()}
       ></div>
       <div
+        aria-disabled="false"
         className="swiper-button-prev"
         onClick={() => swiperRef.current && swiperRef.current.slidePrev()}
       ></div>

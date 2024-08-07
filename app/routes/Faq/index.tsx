@@ -55,13 +55,13 @@ const Faq = () => {
     <div
       itemScope
       itemType="https://schema.org/FrequentlyAskedQuestion"
-      className="flex flex-col gap-3 w-full mx-auto md:w-4/5 space-y-6"
+      className="flex flex-col gap-3 w-full mx-auto space-y-6"
     >
       <div className="flex flex-col gap-3 text-center pt-16 md:pt-0">
         <h2 itemProp="name" className="text-2xl md:text-3xl font-bold">
           FAQs
         </h2>
-        <div className="px-2 md:px-0">
+        <div className="">
           <p className="text-default-500 text-sm md:text-base">
             Here are the most frequenty asked questions. We are here to help you, so please feel
             free to{" "}
@@ -76,7 +76,7 @@ const Faq = () => {
         </div>
       </div>
 
-      <div className="flex flex-col gap-2 p-4 md:p-0">
+      <div className="flex flex-col gap-2 py-4 md:p-0">
         {Object.keys(groupedFAQs).map((section) => (
           <div key={section}>
             <h2 itemProp="name" className="text-left text-yellow ml-2">

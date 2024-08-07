@@ -88,7 +88,7 @@ const CheckoutPage = () => {
   };
 
   return (
-    <div className="flex flex-col gap-3 w-full mx-auto py-10 lg:px-5 lg:w-4/5">
+    <div className="flex flex-col gap-3 w-full mx-auto py-10 lg:px-5">
       <h1 className="text-center font-semibold md:text-3xl text-2xl mb-3">Checkout</h1>
 
       <div className="flex md:flex-row flex-col gap-3 items-center justify-between">

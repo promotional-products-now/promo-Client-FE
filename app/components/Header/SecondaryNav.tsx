@@ -1,6 +1,13 @@
 import { useAtom } from "jotai";
 import { Link } from "@remix-run/react";
-import { Button, Input } from "@nextui-org/react";
+import {
+  Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+  Input,
+} from "@nextui-org/react";
 import { FiLogIn, FiMenu, FiSearch } from "react-icons/fi";
 import { TbTruckDelivery } from "react-icons/tb";
 import { SearchDropdown } from "./SearchDropdown";

@@ -127,7 +127,7 @@ export default function BlogPost() {
   };
 
   return (
-    <div className="w-full flex flex-wrap text-gray gap-5 md:gap-10 mx-auto px-3 py-10 md:px-0 md:flex-nowrap md:w-5/6">
+    <div className="w-full flex flex-wrap text-gray gap-5 md:gap-10 mx-auto py-10 md:px-0 md:flex-nowrap ">
       <div className="w-full flex flex-col gap-5 md:w-2/3">
         <div>
           <Image

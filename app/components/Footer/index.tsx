@@ -28,8 +28,8 @@ export function Footer() {
 
   return (
     <footer className="bg-white dark:bg-gray-900 border border-neutral-200 dark:border-gray-700">
-      <div className="hidden md:block px-3 md:px-6 lg:px-8 xl:px-12 py-6">
-        <div className="container mx-auto md:w-11/12 lg:py-8 space-y-6 md:space-y-10">
+      <div className="hidden md:block py-6">
+        <div className="container mx-auto lg:w-11/12  px-3 md:px-6 lg:px-12 xl:px-12 lg:py-8 space-y-6 md:space-y-10">
           <div className="sm:flex sm:items-center sm:justify-between space-y-6 sm:space-y-0 w-full">
             <h1 className="text-lg md:text-3xl text-black font-semibold">Newsletter</h1>
             <div className="flex sm:justify-end w-full">

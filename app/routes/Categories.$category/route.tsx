@@ -7,7 +7,7 @@ import { ProductCard } from "app/components/Product/ProductCard";
 import { useSetAtom } from "jotai";
 import { productPreviewAtom } from "app/atoms/product.atom";
 import { fetchProductByCategory } from "app/api/products.api";
-import { removeSnakeCase } from "app/utils/fn";
+import { getMinMaxPrice, removeSnakeCase } from "app/utils/fn";
 import TablePagination from "app/components/TablePagination";
 
 const options = [
@@ -160,6 +160,7 @@ const CategoryPage = () => {
         <div className="flex flex-col gap-10 md:px-20 px-5 w-full">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {filteredProducts.products.map((item) => {
+              console.log({ ty: item?.product?.prices });
               return (
                 <ProductCard
                   key={item?._id || item?.id}
@@ -168,8 +169,9 @@ const CategoryPage = () => {
                   title={item.overview.name}
                   productCode={item.overview.code}
                   description={item.product.description}
-                  price={item.price}
-                  newPrice={item.newPrice}
+                  basePrice={getMinMaxPrice(
+                    item?.product?.prices?.priceGroups?.basePrice?.[0]?.base_price,
+                  )}
                   qunatity={item.qunatity}
                   handlePreviewFn={(data) => handlePreviewProd(data)}
                   category={item.product.categorisation.productType.typeName}

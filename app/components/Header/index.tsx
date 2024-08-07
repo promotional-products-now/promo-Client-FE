@@ -11,6 +11,11 @@ import {
   Card,
   CardFooter,
   CardHeader,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+  Input,
 } from "@nextui-org/react";
 import { Link as RemixLink, json, redirect, useLoaderData, useLocation } from "@remix-run/react";
 import { MdOutlineLocalPhone } from "react-icons/md";
@@ -19,12 +24,13 @@ import { FaAward } from "react-icons/fa6";
 import { SecondaryNav } from "./SecondaryNav";
 import { navLinks } from "./navLinks";
 import logo from "app/assets/logo.svg";
-import { FiLogIn } from "react-icons/fi";
+import { FiLogIn, FiSearch } from "react-icons/fi";
 import { TbTruckDelivery } from "react-icons/tb";
 import { getSession, commitSession } from "../../sessions";
 import { useEffect, useState } from "react";
 import { fetchBannerApi } from "app/api/banner/banner.api";
 import { IBanner, IPopup } from "app/api/banner/types";
+import { SearchDropdown } from "./SearchDropdown";
 
 type HeaderT = {
   sidebarOpen: string | boolean | undefined;
@@ -196,36 +202,96 @@ export function Header(props: HeaderT) {
               </div>
             </div>
           </nav>
-          {location.pathname === "/" ? (
+          <SecondaryNav uid={data && data.user ? data.user.uid : null} />
+
+          {/* {location.pathname === "/" ? (
             <div className="flex justify-self-center mx-auto container bg-white  w-full !mt-20 sm:!mt-auto">
               <SecondaryNav uid={data && data.user ? data.user.uid : null} />
             </div>
           ) : (
-            <div className="hidden md:flex justify-end gap-2 ">
-              <Button
-                as={RemixLink}
-                to="#"
-                size="lg"
-                variant="ghost"
-                startContent={<TbTruckDelivery className="text-2xl text-orange" />}
-                className="border border-zinc-200 rounded text-sm font-medium px-3"
-              >
-                Fast Delivery Australia Wide
-              </Button>
-              {(!data || !data.user.uid) && (
-                <Button
-                  as={RemixLink}
-                  to="/login"
-                  size="lg"
-                  variant="ghost"
-                  startContent={<FiLogIn className="text-xl text-primary" />}
-                  className="border border-zinc-200 rounded font-medium text-sm px-3"
-                >
-                  Login
-                </Button>
-              )}
+            <div className="flex justify-between space-x-4 flex-wrap w-full">
+              <div className="flex flex-col space-y-3 w-full">
+                <div className="flex items-center justify-between space-x-3 w-full">
+                  <div className="hidden md:flex flex-col space-y-3">
+                    {/* <div className=" min-w-64 xl:min-w-72 2xl:min-w-96 flex items-center gap-2 text-white bg-primary p-1 font-medium  rounded-none text-sm  rounded-t-md">
+                      <Button
+                        onClick={() => setIsCategoryOpen(!isCategoryOpen)}
+                        isIconOnly
+                        className="bg-transparent text-lg text-white"
+                      >
+                        <FiMenu />
+                      </Button>{" "}
+                      All Products Categoeries
+                    </div> */}
+                    <Dropdown backdrop="blur">
+                      <DropdownTrigger>
+                        <Button variant="bordered">All Products Categoeries</Button>
+                      </DropdownTrigger>
+                      <DropdownMenu variant="faded" aria-label="Static Actions">
+                        <DropdownItem key="new">New file</DropdownItem>
+                        <DropdownItem key="copy">Copy link</DropdownItem>
+                        <DropdownItem key="edit">Edit file</DropdownItem>
+                        <DropdownItem key="delete" className="text-danger" color="danger">
+                          Delete file
+                        </DropdownItem>
+                      </DropdownMenu>
+                    </Dropdown>
+                  </div>
+                  <div className="w-full">
+                    <form>
+                      <div className="flex items-center">
+                        <Input
+                          type="text"
+                          size="sm"
+                          variant="bordered"
+                          placeholder="Search product catalogue"
+                          radius="none"
+                          className="rounded-s-sm"
+                          startContent={<SearchDropdown />}
+                          classNames={{
+                            inputWrapper: ["border", "border-zinc-100", "h-12"],
+                            mainWrapper: "rounded-md",
+                          }}
+                        />
+                        <Button
+                          type="submit"
+                          size="lg"
+                          isIconOnly
+                          className="bg-primary text-white rounded-s-none rounded-e-md"
+                        >
+                          <FiSearch />
+                        </Button>
+                      </div>
+                    </form>
+                  </div>
+                  <div className="hidden md:flex gap-2 ">
+                    <Button
+                      as={RemixLink}
+                      to="#"
+                      size="lg"
+                      variant="ghost"
+                      startContent={<TbTruckDelivery className="text-2xl text-orange" />}
+                      className="border border-zinc-200 rounded text-sm font-medium px-3"
+                    >
+                      Fast Delivery Australia Wide
+                    </Button>
+                    {!data?.user?.uid && (
+                      <Button
+                        as={RemixLink}
+                        to="/login"
+                        size="lg"
+                        variant="ghost"
+                        startContent={<FiLogIn className="text-xl text-primary" />}
+                        className="border border-zinc-200 rounded font-medium text-sm px-3"
+                      >
+                        Login
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </div>
             </div>
-          )}
+          )} */}
         </div>
       </div>
       <Modal isOpen={isOpen} placement={popup?.position ?? "auto"} onOpenChange={onOpenChange}>

@@ -28,6 +28,7 @@ import HealthImage from "app/assets/category/health.jpg";
 import ClothingImage from "app/assets/category/clothing.jpg";
 import axios from "axios";
 import { homePageSchema } from "./_index_seo";
+import { getMinMaxPrice } from "app/utils/fn";
 
 export const meta: MetaFunction = () => {
   return [
@@ -93,6 +94,8 @@ export default function Index() {
   const setProductPrevData = useSetAtom(productPreviewAtom);
 
   const loaderData = useLoaderData<typeof loader>();
+
+  console.log({ loaderData });
 
   const [isCategoryOpen, setIsCategoryOpen] = useAtom(isCategoryListOpen);
 
@@ -267,8 +270,9 @@ export default function Index() {
                           title={item.overview.name}
                           productCode={item.overview.code}
                           description={item.product.description}
-                          price={0}
-                          newPrice={""}
+                          basePrice={getMinMaxPrice(
+                            item?.product?.prices?.priceGroups?.basePrice?.[0]?.base_price,
+                          )}
                           qunatity={item.overview.minQty}
                           handlePreviewFn={(data) => handlePreviewProd(data)}
                           id={item._id || item.id}

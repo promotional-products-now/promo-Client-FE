@@ -48,12 +48,12 @@ const Blog = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   return (
-    <div className="flex flex-col gap-10 lg:gap-7 w-full mx-auto p-4 lg:p-0 lg:w-4/5">
+    <div className="flex flex-col gap-10 lg:gap-7 w-full mx-auto p-4 lg:p-0">
       <div className="flex flex-col gap-1 text-center ">
         <h2 className="text-2xl md:text-3xl font-bold">Our Blog</h2>
         <h3 className="text-default-500">Browse our latest news</h3>
       </div>
-      <div className="grid grid-cols-1 gap-y-8 gap-x-5 sm:grid-cols-2 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-y-8 gap-x-6 sm:grid-cols-2 md:grid-cols-3">
         {loaderData &&
           loaderData.posts &&
           loaderData.posts.length > 0 &&

@@ -8,7 +8,7 @@ import { useSetAtom } from "jotai";
 import { productPreviewAtom } from "app/atoms/product.atom";
 import { PreviewProduct } from "../Product/PreviewProduct";
 import allCategories from "app/utils/categories";
-import { toSnakeCase } from "app/utils/fn";
+import { getMinMaxPrice, toSnakeCase } from "app/utils/fn";
 
 const options = [
   { value: "AUSTRALIAN MADE PRODUCTS", label: "AUSTRALIAN MADE PRODUCTS" },
@@ -149,8 +149,9 @@ const ProductSection = ({
                     title={item?.overview?.name}
                     productCode={item?.overview?.code}
                     description={item?.product?.description}
-                    price={0}
-                    newPrice={""}
+                    basePrice={getMinMaxPrice(
+                      item?.product?.prices?.priceGroups?.basePrice?.[0]?.base_price,
+                    )}
                     qunatity={item?.overview?.minQty}
                     id={item?._id || item?.id}
                     category={item?.product?.categorisation?.productType?.typeName}

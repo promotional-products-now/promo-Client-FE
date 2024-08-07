@@ -8,6 +8,7 @@ import { items } from "app/api_dummy";
 import { useSetAtom } from "jotai";
 import { productPreviewAtom } from "app/atoms/product.atom";
 import { PreviewProduct } from "../Product/PreviewProduct";
+import { getMinMaxPrice } from "app/utils/fn";
 
 interface FeaturedProductsProps {
   sectionlabel: string;
@@ -128,11 +129,12 @@ const FeaturedProducts = ({ sectionlabel, gridno, showmore, products }: Featured
                 title={item.overview.name}
                 productCode={item.overview.code}
                 description={item.product.description}
-                price={0}
-                newPrice={""}
+                basePrice={getMinMaxPrice(
+                  item?.product?.prices?.priceGroups?.basePrice?.[0]?.base_price,
+                )}
                 qunatity={item.overview.minQty}
-                id={item.id}
-                category={item.product.categorisation.productType.typeName}
+                id={item._id}
+                category={item?.category?.name || item.product.categorisation.productType.typeName}
                 handlePreviewFn={(data) => handlePreviewProd(data)}
               />
             ))}

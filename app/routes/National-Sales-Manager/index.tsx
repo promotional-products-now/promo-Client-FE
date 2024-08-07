@@ -11,7 +11,7 @@ export const meta: MetaFunction = () => {
 };
 const Message = () => {
   return (
-    <div className="w-full flex flex-wrap-reverse gap-y-6 px-4 md:py-5 lg:w-4/5 mx-auto">
+    <div className="w-full flex flex-wrap-reverse gap-y-6 px-4 md:py-5  mx-auto">
       <div className="w-full flex flex-col gap-2 text-sm text-gray leading-loose md:w-full lg:w-1/2">
         <div className="relative mb-3">
           <h2 className="font-bold text-xl">Message from National Sales Manager</h2>

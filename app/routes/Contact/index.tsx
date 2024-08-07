@@ -48,7 +48,7 @@ export default function ContactUS() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center mx-auto p-4 lg:p-0 lg:w-4/5">
+    <div className="flex flex-col justify-center items-center mx-auto p-4 lg:p-0 ">
       <ToastContainer containerId="loginToast" />
       <h2 className="text-2xl md:text-3xl font-bold hidden md:block">Contact us</h2>
       <div className="flex flex-col-reverse md:flex-row gap-12 md:gap-10 py-10 [&_p]:text-sm [&_p]:text-gray">

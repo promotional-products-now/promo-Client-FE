@@ -25,7 +25,7 @@ const Blog = () => {
   let { cat } = useParams();
 
   return (
-    <div className="flex flex-col gap-10 w-full mx-auto p-4 lg:p-0 lg:w-4/5">
+    <div className="flex flex-col gap-10 w-full mx-auto p-4 lg:p-0 ">
       <div className="flex flex-col gap-1 text-center ">
         <h2 className="text-2xl md:text-3xl font-bold capitalize">{cat} Blog</h2>
         <h3 className="text-default-500">Browse our latest {cat} posts</h3>

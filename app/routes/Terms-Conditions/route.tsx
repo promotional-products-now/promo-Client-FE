@@ -15,7 +15,7 @@ export default function Terms(): JSX.Element {
   return (
     <div className="space-y-4">
       <h1 className="text-center text-black text-2xl md:text-3xl font-bold">Terms & Conditions</h1>
-      <div className="flex flex-col gap-3 w-full mx-auto p-4 lg:py-10 lg:px-5 lg:w-4/5">
+      <div className="flex flex-col gap-3 w-full mx-auto p-4 lg:py-10 lg:px-5">
         <Legal content={content} />
       </div>
     </div>

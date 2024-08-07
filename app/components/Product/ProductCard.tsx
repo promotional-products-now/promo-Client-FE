@@ -9,8 +9,7 @@ export type ProductCardProps = {
   productCode?: string;
   title: string;
   description: string;
-  price: number;
-  newPrice: string;
+  basePrice: { minPrice: number; maxPrice: number };
   qunatity: number;
   handlePreviewFn: (data: any) => void;
   category: string;
@@ -23,8 +22,7 @@ export const ProductCard = ({
   productCode,
   title,
   description,
-  price,
-  newPrice,
+  basePrice,
   qunatity,
   category,
   id,
@@ -34,8 +32,7 @@ export const ProductCard = ({
     image,
     title,
     description,
-    price,
-    newPrice,
+    basePrice,
     qunatity,
     images,
     productCode,
@@ -84,11 +81,11 @@ export const ProductCard = ({
           <div className="text-primary capitalize font-semibold  2x:text-lg">{title}</div>
           <p className="text-black text-small mb-2 line-clamp-4">{description}</p>
           <div className="flex flex-row text-sm justify-between">
-            {price && (
+            {basePrice && (
               <div className="text-gray-700 flex flex-row gap-1">
                 <span className="text-small">
-                  from <span className="text-orange text-small">{price}</span> to
-                  <span className="text-primary text-small"> {newPrice}</span>
+                  from <span className="text-orange text-small">{basePrice?.minPrice}</span> to
+                  <span className="text-primary text-small"> {basePrice?.maxPrice}</span>
                 </span>
               </div>
             )}
