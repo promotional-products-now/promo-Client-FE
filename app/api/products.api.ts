@@ -3,7 +3,7 @@ import { API_BASEURL } from "./api";
 
 export const fetchProductsApi = async ({
   page = 1,
-  limit = 20,
+  limit = 8,
 }: {
   page?: number;
   limit?: number;

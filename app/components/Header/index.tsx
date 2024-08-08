@@ -16,6 +16,9 @@ import {
   DropdownMenu,
   DropdownTrigger,
   Input,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
 } from "@nextui-org/react";
 import { Link as RemixLink, json, redirect, useLoaderData, useLocation } from "@remix-run/react";
 import { MdOutlineLocalPhone } from "react-icons/md";
@@ -31,7 +34,8 @@ import { useEffect, useState } from "react";
 import { fetchBannerApi } from "app/api/banner/banner.api";
 import { IBanner, IPopup } from "app/api/banner/types";
 import { SearchDropdown } from "./SearchDropdown";
-import { allCategories } from "app/utils/homeAllCategories";
+import allCategory from "app/utils/categories";
+import CategoryList from "../CategoryList";
 
 type HeaderT = {
   sidebarOpen: string | boolean | undefined;
@@ -124,7 +128,7 @@ export function Header(props: HeaderT) {
                   </Button>
                 </div>
               </div>
-              <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+              <div className="ml-8 flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                 <ul className="hidden lg:flex space-x-3">
                   <li>
                     <Button
@@ -166,14 +170,12 @@ export function Header(props: HeaderT) {
                   <Image src={logo} className="h-12 " />
                 </Link>
               </div>
+              {/*  */}
               <div
-                className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+                className="items-center hidden w-full md:flex md:w-auto md:order-1"
                 id="navbar-sticky"
               >
-                <ul
-                  className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 
-              rounded-lg bg-gray-50 md:gap-x-8 2xl:gap-x-20 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
-                >
+                <ul className="flex justify-evenly  gap-8 w-full p-4 md:p-0 mt-4 font-medium  bg-gray-50  md:mt-0 ">
                   {navLinks.map((link) => {
                     return (
                       <li
@@ -213,47 +215,23 @@ export function Header(props: HeaderT) {
               <div className="flex flex-col space-y-3 w-full">
                 <div className="flex items-center justify-between space-x-3 w-full">
                   <div className="hidden md:flex flex-col space-y-3">
-                    <Dropdown
-                      showArrow
-                      classNames={{
-                        base: "before:bg-default-200 xl:min-w-72 2xl:min-w-96",
-                        content: "p-0 border-small border-divider bg-background",
-                      }}
-                    >
-                      <DropdownTrigger>
-                        <Button className="bg-transparent text-white  min-w-64 xl:min-w-72 2xl:min-w-96 flex items-center gap-2  bg-primary p-1 font-medium ">
-                          <div className="text-xl">
+                    <Popover showArrow placement="bottom">
+                      <PopoverTrigger>
+                        <div className=" min-w-64 xl:min-w-72 2xl:min-w-96 flex items-center gap-2 text-white bg-primary p-1 font-medium  rounded text-sm  ">
+                          <Button isIconOnly className="bg-transparent text-lg text-white">
                             <FiMenu />
-                          </div>{" "}
+                          </Button>{" "}
                           All Products Categoeries
-                        </Button>
-                      </DropdownTrigger>
-                      <DropdownMenu
-                        variant="flat"
-                        aria-label="categories"
-                        itemClasses={{
-                          base: [
-                            "rounded-md",
-                            "text-default-500",
-                            "transition-opacity",
-                            "data-[hover=true]:text-foreground",
-                            "data-[hover=true]:bg-default-100",
-                            "dark:data-[hover=true]:bg-default-50",
-                            "data-[selectable=true]:focus:bg-default-50",
-                            "data-[pressed=true]:opacity-70",
-                            "data-[focus-visible=true]:ring-default-500",
-                          ],
-                        }}
-                      >
-                        {allCategories.map((category) => {
-                          return (
-                            <DropdownItem key={category.name} className="text-pretty">
-                              {category.name}
-                            </DropdownItem>
-                          );
-                        })}
-                      </DropdownMenu>
-                    </Dropdown>
+                        </div>
+                      </PopoverTrigger>
+                      <PopoverContent className="p-1">
+                        <div className="h-[30rem] min-h-[30rem] 2xl:h-[36rem]  min-w-64 xl:min-w-72 2xl:min-w-96 overflow-y-auto">
+                          <CategoryList categories={allCategory} top={0} right={60} />
+                        </div>
+                      </PopoverContent>
+                    </Popover>
+                    {/*                         <CategoryList categorie={allCategory} />
+                     */}
                   </div>
                   <div className="w-full">
                     <form>

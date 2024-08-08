@@ -13,6 +13,7 @@ export const BlogCard = ({ imageSrc, title, category, body, slug }: BlogCardProp
           width="100%"
           height={200}
           alt={title}
+          className="h-[13rem] max-h-[13rem] object-fill lg:h-[11.5rem]"
           classNames={{ wrapper: "h-[13rem] max-h-[13rem] object-fill lg:h-[11.5rem]" }}
           src={
             imageSrc ??
@@ -36,10 +37,10 @@ export const BlogCard = ({ imageSrc, title, category, body, slug }: BlogCardProp
           <h4 className="font-semibold text-base flex justify-start items-start text-left w-full capitalize">
             {title}
           </h4>
-          <div className="w-full text-start">
-            <p className="text-default-500 line-clamp-3 first-letter:capitalize">{body}</p>
+          <div className="w-full text-start mt-2">
+            <p className="text-default-500 line-clamp-3 text-sm first-letter:capitalize">{body}</p>
           </div>
-          <div className="w-full">
+          <div className="w-full mt-2">
             <Link
               to={`/blogs/${category?.title ?? "_"}/${slug}`}
               className="flex items-center gap-2 text-medium uppercase"

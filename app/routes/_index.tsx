@@ -95,7 +95,6 @@ export default function Index() {
 
   const loaderData = useLoaderData<typeof loader>();
 
-  console.log({ loaderData });
 
   const [isCategoryOpen, setIsCategoryOpen] = useAtom(isCategoryListOpen);
 
@@ -110,18 +109,20 @@ export default function Index() {
         <div className=" container mx-auto flex flex-col md:flex-col lg:flex-row justify-center">
           <div
             aria-label="Link Categories"
-            className={` bg-white mr-3 -mt-4 hidden md:block divide-y divide-primary max-w-64 transition-height duration-300 ease-linear  ${
+            className={` overflow-y-scroll  bg-white mr-3 -mt-4 hidden md:block divide-y divide-primary max-w-64 transition-height duration-300 ease-linear  ${
               !isCategoryOpen
                 ? "h-0 w-0"
-                : "h-[28rem] min-h-[26rem] 2xl:h-[51rem] w-full xl:min-w-72 2xl:min-w-96"
+                : "h-[28rem] min-h-[26rem] 2xl:h-[34rem] w-full xl:min-w-72 2xl:min-w-96 "
             } `}
           >
             {/* category */}
-            <ScrollShadow className="w-full h-full ">
+            {/* <ScrollShadow className="w-full h-full overflow-x-hidden"> */}
+            <div className="">
               {loaderData && loaderData.categories && (
                 <CategoryList categories={loaderData.categories} />
               )}
-            </ScrollShadow>
+            </div>
+            {/* </ScrollShadow> */}
           </div>
           <div
             className={`flex flex-col md:flex-col lg:flex-row justify-center container mx-auto p-3 px-0 !m-0 md:px-0 transition-width duration-300 ease-linear ${
