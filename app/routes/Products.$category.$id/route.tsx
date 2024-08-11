@@ -1,5 +1,5 @@
 import { Form, Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import {
   Accordion,
   AccordionItem,
@@ -17,9 +17,9 @@ import {
   Tooltip,
   useDisclosure,
 } from "@nextui-org/react";
-import { BsCart3, BsCheck2Square, BsInfoCircle } from "react-icons/bs";
+import { BsCart2, BsCheck2Square, BsInfoCircle } from "react-icons/bs";
 import { FaStar } from "react-icons/fa6";
-import { HiOutlineUser } from "react-icons/hi";
+import { PiUserCircleFill } from "react-icons/pi";
 import { MdKeyboardDoubleArrowRight, MdOutlineDiscount } from "react-icons/md";
 import { TbTruckDelivery } from "react-icons/tb";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
@@ -33,6 +33,9 @@ import { ProductAboutCard } from "app/components/Product/ProductInfoCard";
 import { productAtom } from "app/atoms/product.atom";
 import { getProductInfo } from "app/api/products.api";
 import { removeSnakeCase } from "app/utils/fn";
+import appaImg from "app/assets/appa-sponsor.png";
+import { GiPriceTag } from "react-icons/gi";
+import { TfiWrite } from "react-icons/tfi";
 
 export const meta: MetaFunction = () => {
   return [
@@ -62,6 +65,7 @@ export default function ProductDetailsRoute() {
   const productF = useLoaderData<typeof loader>();
   const { category } = useParams();
   const [currentProd, setCurrentProd] = useAtom(productAtom);
+  const [isSelected, setIsSelected] = useState<boolean>(false);
 
   return (
     <>
@@ -356,94 +360,129 @@ export default function ProductDetailsRoute() {
                   </div>
                 </div>
 
+                {/* // TODO */}
                 <div className="space-y-4">
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between w-full space-y-2 md:space-y-0">
-                    <span className="text-lg md:text-xl font-bold text-primary">
-                      3.Pricing Details
-                    </span>
-                    <div className="flex items-center flex-wrap space-x-2 space-y-2 md:space-y-0">
-                      <HiOutlineUser className="text-primary text-xl" />
-                      <div className="flex flex-col text-center">
-                        <span className="text-xs md:text-sm text-orange font-bold">
-                          HAVE AN ACCOUNT?
+                  {!isSelected && (
+                    <>
+                      <div className="flex flex-col md:flex-row md:items-center md:justify-between w-full space-y-2 md:space-y-0">
+                        <span className="text-lg md:text-xl font-bold text-primary">
+                          3.Pricing Details
                         </span>
-                        <span className="text-xs md:text-sm text-orange font-bold">
-                          Please log in first
-                        </span>
+                        <div className="flex items-center flex-wrap space-x-2 space-y-2 md:space-y-0">
+                          <PiUserCircleFill className="text-primary text-3xl" />
+                          <div className="flex flex-col text-center">
+                            <span className="text-xs md:text-sm text-orange font-bold">
+                              HAVE AN ACCOUNT?
+                            </span>
+                            <span className="text-xs md:text-sm text-orange font-bold">
+                              Please log in first
+                            </span>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm md:text-lg font-semibold">Price(ea)</span>
-                    <span className="font-semibold text-sm md:text-base text-orange">$4.5</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm md:text-base font-normal">
-                      <i>plus</i> Options(ea)
-                    </span>
-                    <span className="font-semibold text-sm md:text-base">$4.5</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm md:text-base font-normal">
-                      {" "}
-                      <i>plus</i> Accessories(ea)
-                    </span>
-                    <span className="font-semibold text-sm md:text-base">$4.5</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm md:text-base font-normal">
-                      {" "}
-                      <i>plus</i> Packaging(ea)
-                    </span>
-                    <span className="font-semibold text-sm md:text-base">$4.5</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm md:text-lg font-semibold">Set-up</span>
-                    <span className="font-semibold text-sm md:text-base">$4.5</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm md:text-lg font-semibold">Freight</span>
-                    <span className="font-semibold text-sm md:text-base">$4.5</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm md:text-lg font-semibold">Total(ex. GST)</span>
-                    <span className="font-semibold text-sm md:text-base">$4.5</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center space-x-1">
-                      <MdOutlineDiscount className="text-orange" />
-                      <span className="text-orange">Vip/Special discount</span>
-                    </div>
-                    <span className="font-semibold text-sm md:text-base text-orange">$230</span>
-                  </div>
-                  <div className="bg-orange rounded-md">
-                    <div className="flex justify-between items-center p-2">
-                      <span className="text-white font-semibold text-sm md:text-base">
-                        Your price today(ex. GST)
-                      </span>
-                      <span className="text-white font-semibold text-sm md:text-base">$240</span>
-                    </div>
-                  </div>
-                  <Checkbox size="sm" className="text-sm">
+                      <Divider />
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm md:text-lg font-semibold">Price(ea)</span>
+                        <span className="font-semibold text-sm md:text-base text-orange">$4.5</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm md:text-base font-normal">
+                          <i>plus</i> Options(ea)
+                        </span>
+                        <span className="font-semibold text-sm md:text-base">$4.5</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm md:text-base font-normal">
+                          {" "}
+                          <i>plus</i> Accessories(ea)
+                        </span>
+                        <span className="font-semibold text-sm md:text-base">$4.5</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm md:text-base font-normal">
+                          {" "}
+                          <i>plus</i> Packaging(ea)
+                        </span>
+                        <span className="font-semibold text-sm md:text-base">$4.5</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm md:text-lg font-semibold">Set-up</span>
+                        <span className="font-semibold text-sm md:text-base">$4.5</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm md:text-lg font-semibold">Freight</span>
+                        <span className="font-semibold text-sm md:text-base">$4.5</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm md:text-lg font-semibold">Total(ex. GST)</span>
+                        <span className="font-semibold text-sm md:text-base">$4.5</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <div className="flex items-center space-x-1">
+                          <MdOutlineDiscount className="text-orange" />
+                          <span className="text-orange">Vip/Special discount</span>
+                        </div>
+                        <span className="font-semibold text-sm md:text-base text-orange">$230</span>
+                      </div>
+                      <div className="bg-orange rounded-md">
+                        <div className="flex justify-between items-center p-2">
+                          <span className="text-white font-semibold text-sm md:text-base">
+                            Your price today(ex. GST)
+                          </span>
+                          <span className="text-white font-semibold text-sm md:text-base">
+                            $240
+                          </span>
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                  <Divider />
+                  <Checkbox
+                    size="sm"
+                    className="text-sm"
+                    isSelected={isSelected}
+                    onValueChange={setIsSelected}
+                  >
                     Have more specific requirements? Request a quote
                   </Checkbox>
-                  <div className="grid grid-cols-2 gap-3">
+                  {isSelected ? (
                     <Button
                       variant="bordered"
-                      radius="none"
+                      radius="sm"
+                      fullWidth
                       className="bg-green-500 text-white border-green-500"
+                      startContent={<TfiWrite className="text-lg font-extrabold" />}
+                      as={Link}
+                      to="/request-quote"
                     >
-                      Buy Now
+                      Request A Quote
                     </Button>
-                    <Button
-                      radius="none"
-                      className="bg-primary text-white"
-                      startContent={<BsCart3 />}
-                      onPress={onOpen}
-                    >
-                      Send Pricing
-                    </Button>
-                  </div>
+                  ) : (
+                    <>
+                      <div className="grid grid-cols-2 gap-3">
+                        <Button
+                          variant="bordered"
+                          radius="sm"
+                          className="bg-green-500 text-white border-green-500"
+                          startContent={<BsCart2 className="text-xl font-extrabold" />}
+                          as={Link}
+                          to="/cart"
+                        >
+                          Buy Now
+                        </Button>
+                        <Button
+                          radius="sm"
+                          className="bg-primary text-white"
+                          startContent={<GiPriceTag className="text-xl font-extrabold" />}
+                          onPress={onOpen}
+                        >
+                          Send Pricing
+                        </Button>
+                      </div>
+                    </>
+                  )}
+                  <Image alt="appa-sponsor" radius="md" src={appaImg} removeWrapper fallbackSrc />
                 </div>
               </div>
             </div>
