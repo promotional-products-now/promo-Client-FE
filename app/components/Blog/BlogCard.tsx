@@ -2,10 +2,18 @@ import { Link } from "@remix-run/react";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { BlogCardProps } from "../../routes/Blog/interface";
+import { isObject } from "../BlogEditor/utils/isObject";
+import ReadEditor from "../BlogEditor/ReadBlog";
 
 export const BlogCard = ({ imageSrc, title, category, body, slug }: BlogCardProps) => {
+  let mainBody;
+  try {
+    mainBody = JSON.parse(body);
+  } catch (e) {
+    mainBody = body;
+  }
   return (
-    <Card isPressable className="rounded-none shadow-none" radius="sm">
+    <Card isPressable className="rounded-none shadow-none w-full" radius="sm">
       <CardBody className="overflow-visible p-0 relative">
         <Image
           shadow="none"
@@ -32,13 +40,19 @@ export const BlogCard = ({ imageSrc, title, category, body, slug }: BlogCardProp
           </div>
         )}
       </CardBody>
-      <CardFooter className="bg-white-bg flex flex-col gap-4 justify-between px-4">
+      <CardFooter className="bg-white-bg flex items-start flex-col gap-4 justify-between px-4">
         <Link to={`/blogs/${category?.title ?? "_"}/${slug}`}>
           <h4 className="font-semibold text-base flex justify-start items-start text-left w-full capitalize">
             {title}
           </h4>
           <div className="w-full text-start mt-2">
-            <p className="text-default-500 line-clamp-3 text-sm first-letter:capitalize">{body}</p>
+            {mainBody && isObject(mainBody) ? (
+              <ReadEditor body={mainBody} isText={true} />
+            ) : (
+              <p className="text-default-500 line-clamp-3 text-sm first-letter:capitalize">
+                {mainBody}
+              </p>
+            )}
           </div>
           <div className="w-full mt-2">
             <Link

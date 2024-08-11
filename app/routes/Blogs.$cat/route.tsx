@@ -40,7 +40,7 @@ const Blog = () => {
               title={post?.title}
               slug={post?.slug || post?.title}
               description={post?.description}
-              imageSrc={post.image}
+              imageSrc={post.imageSrc}
               _id={post?._id}
               category={post?.category}
               body={post?.body}
