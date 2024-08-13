@@ -6,18 +6,22 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CommentSchema } from "app/schema/comment.schema";
+import { ClientOnly } from "remix-utils/client-only";
 import {
   blogCommentApi,
   fetchAllBlogsApi,
   fetchSingleBlogApi,
   fetchBlogsCategoryApi,
 } from "app/api/blog.api";
+
 import { getSession } from "app/sessions";
 
 import SocialShareButton from "app/components/SocialIconBtn";
 import { icons } from "app/contents/socialIcons";
 import axios from "axios";
 import { LoaderFunction } from "@remix-run/node";
+import EditorWriterApp from "app/components/BlogEditor";
+import { isObject } from "app/components/BlogEditor/utils/isObject";
 
 export const meta: MetaFunction = () => {
   return [
@@ -82,7 +86,7 @@ interface BlogPostType {
   _id: string;
   title: string;
   slug: string;
-  image?: string;
+  imageSrc?: string;
   category: Category;
 }
 
@@ -90,6 +94,12 @@ export default function BlogPost() {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const { blog, blogs, user, blogCategories } = useLoaderData<typeof loader>();
   const { post } = blog;
+  let mainBody: any;
+  try {
+    mainBody = JSON.parse(post?.body ?? "");
+  } catch (e) {
+    mainBody = post?.body;
+  }
 
   const [query, setQuery] = useState<string>("");
 
@@ -145,7 +155,15 @@ export default function BlogPost() {
             <h2 className="font-bold text-2xl text-black md:text-3xl">{post && post.title}</h2>
 
             <div className="text-justify md:text-left md:text-lg">
-              <p>{post && post.body}</p>
+              {mainBody && isObject(mainBody) ? (
+                //
+                <ClientOnly fallback={<p>Loading</p>}>
+                  {() => <EditorWriterApp initalData={JSON.stringify(mainBody)} />}
+                </ClientOnly>
+              ) : (
+                <p>{mainBody}</p>
+              )}
+              {/* <p>{mainBody}</p> */}
             </div>
 
             <div className="flex w-full flex-col gap-6">
@@ -226,9 +244,13 @@ export default function BlogPost() {
             <h2 className="font-bold text-black text-2xl">Share this blog article</h2>
             <div className="flex flex-wrap gap-3 items-start">
               <Tooltip showArrow={false} content="Copy" color="foreground">
-                <button onClick={handlePostPostUrl} className="bg-gray text-white px-2 py-1.5">
+                <Button
+                  onClick={handlePostPostUrl}
+                  isIconOnly={true}
+                  className="bg-gray rounded-[0.4rem] text-white px-2 py-1.5"
+                >
                   <BiShareAlt size={30} />
-                </button>
+                </Button>
               </Tooltip>
               {icons.map(({ id, IconBtn, Icon, href, color }) => (
                 <SocialShareButton
@@ -383,7 +405,7 @@ export default function BlogPost() {
                         alt=""
                         className="w-[10rem] h-[6rem] object-cover"
                         src={
-                          post?.image ??
+                          post?.imageSrc ??
                           "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg"
                         }
                       />
