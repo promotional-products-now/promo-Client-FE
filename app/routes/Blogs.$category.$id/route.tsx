@@ -158,9 +158,7 @@ export default function BlogPost() {
               {mainBody && isObject(mainBody) ? (
                 //
                 <ClientOnly fallback={<p>Loading</p>}>
-                  {() => (
-                    <EditorWriterApp initalData={JSON.stringify(mainBody)} isEditable={false} />
-                  )}
+                  {() => <EditorWriterApp initalData={JSON.stringify(mainBody)} />}
                 </ClientOnly>
               ) : (
                 <p>{mainBody}</p>

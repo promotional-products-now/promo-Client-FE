@@ -20,7 +20,7 @@ import { OverflowNode } from "@lexical/overflow";
 
 import ExampleTheme from "./theme";
 // import AutoLinkPlugin from "./plugin/AutoLinkPlugin";
-import { EditorState, Klass, LexicalNode } from "lexical";
+import { Klass, LexicalNode } from "lexical";
 import { PageBreakNode } from "./nodes/PageBreakNode";
 import PageBreakPlugin from "./plugins/PageBreakPlugin";
 import { HorizontalRuleNode } from "@lexical/react/LexicalHorizontalRuleNode";
@@ -92,15 +92,7 @@ const PlaygroundNodes: Array<Klass<LexicalNode>> = [
   AutoLinkNode,
 ];
 
-export default function EditorWriterApp({
-  getEditorText,
-  initalData,
-  isEditable = true,
-}: {
-  isEditable?: boolean;
-  initalData?: any;
-  getEditorText?: (arg: any) => void;
-}) {
+export default function EditorWriterApp({ initalData }: { initalData?: any }) {
   const [floatingAnchorElem] = useState<HTMLDivElement | null>(null);
   const [isSmallWidthViewport, setIsSmallWidthViewport] = useState<boolean>(false);
   const [isLinkEditMode, setIsLinkEditMode] = useState<boolean>(false);
@@ -131,18 +123,10 @@ export default function EditorWriterApp({
     onError(error: Error) {
       throw error;
     },
-    editable: isEditable,
+    editable: false,
     // The editor theme
     theme: ExampleTheme,
-    editorState: initalData ? initalData : null,
-  };
-
-  const onChange = (editorState: EditorState) => {
-    const editorStateJSON = editorState.toJSON();
-
-    if (getEditorText) {
-      getEditorText(JSON.stringify(editorStateJSON));
-    }
+    editorState: initalData,
   };
 
   return (

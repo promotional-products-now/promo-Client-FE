@@ -8,7 +8,7 @@ import { faqSchema } from "./seo";
 interface FAQ {
   title: string;
   answer: string;
-  section: string;
+  section: { _id: string; title: string };
   _id: string;
   createdAt: string;
   updatedAt: string;
@@ -29,10 +29,10 @@ export const meta: MetaFunction = () => {
 function groupFAQsBySection(faqs: FAQ[]): GroupedFAQs {
   if (faqs) {
     return faqs.reduce((acc: GroupedFAQs, faq: FAQ) => {
-      if (!acc[faq.section]) {
-        acc[faq.section] = [];
+      if (!acc[faq?.section?.title]) {
+        acc[faq?.section?.title] = [];
       }
-      acc[faq.section].push(faq);
+      acc[faq?.section?.title ?? faq.section].push(faq);
       return acc;
     }, {});
   }
@@ -41,7 +41,6 @@ function groupFAQsBySection(faqs: FAQ[]): GroupedFAQs {
 
 export const loader = async () => {
   const { data } = await fetchFaqApi({});
-  console.log({ data: data.payload.data });
 
   const groupedFAQs = groupFAQsBySection(data?.payload?.data || []);
 
