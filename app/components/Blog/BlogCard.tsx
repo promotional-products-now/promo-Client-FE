@@ -43,13 +43,10 @@ export const BlogCard = ({ imageSrc, title, category, summary, slug }: BlogCardP
             </p>
           </div>
           <div className="w-full mt-2">
-            <Link
-              to={`/blogs/${category?.title ?? "_"}/${slug}`}
-              className="flex items-center gap-2 text-medium uppercase"
-            >
+            <div className="flex items-center gap-2 text-medium uppercase">
               <FaArrowRightLong className="text-primary" />
               <span className="font-semibold text-sm">View article</span>
-            </Link>
+            </div>
           </div>
         </Link>
       </CardFooter>
