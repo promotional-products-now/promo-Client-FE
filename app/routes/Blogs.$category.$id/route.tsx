@@ -158,13 +158,12 @@ export default function BlogPost() {
               {mainBody && isObject(mainBody) ? (
                 //
                 <ClientOnly fallback={<p>Loading</p>}>
-                  {() => (
-                    <EditorWriterApp initalData={JSON.stringify(mainBody)} isEditable={false} />
-                  )}
+                  {() => <EditorWriterApp initalData={JSON.stringify(mainBody)} />}
                 </ClientOnly>
               ) : (
                 <p>{mainBody}</p>
               )}
+              {/* <p>{mainBody}</p> */}
             </div>
 
             <div className="flex w-full flex-col gap-6">
@@ -245,9 +244,13 @@ export default function BlogPost() {
             <h2 className="font-bold text-black text-2xl">Share this blog article</h2>
             <div className="flex flex-wrap gap-3 items-start">
               <Tooltip showArrow={false} content="Copy" color="foreground">
-                <button onClick={handlePostPostUrl} className="bg-gray text-white px-2 py-1.5">
+                <Button
+                  onClick={handlePostPostUrl}
+                  isIconOnly={true}
+                  className="bg-gray rounded-[0.4rem] text-white px-2 py-1.5"
+                >
                   <BiShareAlt size={30} />
-                </button>
+                </Button>
               </Tooltip>
               {icons.map(({ id, IconBtn, Icon, href, color }) => (
                 <SocialShareButton

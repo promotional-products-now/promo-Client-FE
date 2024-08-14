@@ -7,8 +7,7 @@
  */
 import "./index.css";
 import "./theme.css";
-import { CodeHighlightNode, CodeNode } from "@lexical/code";
-import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
+
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
@@ -19,23 +18,14 @@ import { HeadingNode, QuoteNode } from "@lexical/rich-text";
 import { OverflowNode } from "@lexical/overflow";
 
 import ExampleTheme from "./theme";
-// import AutoLinkPlugin from "./plugin/AutoLinkPlugin";
-import { EditorState, Klass, LexicalNode } from "lexical";
+import { Klass, LexicalNode } from "lexical";
 import { PageBreakNode } from "./nodes/PageBreakNode";
-import PageBreakPlugin from "./plugins/PageBreakPlugin";
 import { HorizontalRuleNode } from "@lexical/react/LexicalHorizontalRuleNode";
 import { TweetNode } from "./nodes/TweetNode";
 import { YouTubeNode } from "./nodes/YouTubeNode";
 import { CollapsibleContainerNode } from "./plugins/CollapsiblePlugin/CollapsibleContainerNode";
 import { CollapsibleContentNode } from "./plugins/CollapsiblePlugin/CollapsibleContentNode";
 import { CollapsibleTitleNode } from "./plugins/CollapsiblePlugin/CollapsibleTitleNode";
-import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
-import { TablePlugin } from "@lexical/react/LexicalTablePlugin";
-import CollapsiblePlugin from "./plugins/CollapsiblePlugin";
-import TableCellResizer from "./plugins/TableCellResizer";
-import TableHoverActionsPlugin from "./plugins/TableHoverActionsPlugin";
-import TwitterPlugin from "./plugins/TwitterPlugin";
-import YouTubePlugin from "./plugins/YouTubePlugin";
 import { TableCellNode, TableNode, TableRowNode } from "@lexical/table";
 import { HashtagNode } from "@lexical/hashtag";
 import { LayoutContainerNode } from "./nodes/LayoutContainerNode";
@@ -45,20 +35,6 @@ import { FlashMessageContext } from "./context/FlashMessageContext";
 import { EmojiNode } from "./nodes/EmojiNode";
 import { useEffect, useState } from "react";
 import { CAN_USE_DOM } from "./shared/canUseDOM";
-import ComponentPickerPlugin from "./plugins/ComponentPickerPlugin";
-import { HashtagPlugin } from "@lexical/react/LexicalHashtagPlugin";
-import AutoEmbedPlugin from "./plugins/AutoEmbedPlugin";
-import EmojiPickerPlugin from "./plugins/EmojiPickerPlugin";
-import EmojisPlugin from "./plugins/EmojisPlugin";
-import { CheckListPlugin } from "@lexical/react/LexicalCheckListPlugin";
-import { ListPlugin } from "@lexical/react/LexicalListPlugin";
-import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin";
-import CodeActionMenuPlugin from "./plugins/CodeActionMenuPlugin";
-import DraggableBlockPlugin from "./plugins/DraggableBlockPlugin";
-import FloatingLinkEditorPlugin from "./plugins/FloatingLinkEditorPlugin";
-import FloatingTextFormatToolbarPlugin from "./plugins/FloatingTextFormatToolbarPlugin";
-import { LayoutPlugin } from "./plugins/LayoutPlugin/LayoutPlugin";
-import TableCellActionMenuPlugin from "./plugins/TableActionMenuPlugin";
 
 const placeholder = "Enter some rich text...";
 const PlaygroundNodes: Array<Klass<LexicalNode>> = [
@@ -66,14 +42,12 @@ const PlaygroundNodes: Array<Klass<LexicalNode>> = [
   ListNode,
   ListItemNode,
   QuoteNode,
-  CodeNode,
   TableNode,
   TableCellNode,
   TableRowNode,
   HashtagNode,
   TweetNode,
   YouTubeNode,
-  CodeHighlightNode,
   AutoLinkNode,
   LinkNode,
   OverflowNode,
@@ -92,18 +66,8 @@ const PlaygroundNodes: Array<Klass<LexicalNode>> = [
   AutoLinkNode,
 ];
 
-export default function EditorWriterApp({
-  getEditorText,
-  initalData,
-  isEditable = true,
-}: {
-  isEditable?: boolean;
-  initalData?: any;
-  getEditorText?: (arg: any) => void;
-}) {
-  const [floatingAnchorElem] = useState<HTMLDivElement | null>(null);
+export default function EditorWriterApp({ initalData }: { initalData?: any }) {
   const [isSmallWidthViewport, setIsSmallWidthViewport] = useState<boolean>(false);
-  const [isLinkEditMode, setIsLinkEditMode] = useState<boolean>(false);
 
   useEffect(() => {
     const updateViewPortWidth = () => {
@@ -122,7 +86,6 @@ export default function EditorWriterApp({
     };
   }, [isSmallWidthViewport]);
 
-  // const [editorState, setEditorState] = useState<string>();
   console.log({ initalData });
   const editorConfig = {
     namespace: "PPN blog",
@@ -131,18 +94,10 @@ export default function EditorWriterApp({
     onError(error: Error) {
       throw error;
     },
-    editable: isEditable,
+    editable: false,
     // The editor theme
     theme: ExampleTheme,
-    editorState: initalData ? initalData : null,
-  };
-
-  const onChange = (editorState: EditorState) => {
-    const editorStateJSON = editorState.toJSON();
-
-    if (getEditorText) {
-      getEditorText(JSON.stringify(editorStateJSON));
-    }
+    editorState: initalData,
   };
 
   return (
@@ -151,8 +106,6 @@ export default function EditorWriterApp({
         <TableContext>
           <div className="editor-container">
             <div className="editor-inner">
-              {/* <AutoLinkPlugin /> */}
-              <ComponentPickerPlugin />
               <RichTextPlugin
                 contentEditable={
                   <ContentEditable
@@ -163,42 +116,6 @@ export default function EditorWriterApp({
                 }
                 ErrorBoundary={LexicalErrorBoundary}
               />
-              <PageBreakPlugin />
-              <CollapsiblePlugin />
-              <TablePlugin hasCellMerge={true} hasCellBackgroundColor={true} />
-              <TableCellResizer />
-              <TableHoverActionsPlugin />
-              <LinkPlugin />
-              <TwitterPlugin />
-              <YouTubePlugin />
-              <AutoFocusPlugin />
-
-              <EmojiPickerPlugin />
-              <AutoEmbedPlugin />
-              <EmojisPlugin />
-              <HashtagPlugin />
-              {/* <KeywordsPlugin /> */}
-              <CodeHighlightPlugin />
-              <ListPlugin />
-              <CheckListPlugin />
-              <LayoutPlugin />
-
-              {floatingAnchorElem && !isSmallWidthViewport && (
-                <>
-                  <DraggableBlockPlugin anchorElem={floatingAnchorElem} />
-                  <CodeActionMenuPlugin anchorElem={floatingAnchorElem} />
-                  <FloatingLinkEditorPlugin
-                    anchorElem={floatingAnchorElem}
-                    isLinkEditMode={isLinkEditMode}
-                    setIsLinkEditMode={setIsLinkEditMode}
-                  />
-                  <TableCellActionMenuPlugin anchorElem={floatingAnchorElem} cellMerge={true} />
-                  <FloatingTextFormatToolbarPlugin
-                    anchorElem={floatingAnchorElem}
-                    setIsLinkEditMode={setIsLinkEditMode}
-                  />
-                </>
-              )}
             </div>
           </div>
         </TableContext>

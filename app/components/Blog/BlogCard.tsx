@@ -2,16 +2,8 @@ import { Link } from "@remix-run/react";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { BlogCardProps } from "../../routes/Blog/interface";
-import { isObject } from "../BlogEditor/utils/isObject";
-import ReadEditor from "../BlogEditor/ReadBlog";
 
-export const BlogCard = ({ imageSrc, title, category, body, slug }: BlogCardProps) => {
-  let mainBody;
-  try {
-    mainBody = JSON.parse(body);
-  } catch (e) {
-    mainBody = body;
-  }
+export const BlogCard = ({ imageSrc, title, category, summary, slug }: BlogCardProps) => {
   return (
     <Card isPressable className="rounded-none shadow-none w-full" radius="sm">
       <CardBody className="overflow-visible p-0 relative">
@@ -46,22 +38,15 @@ export const BlogCard = ({ imageSrc, title, category, body, slug }: BlogCardProp
             {title}
           </h4>
           <div className="w-full text-start mt-2">
-            {mainBody && isObject(mainBody) ? (
-              <ReadEditor body={mainBody} isText={true} />
-            ) : (
-              <p className="text-default-500 line-clamp-3 text-sm first-letter:capitalize">
-                {mainBody}
-              </p>
-            )}
+            <p className="text-default-500 line-clamp-3 text-sm first-letter:capitalize">
+              {summary}
+            </p>
           </div>
           <div className="w-full mt-2">
-            <Link
-              to={`/blogs/${category?.title ?? "_"}/${slug}`}
-              className="flex items-center gap-2 text-medium uppercase"
-            >
+            <div className="flex items-center gap-2 text-medium uppercase">
               <FaArrowRightLong className="text-primary" />
               <span className="font-semibold text-sm">View article</span>
-            </Link>
+            </div>
           </div>
         </Link>
       </CardFooter>
