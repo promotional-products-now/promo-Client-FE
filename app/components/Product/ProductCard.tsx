@@ -1,4 +1,5 @@
 import { Image, Link, Button } from "@nextui-org/react";
+import { useNavigate } from "@remix-run/react";
 import { toSnakeCase } from "app/utils/fn";
 import { BsCart3 } from "react-icons/bs";
 import { FiEye } from "react-icons/fi";
@@ -39,6 +40,7 @@ export const ProductCard = ({
     category,
     id,
   };
+  const navigate = useNavigate();
 
   return (
     <>
@@ -50,13 +52,16 @@ export const ProductCard = ({
               radius="none"
               src={image}
               removeWrapper
+              onClick={() => {
+                navigate(`/products/${category ? toSnakeCase(category) : "_"}/${id}`);
+              }}
               className="object-cover border-2 border-zinc-100 h-full w-full transition aspect-square inset-0"
             />
           ) : (
             <div className="bg-slate-100 h-full w-full"></div>
           )}
 
-          <div className="grid grid-cols-2 absolute bottom-0 opacity-0 group-hover:opacity-100 transition w-full z-20">
+          <div className="hidden md:grid grid-cols-2 absolute bottom-0 opacity-0 group-hover:opacity-100 transition w-full z-20">
             <Button
               radius="none"
               className="bg-orange text-white"
