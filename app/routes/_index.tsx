@@ -29,6 +29,7 @@ import ClothingImage from "app/assets/category/clothing.jpg";
 import axios from "axios";
 import { homePageSchema } from "./_index_seo";
 import { getMinMaxPrice } from "app/utils/fn";
+import allCategory from "app/utils/categories";
 
 export const meta: MetaFunction = () => {
   return [
@@ -38,33 +39,26 @@ export const meta: MetaFunction = () => {
 };
 export const loader: LoaderFunction = async () => {
   try {
-    async function getProductsAndCategories() {
-      const [productsResponse, categoriesResponse] = await Promise.all([
-        fetchProductsApi({ page: 20 }),
-        fetchProductCategories(),
-      ]);
-      return { products: productsResponse.data.docs, categories: categoriesResponse };
-    }
-
+    // Fetch all necessary data in parallel
     const [
-      { products, categories },
+      productsResponse,
       healthProductsResponse,
       clothingProductsResponse,
       homeAndLivingProductsResponse,
       blogResponse,
       leastProductsResponse,
     ] = await Promise.all([
-      getProductsAndCategories(),
+      fetchProductsApi({ page: 20, limit: 6 }),
       fetchProductByCategory("Health & Personal"),
       fetchProductByCategory("Clothing"),
       fetchProductByCategory("Home & Living"),
-      fetchAllBlogsApi({ limit: 10 }),
-      fetchProductsApi({ page: 1 }),
+      fetchAllBlogsApi({ limit: 6 }),
+      fetchProductsApi({ page: 1, limit: 4 }),
     ]);
 
+    // Process and return data
     return json({
-      products,
-      categories,
+      products: productsResponse.data.docs,
       leastProducts: leastProductsResponse.data.docs,
       blog: blogResponse.data?.payload?.data || [],
       healthProducts: healthProductsResponse.data,
@@ -72,6 +66,7 @@ export const loader: LoaderFunction = async () => {
       homeAndLivingProducts: homeAndLivingProductsResponse.data,
     });
   } catch (error) {
+    // Handle errors with appropriate status codes and messages
     if (axios.isAxiosError(error)) {
       console.error("Axios error:", error.message);
       throw new Response(error.message, {
@@ -95,7 +90,6 @@ export default function Index() {
 
   const loaderData = useLoaderData<typeof loader>();
 
-
   const [isCategoryOpen, setIsCategoryOpen] = useAtom(isCategoryListOpen);
 
   const handlePreviewProd = (product: any) => {
@@ -117,11 +111,7 @@ export default function Index() {
           >
             {/* category */}
             {/* <ScrollShadow className="w-full h-full overflow-x-hidden"> */}
-            <div className="">
-              {loaderData && loaderData.categories && (
-                <CategoryList categories={loaderData.categories} />
-              )}
-            </div>
+            <div className="">{allCategory && <CategoryList categories={allCategory} />}</div>
             {/* </ScrollShadow> */}
           </div>
           <div

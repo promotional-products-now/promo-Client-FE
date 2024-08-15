@@ -20,7 +20,7 @@ export const aboutLinks: FooterT[] = [
 ];
 
 export const companyInfo: FooterT[] = [
-  { name: "Home", npathname: "/" },
+  { name: "Home", pathname: "/" },
   { name: "About Us", pathname: "/about" },
   { name: "FAQs", pathname: "/faq" },
   { name: "Blog", pathname: "/blog" },

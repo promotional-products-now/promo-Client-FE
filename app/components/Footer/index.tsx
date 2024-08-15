@@ -128,7 +128,7 @@ const BottomNavigation = () => {
   let data = useLoaderData<typeof loader>();
 
   return (
-    <div className="fixed z-50 bottom-0 left-0 w-full bg-white  text-zinc-600 text-xl shadow-md">
+    <div className="fixed z-[1000] bottom-0 left-0 w-full bg-white  text-zinc-600 text-xl shadow-md">
       <div className="flex justify-around py-2">
         <Link to="/">
           <NavItem icon={<FaHome />} label="Home" />

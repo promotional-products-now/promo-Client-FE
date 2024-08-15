@@ -110,15 +110,9 @@ function TweetComponent({
   }, [createTweet, onError, tweetID]);
 
   return (
-    <BlockWithAlignableContents
-      className={className}
-      format={format}
-      nodeKey={nodeKey}>
+    <BlockWithAlignableContents className={className} format={format} nodeKey={nodeKey}>
       {isTweetLoading ? loadingComponent : null}
-      <div
-        style={{display: 'inline-block', width: '550px'}}
-        ref={containerRef}
-      />
+      <div className="w-full xl:w-96 2xl:w-[34rem] inline-block" ref={containerRef} />
     </BlockWithAlignableContents>
   );
 }

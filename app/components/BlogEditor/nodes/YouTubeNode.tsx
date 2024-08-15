@@ -42,18 +42,15 @@ function YouTubeComponent({
   videoID,
 }: YouTubeComponentProps) {
   return (
-    <BlockWithAlignableContents
-      className={className}
-      format={format}
-      nodeKey={nodeKey}>
+    <BlockWithAlignableContents className={className} format={format} nodeKey={nodeKey}>
       <iframe
-        width="560"
         height="315"
         src={`https://www.youtube-nocookie.com/embed/${videoID}`}
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen={true}
         title="YouTube video"
+        className=" max-w-full w-full 2xl:w-[34rem] "
       />
     </BlockWithAlignableContents>
   );
