@@ -350,6 +350,7 @@ export default function Index() {
                   <div key={post._id} className="flex flex-col md:flex-row gap-1 sm:mx-2 md:mx-1">
                     <BlogCard
                       title={post.title}
+                      summary={post.summary}
                       slug={post?.slug || post?.title}
                       description={post.description}
                       imageSrc={post.imageSrc}

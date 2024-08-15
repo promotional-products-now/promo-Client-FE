@@ -13,7 +13,6 @@ import {
   fetchSingleBlogApi,
   fetchBlogsCategoryApi,
 } from "app/api/blog.api";
-
 import { getSession } from "app/sessions";
 
 import SocialShareButton from "app/components/SocialIconBtn";
