@@ -9,11 +9,9 @@ interface SocialShareButtonProps {
 
 const SocialShareButton: React.FC<SocialShareButtonProps> = ({ IconBtn, Icon, href, color }) => {
   return (
-    <div>
-      <IconBtn url={href} className={`p-2 bg-[${color}]`}>
-        <Icon size={42} />
-      </IconBtn>
-    </div>
+    <IconBtn url={href} className={` overflow-hidden rounded-[0.4rem] p-2 bg-[${color}]`}>
+      <Icon size={42} />
+    </IconBtn>
   );
 };
 
