@@ -14,6 +14,13 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+export function headers() {
+  return {
+    "cache-control": "max-age=604800, stale-while-revalidate=86400",
+  };
+}
+
+
 const AboutPage = () => {
   return (
     <div className="flex flex-col gap-3 w-full mx-auto py-4 px-0 lg:p-0 ">
