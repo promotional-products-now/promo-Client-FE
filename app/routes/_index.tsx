@@ -37,6 +37,13 @@ export const meta: MetaFunction = () => {
     { name: "description", content: "Welcome to Promotional Products Now" },
   ];
 };
+
+export function headers() {
+  return {
+    "cache-control": "max-age=604800, stale-while-revalidate=86400",
+  };
+}
+
 export const loader: LoaderFunction = async () => {
   try {
     // Fetch all necessary data in parallel

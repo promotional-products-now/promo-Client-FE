@@ -2,6 +2,12 @@ import { Button, Image } from "@nextui-org/react";
 import { Link } from "@remix-run/react";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 
+export function headers() {
+  return {
+    "cache-control": "max-age=604800, stale-while-revalidate=86400",
+  };
+}
+
 export default function route() {
   return (
     <div className="space-y-6 md:space-y-10">

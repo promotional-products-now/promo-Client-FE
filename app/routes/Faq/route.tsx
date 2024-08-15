@@ -19,6 +19,12 @@ interface GroupedFAQs {
   [key: string]: FAQ[];
 }
 
+export function headers() {
+  return {
+    "cache-control": "max-age=604800, stale-while-revalidate=86400",
+  };
+}
+
 export const meta: MetaFunction = () => {
   return [
     { title: "FAQ | Promotional Products Now " },
