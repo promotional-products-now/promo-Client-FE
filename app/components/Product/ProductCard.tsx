@@ -1,0 +1,98 @@
+import { Image, Link, Button } from "@nextui-org/react";
+import { toSnakeCase } from "app/utils/fn";
+import { BsCart3 } from "react-icons/bs";
+import { FiEye } from "react-icons/fi";
+
+export type ProductCardProps = {
+  image: string;
+  images?: string[];
+  productCode?: string;
+  title: string;
+  description: string;
+  basePrice: { minPrice: number; maxPrice: number };
+  qunatity: number;
+  handlePreviewFn: (data: any) => void;
+  category: string;
+  id: string;
+};
+
+export const ProductCard = ({
+  image,
+  images,
+  productCode,
+  title,
+  description,
+  basePrice,
+  qunatity,
+  category,
+  id,
+  handlePreviewFn,
+}: ProductCardProps) => {
+  const props = {
+    image,
+    title,
+    description,
+    basePrice,
+    qunatity,
+    images,
+    productCode,
+    category,
+    id,
+  };
+
+  return (
+    <>
+      <div className="cursor-pointer group lg:max-w-80">
+        <div className="aspect-square w-full relative overflow-hidden p-0 md:mb-4-">
+          {image ? (
+            <Image
+              alt={title}
+              radius="none"
+              src={image}
+              removeWrapper
+              className="object-cover border-2 border-zinc-100 h-full w-full transition aspect-square inset-0"
+            />
+          ) : (
+            <div className="bg-slate-100 h-full w-full"></div>
+          )}
+
+          <div className="grid grid-cols-2 absolute bottom-0 opacity-0 group-hover:opacity-100 transition w-full z-20">
+            <Button
+              radius="none"
+              className="bg-orange text-white"
+              startContent={<FiEye />}
+              onPress={() => handlePreviewFn(props)}
+            >
+              Preview
+            </Button>
+            <Button
+              as={Link}
+              href={`/products/${category ? toSnakeCase(category) : "_"}/${id}`}
+              radius="none"
+              className="bg-primary text-white"
+              startContent={<BsCart3 />}
+            >
+              View Product
+            </Button>
+          </div>
+        </div>
+
+        <div className="overflow-visible text-justify py-2">
+          <div className="text-primary capitalize font-semibold  2x:text-lg">{title}</div>
+          <p className="text-black text-small mb-2 line-clamp-4">{description}</p>
+          <div className="flex flex-row text-sm justify-between">
+            {basePrice && (
+              <div className="text-gray-700 flex flex-row gap-1">
+                <span className="text-small">
+                  from <span className="text-orange text-small">{basePrice?.minPrice}</span> to
+                  <span className="text-primary text-small"> {basePrice?.maxPrice}</span>
+                </span>
+              </div>
+            )}
+            {/* {qunatity && <div className="text-xs">{qunatity}</div>} */}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
