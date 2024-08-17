@@ -39,16 +39,14 @@ function FigmaComponent({
   documentID,
 }: FigmaComponentProps) {
   return (
-    <BlockWithAlignableContents
-      className={className}
-      format={format}
-      nodeKey={nodeKey}>
+    <BlockWithAlignableContents className={className} format={format} nodeKey={nodeKey}>
       <iframe
         width="560"
         height="315"
         src={`https://www.figma.com/embed?embed_host=lexical&url=\
         https://www.figma.com/file/${documentID}`}
         allowFullScreen={true}
+        className=" max-w-full w-full xl:w-96 2xl:w-[34rem] "
       />
     </BlockWithAlignableContents>
   );

@@ -1,13 +1,5 @@
 import { useState } from "react";
-import {
-  Button,
-  Link,
-  Listbox,
-  ListboxItem,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-} from "@nextui-org/react";
+import { Listbox, ListboxItem } from "@nextui-org/react";
 import { toSnakeCase } from "app/utils/fn";
 import { Link as RemixLink } from "@remix-run/react";
 interface category {
@@ -44,15 +36,15 @@ function CategoryList(props: any) {
           props.categories.map((cat: categoryI) => (
             <ListboxItem
               variant="light"
-              as={RemixLink}
               showDivider
               key={cat.id}
-              href={`/categories/${toSnakeCase(cat.name)}`}
               className="text-left bg-white text-zinc-800 text-xs md:font-medium  capitalize md:uppercase"
               classNames={{ title: " md:font-medium" }}
             >
-              {cat.name}{" "}
-              <span className="text-primary-400 text-sm font-normal">({cat.totalProduct})</span>
+              <RemixLink to={`/categories/${toSnakeCase(cat.name)}`} className="w-full">
+                {cat.name}
+                <span className="text-primary-400 text-sm font-normal">({cat.totalProduct})</span>
+              </RemixLink>
             </ListboxItem>
           ))}
       </Listbox>

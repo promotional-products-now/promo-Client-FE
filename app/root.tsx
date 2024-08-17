@@ -166,7 +166,7 @@ export function ErrorBoundary() {
     if (isAxiosError(error)) {
       const { title, message, suggestion } = getFriendlyMessage(error.response?.status || 500);
       return (
-        <div className="flex flex-col justify-center items-center h-screen bg-red-100 p-1">
+        <div className="flex flex-col justify-center items-center h-screen bg-zinc-50 p-1">
           <div className="text-center bg-white p-4 md:p-8 rounded shadow-lg">
             {error.response?.status && (
               <h1 className="text-6xl md:text-8xl font-bold text-primary">
@@ -187,7 +187,7 @@ export function ErrorBoundary() {
     } else if (isRouteErrorResponse(error)) {
       const { title, message, suggestion } = getFriendlyMessage(error.status);
       return (
-        <div className="flex flex-col justify-center items-center h-screen bg-red-100 p-1">
+        <div className="flex flex-col justify-center items-center h-screen bg-zinc-50 p-1">
           <div className="text-center bg-white p-4 md:p-8 rounded shadow-lg">
             {error?.status && (
               <h1 className="text-6xl md:text-8xl font-bold text-primary">{error?.status}</h1>
@@ -201,7 +201,7 @@ export function ErrorBoundary() {
       );
     } else if (isNetworkError(error as NetworkError)) {
       return (
-        <div className="flex flex-col justify-center items-center h-screen bg-red-100  p-1">
+        <div className="flex flex-col justify-center items-center h-screen bg-zinc-50  p-1">
           <div className="text-center bg-white p-4 md:p-8 rounded shadow-lg">
             <h1 className=" text-4xl md:text-6xl font-bold text-red-600">Network Error</h1>
             <p className="text-2xl text-gray-700">It seems like you're having network issues.</p>
@@ -213,7 +213,7 @@ export function ErrorBoundary() {
       );
     } else if (isConnectionRefusedError(error)) {
       return (
-        <div className="flex flex-col justify-center items-center h-screen bg-red-100  p-1">
+        <div className="flex flex-col justify-center items-center h-screen bg-zinc-50  p-1">
           <div className="text-center bg-white p-4 md:p-8 rounded shadow-lg">
             <h1 className=" text-4xl md:text-6xl font-bold text-red-600">Connection Error</h1>
             <p className="text-2xl text-gray-700">We couldn't connect to the server.</p>
@@ -226,7 +226,7 @@ export function ErrorBoundary() {
       );
     } else if (error instanceof Error) {
       return (
-        <div className="flex flex-col justify-center items-center h-screen bg-red-100  p-1">
+        <div className="flex flex-col justify-center items-center h-screen bg-zinc-50  p-1">
           <div className="text-center bg-white p-4 md:p-8 rounded shadow-lg">
             <h1 className=" text-4xl md:text-6xl font-bold text-red-600">Error</h1>
             <p className="text-2xl text-gray-700">Something went wrong. Please try again later.</p>
@@ -239,7 +239,7 @@ export function ErrorBoundary() {
       );
     } else {
       return (
-        <div className="flex flex-col justify-center items-center h-screen bg-red-100  p-1">
+        <div className="flex flex-col justify-center items-center h-screen bg-zinc-50  p-1">
           <div className="text-center bg-white p-4 md:p-8 rounded shadow-lg">
             <h1 className=" text-4xl md:text-6xl font-bold text-red-600">Unknown Error</h1>
             <p className="text-2xl text-gray-700">An unexpected error occurred.</p>

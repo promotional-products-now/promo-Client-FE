@@ -1,5 +1,5 @@
 import { Checkbox } from "@nextui-org/react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { CheckoutAlternateSchema } from "app/schema/checkout.schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Input } from "@nextui-org/react";

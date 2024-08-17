@@ -370,14 +370,16 @@ export default function ProductDetailsRoute() {
                         </span>
                         <div className="flex items-center flex-wrap space-x-2 space-y-2 md:space-y-0">
                           <PiUserCircleFill className="text-primary text-3xl" />
-                          <div className="flex flex-col text-center">
-                            <span className="text-xs md:text-sm text-orange font-bold">
-                              HAVE AN ACCOUNT?
-                            </span>
-                            <span className="text-xs md:text-sm text-orange font-bold">
-                              Please log in first
-                            </span>
-                          </div>
+                          <Link to="/login">
+                            <div className="flex flex-col text-center">
+                              <span className="text-xs md:text-sm text-orange font-bold">
+                                HAVE AN ACCOUNT?
+                              </span>
+                              <span className="text-xs md:text-sm text-orange font-bold">
+                                Please log in first
+                              </span>
+                            </div>
+                          </Link>
                         </div>
                       </div>
                       <Divider />
@@ -454,7 +456,7 @@ export default function ProductDetailsRoute() {
                       className="bg-green-500 text-white border-green-500"
                       startContent={<TfiWrite className="text-lg font-extrabold" />}
                       as={Link}
-                      to="/request-quote"
+                      to="/quote/request"
                     >
                       Request A Quote
                     </Button>

@@ -15,6 +15,12 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+export function headers() {
+  return {
+    "cache-control": "max-age=604800, stale-while-revalidate=86400",
+  };
+}
+
 export const handle: SEOHandle = {
   getSitemapEntries: async (request) => {
     const { data } = await fetchAllBlogsApi();
