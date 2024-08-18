@@ -1,3 +1,5 @@
+import { Config } from "tailwindcss/types/config";
+
 // tailwind.config.js
 const { nextui } = require("@nextui-org/react");
 
@@ -50,4 +52,4 @@ module.exports = {
   },
   darkMode: "class",
   plugins: [nextui()],
-};
+} satisfies Config;

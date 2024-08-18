@@ -12,6 +12,10 @@ export default defineConfig({
   },
   plugins: [
     remix({
+      ignoredRouteFiles: ["**/.*", "**/*.css"],
+      appDirectory: "app",
+      buildDirectory: "build",
+
       future: {
         v3_fetcherPersist: true,
         v3_relativeSplatPath: true,
@@ -22,4 +26,7 @@ export default defineConfig({
 
     tsconfigPaths(),
   ],
+  define: {
+    "process.env": process.env,
+  },
 });

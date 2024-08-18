@@ -14,6 +14,7 @@ const fetchAllBlogsApi = async (query: BlogQuery = {}): Promise<any> => {
   return await axios.get(`${CONTENT_BASE_URL}/blog?populate=category&limit=${limit}${titleQuery}`);
 };
 
+
 const fetchAllBlogsCategoryApi = async (query: any) => {
   return await axios.get(
     `${CONTENT_BASE_URL}/blog/category?category=${query.category}&page=${query.page}`,
@@ -41,6 +42,7 @@ const blogCommentApi = async (params: {
   email: string;
   phone?: string;
 }) => {
+  console.log({ params });
   const result = await axios.post(`${CONTENT_BASE_URL}/blog/${params.blogId}/comment/`, {
     blog: params.blogId,
     body: params.comment,
@@ -54,6 +56,7 @@ const blogCommentApi = async (params: {
 };
 export {
   fetchAllBlogsApi,
+  tFetchAllBlogsApi,
   fetchAllBlogsCategoryApi,
   fetchSingleBlogApi,
   blogCommentApi,

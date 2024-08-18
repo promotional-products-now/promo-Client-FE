@@ -14,12 +14,7 @@ import { AppaIcon } from "app/assets/appaIcon";
 import CategoryList from "app/components/CategoryList";
 import { isCategoryListOpen } from "app/atoms/category.atom";
 import { BlogCard } from "app/components/Blog/BlogCard";
-import {
-  fetchProductByCategory,
-  fetchProductCategories,
-  fetchProductShowCase,
-  fetchProductsApi,
-} from "app/api/products.api";
+import { fetchProductShowCase, fetchProductsApi } from "app/api/products.api";
 import { json, useLoaderData } from "@remix-run/react";
 import { PreviewProduct } from "app/components/Product/PreviewProduct";
 import { productPreviewAtom } from "app/atoms/product.atom";
