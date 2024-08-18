@@ -14,6 +14,7 @@ const fetchAllBlogsApi = async (query: BlogQuery = {}): Promise<any> => {
   return await axios.get(`${CONTENT_BASE_URL}/blog?populate=category&limit=${limit}${titleQuery}`);
 };
 
+
 const fetchAllBlogsCategoryApi = async (query: any) => {
   return await axios.get(
     `${CONTENT_BASE_URL}/blog/category?category=${query.category}&page=${query.page}`,
@@ -55,6 +56,7 @@ const blogCommentApi = async (params: {
 };
 export {
   fetchAllBlogsApi,
+  tFetchAllBlogsApi,
   fetchAllBlogsCategoryApi,
   fetchSingleBlogApi,
   blogCommentApi,

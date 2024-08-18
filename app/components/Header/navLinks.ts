@@ -1,7 +1,11 @@
-export const navLinks = [
-  { name: "Home", pathname: "/" },
-  { name: "About Us", pathname: "/about" },
-  { name: "FAQs", pathname: "/faq" },
-  { name: "Blog", pathname: "/blog" },
-  { name: "Contact", pathname: "/contact" },
+export const navLinks: {
+  name: string;
+  pathname: string;
+  prefetch: "intent" | "render" | "none" | "viewport";
+}[] = [
+  { name: "Home", pathname: "/", prefetch: "render" },
+  { name: "About Us", pathname: "/about", prefetch: "render" },
+  { name: "FAQs", pathname: "/faq", prefetch: "render" },
+  { name: "Blog", pathname: "/blog", prefetch: "intent" },
+  { name: "Contact", pathname: "/contact", prefetch: "render" },
 ];

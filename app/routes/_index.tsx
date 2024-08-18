@@ -14,11 +14,7 @@ import { AppaIcon } from "app/assets/appaIcon";
 import CategoryList from "app/components/CategoryList";
 import { isCategoryListOpen } from "app/atoms/category.atom";
 import { BlogCard } from "app/components/Blog/BlogCard";
-import {
-  fetchProductByCategory,
-  fetchProductCategories,
-  fetchProductsApi,
-} from "app/api/products.api";
+import { fetchProductShowCase, fetchProductsApi } from "app/api/products.api";
 import { json, useLoaderData } from "@remix-run/react";
 import { PreviewProduct } from "app/components/Product/PreviewProduct";
 import { productPreviewAtom } from "app/atoms/product.atom";
@@ -47,30 +43,20 @@ export function headers() {
 export const loader: LoaderFunction = async () => {
   try {
     // Fetch all necessary data in parallel
-    const [
-      productsResponse,
-      healthProductsResponse,
-      clothingProductsResponse,
-      homeAndLivingProductsResponse,
-      blogResponse,
-      leastProductsResponse,
-    ] = await Promise.all([
-      fetchProductsApi({ page: 20, limit: 6 }),
-      fetchProductByCategory("Health & Personal"),
-      fetchProductByCategory("Clothing"),
-      fetchProductByCategory("Home & Living"),
-      fetchAllBlogsApi({ limit: 6 }),
-      fetchProductsApi({ page: 1, limit: 4 }),
-    ]);
+    const [productsResponse, productShowCase, blogResponse, leastProductsResponse] =
+      await Promise.all([
+        fetchProductsApi({ page: 20, limit: 6 }),
+        fetchProductShowCase(["Health%20%26%20Personal", "Clothing", "Home%20%26%20Living"]),
+        fetchAllBlogsApi({ limit: 6 }),
+        fetchProductsApi({ page: 1, limit: 4 }),
+      ]);
 
     // Process and return data
     return json({
       products: productsResponse.data.docs,
       leastProducts: leastProductsResponse.data.docs,
       blog: blogResponse.data?.payload?.data || [],
-      healthProducts: healthProductsResponse.data,
-      clothingProducts: clothingProductsResponse.data,
-      homeAndLivingProducts: homeAndLivingProductsResponse.data,
+      productShowCase: productShowCase.data,
     });
   } catch (error) {
     // Handle errors with appropriate status codes and messages
@@ -97,6 +83,7 @@ export default function Index() {
 
   const loaderData = useLoaderData<typeof loader>();
 
+  console.log({ productShowCase: loaderData.productShowCase });
   const [isCategoryOpen, setIsCategoryOpen] = useAtom(isCategoryListOpen);
 
   const handlePreviewProd = (product: any) => {
@@ -291,7 +278,11 @@ export default function Index() {
           heroImage={HealthImage}
           Icon={PiFirstAidKitLight}
           title="Health & Fitness"
-          products={loaderData && loaderData.healthProducts ? loaderData.healthProducts : []}
+          products={
+            loaderData && loaderData.productShowCase && loaderData.productShowCase
+              ? loaderData.productShowCase["Health & Personal"]
+              : []
+          }
         />
         {/* <FeaturedProducts sectionlabel="Featured Products" gridno={10} /> */}
         <ProductSection
@@ -299,12 +290,20 @@ export default function Index() {
           Icon={GiClothes}
           title="Mens Wear"
           categoryName="Clothing"
-          products={loaderData && loaderData.clothingProducts ? loaderData.clothingProducts : []}
+          products={
+            loaderData && loaderData.productShowCase && loaderData.productShowCase
+              ? loaderData.productShowCase["Clothing"]
+              : []
+          }
         />
         <FeaturedProducts
           sectionlabel="New Arrivals"
           gridno={5}
-          products={loaderData && loaderData.leastProducts ? loaderData.leastProducts : []}
+          products={
+            loaderData && loaderData.leastProducts && loaderData.productShowCase
+              ? loaderData.leastProducts
+              : []
+          }
         />
         <ProductSection
           heroImage=""
@@ -313,7 +312,9 @@ export default function Index() {
           categoryName="Home & Living"
           showmore
           products={
-            loaderData && loaderData.homeAndLivingProducts ? loaderData.homeAndLivingProducts : []
+            loaderData && loaderData.productShowCase
+              ? loaderData.productShowCase["Home & Living"]
+              : []
           }
         />
         <ContactUs />
