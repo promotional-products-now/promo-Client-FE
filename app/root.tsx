@@ -1,7 +1,6 @@
 import type { LinksFunction } from "@remix-run/node";
 import {
   Links,
-  LiveReload,
   Meta,
   Outlet,
   Scripts,
@@ -89,7 +88,6 @@ export default function App() {
           <ToastContainer containerId={"ppn"} />
           <ScrollRestoration />
           <Scripts />
-          <LiveReload />
         </NextUIProvider>
         <script
           dangerouslySetInnerHTML={{

@@ -3,6 +3,10 @@
     "remix.env.d.ts",
     "**/*.ts",
     "**/*.tsx",
+    "**/.server/**/*.ts",
+    "**/.server/**/*.tsx",
+    "**/.client/**/*.ts",
+    "**/.client/**/*.tsx",
     "app/routes/Terms-Conditions/route.mdx",
     "app/components/Blog/BlogCard",
     "app/routes/blog.$title.tsx"
@@ -17,11 +21,13 @@
     "target": "ES2022",
     "strict": true,
     "allowJs": true,
+    "types": ["@remix-run/node", "vite/client"],
+    "module": "ESNext",
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["../app/*"]
+      "~/*": ["./app/*"]
     },
     // Remix takes care of building everything in `remix build`.
     "noEmit": true

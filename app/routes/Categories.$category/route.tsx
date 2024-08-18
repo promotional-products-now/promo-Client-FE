@@ -160,7 +160,6 @@ const CategoryPage = () => {
         <div className="flex flex-col gap-10 md:px-20 px-5 w-full">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {filteredProducts.products.map((item) => {
-              console.log({ ty: item?.product?.prices });
               return (
                 <ProductCard
                   key={item?._id || item?.id}

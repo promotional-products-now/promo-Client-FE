@@ -59,7 +59,6 @@ export function Header(props: HeaderT) {
 
   useEffect(() => {
     fetchBannerApi().then((data) => {
-      console.log({ data });
       setBanner(data?.banner);
       setPopup(data.popupModal);
       if (data?.popupModal?.isActive) {
