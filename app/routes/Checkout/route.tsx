@@ -41,7 +41,6 @@ const CheckoutPage = () => {
   const [isAgreed, setIsAgreed] = useState<boolean>(false);
   const [isToDifferentAddress, setIsToDifferentAddress] = useState<boolean>(false);
 
-  console.log(`isSelected`, isSelected);
 
   const {
     handleSubmit,

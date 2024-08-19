@@ -13,14 +13,12 @@ interface categoryI extends category {
 }
 
 function CategoryList(props: any) {
-  console.log({ cat: props });
   const [_, setHoveredCategory] = useState<any>(null);
   const [position, setPosition] = useState({ top: 0, left: 0 });
 
   const handleMouseEnter = (event: any, category: any) => {
     const rect = event.currentTarget.getBoundingClientRect();
     // setPosition({ top: rect.top, left: rect.right });
-    console.log({ top: props.top });
     setPosition({
       top: props.top ?? 80,
       left: props.right ? rect.right - props.right : rect.right - 40,

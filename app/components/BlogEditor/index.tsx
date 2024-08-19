@@ -86,7 +86,6 @@ export default function EditorWriterApp({ initalData }: { initalData?: any }) {
     };
   }, [isSmallWidthViewport]);
 
-  console.log({ initalData });
   const editorConfig = {
     namespace: "PPN blog",
     nodes: [...PlaygroundNodes],

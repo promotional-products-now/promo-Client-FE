@@ -1,7 +1,6 @@
 import type { LinksFunction } from "@remix-run/node";
 import {
   Links,
-  LiveReload,
   Meta,
   Outlet,
   Scripts,
@@ -18,14 +17,15 @@ import { Header } from "app/components/Header";
 import { Footer } from "app/components/Footer";
 import { Sidebar } from "app/components/Sidebar";
 
-import stylesheet from "./tailwind.css";
-import SwiperStyle from "./style.css";
+import stylesheet from "./tailwind.css?url";
+import SwiperStyle from "./style.css?url";
 import { useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { getSession } from "./sessions";
-import nprogressStyles from "nprogress/nprogress.css";
+import nprogressStyles from "nprogress/nprogress.css?url";
 import { ProgressBar } from "./nprogress";
 import axios, { AxiosError } from "axios";
+import React from "react";
 
 interface RouteErrorResponse {
   status: number;
@@ -54,51 +54,52 @@ export const links: LinksFunction = () => [
 ];
 
 export default function App() {
+
+
   let data = useLoaderData<typeof loader>();
   const location = useLocation();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <html lang="en">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Meta />
-        <Links />
-      </head>
-      <body>
-        <NextUIProvider>
-          <div className="flex flex-col justify-between h-screen">
-            <Header sidebarOpen={isSidebarOpen} setSidebarOpen={setIsSidebarOpen} />
-            <Sidebar sidebarOpen={isSidebarOpen} setSidebarOpen={setIsSidebarOpen} />
+      <html lang="en">
+        <head>
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <Meta />
+          <Links />
+        </head>
+        <body>
+          <NextUIProvider>
+            <div className="flex flex-col justify-between h-screen">
+              <Header sidebarOpen={isSidebarOpen} setSidebarOpen={setIsSidebarOpen} />
+              <Sidebar sidebarOpen={isSidebarOpen} setSidebarOpen={setIsSidebarOpen} />
 
-            <main className="flex-1">
-              <div
-                className={`${
-                  location.pathname !== "/"
-                    ? "container mx-auto lg:mb-6 py-3 lg:px-12 lg:w-11/12"
-                    : "lg:mb-6 mb-3 mx-auto"
-                }`}
-              >
-                <Outlet />
-              </div>
-            </main>
-            <Footer />
-          </div>
-          <ProgressBar />
-          <ToastContainer containerId={"ppn"} />
-          <ScrollRestoration />
+              <main className="flex-1">
+                <div
+                  className={`${
+                    location.pathname !== "/"
+                      ? "container mx-auto lg:mb-6 py-3 lg:px-12 lg:w-11/12"
+                      : "lg:mb-6 mb-3 mx-auto"
+                  }`}
+                >
+                  <Outlet />
+                </div>
+              </main>
+              <Footer />
+            </div>
+            <ProgressBar />
+            <ToastContainer containerId={"ppn"} />
+            <ScrollRestoration />
+            <Scripts />
+          </NextUIProvider>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.ENV = ${JSON.stringify({ env: data && data.ENV ? data.ENV : "" })}`,
+            }}
+          />
           <Scripts />
-          <LiveReload />
-        </NextUIProvider>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.ENV = ${JSON.stringify({ env: data && data.ENV ? data.ENV : "" })}`,
-          }}
-        />
-        <Scripts />
-      </body>
-    </html>
+        </body>
+      </html>
   );
 }
 

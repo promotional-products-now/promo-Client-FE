@@ -130,21 +130,21 @@ const BottomNavigation = () => {
   return (
     <div className="fixed z-[1000] bottom-0 left-0 w-full bg-white  text-zinc-600 text-xl shadow-md">
       <div className="flex justify-around py-2">
-        <Link to="/">
+        <Link to="/" prefetch="none">
           <NavItem icon={<FaHome />} label="Home" />
         </Link>
-        <Link to="/category">
+        <Link to="/category" prefetch="viewport">
           <NavItem icon={<FaThList />} label="Categories" />
         </Link>
-        <Link to="/cart">
+        <Link to="/cart" prefetch="none">
           <NavItem icon={<FaShoppingCart />} label="Cart" />
         </Link>
         {data && data.user && data.user.uid ? (
-          <Link to="/account">
+          <Link to="/account" prefetch="viewport">
             <NavItem icon={<FaUser />} label="Account" />
           </Link>
         ) : (
-          <Link to="/login">
+          <Link to="/login" prefetch="viewport">
             <NavItem icon={<FaUser />} label="Account" />
           </Link>
         )}
