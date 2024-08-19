@@ -11,7 +11,7 @@ import { ProductCard } from "app/components/Product/ProductCard";
 import { getMinMaxPrice, removeSnakeCase } from "app/utils/fn";
 import TablePagination from "app/components/TablePagination";
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async ({ request }: { request: { url: string } }) => {
   const url = new URL(request.url);
   const searchQuery = url.searchParams.get("q") || "";
 
