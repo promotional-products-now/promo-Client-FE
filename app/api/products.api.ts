@@ -16,6 +16,12 @@ export const fetchProductsApi = async (params: ProductFilter) => {
   return res;
 };
 
+export const fetchProductShowCase = async (categories: string[]) => {
+  const res = await axios.get(
+    `${API_BASEURL}/products/product-show-case?limit=${6}&page=${1}&categories=${categories}`,
+  );
+  return res;
+};
 export const getProductInfo = async (productId: string) => {
   const { data } = await axios.get(`${API_BASEURL}/products/${productId}`);
   return data;

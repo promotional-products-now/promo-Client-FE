@@ -50,7 +50,6 @@ export function Header(props: HeaderT) {
 
   useEffect(() => {
     fetchBannerApi().then((data) => {
-      console.log({ data });
       setBanner(data?.banner);
       setPopup(data.popupModal);
       if (data?.popupModal?.isActive) {
@@ -181,6 +180,7 @@ export function Header(props: HeaderT) {
                           <span> {link.name}</span>
                         ) : (
                           <Link
+                            prefetch={link.prefetch}
                             as={RemixLink}
                             to={link.pathname}
                             aria-current="page"
@@ -208,7 +208,7 @@ export function Header(props: HeaderT) {
                   <div className="hidden md:flex flex-col space-y-3">
                     <Popover showArrow placement="bottom">
                       <PopoverTrigger>
-                        <div className=" min-w-64 xl:min-w-72 2xl:min-w-96 flex items-center gap-2 text-white bg-primary p-1 font-medium  rounded text-sm  ">
+                        <div className=" cursor-pointer min-w-64 xl:min-w-72 2xl:min-w-96 flex items-center gap-2 text-white bg-primary p-1 font-medium  rounded text-sm  ">
                           <Button isIconOnly className="bg-transparent text-lg text-white">
                             <FiMenu />
                           </Button>{" "}
@@ -228,6 +228,7 @@ export function Header(props: HeaderT) {
                   <div className="hidden md:flex gap-2 ">
                     <Button
                       as={RemixLink}
+                      prefetch="intent"
                       to="#"
                       size="lg"
                       variant="ghost"
@@ -239,6 +240,7 @@ export function Header(props: HeaderT) {
                     {!data?.user?.uid && (
                       <Button
                         as={RemixLink}
+                        prefetch="intent"
                         to="/login"
                         size="lg"
                         variant="ghost"
