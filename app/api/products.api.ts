@@ -1,14 +1,18 @@
 import axios from "axios";
 import { API_BASEURL } from "./api";
 
-export const fetchProductsApi = async ({
-  page = 1,
-  limit = 8,
-}: {
+type ProductFilter = {
   page?: number;
   limit?: number;
-}) => {
-  const res = await axios.get(`${API_BASEURL}/products?limit=${limit}&page=${page}`);
+  search?: string;
+};
+
+export const fetchProductsApi = async (params: ProductFilter) => {
+  const res = await axios.get(
+    `${API_BASEURL}/products?limit=${params.limit || 8}&page=${params.page || 1}${
+      params.search ? `&search=${params.search}` : ""
+    }`,
+  );
   return res;
 };
 
