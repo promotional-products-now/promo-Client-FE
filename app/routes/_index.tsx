@@ -1,5 +1,5 @@
 import { useAtom, useSetAtom } from "jotai";
-import { Button, Image, Link, ScrollShadow, useDisclosure } from "@nextui-org/react";
+import { Button, Image, Link, useDisclosure } from "@nextui-org/react";
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { GiClothes } from "react-icons/gi";
 import { ImFire } from "react-icons/im";
@@ -237,7 +237,7 @@ export default function Index() {
             <div className="bg-white  p-4 absolute top-[-1.65rem]">
               <div className="flex justify-between gap-2 font-semibold text-orange text-2xl">
                 <ImFire />
-                <h5>WHAT'S HOT</h5>
+                <h5>WHAT&apos;S HOT</h5>
               </div>
             </div>
             <div className="md:pt-8">

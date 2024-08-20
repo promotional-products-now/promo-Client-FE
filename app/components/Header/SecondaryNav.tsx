@@ -1,17 +1,10 @@
 import { useAtom } from "jotai";
 import { Link } from "@remix-run/react";
-import {
-  Button,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-  Input,
-} from "@nextui-org/react";
-import { FiLogIn, FiMenu, FiSearch } from "react-icons/fi";
+import { Button } from "@nextui-org/react";
+import { FiLogIn, FiMenu } from "react-icons/fi";
 import { TbTruckDelivery } from "react-icons/tb";
-import { SearchDropdown } from "./SearchDropdown";
 import { isCategoryListOpen } from "app/atoms/category.atom";
+import { SearchDropdown } from "./SearchDropdown";
 
 export function SecondaryNav({ uid }: any) {
   const [isCategoryOpen, setIsCategoryOpen] = useAtom(isCategoryListOpen);
@@ -32,33 +25,7 @@ export function SecondaryNav({ uid }: any) {
               All Products Categoeries
             </div>
           </div>
-          <div className="w-full">
-            <form>
-              <div className="flex items-center">
-                <Input
-                  type="text"
-                  size="sm"
-                  variant="bordered"
-                  placeholder="Search product catalogue"
-                  radius="none"
-                  className="rounded-s-sm"
-                  startContent={<SearchDropdown />}
-                  classNames={{
-                    inputWrapper: ["border", "border-zinc-100", "h-12"],
-                    mainWrapper: "rounded-md",
-                  }}
-                />
-                <Button
-                  type="submit"
-                  size="lg"
-                  isIconOnly
-                  className="bg-primary text-white rounded-s-none rounded-e-md"
-                >
-                  <FiSearch />
-                </Button>
-              </div>
-            </form>
-          </div>
+          <SearchDropdown />
           <div className="hidden md:flex gap-2 ">
             <Button
               as={Link}

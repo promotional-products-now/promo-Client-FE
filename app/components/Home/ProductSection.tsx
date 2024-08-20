@@ -3,7 +3,6 @@ import { Button, Image, Select, SelectItem, useDisclosure } from "@nextui-org/re
 import { FaArrowDown } from "react-icons/fa";
 import { IconType } from "react-icons";
 import { ProductCard } from "../Product/ProductCard";
-import { items } from "app/api_dummy";
 import { useSetAtom } from "jotai";
 import { productPreviewAtom } from "app/atoms/product.atom";
 import { PreviewProduct } from "../Product/PreviewProduct";
@@ -31,16 +30,10 @@ interface ProductSectionProps {
 }
 
 interface IsubCategory {
-  _id: String;
-  name: String;
-  category: String;
-  id: String;
-}
-interface Icategory {
-  _id: String;
-  name: String;
-  id: String;
-  subCategory: IsubCategory[];
+  _id: string;
+  name: string;
+  category: string;
+  id: string;
 }
 
 const ProductSection = ({
