@@ -25,6 +25,7 @@ const sortFilter = [
 export const SearchDropdown = () => {
   const [values, setValues] = useState<Selection>(new Set(["price", "lowest"]));
   const [search, setSearchValue] = useState<string>("");
+  const [colours, setSearchColours] = useState<string[]>([]);
   const submit = useSubmit();
 
   const onSearchChange = useCallback((value?: string) => {
@@ -37,13 +38,28 @@ export const SearchDropdown = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const formData = new FormData();
 
     if (search) {
-      const formData = new FormData();
       formData.set("q", search);
-
-      submit(formData, { method: "get", action: "/search" });
     }
+
+    colours.forEach((colour) => formData.append("colours", colour));
+    submit(formData, { method: "get", action: "/search" });
+  };
+
+  const handleSelectColour = (col: string) => {
+    setSearchColours((prevCols) => {
+      if (prevCols.includes(col)) {
+        return prevCols.filter((cc) => cc !== col);
+      } else {
+        return [...prevCols, col];
+      }
+    });
+  };
+
+  const handleResetFilter = () => {
+    setSearchColours([]);
   };
 
   const popContent = useMemo(() => {
@@ -118,12 +134,15 @@ export const SearchDropdown = () => {
                     </Select>
                   </div>
                   <div className="flex justify-end">
-                    <Button type="submit" className="bg-primary text-white rounded-none px-4">
+                    <Button
+                      onPress={handleResetFilter}
+                      className="bg-primary text-white rounded-none px-4"
+                    >
                       Reset
                     </Button>
                   </div>
                 </div>
-                <div className="space-y-4 p-4 ">
+                <div className="space-y-4 p-4">
                   <h3 className="text-lg font-semibold">Search by Colours</h3>
                   <span className="text-sm text-gray font-normal">
                     Select one or more colours to highlight products available
@@ -131,12 +150,20 @@ export const SearchDropdown = () => {
                   <div className="grid grid-cols-4 gap-2 w-full bg-zinc-100 p-4">
                     {colors.map((c, i) => (
                       <Button
+                        onPress={() => handleSelectColour(c)}
                         isIconOnly
                         key={i}
                         className="w-10 h-10 aspect-square rounded-full"
                         style={{ backgroundColor: c }}
                       />
                     ))}
+                  </div>
+                  <div>
+                    {colours.length > 0 && (
+                      <span className="pt-2">
+                        Selected Colours: {Array.from(colours).join(", ")}{" "}
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
@@ -145,7 +172,8 @@ export const SearchDropdown = () => {
         </PopoverContent>
       </Popover>
     );
-  }, [values]);
+  }, [colours, values]);
+
   return (
     <div className="w-full">
       <form onSubmit={handleSubmit}>

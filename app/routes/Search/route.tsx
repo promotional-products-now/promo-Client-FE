@@ -1,7 +1,7 @@
 import { useDisclosure } from "@nextui-org/react";
 import { LoaderFunction } from "@remix-run/node";
 import { Link, useFetcher, useLoaderData, useLocation } from "@remix-run/react";
-import { SetStateAction, useCallback, useMemo, useState } from "react";
+import { SetStateAction, useCallback, useState } from "react";
 import { useSetAtom } from "jotai";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { fetchProductsApi } from "app/api/products.api";
@@ -14,10 +14,17 @@ import TablePagination from "app/components/TablePagination";
 export const loader: LoaderFunction = async ({ request }: { request: { url: string } }) => {
   const url = new URL(request.url);
   const searchQuery = url.searchParams.get("q") || "";
+  const colours = url.searchParams.getAll("colours");
+  const selectedColour = colours.map((colour) => `&colours=${colour}`).join("");
   const page = parseInt(url.searchParams.get("page") || "1", 1);
   const limit = parseInt(url.searchParams.get("limit") || "10", 10);
 
-  const { data } = await fetchProductsApi({ search: searchQuery, page, limit });
+  const { data } = await fetchProductsApi({
+    search: searchQuery,
+    page,
+    limit,
+    colours: selectedColour,
+  });
 
   return data;
 };

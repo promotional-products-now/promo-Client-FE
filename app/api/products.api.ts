@@ -5,13 +5,14 @@ type ProductFilter = {
   page?: number;
   limit?: number;
   search?: string;
+  colours?: string;
 };
 
 export const fetchProductsApi = async (params: ProductFilter) => {
   const res = await axios.get(
     `${API_BASEURL}/products?limit=${params.limit || 8}&page=${params.page || 1}${
       params.search ? `&search=${params.search}` : ""
-    }`,
+    }${params.colours ? `&colours=${params.colours}` : ""}`,
   );
   return res;
 };
