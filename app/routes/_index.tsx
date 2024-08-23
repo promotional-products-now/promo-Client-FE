@@ -1,5 +1,5 @@
 import { useAtom, useSetAtom } from "jotai";
-import { Button, Image, Link, ScrollShadow, useDisclosure } from "@nextui-org/react";
+import { Button, Image, Link, useDisclosure } from "@nextui-org/react";
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { GiClothes } from "react-icons/gi";
 import { ImFire } from "react-icons/im";
@@ -26,6 +26,7 @@ import axios from "axios";
 import { homePageSchema } from "./_index_seo";
 import { getMinMaxPrice } from "app/utils/fn";
 import allCategory from "app/utils/categories";
+import { useEffect, useState } from "react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -43,31 +44,26 @@ export function headers() {
 export const loader: LoaderFunction = async () => {
   try {
     // Fetch all necessary data in parallel
-    const [productsResponse, productShowCase, blogResponse, leastProductsResponse] =
-      await Promise.all([
-        fetchProductsApi({ page: 20, limit: 6 }),
-        fetchProductShowCase(["Health%20%26%20Personal", "Clothing", "Home%20%26%20Living"]),
-        fetchAllBlogsApi({ limit: 6 }),
-        fetchProductsApi({ page: 1, limit: 4 }),
-      ]);
+    const [productsResponse, productShowCase, leastProductsResponse] = await Promise.all([
+      fetchProductsApi({ page: 20, limit: 6 }),
+      fetchProductShowCase(["Health%20%26%20Personal", "Clothing", "Home%20%26%20Living"]),
+      fetchProductsApi({ page: 1, limit: 4 }),
+    ]);
 
     // Process and return data
     return json({
       products: productsResponse.data.docs,
       leastProducts: leastProductsResponse.data.docs,
-      blog: blogResponse.data?.payload?.data || [],
       productShowCase: productShowCase.data,
     });
   } catch (error) {
     // Handle errors with appropriate status codes and messages
     if (axios.isAxiosError(error)) {
-      console.error("Axios error:", error.message);
       throw new Response(error.message, {
         status: error.response?.status || 500,
         statusText: error.response?.statusText || "Internal Server Error",
       });
     } else {
-      console.error("Unexpected error:", error);
       throw new Response("An unexpected error occurred", {
         status: 500,
         statusText: "Internal Server Error",
@@ -83,13 +79,27 @@ export default function Index() {
 
   const loaderData = useLoaderData<typeof loader>();
 
-  console.log({ productShowCase: loaderData.productShowCase });
-  const [isCategoryOpen, setIsCategoryOpen] = useAtom(isCategoryListOpen);
+  const [isCategoryOpen] = useAtom(isCategoryListOpen);
 
   const handlePreviewProd = (product: any) => {
     onOpen();
     setProductPrevData(product);
   };
+
+  const [blogs, setBlogs] = useState<BlogCardProps[]>([]);
+
+  useEffect(() => {
+    async function fetchBlogs() {
+      try {
+        const response = await fetchAllBlogsApi({ limit: 6 });
+        setBlogs(response.data?.payload?.data || []);
+      } catch (error) {
+        console.error("Failed to fetch blogs:", error);
+      }
+    }
+
+    fetchBlogs();
+  }, []);
 
   return (
     <>
@@ -104,9 +114,7 @@ export default function Index() {
             } `}
           >
             {/* category */}
-            {/* <ScrollShadow className="w-full h-full overflow-x-hidden"> */}
             <div className="">{allCategory && <CategoryList categories={allCategory} />}</div>
-            {/* </ScrollShadow> */}
           </div>
           <div
             className={`flex flex-col md:flex-col lg:flex-row justify-center container mx-auto p-3 px-0 !m-0 md:px-0 transition-width duration-300 ease-linear ${
@@ -244,9 +252,6 @@ export default function Index() {
               <Carousel numberOfItems={4}>
                 {loaderData &&
                   loaderData.products.map((item: any) => {
-                    // const price = item.product.prices.priceGroups;
-                    // const initPrice = "";
-                    // const lastPrice = item[price.length - 1];
                     return (
                       <div key={item._id || item?.id} className="flex flex-row">
                         <ProductCard
@@ -337,29 +342,33 @@ export default function Index() {
           </div>
         </section>
         <section className="mb-20 md:px-20 w-full flex flex-col gap-2 md:space-y-6 w-max-ppn">
-          <h1 className="font-bold text-2xl text-black capitalize text-center">Our Blog</h1>
-          <h3 className="font-semibold text-lg text-gray text-center">Browse Our Latest News</h3>
-
-          <div className="md:mx-4">
-            <Carousel numberOfItems={3}>
-              {loaderData &&
-                loaderData.blog.length > 0 &&
-                loaderData.blog.map((post: BlogCardProps) => (
-                  <div key={post._id} className="flex flex-col md:flex-row gap-1 sm:mx-2 md:mx-1">
-                    <BlogCard
-                      title={post.title}
-                      summary={post.summary}
-                      slug={post?.slug || post?.title}
-                      description={post.description}
-                      imageSrc={post.imageSrc}
-                      _id={post._id}
-                      category={post.category}
-                      body={post.body}
-                    />
-                  </div>
-                ))}
-            </Carousel>
-          </div>
+          {blogs && blogs.length > 0 && (
+            <>
+              {" "}
+              <h1 className="font-bold text-2xl text-black capitalize text-center">Our Blog</h1>
+              <h3 className="font-semibold text-lg text-gray text-center">
+                Browse Our Latest News
+              </h3>
+              <div className="md:mx-4">
+                <Carousel numberOfItems={3}>
+                  {blogs.map((post: BlogCardProps) => (
+                    <div key={post._id} className="flex flex-col md:flex-row gap-1 sm:mx-2 md:mx-1">
+                      <BlogCard
+                        title={post.title}
+                        summary={post.summary}
+                        slug={post?.slug || post?.title}
+                        description={post.description}
+                        imageSrc={post.imageSrc}
+                        _id={post._id}
+                        category={post.category}
+                        body={post.body}
+                      />
+                    </div>
+                  ))}
+                </Carousel>
+              </div>
+            </>
+          )}
         </section>
       </div>
       <PreviewProduct isOpen={isOpen} onOpenChange={onOpenChange} />

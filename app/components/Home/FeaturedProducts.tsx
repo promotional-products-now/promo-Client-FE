@@ -124,6 +124,7 @@ const FeaturedProducts = ({ sectionlabel, gridno, showmore, products }: Featured
             products.length > 0 &&
             products.map((item, index) => (
               <ProductCard
+                key={item._id}
                 image={item.overview.heroImage}
                 images={item.product.images}
                 title={item.overview.name}

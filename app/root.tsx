@@ -9,6 +9,7 @@ import {
   useLoaderData,
   useLocation,
 } from "@remix-run/react";
+import { ManifestLink } from "@remix-pwa/sw";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import { NextUIProvider } from "@nextui-org/react";
 import { isRouteErrorResponse, useRouteError } from "@remix-run/react";
@@ -54,52 +55,51 @@ export const links: LinksFunction = () => [
 ];
 
 export default function App() {
-
-
   let data = useLoaderData<typeof loader>();
   const location = useLocation();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-      <html lang="en">
-        <head>
-          <meta charSet="utf-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <Meta />
-          <Links />
-        </head>
-        <body>
-          <NextUIProvider>
-            <div className="flex flex-col justify-between h-screen">
-              <Header sidebarOpen={isSidebarOpen} setSidebarOpen={setIsSidebarOpen} />
-              <Sidebar sidebarOpen={isSidebarOpen} setSidebarOpen={setIsSidebarOpen} />
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Meta />
+        <ManifestLink />
+        <Links />
+      </head>
+      <body>
+        <NextUIProvider>
+          <div className="flex flex-col justify-between h-screen">
+            <Header sidebarOpen={isSidebarOpen} setSidebarOpen={setIsSidebarOpen} />
+            <Sidebar sidebarOpen={isSidebarOpen} setSidebarOpen={setIsSidebarOpen} />
 
-              <main className="flex-1">
-                <div
-                  className={`${
-                    location.pathname !== "/"
-                      ? "container mx-auto lg:mb-6 py-3 lg:px-12 lg:w-11/12"
-                      : "lg:mb-6 mb-3 mx-auto"
-                  }`}
-                >
-                  <Outlet />
-                </div>
-              </main>
-              <Footer />
-            </div>
-            <ProgressBar />
-            <ToastContainer containerId={"ppn"} />
-            <ScrollRestoration />
-            <Scripts />
-          </NextUIProvider>
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `window.ENV = ${JSON.stringify({ env: data && data.ENV ? data.ENV : "" })}`,
-            }}
-          />
+            <main className="flex-1">
+              <div
+                className={`${
+                  location.pathname !== "/"
+                    ? "container mx-auto lg:mb-6 py-3 lg:px-12 lg:w-11/12"
+                    : "lg:mb-6 mb-3 mx-auto"
+                }`}
+              >
+                <Outlet />
+              </div>
+            </main>
+            <Footer />
+          </div>
+          <ProgressBar />
+          <ToastContainer containerId={"ppn"} />
+          <ScrollRestoration />
           <Scripts />
-        </body>
-      </html>
+        </NextUIProvider>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.ENV = ${JSON.stringify({ env: data && data.ENV ? data.ENV : "" })}`,
+          }}
+        />
+        <Scripts />
+      </body>
+    </html>
   );
 }
 
@@ -229,8 +229,11 @@ export function ErrorBoundary() {
       return (
         <div className="flex flex-col justify-center items-center h-screen bg-zinc-50  p-1">
           <div className="text-center bg-white p-4 md:p-8 rounded shadow-lg">
-            <h1 className=" text-4xl md:text-6xl font-bold text-red-600">Error</h1>
-            <p className="text-2xl text-gray-700">Something went wrong. Please try again later.</p>
+            <h1 className=" text-4xl md:text-6xl font-bold text-primary">
+              Oops, Something went wrong
+            </h1>
+            <p className="text-2xl text-gray-700">But don't worry- it's not your fault. </p>
+            <p className="text-2xl text-gray-700">Please Reload the page </p>
             <div className="mt-4 text-left">
               <p className="text-lg text-gray-500">Details:</p>
               <pre className="bg-gray-100 p-2 rounded text-sm text-gray-800">{error.message}</pre>

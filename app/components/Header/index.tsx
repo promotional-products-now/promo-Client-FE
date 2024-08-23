@@ -4,17 +4,9 @@ import {
   Image,
   useDisclosure,
   Modal,
-  ModalBody,
   ModalContent,
-  ModalFooter,
-  ModalHeader,
   Card,
   CardFooter,
-  CardHeader,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
   Input,
   Popover,
   PopoverContent,
@@ -188,15 +180,13 @@ export function Header(props: HeaderT) {
                         {location.pathname === link.pathname ? (
                           <span> {link.name}</span>
                         ) : (
-                          <Link
-                            prefetch={link.prefetch}
-                            as={RemixLink}
-                            to={link.pathname}
+                          <a
+                            href={link.pathname}
                             aria-current="page"
                             className="text-black  2xl:text-xl"
                           >
                             {link.name}
-                          </Link>
+                          </a>
                         )}
                       </li>
                     );

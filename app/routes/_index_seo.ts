@@ -20,17 +20,6 @@ interface Data {
       };
     }[];
   };
-
-  blog: {
-    title: string;
-    description: string;
-    imageSrc: string;
-    slug: string;
-    category: {
-      title: string;
-    };
-    _id: string;
-  }[];
 }
 
 export const homePageSchema = (data: Data) => {
@@ -86,18 +75,6 @@ export const homePageSchema = (data: Data) => {
     }
   }
 
-  const blogPosts: any = {
-    "@type": "Blog",
-    name: "Our Blog",
-    blogPost: data.blog.map((post) => ({
-      "@type": "BlogPosting",
-      headline: post.title,
-      description: post.description,
-      image: post.imageSrc,
-      url: `/blog/${post.category.title || "_"}/${post.slug}`,
-    })),
-  };
-
   return {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -109,6 +86,6 @@ export const homePageSchema = (data: Data) => {
       target: "https://promotionalproductsnow.au/search?q={search_term_string}",
       "query-input": "required name=search_term_string",
     },
-    mainEntity: [featuredProducts, ...productShowCaseItems, blogPosts],
+    mainEntity: [featuredProducts, ...productShowCaseItems],
   };
 };
