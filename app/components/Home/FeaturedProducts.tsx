@@ -4,7 +4,6 @@ import { Button, Select, SelectItem, Tabs, Tab, useDisclosure } from "@nextui-or
 import { LuCheckCircle } from "react-icons/lu";
 import { IoIosArrowDown } from "react-icons/io";
 import { ProductCard } from "app/components/Product/ProductCard";
-import { items } from "app/api_dummy";
 import { useSetAtom } from "jotai";
 import { productPreviewAtom } from "app/atoms/product.atom";
 import { PreviewProduct } from "../Product/PreviewProduct";
@@ -18,23 +17,20 @@ interface FeaturedProductsProps {
 }
 
 const options = [
-  { value: "low-high", label: "low to high" },
+  { value: "low-high", label: "Low to High" },
   { value: "high", label: "High" },
   { value: "new", label: "New" },
 ];
 
 const FeaturedProducts = ({ sectionlabel, showmore, products }: FeaturedProductsProps) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
   const setProduct = useSetAtom(productPreviewAtom);
-
-  const [, setFilterItems] = useState(items);
+  const [filteredItems, setFilterItems] = useState(products);
 
   const selectFilter = (selectItems: string) => {
-    const updatedFilter = items.filter((items) => {
-      return items.category === selectItems;
+    const updatedFilter = products.filter((product) => {
+      return product.category.name === selectItems;
     });
-
     setFilterItems(updatedFilter);
   };
 
@@ -55,7 +51,7 @@ const FeaturedProducts = ({ sectionlabel, showmore, products }: FeaturedProducts
           <div className="flex md:w-7/12 flex-wrap md:flex-nowrap items-start md:gap-6 gap-3 px-2">
             <div className="hidden md:block">
               <Tabs
-                aria-label="Options"
+                aria-label="Product Filter Options"
                 color="primary"
                 variant="underlined"
                 classNames={{
@@ -66,11 +62,11 @@ const FeaturedProducts = ({ sectionlabel, showmore, products }: FeaturedProducts
                 }}
               >
                 <Tab
-                  key="photos"
+                  key="trending"
                   title={
                     <button
-                      aria-label="set-"
-                      onClick={() => setFilterItems(items)}
+                      aria-label="Trending Products"
+                      onClick={() => setFilterItems(products)}
                       className="flex items-center text-base font-medium space-x-2"
                     >
                       <span>Trending Products</span>
@@ -78,9 +74,10 @@ const FeaturedProducts = ({ sectionlabel, showmore, products }: FeaturedProducts
                   }
                 />
                 <Tab
-                  key="music"
+                  key="latest"
                   title={
                     <button
+                      aria-label="Latest Products"
                       onClick={() => selectFilter("latest")}
                       className="flex items-center text-base font-medium space-x-2"
                     >
@@ -89,13 +86,14 @@ const FeaturedProducts = ({ sectionlabel, showmore, products }: FeaturedProducts
                   }
                 />
                 <Tab
-                  key="videos"
+                  key="aussie"
                   title={
                     <button
+                      aria-label="Aussie Products"
                       onClick={() => selectFilter("aussie")}
                       className="flex items-center text-base font-medium space-x-2"
                     >
-                      <span>Aussie Product</span>
+                      <span>Aussie Products</span>
                     </button>
                   }
                 />
@@ -121,9 +119,9 @@ const FeaturedProducts = ({ sectionlabel, showmore, products }: FeaturedProducts
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-4">
-          {products &&
-            products.length > 0 &&
-            products.map((item, index) => (
+          {filteredItems &&
+            filteredItems.length > 0 &&
+            filteredItems.map((item) => (
               <ProductCard
                 key={item._id}
                 image={item.overview.heroImage}
@@ -137,12 +135,13 @@ const FeaturedProducts = ({ sectionlabel, showmore, products }: FeaturedProducts
                 qunatity={item.overview.minQty}
                 id={item._id}
                 category={item?.category?.name || item.product.categorisation.productType.typeName}
-                handlePreviewFn={(data) => handlePreviewProd(data)}
+                handlePreviewFn={handlePreviewProd}
               />
             ))}
         </div>
+
         {showmore && (
-          <div className="flex flex-row gap-2 items-center justify-center w-2/6 left-[50%] absolute -translate-x-[50%] bottom-0 ">
+          <div className="flex flex-row gap-2 items-center justify-center w-2/6 left-[50%] absolute -translate-x-[50%] bottom-0">
             <Button
               as={Link}
               href="#"
