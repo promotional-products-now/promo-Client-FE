@@ -7,27 +7,30 @@ import {
   ModalContent,
   Card,
   CardFooter,
+<<<<<<< HEAD
   Input,
+=======
+>>>>>>> 784a3fe993286efffe77117291d29475ec15099b
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@nextui-org/react";
-import { Link as RemixLink, json, redirect, useLoaderData, useLocation } from "@remix-run/react";
+import { Link as RemixLink, json, useLoaderData, useLocation } from "@remix-run/react";
 import { MdOutlineLocalPhone } from "react-icons/md";
 import { PiHandbagLight } from "react-icons/pi";
 import { FaAward } from "react-icons/fa6";
 import { SecondaryNav } from "./SecondaryNav";
 import { navLinks } from "./navLinks";
 import logo from "app/assets/logo.svg";
-import { FiLogIn, FiMenu, FiSearch } from "react-icons/fi";
+import { FiLogIn, FiMenu } from "react-icons/fi";
 import { TbTruckDelivery } from "react-icons/tb";
-import { getSession, commitSession } from "../../sessions";
+import { getSession } from "../../sessions";
 import { useEffect, useState } from "react";
 import { fetchBannerApi } from "app/api/banner/banner.api";
 import { IBanner, IPopup } from "app/api/banner/types";
-import { SearchDropdown } from "./SearchDropdown";
 import allCategory from "app/utils/categories";
 import CategoryList from "../CategoryList";
+import { SearchDropdown } from "./SearchDropdown";
 
 type HeaderT = {
   sidebarOpen: string | boolean | undefined;
@@ -40,7 +43,7 @@ export function Header(props: HeaderT) {
   const [popup, setPopup] = useState<IPopup | null>(null);
 
   const location = useLocation();
-  let data = useLoaderData<typeof loader>();
+  const data = useLoaderData<typeof loader>();
 
   const handleOpenSidebar = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
@@ -57,7 +60,7 @@ export function Header(props: HeaderT) {
         onOpen();
       }
     });
-  }, []);
+  }, [onOpen]);
 
   return (
     <header className={` ${location.pathname !== "/" ? "border border-white-border" : ""}`}>
@@ -223,33 +226,7 @@ export function Header(props: HeaderT) {
                     {/*                         <CategoryList categorie={allCategory} />
                      */}
                   </div>
-                  <div className="w-full">
-                    <form>
-                      <div className="flex items-center">
-                        <Input
-                          type="text"
-                          size="sm"
-                          variant="bordered"
-                          placeholder="Search product catalogue"
-                          radius="none"
-                          className="rounded-s-sm"
-                          startContent={<SearchDropdown />}
-                          classNames={{
-                            inputWrapper: ["border", "border-zinc-100", "h-12"],
-                            mainWrapper: "rounded-md",
-                          }}
-                        />
-                        <Button
-                          type="submit"
-                          size="lg"
-                          isIconOnly
-                          className="bg-primary text-white rounded-s-none rounded-e-md"
-                        >
-                          <FiSearch />
-                        </Button>
-                      </div>
-                    </form>
-                  </div>
+                  <SearchDropdown />
                   <div className="hidden md:flex gap-2 ">
                     <Button
                       as={RemixLink}
@@ -284,7 +261,7 @@ export function Header(props: HeaderT) {
       </div>
       <Modal isOpen={isOpen} placement={popup?.position ?? "auto"} onOpenChange={onOpenChange}>
         <ModalContent>
-          {(onClose) => (
+          {() => (
             <>
               <Card isFooterBlurred className="w-full h-[24rem] col-span-12 sm:col-span-7">
                 <Image

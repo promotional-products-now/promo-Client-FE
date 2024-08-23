@@ -23,12 +23,12 @@ const options = [
   { value: "new", label: "New" },
 ];
 
-const FeaturedProducts = ({ sectionlabel, gridno, showmore, products }: FeaturedProductsProps) => {
+const FeaturedProducts = ({ sectionlabel, showmore, products }: FeaturedProductsProps) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const setProduct = useSetAtom(productPreviewAtom);
 
-  const [filterItems, setFilterItems] = useState(items);
+  const [, setFilterItems] = useState(items);
 
   const selectFilter = (selectItems: string) => {
     const updatedFilter = items.filter((items) => {
@@ -68,34 +68,35 @@ const FeaturedProducts = ({ sectionlabel, gridno, showmore, products }: Featured
                 <Tab
                   key="photos"
                   title={
-                    <div
+                    <button
+                      aria-label="set-"
                       onClick={() => setFilterItems(items)}
                       className="flex items-center text-base font-medium space-x-2"
                     >
                       <span>Trending Products</span>
-                    </div>
+                    </button>
                   }
                 />
                 <Tab
                   key="music"
                   title={
-                    <div
+                    <button
                       onClick={() => selectFilter("latest")}
                       className="flex items-center text-base font-medium space-x-2"
                     >
                       <span>Latest Products</span>
-                    </div>
+                    </button>
                   }
                 />
                 <Tab
                   key="videos"
                   title={
-                    <div
+                    <button
                       onClick={() => selectFilter("aussie")}
                       className="flex items-center text-base font-medium space-x-2"
                     >
                       <span>Aussie Product</span>
-                    </div>
+                    </button>
                   }
                 />
               </Tabs>
