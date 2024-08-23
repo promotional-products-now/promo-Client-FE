@@ -22,7 +22,7 @@ export function SecondaryNav({ uid }: any) {
               >
                 <FiMenu />
               </Button>{" "}
-              All Products Categoeries
+              ALL PRODUCT CATEGORIES
             </div>
           </div>
           <SearchDropdown />

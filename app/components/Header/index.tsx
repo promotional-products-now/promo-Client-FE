@@ -208,21 +208,19 @@ export function Header(props: HeaderT) {
                   <div className="hidden md:flex flex-col space-y-3">
                     <Popover showArrow placement="bottom">
                       <PopoverTrigger>
-                        <div className=" cursor-pointer min-w-64 xl:min-w-72 2xl:min-w-96 flex items-center gap-2 text-white bg-primary p-1 font-medium  rounded text-sm  ">
+                        <div className="cursor-pointer max-w-64 xl:min-w-72 flex items-center gap-2 text-white bg-primary p-1 font-medium  rounded text-sm  ">
                           <Button isIconOnly className="bg-transparent text-lg text-white">
                             <FiMenu />
                           </Button>{" "}
-                          All Products Categoeries
+                          ALL PRODUCT CATEGORIES
                         </div>
                       </PopoverTrigger>
                       <PopoverContent className="p-1">
-                        <div className="h-[30rem] min-h-[30rem] 2xl:h-[36rem]  min-w-64 xl:min-w-72 2xl:min-w-96 overflow-y-auto">
+                        <div className="h-[30rem] min-h-[30rem] 2xl:h-[36rem]  max-w-64 xl:min-w-72 overflow-y-auto">
                           <CategoryList categories={allCategory} top={0} right={60} />
                         </div>
                       </PopoverContent>
                     </Popover>
-                    {/*                         <CategoryList categorie={allCategory} />
-                     */}
                   </div>
                   <SearchDropdown />
                   <div className="hidden md:flex gap-2 ">

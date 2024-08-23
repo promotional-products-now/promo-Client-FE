@@ -93,23 +93,18 @@ export default function Index() {
 
   return (
     <>
-      <div className="bg-white-bg pb-12 px-3 md:px-6 lg:px-8 xl:px-12 ">
-        <div className=" container mx-auto flex flex-col md:flex-col lg:flex-row justify-center">
+      <div className="bg-white-bg px-3 md:px-6 lg:px-8 xl:px-12 lg:h-[700px]">
+        <div className=" container mx-auto flex flex-col md:flex-col lg:flex-row justify-center lg:flex-grow h-full">
           <div
             aria-label="Link Categories"
-            className={` overflow-y-scroll  bg-white mr-3 -mt-4 hidden md:block divide-y divide-primary max-w-64 transition-height duration-300 ease-linear  ${
-              !isCategoryOpen
-                ? "h-0 w-0"
-                : "h-[28rem] min-h-[26rem] 2xl:h-[34rem] w-full xl:min-w-72 2xl:min-w-96 "
+            className={`border-2 border-green-700 pb-3 lg:flex flex-grow overflow-y-scroll  bg-white lg:mr-6 lg:-mt-4 hidden md:block divide-y divide-primary max-w-64 transition-height duration-300 ease-linear  ${
+              !isCategoryOpen ? "h-0 w-0 mr-0" : "h-full w-full lg:max-w-72"
             } `}
           >
-            {/* category */}
-            {/* <ScrollShadow className="w-full h-full overflow-x-hidden"> */}
-            <div className="">{allCategory && <CategoryList categories={allCategory} />}</div>
-            {/* </ScrollShadow> */}
+            {allCategory && <CategoryList categories={allCategory} />}
           </div>
           <div
-            className={`flex flex-col md:flex-col lg:flex-row justify-center container mx-auto p-3 px-0 !m-0 md:px-0 transition-width duration-300 ease-linear ${
+            className={`flex flex-col md:flex-col lg:flex-row justify-center container mx-auto py-3 lg:py-6 !m-0 transition-width duration-300 ease-linear ${
               !isCategoryOpen ? "" : "w-full"
             }`}
           >
@@ -233,7 +228,7 @@ export default function Index() {
             </span>
           </div>
 
-          <div className="relative border-3 border-orange py-5 sm:py-2 px-2 sm:px-5 2xl:px-12 xl:pb-6">
+          <div className="relative border-2 border-orange py-5 sm:py-2 px-2 sm:px-5 2xl:px-12 xl:pb-6">
             <div className="bg-white  p-4 absolute top-[-1.65rem]">
               <div className="flex justify-between gap-2 font-semibold text-orange text-2xl">
                 <ImFire />
