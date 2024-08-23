@@ -7,10 +7,7 @@ import {
   ModalContent,
   Card,
   CardFooter,
-<<<<<<< HEAD
   Input,
-=======
->>>>>>> 784a3fe993286efffe77117291d29475ec15099b
   Popover,
   PopoverContent,
   PopoverTrigger,
