@@ -27,30 +27,40 @@ export function headers() {
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "FAQ | Promotional Products Now " },
-    { name: "description", content: "Welcome to Promotional Products Now" },
+    { title: "FAQ | Promotional Products Now" },
+    {
+      name: "description",
+      content: "Find answers to common questions about Promotional Products Now.",
+    },
+    { property: "og:title", content: "FAQ | Promotional Products Now" },
+    {
+      property: "og:description",
+      content: "Find answers to common questions about Promotional Products Now.",
+    },
+    // { property: "og:image", content: "URL_TO_IMAGE" },
   ];
 };
 
 function groupFAQsBySection(faqs: FAQ[]): GroupedFAQs {
-  if (faqs) {
-    return faqs.reduce((acc: GroupedFAQs, faq: FAQ) => {
-      if (!acc[faq?.section?.title]) {
-        acc[faq?.section?.title] = [];
-      }
-      acc[faq?.section?.title ?? faq.section].push(faq);
-      return acc;
-    }, {});
-  }
-  return {};
+  return faqs.reduce((acc: GroupedFAQs, faq: FAQ) => {
+    const sectionTitle = faq?.section?.title ?? "Uncategorized";
+    if (!acc[sectionTitle]) {
+      acc[sectionTitle] = [];
+    }
+    acc[sectionTitle].push(faq);
+    return acc;
+  }, {});
 }
 
 export const loader = async () => {
-  const { data } = await fetchFaqApi({});
-
-  const groupedFAQs = groupFAQsBySection(data?.payload?.data || []);
-
-  return groupedFAQs;
+  try {
+    const { data } = await fetchFaqApi();
+    const groupedFAQs = groupFAQsBySection(data?.payload?.data || []);
+    return groupedFAQs;
+  } catch (error) {
+    console.error("Failed to fetch FAQs:", error);
+    return {};
+  }
 };
 
 const Faq = () => {
@@ -59,34 +69,32 @@ const Faq = () => {
   return (
     <div
       itemScope
-      itemType="https://schema.org/FrequentlyAskedQuestion"
+      itemType="https://schema.org/FAQPage"
       className="flex flex-col gap-3 w-full mx-auto space-y-6"
     >
       <div className="flex flex-col gap-3 text-center pt-16 md:pt-0">
-        <h2 itemProp="name" className="text-2xl md:text-3xl font-bold">
+        <h2 itemProp="headline" className="text-2xl md:text-3xl font-bold">
           FAQs
         </h2>
-        <div className="">
-          <p className="text-default-500 text-sm md:text-base">
-            Here are the most frequenty asked questions. We are here to help you, so please feel
-            free to{" "}
-            <Link
-              itemProp="url"
-              to="/contact"
-              className="text-yellow font-semibold text-yellow-400 cursor-pointer"
-            >
-              Contact us
-            </Link>
-          </p>
-        </div>
+        <p className="text-default-500 text-sm md:text-base">
+          Here are the most frequently asked questions. We are here to help you, so please feel free
+          to{" "}
+          <Link
+            itemProp="url"
+            to="/contact"
+            prefetch="intent"
+            className="text-yellow font-semibold text-yellow-400 cursor-pointer"
+          >
+            Contact us
+          </Link>
+          .
+        </p>
       </div>
 
       <div className="flex flex-col gap-2 py-4 md:p-0">
         {Object.keys(groupedFAQs).map((section) => (
           <div key={section}>
-            <h2 itemProp="name" className="text-left text-yellow ml-2">
-              FAQ-{section}
-            </h2>
+            <h3 className="text-left text-yellow ml-2">FAQ - {section}</h3>
             {groupedFAQs[section].map((faq) => (
               <Accordion variant="light" key={faq._id} showDivider={false}>
                 <AccordionItem
@@ -100,13 +108,14 @@ const Faq = () => {
                   }
                   title={faq.title}
                   className="border border-neutral-200 my-2 px-3"
-                  classNames={{
-                    title: "font-semibold",
-                  }}
+                  classNames={{ title: "font-semibold" }}
                 >
                   <div className="border-t border-neutral-200 mb-2"></div>
                   <div className="w-full px-3">
-                    <p itemProp="answer" className="text-foreground-600 text-sm leading-loose">
+                    <p
+                      itemProp="acceptedAnswer"
+                      className="text-foreground-600 text-sm leading-loose"
+                    >
                       {faq.answer}
                     </p>
                   </div>
