@@ -23,13 +23,14 @@ import { BlogCardProps } from "./Blog/interface";
 import HealthImage from "app/assets/category/health.jpg";
 import ClothingImage from "app/assets/category/clothing.jpg";
 import axios from "axios";
-import { homePageSchema } from "./_index_seo";
 import { getMinMaxPrice } from "app/utils/fn";
 import allCategory from "app/utils/categories";
+import { useEffect, useState } from "react";
+import { homePageSchema } from "./_index_seo";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Home | Promotional Products Now " },
+    { title: "Home | Promotional Products Now" },
     { name: "description", content: "Welcome to Promotional Products Now" },
   ];
 };
@@ -42,32 +43,24 @@ export function headers() {
 
 export const loader: LoaderFunction = async () => {
   try {
-    // Fetch all necessary data in parallel
-    const [productsResponse, productShowCase, blogResponse, leastProductsResponse] =
-      await Promise.all([
-        fetchProductsApi({ page: 20, limit: 6 }),
-        fetchProductShowCase(["Health%20%26%20Personal", "Clothing", "Home%20%26%20Living"]),
-        fetchAllBlogsApi({ limit: 6 }),
-        fetchProductsApi({ page: 1, limit: 4 }),
-      ]);
+    const [productsResponse, productShowCase, leastProductsResponse] = await Promise.all([
+      fetchProductsApi({ page: 20, limit: 6 }),
+      fetchProductShowCase(["Health%20%26%20Personal", "Clothing", "Home%20%26%20Living"]),
+      fetchProductsApi({ page: 1, limit: 4 }),
+    ]);
 
-    // Process and return data
     return json({
       products: productsResponse.data.docs,
       leastProducts: leastProductsResponse.data.docs,
-      blog: blogResponse.data?.payload?.data || [],
       productShowCase: productShowCase.data,
     });
   } catch (error) {
-    // Handle errors with appropriate status codes and messages
     if (axios.isAxiosError(error)) {
-      console.error("Axios error:", error.message);
       throw new Response(error.message, {
         status: error.response?.status || 500,
         statusText: error.response?.statusText || "Internal Server Error",
       });
     } else {
-      console.error("Unexpected error:", error);
       throw new Response("An unexpected error occurred", {
         status: 500,
         statusText: "Internal Server Error",
@@ -83,13 +76,27 @@ export default function Index() {
 
   const loaderData = useLoaderData<typeof loader>();
 
-  console.log({ productShowCase: loaderData.productShowCase });
-  const [isCategoryOpen, setIsCategoryOpen] = useAtom(isCategoryListOpen);
+  const [isCategoryOpen] = useAtom(isCategoryListOpen);
 
   const handlePreviewProd = (product: any) => {
     onOpen();
     setProductPrevData(product);
   };
+
+  const [blogs, setBlogs] = useState<BlogCardProps[]>([]);
+
+  useEffect(() => {
+    async function fetchBlogs() {
+      try {
+        const response = await fetchAllBlogsApi({ limit: 6 });
+        setBlogs(response.data?.payload?.data || []);
+      } catch (error) {
+        console.error("Failed to fetch blogs:", error);
+      }
+    }
+
+    fetchBlogs();
+  }, []);
 
   return (
     <>
@@ -102,6 +109,7 @@ export default function Index() {
             } `}
           >
             {allCategory && <CategoryList categories={allCategory} />}
+            {allCategory && <CategoryList categories={allCategory} />}
           </div>
           <div
             className={`flex flex-col md:flex-col lg:flex-row justify-center container mx-auto py-3 lg:py-6 !m-0 transition-width duration-300 ease-linear ${
@@ -109,11 +117,11 @@ export default function Index() {
             }`}
           >
             <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 bg-lightBlue justify-center items-center p-5">
-              <div className="flex flex-col gap-2 md:gap-3 ">
+              <div className="flex flex-col gap-2 md:gap-3">
                 <h3 className="font-semibold text-sm md:text-base text-white-bg space-y-2">
                   CLOTHING
                 </h3>
-                <h1 className="font-bold text-lg md:text-2xl text-white-bg capitalize ">
+                <h1 className="font-bold text-lg md:text-2xl text-white-bg capitalize">
                   Podium Cool Piping Polo Shirt Short Sleeve
                 </h1>
                 <h3 className="text-sm md:text-base text-white-bg font-normal">PRICE RANGE </h3>
@@ -122,30 +130,29 @@ export default function Index() {
                   <Button
                     as={Link}
                     href="#"
-                    className="bg-primary w-min p-5 rounded-md  text-white-bg text-base font-semibold hover:opacity-80 transition text-center capitalize"
+                    className="bg-primary w-min p-5 rounded-md text-white-bg text-base font-semibold hover:opacity-80 transition text-center capitalize"
                     variant="solid"
                   >
                     Shop now
                   </Button>
-
                   <Button
                     as={Link}
                     href="/#"
-                    className="bg-white-bg w-max p-5 rounded-md  text-black text-base font-semibold hover:opacity-80 transition text-center capitalize"
+                    className="bg-white-bg w-max p-5 rounded-md text-black text-base font-semibold hover:opacity-80 transition text-center capitalize"
                     variant="solid"
                   >
                     View Collection
                   </Button>
                 </div>
               </div>
-
               <div className="object-cover h-full">
                 <Image
                   src="https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=600"
                   radius="none"
-                  alt="man-img"
+                  alt="Podium Cool Piping Polo Shirt"
                   removeWrapper
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
               </div>
             </div>
@@ -157,28 +164,29 @@ export default function Index() {
                     HEALTH & FITNESS
                   </h3>
                   <h1 className="font-bold text-lg md:text-2xl text-black capitalize space-y-2">
-                    Champion Fitness Activity Tracker{" "}
+                    Champion Fitness Activity Tracker
                   </h1>
                   <div className="flex flex-col gap-3 justify-start">
                     <Button
                       as={Link}
                       href="#"
-                      className="bg-primary p-5 w-min rounded-md  text-white-bg text-base hover:opacity-80 transition text-center capitalize"
+                      className="bg-primary p-5 w-min rounded-md text-white-bg text-base hover:opacity-80 transition text-center capitalize"
                       size="md"
                       variant="solid"
                     >
                       Shop now
                     </Button>
-                  </div>{" "}
+                  </div>
                 </div>
 
                 <Link href="cart" className="w-56 h-36">
                   <Image
                     src="https://images.pexels.com/photos/437036/pexels-photo-437036.jpeg?auto=compress&cs=tinysrgb&w=600"
-                    alt="man-img"
+                    alt="Champion Fitness Activity Tracker"
                     radius="none"
                     removeWrapper
                     className="w-full h-full object-cover"
+                    loading="lazy"
                   />
                 </Link>
               </div>
@@ -187,12 +195,11 @@ export default function Index() {
                 <div className="w-56 h-36">
                   <Image
                     src="https://images.pexels.com/photos/842959/pexels-photo-842959.jpeg?auto=compress&cs=tinysrgb&w=600"
-                    height="100"
-                    width="100"
-                    alt="man-img"
+                    alt="Harley Laptop Backpack"
                     radius="none"
                     removeWrapper
                     className="w-full h-full object-cover"
+                    loading="lazy"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
@@ -200,9 +207,9 @@ export default function Index() {
                     BAGS
                   </h3>
                   <h1 className="font-bold text-lg md:text-2xl text-white-bg capitalize space-y-2">
-                    Harley Laptop Backpack 152 mm(w) x 127 mm(d){" "}
+                    Harley Laptop Backpack 152 mm(w) x 127 mm(d)
                   </h1>
-                  <div className="flex flex-col gap-3 justify-start ">
+                  <div className="flex flex-col gap-3 justify-start">
                     <Button
                       as={Link}
                       href="#"
@@ -212,7 +219,7 @@ export default function Index() {
                     >
                       Shop Now
                     </Button>
-                  </div>{" "}
+                  </div>
                 </div>
               </div>
             </div>
@@ -239,11 +246,13 @@ export default function Index() {
               <Carousel numberOfItems={4}>
                 {loaderData &&
                   loaderData.products.map((item: any) => {
-                    // const price = item.product.prices.priceGroups;
-                    // const initPrice = "";
-                    // const lastPrice = item[price.length - 1];
                     return (
-                      <div key={item._id || item?.id} className="flex flex-row">
+                      <div
+                        key={item._id || item?.id}
+                        className="flex flex-row"
+                        itemScope
+                        itemType="https://schema.org/Product"
+                      >
                         <ProductCard
                           image={item.overview.heroImage}
                           images={item.product.images}
@@ -279,7 +288,6 @@ export default function Index() {
               : []
           }
         />
-        {/* <FeaturedProducts sectionlabel="Featured Products" gridno={10} /> */}
         <ProductSection
           heroImage={ClothingImage}
           Icon={GiClothes}
@@ -313,18 +321,21 @@ export default function Index() {
           }
         />
         <ContactUs />
-        <section className="bg-white-bg p-10 ">
-          <div className="mt-4 flex flex-col justify-center items-center gap-4 w-full w-max-ppn">
+        <section className="bg-white-bg p-10">
+          <div
+            className="mt-4 flex flex-col justify-center items-center gap-4 w-full w-max-ppn"
+            itemScope
+            itemType="https://schema.org/Organization"
+          >
             <div className="py-2">
               <h2 className="font-bold text-2xl text-black capitalize text-center">
                 You are fully protected
               </h2>
-              <p className=" md:text-lg text-sm text-gray text-center">
+              <p className="md:text-lg text-sm text-gray text-center">
                 We are bound by the code of conduct of the Australian Promotional Products
                 Association
               </p>
             </div>
-
             <div className="w-1/2 hidden md:block overflow-hidden px-4">
               {/* TODO: asset not ready for mobile screens */}
               <AppaIcon />
@@ -332,29 +343,32 @@ export default function Index() {
           </div>
         </section>
         <section className="mb-20 md:px-20 w-full flex flex-col gap-2 md:space-y-6 w-max-ppn">
-          <h1 className="font-bold text-2xl text-black capitalize text-center">Our Blog</h1>
-          <h3 className="font-semibold text-lg text-gray text-center">Browse Our Latest News</h3>
-
-          <div className="md:mx-4">
-            <Carousel numberOfItems={3}>
-              {loaderData &&
-                loaderData.blog.length > 0 &&
-                loaderData.blog.map((post: BlogCardProps) => (
-                  <div key={post._id} className="flex flex-col md:flex-row gap-1 sm:mx-2 md:mx-1">
-                    <BlogCard
-                      title={post.title}
-                      summary={post.summary}
-                      slug={post?.slug || post?.title}
-                      description={post.description}
-                      imageSrc={post.imageSrc}
-                      _id={post._id}
-                      category={post.category}
-                      body={post.body}
-                    />
-                  </div>
-                ))}
-            </Carousel>
-          </div>
+          {blogs && blogs.length > 0 && (
+            <>
+              <h1 className="font-bold text-2xl text-black capitalize text-center">Our Blog</h1>
+              <h3 className="font-semibold text-lg text-gray text-center">
+                Browse Our Latest News
+              </h3>
+              <div className="md:mx-4">
+                <Carousel numberOfItems={3}>
+                  {blogs.map((post: BlogCardProps) => (
+                    <div key={post._id} className="flex flex-col md:flex-row gap-1 sm:mx-2 md:mx-1">
+                      <BlogCard
+                        title={post.title}
+                        summary={post.summary}
+                        slug={post?.slug || post?.title}
+                        description={post.description}
+                        imageSrc={post.imageSrc}
+                        _id={post._id}
+                        category={post.category}
+                        body={post.body}
+                      />
+                    </div>
+                  ))}
+                </Carousel>
+              </div>
+            </>
+          )}
         </section>
       </div>
       <PreviewProduct isOpen={isOpen} onOpenChange={onOpenChange} />

@@ -1,9 +1,12 @@
-// import { routes } from "@remix-run/dev/server-build";
-// import type { LoaderFunctionArgs } from "@remix-run/node";
-// import { generateSitemap } from "@nasa-gcn/remix-seo";
+import { generateSitemap } from "@nasa-gcn/remix-seo";
+import { type ServerBuild, type LoaderFunctionArgs } from "@remix-run/node";
 
-// export function loader({ request }: LoaderFunctionArgs) {
-//   return generateSitemap(request, routes, {
-//     siteUrl: "https://promotionalproductsnow.au",
-//   });
-// }
+export async function loader({ request, context }: LoaderFunctionArgs) {
+  const serverBuild = (await context.serverBuild) as ServerBuild;
+  return generateSitemap(request, serverBuild.routes, {
+    siteUrl: "https://promotionalproductsnow.au",
+    headers: {
+      "Cache-Control": `public, max-age=${60 * 60 * 24 * 7}, must-revalidate`, // 7days
+    },
+  });
+}

@@ -48,7 +48,7 @@ export const ProductCard = ({
         <div className="aspect-square w-full relative overflow-hidden p-0 md:mb-4-">
           {image ? (
             <Image
-              alt={title}
+              alt={`Image of ${title}`}
               radius="none"
               src={image}
               removeWrapper
@@ -56,6 +56,7 @@ export const ProductCard = ({
                 navigate(`/products/${category ? toSnakeCase(category) : "_"}/${id}`);
               }}
               className="object-cover border-2 border-zinc-100 h-full w-full transition aspect-square inset-0"
+              loading="lazy"
             />
           ) : (
             <div className="bg-slate-100 h-full w-full"></div>
@@ -67,6 +68,7 @@ export const ProductCard = ({
               className="bg-orange text-white"
               startContent={<FiEye />}
               onPress={() => handlePreviewFn(props)}
+              aria-label={`Preview ${title}`}
             >
               Preview
             </Button>
@@ -76,6 +78,7 @@ export const ProductCard = ({
               radius="none"
               className="bg-primary text-white"
               startContent={<BsCart3 />}
+              aria-label={`View details of ${title}`}
             >
               View Product
             </Button>
@@ -94,7 +97,6 @@ export const ProductCard = ({
                 </span>
               </div>
             )}
-            {/* {qunatity && <div className="text-xs">{qunatity}</div>} */}
           </div>
         </div>
       </div>
