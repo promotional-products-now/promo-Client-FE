@@ -7,6 +7,10 @@ import {
   ModalContent,
   Card,
   CardFooter,
+<<<<<<< HEAD
+  Input,
+=======
+>>>>>>> 784a3fe993286efffe77117291d29475ec15099b
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -179,15 +183,13 @@ export function Header(props: HeaderT) {
                         {location.pathname === link.pathname ? (
                           <span> {link.name}</span>
                         ) : (
-                          <Link
-                            prefetch={link.prefetch}
-                            as={RemixLink}
-                            to={link.pathname}
+                          <a
+                            href={link.pathname}
                             aria-current="page"
                             className="text-black  2xl:text-xl"
                           >
                             {link.name}
-                          </Link>
+                          </a>
                         )}
                       </li>
                     );

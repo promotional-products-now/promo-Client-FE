@@ -28,23 +28,26 @@ function CategoryList(props: any) {
 
   return (
     <div>
-      <Listbox aria-label="Categories" className="mb-12 w-full text-xs md:hidden">
-        {props.categories &&
-          props.categories.length &&
-          props.categories.map((cat: categoryI) => (
-            <ListboxItem
-              variant="light"
-              showDivider
-              key={cat.id}
-              className="text-left bg-white text-zinc-800 text-xs md:font-medium  capitalize md:uppercase"
-              classNames={{ title: " md:font-medium" }}
-            >
-              <RemixLink to={`/categories/${toSnakeCase(cat.name)}`} className="w-full">
-                {cat.name}
-                <span className="text-primary-400 text-sm font-normal">({cat.totalProduct})</span>
-              </RemixLink>
-            </ListboxItem>
-          ))}
+      <Listbox
+        aria-label="Categories"
+        items={props?.categories ?? []}
+        className="mb-12 w-full text-xs md:hidden"
+      >
+        {(cat: categoryI) => (
+          <ListboxItem
+            variant="light"
+            showDivider
+            className="text-left bg-white text-zinc-800 text-xs md:font-medium  capitalize md:uppercase"
+            classNames={{ title: " md:font-medium" }}
+            key={cat._id}
+            textValue={cat.name}
+          >
+            <RemixLink to={`/categories/${toSnakeCase(cat.name)}`} className="w-full">
+              {cat.name}
+              <span className="text-primary-400 text-sm font-normal">({cat.totalProduct})</span>
+            </RemixLink>
+          </ListboxItem>
+        )}
       </Listbox>
       <div className="w-full bg-gray-100 p-4 hidden md:block ">
         <ul className="">

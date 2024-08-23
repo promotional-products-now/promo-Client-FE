@@ -17,42 +17,243 @@ function _mergeNamespaces(n, m) {
   }
   return Object.freeze(Object.defineProperty(n, Symbol.toStringTag, { value: "Module" }));
 }
-const CACHE_NAME = "api-cache-v1";
-self.addEventListener("install", (event) => {
-  console.log("Service worker installed");
-  event.waitUntil(self.skipWaiting());
-});
-self.addEventListener("activate", (event) => {
-  console.log("Service worker activated");
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    }).then(() => self.clients.claim())
+function getFormattedDate() {
+  const now = /* @__PURE__ */ new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+const CACHE_VERSION = `v1-${getFormattedDate()}`;
+const ASSET_CACHE = `asset-cache-${CACHE_VERSION}`;
+const DATA_CACHE = `data-cache-${CACHE_VERSION}`;
+const DOCUMENT_CACHE = `document-cache-${CACHE_VERSION}`;
+const IMAGE_CACHE = `image-cache-${CACHE_VERSION}`;
+const STATIC_ASSETS = ["/build/", "/icons/"];
+const MAX_CACHE_SIZE = 2e3;
+const ASSET_EXPIRATION_TIME = 7 * 24 * 60 * 60 * 1e3;
+const IMAGE_CACHE_EXPIRATION = 30 * 24 * 60 * 60 * 1e3;
+const OFFLINE_URL = "/offline";
+function debug(...messages) {
+  {
+    console.debug(...messages);
+  }
+}
+async function handleInstall(event) {
+  debug("Service worker installed");
+  const assetCache = await caches.open(ASSET_CACHE);
+  const criticalRoutes = [
+    // Add routes that need to be cached at install time
+    OFFLINE_URL
+  ];
+  try {
+    await assetCache.addAll(criticalRoutes);
+  } catch (error) {
+    debug("Failed to pre-fetch assets during installation:", error);
+  }
+}
+async function handleActivate(event) {
+  debug("Service worker activated");
+  const cacheNames = await caches.keys();
+  await Promise.all(
+    cacheNames.map((cacheName) => {
+      if (!cacheName.includes(CACHE_VERSION)) {
+        debug("Deleting old cache:", cacheName);
+        return caches.delete(cacheName);
+      }
+    })
   );
-});
-self.addEventListener("fetch", (event) => {
-  const url = new URL(event.request.url);
-  if (url.pathname.includes("/blog/category") || url.pathname.includes("/api/products/product-show-case")) {
-    event.respondWith(
-      caches.match(event.request).then((cachedResponse) => {
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-        return fetch(event.request).then((networkResponse) => {
-          return caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, networkResponse.clone());
-            return networkResponse;
-          });
-        });
+  await removeExpiredImages();
+  await removeExpiredAssets();
+  self.clients.claim();
+}
+async function handleMessage(event) {
+  const cachePromises = /* @__PURE__ */ new Map();
+  const { isMount, location, matches, manifest } = event.data;
+  const documentUrl = location.pathname + location.search + location.hash;
+  const [dataCache, documentCache, existingDocument] = await Promise.all([
+    caches.open(DATA_CACHE),
+    caches.open(DOCUMENT_CACHE),
+    caches.match(documentUrl)
+  ]);
+  if (!existingDocument || !isMount) {
+    debug("Caching document for", documentUrl);
+    cachePromises.set(
+      documentUrl,
+      documentCache.add(documentUrl).then(() => pruneCache(DOCUMENT_CACHE)).catch((error) => {
+        debug(`Failed to cache document for ${documentUrl}:`, error);
       })
     );
   }
+  if (isMount) {
+    for (const match of matches) {
+      if (manifest.routes[match.id].hasLoader) {
+        const params = new URLSearchParams(location.search);
+        params.set("_data", match.id);
+        const search = params.toString();
+        const url = location.pathname + (search ? `?${search}` : "") + location.hash;
+        if (!cachePromises.has(url)) {
+          debug("Caching data for", url);
+          cachePromises.set(
+            url,
+            dataCache.add(url).then(() => pruneCache(DATA_CACHE)).catch((error) => {
+              debug(`Failed to cache data for ${url}:`, error);
+            })
+          );
+        }
+      }
+    }
+  }
+  await Promise.all(cachePromises.values());
+}
+async function handleFetch(event) {
+  const request = event.request;
+  if (isDocumentGetRequest(request) || isLoaderRequest$1(request)) {
+    const cache = await caches.open(DOCUMENT_CACHE);
+    const cachedResponse = await cache.match(request);
+    try {
+      const networkResponse = await fetch(request);
+      const clonedResponse = networkResponse.clone();
+      const htmlText = await clonedResponse.text();
+      const assetsToCache = extractAssetUrls(htmlText);
+      cache.put(request, networkResponse.clone());
+      const assetCache = await caches.open(ASSET_CACHE);
+      assetCache.addAll(assetsToCache);
+      debug("Cached assets:", assetsToCache);
+      pruneCache(DOCUMENT_CACHE);
+      return networkResponse;
+    } catch (error) {
+      debug("Network request failed; serving from cache:", error);
+      return cachedResponse || await caches.match(OFFLINE_URL) || new Response("Offline", { status: 503 });
+    }
+  }
+  if (isAssetRequest(request) || isImageRequest(request)) {
+    const cacheName = isImageRequest(request) ? IMAGE_CACHE : ASSET_CACHE;
+    const cache = await caches.open(cacheName);
+    const cachedResponse = await cache.match(request);
+    if (cachedResponse) {
+      return cachedResponse;
+    }
+    const networkResponse = await fetch(request);
+    if (networkResponse && networkResponse.status === 200) {
+      cache.put(request, networkResponse.clone());
+      await pruneCache(cacheName);
+    }
+    return networkResponse;
+  }
+  return fetch(request).catch(async () => {
+    return await caches.match(OFFLINE_URL) || new Response("Offline", { status: 503 });
+  });
+}
+function extractAssetUrls(htmlText) {
+  const urls = /* @__PURE__ */ new Set();
+  const regex = /<link[^>]+href="([^"]+)"|<script[^>]+src="([^"]+)"|<img[^>]+src="([^"]+)"/g;
+  let match;
+  while ((match = regex.exec(htmlText)) !== null) {
+    if (match[1]) {
+      urls.add(match[1]);
+    }
+    if (match[2]) {
+      urls.add(match[2]);
+    }
+    if (match[3]) {
+      urls.add(match[3]);
+    }
+  }
+  return Array.from(urls);
+}
+async function pruneCache(cacheName) {
+  const cache = await caches.open(cacheName);
+  const keys = await cache.keys();
+  if (keys.length > MAX_CACHE_SIZE) {
+    const urls = keys.map((request) => request.url);
+    urls.sort((a, b) => {
+      const aDateMatch = a.match(/(\d{13})/);
+      const bDateMatch = b.match(/(\d{13})/);
+      const aDate = aDateMatch ? parseInt(aDateMatch[0], 10) : 0;
+      const bDate = bDateMatch ? parseInt(bDateMatch[0], 10) : 0;
+      return aDate - bDate;
+    });
+    while (keys.length > MAX_CACHE_SIZE) {
+      const oldestRequest = keys.find((request) => request.url === urls.shift());
+      if (oldestRequest) {
+        debug("Pruning asset from cache", oldestRequest.url);
+        await cache.delete(oldestRequest);
+      }
+    }
+  }
+}
+async function removeExpiredImages() {
+  const cache = await caches.open(IMAGE_CACHE);
+  const keys = await cache.keys();
+  const expirationPromises = keys.map(async (key) => {
+    const response = await cache.match(key);
+    if (response) {
+      const dateHeader = response.headers.get("date");
+      if (dateHeader) {
+        const date = new Date(dateHeader);
+        if (Date.now() - date.getTime() > IMAGE_CACHE_EXPIRATION) {
+          debug("Removing expired image from cache", key.url);
+          return cache.delete(key);
+        }
+      }
+    }
+  });
+  await Promise.all(expirationPromises);
+}
+async function removeExpiredAssets() {
+  const cache = await caches.open(ASSET_CACHE);
+  const keys = await cache.keys();
+  const expirationPromises = keys.map(async (key) => {
+    const response = await cache.match(key);
+    if (response) {
+      const dateHeader = response.headers.get("date");
+      if (dateHeader) {
+        const date = new Date(dateHeader);
+        if (Date.now() - date.getTime() > ASSET_EXPIRATION_TIME) {
+          debug("Removing expired asset from cache", key.url);
+          return cache.delete(key);
+        }
+      }
+    }
+  });
+  await Promise.all(expirationPromises);
+}
+function isMethod$1(request, methods) {
+  return methods.includes(request.method.toLowerCase());
+}
+function isAssetRequest(request) {
+  return isMethod$1(request, ["get"]) && STATIC_ASSETS.some((publicPath) => request.url.startsWith(publicPath));
+}
+function isLoaderRequest$1(request) {
+  const url = new URL(request.url);
+  return isMethod$1(request, ["get"]) && url.searchParams.get("_data") !== null;
+}
+function isDocumentGetRequest(request) {
+  return isMethod$1(request, ["get"]) && request.mode === "navigate";
+}
+function isImageRequest(request) {
+  return request.destination === "image" || !!request.url.match(/\.(png|jpg|jpeg|gif|svg|webp)$/i);
+}
+self.addEventListener("install", (event) => {
+  event.waitUntil(handleInstall().then(() => self.skipWaiting()));
+});
+self.addEventListener("activate", (event) => {
+  event.waitUntil(handleActivate());
+});
+self.addEventListener("message", (event) => {
+  event.waitUntil(handleMessage(event));
+});
+self.addEventListener("fetch", (event) => {
+  event.respondWith(
+    handleFetch(event).catch((error) => {
+      debug("Fetch failed", error);
+      return new Response("Something went wrong", {
+        status: 500,
+        statusText: "Internal Server Error"
+      });
+    })
+  );
 });
 const entryWorker = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null
@@ -742,7 +943,7 @@ const routes = {
     path: "sitemap.xml",
     index: void 0,
     caseSensitive: void 0,
-    hasLoader: false,
+    hasLoader: true,
     hasAction: false,
     hasWorkerLoader: false,
     hasWorkerAction: false,
@@ -868,6 +1069,18 @@ const routes = {
     hasWorkerAction: false,
     module: route21
   },
+  "routes/Offline": {
+    id: "routes/Offline",
+    parentId: "root",
+    path: "Offline",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: false,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route22
+  },
   "routes/Quotes": {
     id: "routes/Quotes",
     parentId: "root",
@@ -878,7 +1091,7 @@ const routes = {
     hasAction: false,
     hasWorkerLoader: false,
     hasWorkerAction: false,
-    module: route22
+    module: route23
   },
   "routes/Search": {
     id: "routes/Search",
