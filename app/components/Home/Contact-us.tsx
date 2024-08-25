@@ -38,7 +38,7 @@ function ContactUs() {
             size="md"
             variant="solid"
             startContent={<FiShoppingCart className="text-base" />}
-            className="rounded-md bg-primary text-white p-6 hover:opacity-80 transition text-center capitalize flex flex-row"
+            className="rounded-md bg-primary text-white px-8 hover:opacity-80 transition text-center capitalize flex flex-row"
           >
             Shop Now
           </Button>
@@ -49,7 +49,7 @@ function ContactUs() {
             size="md"
             variant="solid"
             startContent={<FiPhoneCall className="text-base" />}
-            className="rounded-md bg-yellow text-white p-6 hover:opacity-80 transition text-center capitalize flex flex-row"
+            className="rounded-md bg-yellow text-white px-8 hover:opacity-80 transition text-center capitalize flex flex-row"
             aria-label="Call us at +12334587"
           >
             Contact Us
