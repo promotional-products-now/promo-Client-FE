@@ -27,7 +27,7 @@ function CategoryList(props: any) {
   };
 
   return (
-    <div>
+    <>
       <Listbox
         aria-label="Categories"
         items={props?.categories ?? []}
@@ -97,7 +97,7 @@ function CategoryList(props: any) {
             ))}
         </ul>
       </div>
-    </div>
+    </>
   );
 }
 
