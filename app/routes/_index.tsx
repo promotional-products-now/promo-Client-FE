@@ -20,12 +20,13 @@ import { PreviewProduct } from "app/components/Product/PreviewProduct";
 import { productPreviewAtom } from "app/atoms/product.atom";
 import { fetchAllBlogsApi } from "app/api/blog.api";
 import { BlogCardProps } from "./Blog/interface";
-import HealthImage from "app/assets/category/health.jpg";
-import ClothingImage from "app/assets/category/clothing.jpg";
+import HealthImage from "app/assets/category/health-cat.png";
+import ClothingImage from "app/assets/category/clothes.png";
+import BagImage from "app/assets/category/bags.png";
 import axios from "axios";
 import { getMinMaxPrice } from "app/utils/fn";
 import allCategory from "app/utils/categories";
-import { useEffect, useState } from "react";
+import { useEffect,  useState } from "react";
 import { homePageSchema } from "./_index_seo";
 
 export const meta: MetaFunction = () => {
@@ -71,7 +72,6 @@ export const loader: LoaderFunction = async () => {
 
 export default function Index() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
   const setProductPrevData = useSetAtom(productPreviewAtom);
 
   const loaderData = useLoaderData<typeof loader>();
@@ -101,18 +101,17 @@ export default function Index() {
   return (
     <>
       <div className="bg-white-bg px-3 md:px-6 lg:px-8 xl:px-12 lg:h-[700px]">
-        <div className=" container mx-auto flex flex-col md:flex-col lg:flex-row justify-center lg:flex-grow h-full">
+        <div className="container mx-auto flex flex-col md:flex-col lg:flex-row justify-center lg:flex-grow h-full">
           <div
             aria-label="Link Categories"
-            className={`border-2 border-green-700 pb-3 lg:flex flex-grow overflow-y-scroll  bg-white lg:mr-6 lg:-mt-4 hidden md:block divide-y divide-primary max-w-64 transition-height duration-300 ease-linear  ${
-              !isCategoryOpen ? "h-0 w-0 mr-0" : "h-full w-full lg:max-w-72"
+            className={`lg:flex flex-grow overflow-y-scroll  bg-white lg:-mt-4 lg:mb-8 hidden md:block divide-y divide-primary transition-height duration-300 ease-linear  ${
+              !isCategoryOpen ? "h-0 w-0 lg:mr-0" : "w-full lg:mr-8 lg:max-w-80"
             } `}
           >
             {allCategory && <CategoryList categories={allCategory} />}
-            {allCategory && <CategoryList categories={allCategory} />}
           </div>
           <div
-            className={`flex flex-col md:flex-col lg:flex-row justify-center container mx-auto py-3 lg:py-6 !m-0 transition-width duration-300 ease-linear ${
+            className={`flex flex-col md:flex-col lg:flex-row justify-center container mx-auto py-3 lg:py-8 !m-0 transition-width duration-300 ease-linear ${
               !isCategoryOpen ? "" : "w-full"
             }`}
           >
@@ -228,9 +227,9 @@ export default function Index() {
       </div>
 
       <div className="px-3 md:px-6 lg:px-8 xl:px-12">
-        <div className="container mx-auto space-y-8 py-4">
+        <div className="container mx-auto space-y-8 py-4 mt-6">
           <div className="flex items-center justify-center py-3">
-            <span className="text-primary text-center md:text-2xl text-xl 2xl:text-4xl font-semibold">
+            <span className="text-primary text-center md:text-2xl text-xl lg:text-3xl font-semibold">
               PROMOTIONAL MERCHANDISE AT GUARANTEED LOWEST PRICES
             </span>
           </div>
@@ -276,7 +275,7 @@ export default function Index() {
         </div>
       </div>
 
-      <div className="md:px-0 flex flex-col space-y-20 pb-20">
+      <div className="md:px-0 flex flex-col space-y-10 lg:space-y-16 py-20">
         <ProductSection
           categoryName="Health & Personal"
           heroImage={HealthImage}
@@ -309,7 +308,7 @@ export default function Index() {
           }
         />
         <ProductSection
-          heroImage=""
+          heroImage={BagImage}
           Icon={FaFemale}
           title="Home & Living"
           categoryName="Home & Living"
