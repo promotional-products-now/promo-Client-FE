@@ -26,7 +26,7 @@ interface ProductSectionProps {
   showmore?: boolean;
   heroImage: string;
   categoryName: string;
-  products?: [];
+  products?: any[];
 }
 
 interface IsubCategory {
@@ -45,8 +45,8 @@ const ProductSection = ({
   categoryName,
 }: ProductSectionProps) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
   const setProduct = useSetAtom(productPreviewAtom);
+
   const getCategory = (): IsubCategory[] | any => {
     return allCategories.find((cat) => cat.name === categoryName)?.subCategory;
   };
@@ -55,41 +55,43 @@ const ProductSection = ({
     onOpen();
     setProduct(product);
   };
+
   return (
     <div className="relative">
-      <div className=" bg-white-bg mt-20 px-3 md:px-6 lg:px-8 xl:px-12">
+      <div className="bg-white-bg px-3 md:px-6 lg:px-8 xl:px-12">
         <div className="relative flex flex-col justify-center items-center container mx-auto">
-          <div className="md:grid md:grid-cols-[4fr_7fr] py-10 flex flex-col w-full">
-            <div className="md:hidden lg:hidden flex flex-row justify-between item-center my-10 p-3 border  border-orange rounded-md">
+          <div className="md:grid md:grid-cols-[3fr_7fr] md:gap-8 py-10 flex flex-col w-full">
+            <div className="md:hidden lg:hidden flex flex-row justify-between item-center my-10 p-3 border border-orange rounded-md">
               <div className="flex flex-row items-center justify-center gap-2 p-4">
                 <Icon size={25} className="text-primary" />
                 <h1 className="text-black-bg md:text-xl text-sm">{title}</h1>
               </div>
-              <Select label="Explore what suits" color="default" className="w-2/4  text-center">
-                {options.map((animal) => (
-                  <SelectItem key={animal.value} value={animal.value}>
-                    {animal.label}
+              <Select label="Explore what suits" color="default" className="w-2/4 text-center">
+                {options.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
                   </SelectItem>
                 ))}
-              </Select>{" "}
+              </Select>
             </div>
 
             <div className="relative md:flex flex-row justify-start items-center left-0 hidden">
-              <div className="relative w-[17.2rem] border h-full z-20 ">
+              <div className="relative w-full h-full">
                 <Image
-                  src={
-                    heroImage ??
-                    "https://images.pexels.com/photos/7674483/pexels-photo-7674483.jpeg?auto=compress&cs=tinysrgb&w=600"
-                  }
-                  alt="overlay"
+                  src={heroImage}
+                  alt={`Hero image for ${title}`}
                   removeWrapper
                   radius="none"
-                  className="   bg-primary  h-full w-full transition aspect-auto absolute top-0 bottom-0 left-0 right-0"
+                  className="bg-primary h-full w-full transition aspect-auto absolute top-0 bottom-0 left-0 right-0"
+                  loading="lazy" // Lazy loading for performance
                 />
-                <div className=" bg-blue-500/50 	 absolute z-20 top-0 bottom-0 left-0 right-0">
-                  <div className="absolute flex flex-col gap-4 h-full justify-center items-left bg-primary/50  bg-blend-darken top-0 left-0 bottom-0 right-0 p-4 md:p-6">
+                <div className="absolute z-20 top-0 bottom-0 left-0 right-0">
+                  <div className="absolute flex flex-col gap-4 h-full justify-center items-left bg-primary/50 bg-blend-darken top-0 left-0 bottom-0 right-0 p-4 md:p-6">
                     <div className="w-14 h-14">
-                      <Icon className="text-white h-full w-full transition aspect-auto" />
+                      <Icon
+                        className="text-white h-full w-full transition aspect-auto"
+                        aria-label={`${title} Icon`}
+                      />
                     </div>
                     <div className="text-white text-2xl">{title}</div>
 
@@ -97,7 +99,7 @@ const ProductSection = ({
                       getCategory()
                         .slice(0, 15)
                         .map((cat: IsubCategory) => (
-                          <div key={`id_${cat._id}`} className="flex flex-col gap-y-auto">
+                          <div key={cat._id} className="flex flex-col gap-y-auto">
                             <div>
                               <div className="text-white">{cat.name}</div>
                             </div>
@@ -105,13 +107,14 @@ const ProductSection = ({
                         ))}
 
                     {categoryName && (
-                      <div className="w-3/4 mt-5">
+                      <div className="w-full mt-3">
                         <Button
                           as={Link}
                           to={`/categories/${toSnakeCase(categoryName)}`}
-                          className="bg-white-bg px-3 py-3 rounded-sm  text-black text-base font-semibold hover:opacity-80 transition text-center capitalize"
+                          className="bg-white-bg p-3 rounded-sm text-primary text-base hover:opacity-80 transition text-center capitalize"
                           size="md"
-                          variant="ghost"
+                          variant="flat"
+                          fullWidth
                         >
                           View Collection
                         </Button>
@@ -120,22 +123,14 @@ const ProductSection = ({
                   </div>
                 </div>
               </div>
-
-              <div className="w-[302px] h-[600.11px] absolute md:right-1 lg:right-1 hidden md:block">
-                <Image
-                  src="https://images.unsplash.com/photo-1513682121497-80211f36a7d3?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHBlb3BsZXxlbnwwfHwwfHx8MA%3D%3D"
-                  alt="bg"
-                  removeWrapper
-                  className="object-cover h-full w-full transition aspect-auto"
-                />
-              </div>
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
               {products &&
                 products.length > 0 &&
-                products.slice(0, 9).map((item: any) => {
-                  return (
+                products
+                  .slice(0, 9)
+                  .map((item: any) => (
                     <ProductCard
                       key={item._id || item.id}
                       image={item?.overview?.heroImage}
@@ -151,13 +146,12 @@ const ProductSection = ({
                       category={item?.product?.categorisation?.productType?.typeName}
                       handlePreviewFn={(data) => handlePreviewProd(data)}
                     />
-                  );
-                })}
+                  ))}
             </div>
           </div>
         </div>
       </div>
-      <hr className="border-0 border-b-1 border-zinc-300 outline-none h-24 w-full " />
+      <hr className="border-0 border-b-1 border-zinc-300 outline-none h-24 w-full" />
 
       {showmore && (
         <Button
@@ -167,12 +161,11 @@ const ProductSection = ({
           color="primary"
           startContent={<FaArrowDown className="sm:text-2xl lg:text-xl" />}
           className="bg-primary px-5 py-6 rounded-sm text-white-bg flex flex-row gap-5
-             text-base font-semibold hover:opacity-80 transition text-center capitalize
-              absolute bottom-0 left-2/4 translate-y-2/4 -translate-x-2/4"
+            text-base font-semibold hover:opacity-80 transition text-center capitalize
+            absolute bottom-0 left-2/4 translate-y-2/4 -translate-x-2/4"
         >
-          Show more Products{" "}
+          Show more Products
         </Button>
-        // </div>
       )}
       <PreviewProduct isOpen={isOpen} onOpenChange={onOpenChange} />
     </div>

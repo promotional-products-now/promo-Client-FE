@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { A11y, Parallax, Navigation } from "swiper/modules";
-import SwiperCore, { Swiper as SwiperInstance } from "swiper";
+import { Swiper as SwiperInstance } from "swiper";
 
 import "../../style.css";
 
@@ -14,12 +14,12 @@ export default function Carousel({
   numberOfItems?: number;
 }) {
   const divRef = useRef<HTMLDivElement>(null);
-
   const swiperRef = useRef<SwiperInstance | null>(null);
 
   React.useEffect(() => {
     divRef.current?.focus();
   }, []);
+
   return (
     <div className="relative">
       <div className="px-1 md:px-12 relative">
@@ -69,7 +69,7 @@ export default function Carousel({
 
       <div
         aria-disabled="false"
-        className="swiper-button-next text-2xl"
+        className="swiper-button-next border border-transparent"
         onClick={() => swiperRef.current && swiperRef.current.slideNext()}
       ></div>
       <div

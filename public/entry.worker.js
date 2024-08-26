@@ -17,45 +17,260 @@ function _mergeNamespaces(n, m) {
   }
   return Object.freeze(Object.defineProperty(n, Symbol.toStringTag, { value: "Module" }));
 }
-const CACHE_NAME = "api-cache-v1";
-self.addEventListener("install", (event) => {
-  console.log("Service worker installed");
-  event.waitUntil(self.skipWaiting());
-});
-self.addEventListener("activate", (event) => {
-  console.log("Service worker activated");
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    }).then(() => self.clients.claim())
+function getFormattedDate() {
+  const now = /* @__PURE__ */ new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+const CACHE_VERSION = `v1-${getFormattedDate()}`;
+const ASSET_CACHE = `asset-cache-${CACHE_VERSION}`;
+const DATA_CACHE = `data-cache-${CACHE_VERSION}`;
+const DOCUMENT_CACHE = `document-cache-${CACHE_VERSION}`;
+const IMAGE_CACHE = `image-cache-${CACHE_VERSION}`;
+const STATIC_ASSETS = ["/build/", "/icons/"];
+const MAX_CACHE_SIZE = 2e3;
+const ASSET_EXPIRATION_TIME = 7 * 24 * 60 * 60 * 1e3;
+const IMAGE_CACHE_EXPIRATION = 30 * 24 * 60 * 60 * 1e3;
+const OFFLINE_URL = "/offline";
+function debug(...messages) {
+  {
+    console.debug(...messages);
+  }
+}
+async function handleInstall(event) {
+  debug("Service worker installed");
+  const assetCache = await caches.open(ASSET_CACHE);
+  const criticalRoutes = [
+    // Add routes that need to be cached at install time
+    OFFLINE_URL
+  ];
+  try {
+    await assetCache.addAll(criticalRoutes);
+  } catch (error) {
+    debug("Failed to pre-fetch assets during installation:", error);
+  }
+}
+async function handleActivate(event) {
+  debug("Service worker activated");
+  const cacheNames = await caches.keys();
+  await Promise.all(
+    cacheNames.map((cacheName) => {
+      if (!cacheName.includes(CACHE_VERSION)) {
+        debug("Deleting old cache:", cacheName);
+        return caches.delete(cacheName);
+      }
+    })
   );
-});
-self.addEventListener("fetch", (event) => {
-  const url = new URL(event.request.url);
-  if (url.pathname.includes("/blog/category") || url.pathname.includes("/api/products/product-show-case")) {
-    event.respondWith(
-      caches.match(event.request).then((cachedResponse) => {
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-        return fetch(event.request).then((networkResponse) => {
-          return caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, networkResponse.clone());
-            return networkResponse;
-          });
-        });
+  await removeExpiredImages();
+  await removeExpiredAssets();
+  self.clients.claim();
+}
+async function handleMessage(event) {
+  const cachePromises = /* @__PURE__ */ new Map();
+  const { isMount, location, matches, manifest } = event.data;
+  const documentUrl = location.pathname + location.search + location.hash;
+  const [dataCache, documentCache, existingDocument] = await Promise.all([
+    caches.open(DATA_CACHE),
+    caches.open(DOCUMENT_CACHE),
+    caches.match(documentUrl)
+  ]);
+  if (!existingDocument || !isMount) {
+    debug("Caching document for", documentUrl);
+    cachePromises.set(
+      documentUrl,
+      documentCache.add(documentUrl).then(() => pruneCache(DOCUMENT_CACHE)).catch((error) => {
+        debug(`Failed to cache document for ${documentUrl}:`, error);
       })
     );
   }
+  if (isMount) {
+    for (const match of matches) {
+      if (manifest.routes[match.id].hasLoader) {
+        const params = new URLSearchParams(location.search);
+        params.set("_data", match.id);
+        const search = params.toString();
+        const url = location.pathname + (search ? `?${search}` : "") + location.hash;
+        if (!cachePromises.has(url)) {
+          debug("Caching data for", url);
+          cachePromises.set(
+            url,
+            dataCache.add(url).then(() => pruneCache(DATA_CACHE)).catch((error) => {
+              debug(`Failed to cache data for ${url}:`, error);
+            })
+          );
+        }
+      }
+    }
+  }
+  await Promise.all(cachePromises.values());
+}
+async function handleFetch(event) {
+  const request = event.request;
+  if (isDocumentGetRequest(request) || isLoaderRequest$1(request)) {
+    const cache = await caches.open(DOCUMENT_CACHE);
+    const cachedResponse = await cache.match(request);
+    try {
+      const networkResponse = await fetch(request);
+      const clonedResponse = networkResponse.clone();
+      const htmlText = await clonedResponse.text();
+      const assetsToCache = extractAssetUrls(htmlText);
+      cache.put(request, networkResponse.clone());
+      const assetCache = await caches.open(ASSET_CACHE);
+      assetCache.addAll(assetsToCache);
+      debug("Cached assets:", assetsToCache);
+      pruneCache(DOCUMENT_CACHE);
+      return networkResponse;
+    } catch (error) {
+      debug("Network request failed; serving from cache:", error);
+      return cachedResponse || await caches.match(OFFLINE_URL) || new Response("Offline", { status: 503 });
+    }
+  }
+  if (isAssetRequest(request) || isImageRequest(request)) {
+    const cacheName = isImageRequest(request) ? IMAGE_CACHE : ASSET_CACHE;
+    const cache = await caches.open(cacheName);
+    const cachedResponse = await cache.match(request);
+    if (cachedResponse) {
+      return cachedResponse;
+    }
+    const networkResponse = await fetch(request);
+    if (networkResponse && networkResponse.status === 200) {
+      cache.put(request, networkResponse.clone());
+      await pruneCache(cacheName);
+    }
+    return networkResponse;
+  }
+  return fetch(request).catch(async () => {
+    return await caches.match(OFFLINE_URL) || new Response("Offline", { status: 503 });
+  });
+}
+function extractAssetUrls(htmlText) {
+  const urls = /* @__PURE__ */ new Set();
+  const regex = /<link[^>]+href="([^"]+)"|<script[^>]+src="([^"]+)"|<img[^>]+src="([^"]+)"/g;
+  let match;
+  while ((match = regex.exec(htmlText)) !== null) {
+    if (match[1]) {
+      urls.add(match[1]);
+    }
+    if (match[2]) {
+      urls.add(match[2]);
+    }
+    if (match[3]) {
+      urls.add(match[3]);
+    }
+  }
+  return Array.from(urls);
+}
+async function pruneCache(cacheName) {
+  const cache = await caches.open(cacheName);
+  const keys = await cache.keys();
+  if (keys.length > MAX_CACHE_SIZE) {
+    const urls = keys.map((request) => request.url);
+    urls.sort((a, b) => {
+      const aDateMatch = a.match(/(\d{13})/);
+      const bDateMatch = b.match(/(\d{13})/);
+      const aDate = aDateMatch ? parseInt(aDateMatch[0], 10) : 0;
+      const bDate = bDateMatch ? parseInt(bDateMatch[0], 10) : 0;
+      return aDate - bDate;
+    });
+    while (keys.length > MAX_CACHE_SIZE) {
+      const oldestRequest = keys.find((request) => request.url === urls.shift());
+      if (oldestRequest) {
+        debug("Pruning asset from cache", oldestRequest.url);
+        await cache.delete(oldestRequest);
+      }
+    }
+  }
+}
+async function removeExpiredImages() {
+  const cache = await caches.open(IMAGE_CACHE);
+  const keys = await cache.keys();
+  const expirationPromises = keys.map(async (key) => {
+    const response = await cache.match(key);
+    if (response) {
+      const dateHeader = response.headers.get("date");
+      if (dateHeader) {
+        const date = new Date(dateHeader);
+        if (Date.now() - date.getTime() > IMAGE_CACHE_EXPIRATION) {
+          debug("Removing expired image from cache", key.url);
+          return cache.delete(key);
+        }
+      }
+    }
+  });
+  await Promise.all(expirationPromises);
+}
+async function removeExpiredAssets() {
+  const cache = await caches.open(ASSET_CACHE);
+  const keys = await cache.keys();
+  const expirationPromises = keys.map(async (key) => {
+    const response = await cache.match(key);
+    if (response) {
+      const dateHeader = response.headers.get("date");
+      if (dateHeader) {
+        const date = new Date(dateHeader);
+        if (Date.now() - date.getTime() > ASSET_EXPIRATION_TIME) {
+          debug("Removing expired asset from cache", key.url);
+          return cache.delete(key);
+        }
+      }
+    }
+  });
+  await Promise.all(expirationPromises);
+}
+function isMethod$1(request, methods) {
+  return methods.includes(request.method.toLowerCase());
+}
+function isAssetRequest(request) {
+  return isMethod$1(request, ["get"]) && STATIC_ASSETS.some((publicPath) => request.url.startsWith(publicPath));
+}
+function isLoaderRequest$1(request) {
+  const url = new URL(request.url);
+  return isMethod$1(request, ["get"]) && url.searchParams.get("_data") !== null;
+}
+function isDocumentGetRequest(request) {
+  return isMethod$1(request, ["get"]) && request.mode === "navigate";
+}
+function isImageRequest(request) {
+  return request.destination === "image" || !!request.url.match(/\.(png|jpg|jpeg|gif|svg|webp)$/i);
+}
+self.addEventListener("install", (event) => {
+  event.waitUntil(handleInstall().then(() => self.skipWaiting()));
+});
+self.addEventListener("activate", (event) => {
+  event.waitUntil(handleActivate());
+});
+self.addEventListener("message", (event) => {
+  event.waitUntil(handleMessage(event));
+});
+self.addEventListener("fetch", (event) => {
+  event.respondWith(
+    handleFetch(event).catch((error) => {
+      debug("Fetch failed", error);
+      return new Response("Something went wrong", {
+        status: 500,
+        statusText: "Internal Server Error"
+      });
+    })
+  );
 });
 const entryWorker = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$w = Object.getOwnPropertyNames;
+var __commonJS$w = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$w(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$w = __commonJS$w({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$w = require_worker_runtime$w();
+const route0 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$w
 }, Symbol.toStringTag, { value: "Module" }));
 var __getOwnPropNames$v = Object.getOwnPropertyNames;
 var __commonJS$v = (cb, mod) => function __require() {
@@ -67,7 +282,7 @@ var require_worker_runtime$v = __commonJS$v({
   }
 });
 var worker_runtime_default$v = require_worker_runtime$v();
-const route0 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$v
 }, Symbol.toStringTag, { value: "Module" }));
@@ -81,7 +296,7 @@ var require_worker_runtime$u = __commonJS$u({
   }
 });
 var worker_runtime_default$u = require_worker_runtime$u();
-const route1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$u
 }, Symbol.toStringTag, { value: "Module" }));
@@ -95,7 +310,7 @@ var require_worker_runtime$t = __commonJS$t({
   }
 });
 var worker_runtime_default$t = require_worker_runtime$t();
-const route2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$t
 }, Symbol.toStringTag, { value: "Module" }));
@@ -109,7 +324,7 @@ var require_worker_runtime$s = __commonJS$s({
   }
 });
 var worker_runtime_default$s = require_worker_runtime$s();
-const route3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route4 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$s
 }, Symbol.toStringTag, { value: "Module" }));
@@ -123,7 +338,7 @@ var require_worker_runtime$r = __commonJS$r({
   }
 });
 var worker_runtime_default$r = require_worker_runtime$r();
-const route4 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route5 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$r
 }, Symbol.toStringTag, { value: "Module" }));
@@ -137,7 +352,7 @@ var require_worker_runtime$q = __commonJS$q({
   }
 });
 var worker_runtime_default$q = require_worker_runtime$q();
-const route5 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route6 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$q
 }, Symbol.toStringTag, { value: "Module" }));
@@ -151,7 +366,7 @@ var require_worker_runtime$p = __commonJS$p({
   }
 });
 var worker_runtime_default$p = require_worker_runtime$p();
-const route6 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route7 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$p
 }, Symbol.toStringTag, { value: "Module" }));
@@ -165,7 +380,7 @@ var require_worker_runtime$o = __commonJS$o({
   }
 });
 var worker_runtime_default$o = require_worker_runtime$o();
-const route7 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route8 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$o
 }, Symbol.toStringTag, { value: "Module" }));
@@ -179,7 +394,7 @@ var require_worker_runtime$n = __commonJS$n({
   }
 });
 var worker_runtime_default$n = require_worker_runtime$n();
-const route8 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route9 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$n
 }, Symbol.toStringTag, { value: "Module" }));
@@ -193,7 +408,7 @@ var require_worker_runtime$m = __commonJS$m({
   }
 });
 var worker_runtime_default$m = require_worker_runtime$m();
-const route9 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route10 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$m
 }, Symbol.toStringTag, { value: "Module" }));
@@ -207,7 +422,7 @@ var require_worker_runtime$l = __commonJS$l({
   }
 });
 var worker_runtime_default$l = require_worker_runtime$l();
-const route10 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route11 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$l
 }, Symbol.toStringTag, { value: "Module" }));
@@ -221,7 +436,7 @@ var require_worker_runtime$k = __commonJS$k({
   }
 });
 var worker_runtime_default$k = require_worker_runtime$k();
-const route11 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route12 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$k
 }, Symbol.toStringTag, { value: "Module" }));
@@ -235,7 +450,7 @@ var require_worker_runtime$j = __commonJS$j({
   }
 });
 var worker_runtime_default$j = require_worker_runtime$j();
-const route12 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route13 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$j
 }, Symbol.toStringTag, { value: "Module" }));
@@ -249,7 +464,7 @@ var require_worker_runtime$i = __commonJS$i({
   }
 });
 var worker_runtime_default$i = require_worker_runtime$i();
-const route13 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route14 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$i
 }, Symbol.toStringTag, { value: "Module" }));
@@ -263,7 +478,7 @@ var require_worker_runtime$h = __commonJS$h({
   }
 });
 var worker_runtime_default$h = require_worker_runtime$h();
-const route14 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route15 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$h
 }, Symbol.toStringTag, { value: "Module" }));
@@ -277,7 +492,7 @@ var require_worker_runtime$g = __commonJS$g({
   }
 });
 var worker_runtime_default$g = require_worker_runtime$g();
-const route15 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route16 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$g
 }, Symbol.toStringTag, { value: "Module" }));
@@ -291,7 +506,7 @@ var require_worker_runtime$f = __commonJS$f({
   }
 });
 var worker_runtime_default$f = require_worker_runtime$f();
-const route16 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route17 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$f
 }, Symbol.toStringTag, { value: "Module" }));
@@ -305,7 +520,7 @@ var require_worker_runtime$e = __commonJS$e({
   }
 });
 var worker_runtime_default$e = require_worker_runtime$e();
-const route17 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route18 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$e
 }, Symbol.toStringTag, { value: "Module" }));
@@ -319,7 +534,7 @@ var require_worker_runtime$d = __commonJS$d({
   }
 });
 var worker_runtime_default$d = require_worker_runtime$d();
-const route18 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route19 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$d
 }, Symbol.toStringTag, { value: "Module" }));
@@ -333,7 +548,7 @@ var require_worker_runtime$c = __commonJS$c({
   }
 });
 var worker_runtime_default$c = require_worker_runtime$c();
-const route19 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route20 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$c
 }, Symbol.toStringTag, { value: "Module" }));
@@ -347,7 +562,7 @@ var require_worker_runtime$b = __commonJS$b({
   }
 });
 var worker_runtime_default$b = require_worker_runtime$b();
-const route20 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route21 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$b
 }, Symbol.toStringTag, { value: "Module" }));
@@ -361,7 +576,7 @@ var require_worker_runtime$a = __commonJS$a({
   }
 });
 var worker_runtime_default$a = require_worker_runtime$a();
-const route21 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route22 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$a
 }, Symbol.toStringTag, { value: "Module" }));
@@ -375,7 +590,7 @@ var require_worker_runtime$9 = __commonJS$9({
   }
 });
 var worker_runtime_default$9 = require_worker_runtime$9();
-const route22 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route23 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$9
 }, Symbol.toStringTag, { value: "Module" }));
@@ -389,7 +604,7 @@ var require_worker_runtime$8 = __commonJS$8({
   }
 });
 var worker_runtime_default$8 = require_worker_runtime$8();
-const route23 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route24 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$8
 }, Symbol.toStringTag, { value: "Module" }));
@@ -403,7 +618,7 @@ var require_worker_runtime$7 = __commonJS$7({
   }
 });
 var worker_runtime_default$7 = require_worker_runtime$7();
-const route24 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route25 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$7
 }, Symbol.toStringTag, { value: "Module" }));
@@ -417,7 +632,7 @@ var require_worker_runtime$6 = __commonJS$6({
   }
 });
 var worker_runtime_default$6 = require_worker_runtime$6();
-const route25 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route26 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$6
 }, Symbol.toStringTag, { value: "Module" }));
@@ -431,7 +646,7 @@ var require_worker_runtime$5 = __commonJS$5({
   }
 });
 var worker_runtime_default$5 = require_worker_runtime$5();
-const route26 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route27 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$5
 }, Symbol.toStringTag, { value: "Module" }));
@@ -445,7 +660,7 @@ var require_worker_runtime$4 = __commonJS$4({
   }
 });
 var worker_runtime_default$4 = require_worker_runtime$4();
-const route27 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route28 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$4
 }, Symbol.toStringTag, { value: "Module" }));
@@ -459,7 +674,7 @@ var require_worker_runtime$3 = __commonJS$3({
   }
 });
 var worker_runtime_default$3 = require_worker_runtime$3();
-const route28 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route29 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$3
 }, Symbol.toStringTag, { value: "Module" }));
@@ -473,7 +688,7 @@ var require_worker_runtime$2 = __commonJS$2({
   }
 });
 var worker_runtime_default$2 = require_worker_runtime$2();
-const route29 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route30 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$2
 }, Symbol.toStringTag, { value: "Module" }));
@@ -487,7 +702,7 @@ var require_worker_runtime$1 = __commonJS$1({
   }
 });
 var worker_runtime_default$1 = require_worker_runtime$1();
-const route30 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route31 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default$1
 }, Symbol.toStringTag, { value: "Module" }));
@@ -501,7 +716,7 @@ var require_worker_runtime = __commonJS({
   }
 });
 var worker_runtime_default = require_worker_runtime();
-const route31 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const route32 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: worker_runtime_default
 }, Symbol.toStringTag, { value: "Module" }));
@@ -509,16 +724,16 @@ const assets = [
   "/entry.worker.js",
   "/favicon.ico",
   "/build/css-bundle-JWUHFLIS.css",
-  "/build/_assets/Work-in-progress-SVOJ5IOE.png",
-  "/build/_assets/appa-sponsor-JPCCCPIJ.png",
-  "/build/_assets/clothing-X7BX2CVJ.jpg",
-  "/build/_assets/health-72WPRIFW.jpg",
-  "/build/_assets/logo-WVBPFR4U.svg",
   "/images/emoji/1F600.png",
   "/images/emoji/1F641.png",
   "/images/emoji/1F642.png",
   "/images/emoji/2764.png",
   "/images/emoji/LICENSE.md",
+  "/build/_assets/Work-in-progress-SVOJ5IOE.png",
+  "/build/_assets/appa-sponsor-JPCCCPIJ.png",
+  "/build/_assets/clothing-X7BX2CVJ.jpg",
+  "/build/_assets/health-72WPRIFW.jpg",
+  "/build/_assets/logo-WVBPFR4U.svg",
   "/images/icons/3-columns.svg",
   "/images/icons/LICENSE.md",
   "/images/icons/add-sign.svg",
@@ -742,7 +957,7 @@ const routes = {
     path: "sitemap.xml",
     index: void 0,
     caseSensitive: void 0,
-    hasLoader: false,
+    hasLoader: true,
     hasAction: false,
     hasWorkerLoader: false,
     hasWorkerAction: false,
@@ -868,6 +1083,18 @@ const routes = {
     hasWorkerAction: false,
     module: route21
   },
+  "routes/Offline": {
+    id: "routes/Offline",
+    parentId: "root",
+    path: "Offline",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: false,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route22
+  },
   "routes/Quotes": {
     id: "routes/Quotes",
     parentId: "root",
@@ -878,7 +1105,7 @@ const routes = {
     hasAction: false,
     hasWorkerLoader: false,
     hasWorkerAction: false,
-    module: route22
+    module: route23
   },
   "routes/Search": {
     id: "routes/Search",
@@ -890,7 +1117,7 @@ const routes = {
     hasAction: false,
     hasWorkerLoader: false,
     hasWorkerAction: false,
-    module: route23
+    module: route24
   },
   "routes/SignUp": {
     id: "routes/SignUp",
@@ -902,7 +1129,7 @@ const routes = {
     hasAction: true,
     hasWorkerLoader: false,
     hasWorkerAction: false,
-    module: route24
+    module: route25
   },
   "routes/_index": {
     id: "routes/_index",
@@ -914,7 +1141,7 @@ const routes = {
     hasAction: false,
     hasWorkerLoader: false,
     hasWorkerAction: false,
-    module: route25
+    module: route26
   },
   "routes/About": {
     id: "routes/About",
@@ -926,7 +1153,7 @@ const routes = {
     hasAction: false,
     hasWorkerLoader: false,
     hasWorkerAction: false,
-    module: route26
+    module: route27
   },
   "routes/Login": {
     id: "routes/Login",
@@ -938,7 +1165,7 @@ const routes = {
     hasAction: true,
     hasWorkerLoader: false,
     hasWorkerAction: false,
-    module: route27
+    module: route28
   },
   "routes/Blog": {
     id: "routes/Blog",
@@ -950,7 +1177,7 @@ const routes = {
     hasAction: false,
     hasWorkerLoader: false,
     hasWorkerAction: false,
-    module: route28
+    module: route29
   },
   "routes/Cart": {
     id: "routes/Cart",
@@ -962,7 +1189,7 @@ const routes = {
     hasAction: false,
     hasWorkerLoader: false,
     hasWorkerAction: false,
-    module: route29
+    module: route30
   },
   "routes/Faq": {
     id: "routes/Faq",
@@ -974,7 +1201,7 @@ const routes = {
     hasAction: false,
     hasWorkerLoader: false,
     hasWorkerAction: false,
-    module: route30
+    module: route31
   },
   "routes/otp": {
     id: "routes/otp",
@@ -986,7 +1213,7 @@ const routes = {
     hasAction: true,
     hasWorkerLoader: false,
     hasWorkerAction: false,
-    module: route31
+    module: route32
   }
 };
 const entry = { module: entryWorker };

@@ -9,8 +9,11 @@
     "**/.client/**/*.tsx",
     "app/routes/Terms-Conditions/route.mdx",
     "app/components/Blog/BlogCard",
-    "app/routes/blog.$title.tsx"
+    "app/routes/blog.$title.tsx",
+    "app/entry.worker.ts"
   ],
+
+  "exclude": ["app/entry.worker.ts"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "isolatedModules": true,
@@ -21,7 +24,7 @@
     "target": "ES2022",
     "strict": true,
     "allowJs": true,
-    "types": ["@remix-run/node", "vite/client"],
+    "types": ["@types/react", "@types/react-dom", "vite/client", "@remix-run/node"],
     "module": "ESNext",
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
