@@ -1,5 +1,5 @@
 import { MetaFunction, useLoaderData } from "@remix-run/react";
-import { fetchProductCategories } from "app/api/products.api";
+import { fetchProductCategories } from "app/api/product/products.api";
 import CategoryList from "app/components/CategoryList";
 
 export const meta: MetaFunction = () => {

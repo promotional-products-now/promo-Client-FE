@@ -8,12 +8,14 @@ import { useSetAtom } from "jotai";
 import { productPreviewAtom } from "app/atoms/product.atom";
 import { PreviewProduct } from "../Product/PreviewProduct";
 import { getMinMaxPrice } from "app/utils/fn";
-
+import { useQuery } from "@tanstack/react-query";
+import { fetchLatestProduct, fetchTopSellingProductsApi } from "app/api/product/products.api";
+import React from "react";
+import { ProductObject } from "app/api/product/product.type";
 interface FeaturedProductsProps {
-  sectionlabel: string;
-  gridno: number;
-  showmore?: boolean;
-  products: any[];
+  sectionLabel: string;
+  gridNo: number;
+  showMore?: boolean;
 }
 
 const options = [
@@ -22,17 +24,23 @@ const options = [
   { value: "new", label: "New" },
 ];
 
-const FeaturedProducts = ({ sectionlabel, showmore, products }: FeaturedProductsProps) => {
+const FeaturedProducts = ({ sectionLabel, showMore }: FeaturedProductsProps) => {
+  const [selected, setSelected] = React.useState("trendingProducts");
+
+  const { data: latestProducts } = useQuery({
+    queryKey: ["latestProducts"],
+    queryFn: () => fetchLatestProduct(),
+    refetchOnMount: false,
+  });
+
+  const { data: trendingProducts } = useQuery({
+    queryKey: ["trendingProducts"],
+    queryFn: () => fetchTopSellingProductsApi(),
+    refetchOnMount: false,
+  });
+
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const setProduct = useSetAtom(productPreviewAtom);
-  const [filteredItems, setFilterItems] = useState(products);
-
-  const selectFilter = (selectItems: string) => {
-    const updatedFilter = products.filter((product) => {
-      return product.category.name === selectItems;
-    });
-    setFilterItems(updatedFilter);
-  };
 
   const handlePreviewProd = (product: any) => {
     onOpen();
@@ -45,15 +53,17 @@ const FeaturedProducts = ({ sectionlabel, showmore, products }: FeaturedProducts
         <div className="flex flex-col lg:flex-row md:flex-row justify-between item-center border-b border-gray md:p-5 !pb-0 pt-1 gap-4">
           <div className="flex space-x-3 items-center justify-center">
             <LuCheckCircle size={25} className="text-primary" />
-            <span className="text-black text-2xl font-semibold text-center">{sectionlabel}</span>
+            <span className="text-black text-2xl font-semibold text-center">{sectionLabel}</span>
           </div>
 
-          <div className="flex md:w-7/12 flex-wrap md:flex-nowrap items-start md:gap-6 gap-3 px-2">
+          <div className="flex md:w-7/12 flex-wrap md:flex-nowrap items-start justify-end md:gap-6 gap-3 px-2">
             <div className="hidden md:block">
               <Tabs
                 aria-label="Product Filter Options"
                 color="primary"
                 variant="underlined"
+                defaultSelectedKey={"trendingProducts"}
+                onSelectionChange={(key: any) => setSelected(key)}
                 classNames={{
                   tabList: "gap-6 w-full relative rounded-none p-0",
                   cursor: "w-full bg-black",
@@ -62,11 +72,10 @@ const FeaturedProducts = ({ sectionlabel, showmore, products }: FeaturedProducts
                 }}
               >
                 <Tab
-                  key="trending"
+                  key="trendingProducts"
                   title={
                     <button
                       aria-label="Trending Products"
-                      onClick={() => setFilterItems(products)}
                       className="flex items-center text-base font-medium space-x-2"
                     >
                       <span>Trending Products</span>
@@ -74,73 +83,71 @@ const FeaturedProducts = ({ sectionlabel, showmore, products }: FeaturedProducts
                   }
                 />
                 <Tab
-                  key="latest"
+                  key="latestProducts"
                   title={
                     <button
                       aria-label="Latest Products"
-                      onClick={() => selectFilter("latest")}
                       className="flex items-center text-base font-medium space-x-2"
                     >
                       <span>Latest Products</span>
                     </button>
                   }
                 />
-                <Tab
-                  key="aussie"
-                  title={
-                    <button
-                      aria-label="Aussie Products"
-                      onClick={() => selectFilter("aussie")}
-                      className="flex items-center text-base font-medium space-x-2"
-                    >
-                      <span>Aussie Products</span>
-                    </button>
-                  }
-                />
               </Tabs>
             </div>
-
-            <Select
-              variant="bordered"
-              label="Price Low to High"
-              className="w-40 text-center mb-2"
-              classNames={{
-                trigger: ["border-zinc-100 rounded-md py-1"],
-                label: ["text-sm"],
-              }}
-            >
-              {options.map((filter) => (
-                <SelectItem key={filter.value} value={filter.value}>
-                  {filter.label}
-                </SelectItem>
-              ))}
-            </Select>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-4">
-          {filteredItems &&
-            filteredItems.length > 0 &&
-            filteredItems.map((item) => (
-              <ProductCard
-                key={item._id}
-                image={item.overview.heroImage}
-                images={item.product.images}
-                title={item.overview.name}
-                productCode={item.overview.code}
-                description={item.product.description}
-                basePrice={getMinMaxPrice(
-                  item?.product?.prices?.priceGroups?.basePrice?.[0]?.base_price,
-                )}
-                qunatity={item.overview.minQty}
-                id={item._id}
-                category={item?.category?.name || item.product.categorisation.productType.typeName}
-                handlePreviewFn={handlePreviewProd}
-              />
-            ))}
-        </div>
-
-        {showmore && (
+        {selected === "latestProducts" && (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-4">
+            {latestProducts &&
+              latestProducts.length > 0 &&
+              latestProducts.map((item: ProductObject) => (
+                <ProductCard
+                  key={item?._id}
+                  image={item?.overview?.heroImage}
+                  images={item?.product?.images}
+                  title={item?.overview?.name}
+                  productCode={item?.overview?.code}
+                  description={item?.product?.description}
+                  basePrice={getMinMaxPrice(item?.product?.prices?.priceGroups[0]?.basePrice)}
+                  qunatity={item?.overview?.minQty}
+                  id={item?._id}
+                  category={
+                    item?.category?.name || item?.product?.categorisation?.productType?.typeName
+                  }
+                  handlePreviewFn={handlePreviewProd}
+                />
+              ))}
+          </div>
+        )}
+        {selected === "trendingProducts" && (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-4">
+            {trendingProducts &&
+              trendingProducts.docs.length > 0 &&
+              trendingProducts.docs?.map((item: { count: number; product: ProductObject }) => (
+                <ProductCard
+                  key={item?.product?._id}
+                  image={item?.product?.overview?.heroImage}
+                  images={item?.product?.product?.images}
+                  title={item?.product?.overview?.name}
+                  productCode={item?.product?.overview?.code}
+                  description={item?.product?.product?.description}
+                  basePrice={getMinMaxPrice(
+                    item?.product?.product?.prices?.priceGroups[0]?.basePrice,
+                  )}
+                  qunatity={item?.product?.overview?.minQty}
+                  id={item?.product?._id}
+                  category={
+                    item?.product?.category?.name ||
+                    item?.product?.product?.categorisation?.productType?.typeName
+                  }
+                  handlePreviewFn={handlePreviewProd}
+                />
+              ))}
+          </div>
+        )}
+        {showMore && (
           <div className="flex flex-row gap-2 items-center justify-center w-2/6 left-[50%] absolute -translate-x-[50%] bottom-0">
             <Button
               as={Link}

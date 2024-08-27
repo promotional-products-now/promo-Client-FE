@@ -26,8 +26,10 @@ import { getSession } from "./sessions";
 import nprogressStyles from "nprogress/nprogress.css?url";
 import { ProgressBar } from "./nprogress";
 import axios, { AxiosError } from "axios";
-import React from "react";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 interface RouteErrorResponse {
   status: number;
   statusText: string;
@@ -69,35 +71,37 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <NextUIProvider>
-          <div className="flex flex-col justify-between h-screen">
-            <Header sidebarOpen={isSidebarOpen} setSidebarOpen={setIsSidebarOpen} />
-            <Sidebar sidebarOpen={isSidebarOpen} setSidebarOpen={setIsSidebarOpen} />
+        <QueryClientProvider client={queryClient}>
+          <NextUIProvider>
+            <div className="flex flex-col justify-between h-screen">
+              <Header sidebarOpen={isSidebarOpen} setSidebarOpen={setIsSidebarOpen} />
+              <Sidebar sidebarOpen={isSidebarOpen} setSidebarOpen={setIsSidebarOpen} />
 
-            <main className="flex-1">
-              <div
-                className={`${
-                  location.pathname !== "/"
-                    ? "container mx-auto lg:mb-6 py-3 lg:px-12 lg:w-11/12"
-                    : "lg:mb-6 mb-3 mx-auto"
-                }`}
-              >
-                <Outlet />
-              </div>
-            </main>
-            <Footer />
-          </div>
-          <ProgressBar />
-          <ToastContainer containerId={"ppn"} />
-          <ScrollRestoration />
+              <main className="flex-1">
+                <div
+                  className={`${
+                    location.pathname !== "/"
+                      ? "container mx-auto lg:mb-6 py-3 lg:px-12 lg:w-11/12"
+                      : "lg:mb-6 mb-3 mx-auto"
+                  }`}
+                >
+                  <Outlet />
+                </div>
+              </main>
+              <Footer />
+            </div>
+            <ProgressBar />
+            <ToastContainer containerId={"ppn"} />
+            <ScrollRestoration />
+            <Scripts />
+          </NextUIProvider>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.ENV = ${JSON.stringify({ env: data && data.ENV ? data.ENV : "" })}`,
+            }}
+          />
           <Scripts />
-        </NextUIProvider>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.ENV = ${JSON.stringify({ env: data && data.ENV ? data.ENV : "" })}`,
-          }}
-        />
-        <Scripts />
+        </QueryClientProvider>
       </body>
     </html>
   );

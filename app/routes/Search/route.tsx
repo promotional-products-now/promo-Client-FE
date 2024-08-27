@@ -4,7 +4,7 @@ import { Link, useFetcher, useLoaderData, useLocation } from "@remix-run/react";
 import { SetStateAction, useCallback, useState } from "react";
 import { useSetAtom } from "jotai";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
-import { fetchProductsApi } from "app/api/products.api";
+import { fetchProductsApi } from "app/api/product/products.api";
 import { productPreviewAtom } from "app/atoms/product.atom";
 import { PreviewProduct } from "app/components/Product/PreviewProduct";
 import { ProductCard } from "app/components/Product/ProductCard";

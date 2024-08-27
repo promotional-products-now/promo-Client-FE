@@ -14,7 +14,7 @@ import { AppaIcon } from "app/assets/appaIcon";
 import CategoryList from "app/components/CategoryList";
 import { isCategoryListOpen } from "app/atoms/category.atom";
 import { BlogCard } from "app/components/Blog/BlogCard";
-import { fetchProductShowCase, fetchProductsApi } from "app/api/products.api";
+import { fetchHotProductsApi, fetchProductShowCase } from "app/api/product/products.api";
 import { json, useLoaderData } from "@remix-run/react";
 import { PreviewProduct } from "app/components/Product/PreviewProduct";
 import { productPreviewAtom } from "app/atoms/product.atom";
@@ -26,8 +26,8 @@ import BagImage from "app/assets/category/bags.png";
 import axios from "axios";
 import { getMinMaxPrice } from "app/utils/fn";
 import allCategory from "app/utils/categories";
-import { useEffect,  useState } from "react";
 import { homePageSchema } from "./_index_seo";
+import { useQuery } from "@tanstack/react-query";
 
 export const meta: MetaFunction = () => {
   return [
@@ -44,15 +44,13 @@ export function headers() {
 
 export const loader: LoaderFunction = async () => {
   try {
-    const [productsResponse, productShowCase, leastProductsResponse] = await Promise.all([
-      fetchProductsApi({ page: 20, limit: 6 }),
+    const [productsResponse, productShowCase] = await Promise.all([
+      fetchHotProductsApi({ page: 1, limit: 6 }),
       fetchProductShowCase(["Health%20%26%20Personal", "Clothing", "Home%20%26%20Living"]),
-      fetchProductsApi({ page: 1, limit: 4 }),
     ]);
 
     return json({
-      products: productsResponse.data.docs,
-      leastProducts: leastProductsResponse.data.docs,
+      products: productsResponse,
       productShowCase: productShowCase.data,
     });
   } catch (error) {
@@ -71,6 +69,12 @@ export const loader: LoaderFunction = async () => {
 };
 
 export default function Index() {
+  const { data: blogs } = useQuery({
+    queryKey: ["blogs"],
+    queryFn: () => fetchAllBlogsApi({ limit: 6 }),
+    refetchOnMount: false,
+  });
+
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const setProductPrevData = useSetAtom(productPreviewAtom);
 
@@ -82,21 +86,6 @@ export default function Index() {
     onOpen();
     setProductPrevData(product);
   };
-
-  const [blogs, setBlogs] = useState<BlogCardProps[]>([]);
-
-  useEffect(() => {
-    async function fetchBlogs() {
-      try {
-        const response = await fetchAllBlogsApi({ limit: 6 });
-        setBlogs(response.data?.payload?.data || []);
-      } catch (error) {
-        console.error("Failed to fetch blogs:", error);
-      }
-    }
-
-    fetchBlogs();
-  }, []);
 
   return (
     <>
@@ -244,6 +233,7 @@ export default function Index() {
             <div className="md:pt-8">
               <Carousel numberOfItems={4}>
                 {loaderData &&
+                  loaderData.products &&
                   loaderData.products.map((item: any) => {
                     return (
                       <div
@@ -298,15 +288,8 @@ export default function Index() {
               : []
           }
         />
-        <FeaturedProducts
-          sectionlabel="New Arrivals"
-          gridno={5}
-          products={
-            loaderData && loaderData.leastProducts && loaderData.productShowCase
-              ? loaderData.leastProducts
-              : []
-          }
-        />
+        <FeaturedProducts sectionLabel="New Arrivals" gridNo={5} />
+
         <ProductSection
           heroImage={BagImage}
           Icon={FaFemale}
@@ -342,32 +325,38 @@ export default function Index() {
           </div>
         </section>
         <section className="mb-20 md:px-20 w-full flex flex-col gap-2 md:space-y-6 w-max-ppn">
-          {blogs && blogs.length > 0 && (
-            <>
-              <h1 className="font-bold text-2xl text-black capitalize text-center">Our Blog</h1>
-              <h3 className="font-semibold text-lg text-gray text-center">
-                Browse Our Latest News
-              </h3>
-              <div className="md:mx-4">
-                <Carousel numberOfItems={3}>
-                  {blogs.map((post: BlogCardProps) => (
-                    <div key={post._id} className="flex flex-col md:flex-row gap-1 sm:mx-2 md:mx-1">
-                      <BlogCard
-                        title={post.title}
-                        summary={post.summary}
-                        slug={post?.slug || post?.title}
-                        description={post.description}
-                        imageSrc={post.imageSrc}
-                        _id={post._id}
-                        category={post.category}
-                        body={post.body}
-                      />
-                    </div>
-                  ))}
-                </Carousel>
-              </div>
-            </>
-          )}
+          {blogs &&
+            blogs.data.payload &&
+            blogs.data.payload.data &&
+            blogs.data.payload?.data.length > 0 && (
+              <>
+                <h1 className="font-bold text-2xl text-black capitalize text-center">Our Blog</h1>
+                <h3 className="font-semibold text-lg text-gray text-center">
+                  Browse Our Latest News
+                </h3>
+                <div className="md:mx-4">
+                  <Carousel numberOfItems={3}>
+                    {blogs.data.payload.data.map((post: BlogCardProps) => (
+                      <div
+                        key={post._id}
+                        className="flex flex-col md:flex-row gap-1 sm:mx-2 md:mx-1"
+                      >
+                        <BlogCard
+                          title={post.title}
+                          summary={post.summary}
+                          slug={post?.slug || post?.title}
+                          description={post.description}
+                          imageSrc={post.imageSrc}
+                          _id={post._id}
+                          category={post.category}
+                          body={post.body}
+                        />
+                      </div>
+                    ))}
+                  </Carousel>
+                </div>
+              </>
+            )}
         </section>
       </div>
       <PreviewProduct isOpen={isOpen} onOpenChange={onOpenChange} />

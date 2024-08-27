@@ -31,7 +31,7 @@ import { SendPriceModal } from "app/components/Product/SendPriceModal";
 import "../../style.css";
 import { ProductAboutCard } from "app/components/Product/ProductInfoCard";
 import { productAtom } from "app/atoms/product.atom";
-import { getProductInfo } from "app/api/products.api";
+import { getProductInfo } from "app/api/product/products.api";
 import { removeSnakeCase } from "app/utils/fn";
 import appaImg from "app/assets/appa-sponsor.png";
 import { GiPriceTag } from "react-icons/gi";
