@@ -265,7 +265,7 @@ export default function Index() {
         </div>
       </div>
 
-      <div className="md:px-0 flex flex-col space-y-10 lg:space-y-16 py-20">
+      <div className="md:px-0 flex flex-col space-y-10 py-20">
         <ProductSection
           categoryName="Health & Personal"
           heroImage={HealthImage}
@@ -277,6 +277,7 @@ export default function Index() {
               : []
           }
         />
+        <FeaturedProducts sectionLabel="Featured Products" gridNo={5} />
         <ProductSection
           heroImage={ClothingImage}
           Icon={GiClothes}
@@ -330,10 +331,10 @@ export default function Index() {
             blogs.data.payload.data &&
             blogs.data.payload?.data.length > 0 && (
               <>
-                <h1 className="font-bold text-2xl text-black capitalize text-center">Our Blog</h1>
-                <h3 className="font-semibold text-lg text-gray text-center">
-                  Browse Our Latest News
-                </h3>
+                <div className="space-y-2">
+                  <h1 className="font-bold text-2xl text-black capitalize text-center">Our Blog</h1>
+                  <h3 className="text-lg text-gray text-center">Browse Our Latest News</h3>
+                </div>
                 <div className="md:mx-4">
                   <Carousel numberOfItems={3}>
                     {blogs.data.payload.data.map((post: BlogCardProps) => (
