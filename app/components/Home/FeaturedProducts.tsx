@@ -102,23 +102,29 @@ const FeaturedProducts = ({ sectionLabel, showMore }: FeaturedProductsProps) => 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-4">
             {latestProducts &&
               latestProducts.length > 0 &&
-              latestProducts.map((item: ProductObject) => (
-                <ProductCard
-                  key={item?._id}
-                  image={item?.overview?.heroImage}
-                  images={item?.product?.images}
-                  title={item?.overview?.name}
-                  productCode={item?.overview?.code}
-                  description={item?.product?.description}
-                  basePrice={getMinMaxPrice(item?.product?.prices?.priceGroups[0]?.basePrice)}
-                  qunatity={item?.overview?.minQty}
-                  id={item?._id}
-                  category={
-                    item?.category?.name || item?.product?.categorisation?.productType?.typeName
-                  }
-                  handlePreviewFn={handlePreviewProd}
-                />
-              ))}
+              latestProducts.map((item: ProductObject) => {
+                console.log({
+                  bs: getMinMaxPrice(item?.product?.prices?.priceGroups[0]?.basePrice),
+                });
+
+                return (
+                  <ProductCard
+                    key={item?._id}
+                    image={item?.overview?.heroImage}
+                    images={item?.product?.images}
+                    title={item?.overview?.name}
+                    productCode={item?.overview?.code}
+                    description={item?.product?.description}
+                    basePrice={getMinMaxPrice(item?.product?.prices?.priceGroups[0]?.basePrice)}
+                    qunatity={item?.overview?.minQty}
+                    id={item?._id}
+                    category={
+                      item?.category?.name || item?.product?.categorisation?.productType?.typeName
+                    }
+                    handlePreviewFn={handlePreviewProd}
+                  />
+                );
+              })}
           </div>
         )}
         {selected === "trendingProducts" && (

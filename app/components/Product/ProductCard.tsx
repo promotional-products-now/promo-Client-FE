@@ -55,7 +55,11 @@ export const ProductCard = ({
               onClick={() => {
                 navigate(`/products/${category ? toSnakeCase(category) : "_"}/${id}`);
               }}
-              className="object-cover border-2 border-zinc-100 h-full w-full transition aspect-square inset-0"
+              className=" border-2 border-zinc-100"
+              classNames={{
+                wrapper:
+                  "object-cover border-2 border-zinc-100 h-full w-full transition aspect-square inset-0",
+              }}
               loading="lazy"
             />
           ) : (
@@ -85,10 +89,10 @@ export const ProductCard = ({
           </div>
         </div>
 
-        <div className="overflow-visible text-justify py-2">
+        <div className="overflow-visible text-left py-2">
           <div className="text-primary capitalize font-semibold  2x:text-lg">{title}</div>
-          <p className="text-black text-small mb-2 line-clamp-4 truncate">
-            {description?.substring(0, 60)}
+          <p className="text-black text-small mb-2 text-wrap line-clamp-4 truncate">
+            {description}
           </p>
           <div className="flex flex-row text-sm justify-between">
             {basePrice && (
