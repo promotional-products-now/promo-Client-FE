@@ -17,25 +17,26 @@ import {
   Tooltip,
   useDisclosure,
 } from "@nextui-org/react";
-import { BsCart2, BsCheck2Square, BsInfoCircle } from "react-icons/bs";
+import { BsCart2, BsInfoCircle } from "react-icons/bs";
 import { FaStar } from "react-icons/fa6";
 import { PiUserCircleFill } from "react-icons/pi";
-import { MdKeyboardDoubleArrowRight, MdOutlineDiscount } from "react-icons/md";
+import { MdCancel, MdKeyboardDoubleArrowRight, MdOutlineDiscount } from "react-icons/md";
 import { TbTruckDelivery } from "react-icons/tb";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
-import { useAtom } from "jotai";
+// import { useAtom } from "jotai";
 import { Swiper as SwiperInstance } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { A11y, Parallax, Navigation, Pagination } from "swiper/modules";
 import { SendPriceModal } from "app/components/Product/SendPriceModal";
 import "../../style.css";
 import { ProductAboutCard } from "app/components/Product/ProductInfoCard";
-import { productAtom } from "app/atoms/product.atom";
+// import { productAtom } from "app/atoms/product.atom";
 import { getProductInfo } from "app/api/product/products.api";
 import { removeSnakeCase } from "app/utils/fn";
 import appaImg from "app/assets/appa-sponsor.png";
 import { GiPriceTag } from "react-icons/gi";
 import { TfiWrite } from "react-icons/tfi";
+import { IoMdCheckmarkCircle } from "react-icons/io";
 
 export const meta: MetaFunction = () => {
   return [
@@ -43,10 +44,44 @@ export const meta: MetaFunction = () => {
     { name: "description", content: "Welcome to Promotional Products Now" },
   ];
 };
-const fakeFilter = [
-  { label: "Red", value: "red" },
-  { label: "Blue", value: "blue" },
-  { label: "Yellow", value: "yellow" },
+
+type ModelI = {
+  id: string;
+  name: string;
+  status: "In Stock" | "Out of Stock";
+};
+
+const modelOptions: ModelI[] = [
+  { id: "8gb", name: "8GB (USB 2.0) 1-3 Col Pad", status: "In Stock" },
+  { id: "16bg", name: "16GB (USB 2.0) 1-3 Col Pad", status: "Out of Stock" },
+];
+
+type ColorI = {
+  id: string;
+  name: string;
+  status: "In Stock" | "Out of Stock";
+  code: string;
+};
+
+export const colours: ColorI[] = [
+  {
+    id: "Green",
+    name: "Green",
+    status: "In Stock",
+    code: "#16a34a",
+  },
+  {
+    id: "Red",
+    name: "Red",
+    status: "Out of Stock",
+    code: "#dc2626",
+  },
+  {
+    id: "yellow",
+    status: "In Stock",
+    code: "#eab308",
+    name: "Yellow",
+  },
 ];
 
 const cardData = ["ABOUT", "DETAILS", "ADDITIONAL INFO"];
@@ -64,7 +99,7 @@ export default function ProductDetailsRoute() {
   const swiperRef = useRef<SwiperInstance | null>(null);
   const productF = useLoaderData<typeof loader>();
   const { category } = useParams();
-  const [currentProd, setCurrentProd] = useAtom(productAtom);
+  // const [currentProd, setCurrentProd] = useAtom(productAtom);
   const [isSelected, setIsSelected] = useState<boolean>(false);
 
   return (
@@ -177,9 +212,13 @@ export default function ProductDetailsRoute() {
                   </span>
                   <Checkbox
                     className="py-0 my-0"
-                    defaultSelected
-                    color="default"
-                    icon={<BsCheck2Square className="text-green-600" />}
+                    // defaultSelected
+                    color="success"
+                    radius="full"
+                    icon={<IoMdCheckmarkCircle className="text-white text-2xl" />}
+                    classNames={{
+                      icon: "text-white",
+                    }}
                   >
                     In stock
                   </Checkbox>
@@ -199,35 +238,73 @@ export default function ProductDetailsRoute() {
                     }}
                   />
                 </div>
-                <div className="">
+                <div>
                   <Select
                     variant="bordered"
                     radius="none"
                     label="Colour"
                     labelPlacement="outside-left"
                     placeholder="Red"
+                    items={colours}
+                    classNames={{
+                      popoverContent: "rounded-none",
+                    }}
                   >
-                    {fakeFilter.map((animal) => (
-                      <SelectItem key={animal.value} value={animal.value}>
-                        {animal.label}
+                    {(col) => (
+                      <SelectItem key={col.id} textValue={col.name}>
+                        <div className="flex gap-2 items-center justify-between">
+                          <div className="flex items-center space-x-1">
+                            <div
+                              className="w-3 h-3 rounded-full aspect-square"
+                              style={{ backgroundColor: col.code }}
+                            ></div>
+                            <span className="">{col.name}</span>
+                          </div>
+                          <div className="flex items-center space-x-1">
+                            <span>
+                              {col.status.includes("In Stock") ? (
+                                <IoMdCheckmarkCircle className="text-green-600" />
+                              ) : (
+                                <MdCancel className="text-red-600" />
+                              )}
+                            </span>
+                            <span className="text-sm">{col.status}</span>
+                          </div>
+                        </div>
                       </SelectItem>
-                    ))}
+                    )}
                   </Select>
                 </div>
 
-                <div className="">
+                <div>
                   <Select
                     variant="bordered"
                     radius="none"
                     label="Model"
                     labelPlacement="outside-left"
                     placeholder="Select"
+                    items={modelOptions}
+                    classNames={{
+                      popoverContent: "rounded-none",
+                    }}
                   >
-                    {fakeFilter.map((animal) => (
-                      <SelectItem key={animal.value} value={animal.value}>
-                        {animal.label}
+                    {(model) => (
+                      <SelectItem key={model.id} textValue={model.name}>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm">{model.name}</span>
+                          <div className="flex items-center space-x-1">
+                            <span>
+                              {model.status.includes("In Stock") ? (
+                                <IoMdCheckmarkCircle className="text-green-600" />
+                              ) : (
+                                <MdCancel className="text-red-600" />
+                              )}
+                            </span>
+                            <span className="text-sm">{model.status}</span>
+                          </div>
+                        </div>
                       </SelectItem>
-                    ))}
+                    )}
                   </Select>
                 </div>
                 <Divider />
@@ -237,10 +314,10 @@ export default function ProductDetailsRoute() {
                     key="1"
                     aria-label="options"
                     title={
-                      <div className="flex items-center space-x-3">
+                      <div className="flex items-center space-x-2">
                         <span className="font-medium">Options</span>
                         <Tooltip>
-                          <BsInfoCircle className="text-green-600" />
+                          <BsInfoCircle className="text-green-600 text-sm" />
                         </Tooltip>
                       </div>
                     }
@@ -259,10 +336,10 @@ export default function ProductDetailsRoute() {
                     key="2"
                     aria-label="accessories"
                     title={
-                      <div className="flex items-center space-x-3">
+                      <div className="flex items-center space-x-2">
                         <span className="font-medium">Accessories</span>
                         <Tooltip>
-                          <BsInfoCircle className="text-green-600" />
+                          <BsInfoCircle className="text-green-600 text-sm" />
                         </Tooltip>
                       </div>
                     }
@@ -292,10 +369,10 @@ export default function ProductDetailsRoute() {
                     key="3"
                     aria-label="Packaging"
                     title={
-                      <div className="flex items-center space-x-3">
+                      <div className="flex items-center space-x-2">
                         <span className="font-medium">Packaging</span>
                         <Tooltip>
-                          <BsInfoCircle className="text-green-600" />
+                          <BsInfoCircle className="text-green-600 text-sm" />
                         </Tooltip>
                       </div>
                     }
@@ -337,7 +414,12 @@ export default function ProductDetailsRoute() {
                   </span>
                   <Divider />
                   <div className="flex flex-col">
-                    <span className="text-sm md:text-base font-semibold">Type of branding</span>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-sm md:text-base font-semibold">Type of branding</span>
+                      <Tooltip>
+                        <BsInfoCircle className="text-green-600 text-sm" />
+                      </Tooltip>
+                    </div>
                     <Tabs aria-label="Options" color="primary" radius="none">
                       <Tab key="Print" title="Print"></Tab>
                       <Tab key="Engrave" title="Engrave"></Tab>
@@ -345,14 +427,24 @@ export default function ProductDetailsRoute() {
                     </Tabs>
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-sm md:text-base font-semibold">Colors in Artwork</span>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-sm md:text-base font-semibold">Colors in Artwork</span>
+                      <Tooltip>
+                        <BsInfoCircle className="text-green-600 text-sm" />
+                      </Tooltip>
+                    </div>
                     <Tabs aria-label="Colors in Artwork" color="primary" radius="none">
                       <Tab key="oneColorArtwork" title="One color Artwork"></Tab>
                       <Tab key="multiColorArtwork" title="Multi-color artwork"></Tab>
                     </Tabs>
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-sm md:text-base font-semibold">Branding Positions</span>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-sm md:text-base font-semibold">Branding Positions</span>
+                      <Tooltip>
+                        <BsInfoCircle className="text-green-600 text-sm" />
+                      </Tooltip>
+                    </div>
                     <Tabs aria-label="Branding Positions" color="primary" radius="none">
                       <Tab key="One" title="One"></Tab>
                       <Tab key="Two" title="Two"></Tab>
