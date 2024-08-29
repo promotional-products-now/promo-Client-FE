@@ -1,5 +1,6 @@
 import axios from "axios";
-import { API_BASEURL } from "./api";
+import { API_BASEURL } from "../api";
+import { ProductObject } from "./product.type";
 
 type ProductFilter = {
   page?: number;
@@ -23,6 +24,28 @@ export const fetchProductShowCase = async (categories: string[]) => {
   );
   return res;
 };
+
+export const fetchLatestProduct = async (params?: ProductFilter): Promise<ProductObject[]> => {
+  const response = await axios.get(
+    `${API_BASEURL}/products/latest?limit=${params?.limit || 8}&page=${params?.page || 1}`,
+  );
+  return response.data;
+};
+
+export const fetchTopSellingProductsApi = async (params?: { page: number; limit: number }) => {
+  const { data } = await axios.get(
+    `${API_BASEURL}/products/top-selling?page=${params?.page || 1}&limit=${params?.limit || 8}`,
+  );
+  return data;
+};
+
+export const fetchHotProductsApi = async (params?: { page: number; limit: number }) => {
+  const { data } = await axios.get(
+    `${API_BASEURL}/products/hot-products?page=${params?.page}&limit=${params?.limit || 8}`,
+  );
+  return data;
+};
+
 export const getProductInfo = async (productId: string) => {
   const { data } = await axios.get(`${API_BASEURL}/products/${productId}`);
   return data;

@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { A11y, Parallax, Navigation } from "swiper/modules";
 import { Swiper as SwiperInstance } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { A11y, Autoplay, Parallax, Navigation } from "swiper/modules";
 
 import "../../style.css";
 
@@ -16,6 +16,9 @@ export default function Carousel({
   const divRef = useRef<HTMLDivElement>(null);
   const swiperRef = useRef<SwiperInstance | null>(null);
 
+  const navigationPrevRef = React.useRef(null);
+  const navigationNextRef = React.useRef(null);
+
   React.useEffect(() => {
     divRef.current?.focus();
   }, []);
@@ -26,11 +29,20 @@ export default function Carousel({
         <Swiper
           onSwiper={(swiper) => (swiperRef.current = swiper)}
           navigation={{
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
+            // nextEl: ".swiper-button-next",
+            // prevEl: ".swiper-button-prev",
+            prevEl: navigationPrevRef.current,
+            nextEl: navigationNextRef.current,
             enabled: true,
           }}
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: true,
+          }}
           // parallax={true}
+          grabCursor={true}
+          loop={true}
+          mousewheel={true}
           pagination={{
             clickable: true,
           }}
@@ -69,11 +81,13 @@ export default function Carousel({
 
       <div
         aria-disabled="false"
+        ref={navigationNextRef}
         className="swiper-button-next border border-transparent"
         onClick={() => swiperRef.current && swiperRef.current.slideNext()}
       ></div>
       <div
         aria-disabled="false"
+        ref={navigationPrevRef}
         className="swiper-button-prev"
         onClick={() => swiperRef.current && swiperRef.current.slidePrev()}
       ></div>

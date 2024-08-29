@@ -21,6 +21,7 @@
     "@remix-run/node": "^2.11.2",
     "@remix-run/react": "^2.11.2",
     "@remix-run/serve": "^2.11.2",
+    "@tanstack/react-query": "^5.52.2",
     "add": "^2.0.6",
     "axios": "^1.7.2",
     "framer-motion": "^11.0.3",

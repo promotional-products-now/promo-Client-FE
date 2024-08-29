@@ -1,3 +1,5 @@
+import { BasePrice } from "app/api/product/product.type";
+
 function toSnakeCase(str: string): string {
   return str
     .replace(/([a-z0-9])([A-Z])/g, "$1_$2")
@@ -17,29 +19,11 @@ interface PriceBreak {
   price: number;
 }
 
-interface Data {
-  key: string;
-  tags: any[];
-  type: string;
-  setup: number;
-  indent: boolean;
-  currency: string;
-  lead_time: string;
-  description: string;
-  undecorated: boolean;
-  price_breaks: PriceBreak[];
-}
-
-function getMinMaxPrice(data: Data): { minPrice: number; maxPrice: number } {
+function getMinMaxPrice(data: BasePrice): { minPrice: number; maxPrice: number } {
   // Check if price_breaks exists and is an array
   // console.log({ xd: data });
-  if (
-    data &&
-    data.price_breaks &&
-    Array.isArray(data.price_breaks) &&
-    data.price_breaks.length > 0
-  ) {
-    const prices = data.price_breaks.map((item) => item.price);
+  if (data && data.priceBreaks && Array.isArray(data.priceBreaks) && data.priceBreaks.length > 0) {
+    const prices = data.priceBreaks.map((item) => item.price);
     const minPrice = Math.min(...prices);
     const maxPrice = Math.max(...prices);
 

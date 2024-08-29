@@ -6,7 +6,7 @@ import { GoVerified } from "react-icons/go";
 import { ProductCard } from "app/components/Product/ProductCard";
 import { useSetAtom } from "jotai";
 import { productPreviewAtom } from "app/atoms/product.atom";
-import { fetchProductByCategory } from "app/api/products.api";
+import { fetchProductByCategory } from "app/api/product/products.api";
 import { getMinMaxPrice, removeSnakeCase } from "app/utils/fn";
 import TablePagination from "app/components/TablePagination";
 

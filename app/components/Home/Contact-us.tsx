@@ -4,7 +4,7 @@ import { FiShoppingCart, FiPhoneCall } from "react-icons/fi";
 function ContactUs() {
   return (
     <section className="lg:px-20 px-4 w-max-ppn">
-      <div className="m-16 w-full flex flex-col justify-center items-center gap-8 container mx-auto md:px-4">
+      <div className="my-8 w-full flex flex-col justify-center items-center gap-8 container mx-auto md:px-4">
         <h1 className="font-bold text-2xl text-black capitalize text-center">
           We are Promotional Products Now
         </h1>
