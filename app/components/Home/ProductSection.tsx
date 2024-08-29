@@ -104,7 +104,14 @@ const ProductSection = ({
                         .slice(0, 15)
                         .map((cat: IsubCategory) => (
                           <div key={cat._id} className="flex flex-col gap-2 overflow-y-hidden-">
-                            <span className="text-white">{cat.name}</span>
+                            <Link
+                              className="w-fit"
+                              to={`/categories/${toSnakeCase(categoryName)}/${toSnakeCase(
+                                cat.name,
+                              )}`}
+                            >
+                              <span className="text-white">{cat.name}</span>
+                            </Link>
                           </div>
                         ))}
 

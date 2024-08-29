@@ -63,7 +63,9 @@ export const fetchProductByCategory = async (category: string) => {
   return res;
 };
 
-export const fetchSubCategory = async (category: string) => {
-  const res = await axios.get(`${API_BASEURL}/products/product-category/${category}?limit=20`);
+export const fetchSubCategory = async (category: string, subCategory: string) => {
+  const res = await axios.get(
+    `${API_BASEURL}/products?limit=10&subCategory=${subCategory}&category=${category}`,
+  );
   return res;
 };
