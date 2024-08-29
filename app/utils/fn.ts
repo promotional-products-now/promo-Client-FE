@@ -14,6 +14,14 @@ function removeSnakeCase(str: string): string {
     .join(" ");
 }
 
+function toTitleCase(str: string): string {
+  return str
+    .toLowerCase()
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
 interface PriceBreak {
   qty: number;
   price: number;
@@ -34,4 +42,4 @@ function getMinMaxPrice(data: BasePrice): { minPrice: number; maxPrice: number }
   return { minPrice: 0, maxPrice: 0 };
 }
 
-export { toSnakeCase, removeSnakeCase, getMinMaxPrice };
+export { toSnakeCase, removeSnakeCase, getMinMaxPrice, toTitleCase };

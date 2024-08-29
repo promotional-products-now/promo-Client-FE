@@ -6,9 +6,10 @@ import { GoVerified } from "react-icons/go";
 import { ProductCard } from "app/components/Product/ProductCard";
 import { useSetAtom } from "jotai";
 import { productPreviewAtom } from "app/atoms/product.atom";
-import { fetchSubCategory } from "app/api/product/products.api";
+import { fetchProductByCategory, fetchSubCategory } from "app/api/product/products.api";
 import { getMinMaxPrice, removeSnakeCase } from "app/utils/fn";
 import TablePagination from "app/components/TablePagination";
+import { ProductObject } from "app/api/product/product.type";
 
 const options = [
   { value: "low-high", label: "low to high" },
@@ -18,23 +19,21 @@ const options = [
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Sub-categories | Promotional Products Now " },
+    { title: "Categories | Promotional Products Now " },
     { name: "description", content: "Welcome to Promotional Products Now" },
   ];
 };
 
 export async function loader({ params }: { params: { category: string; subCategory: string } }) {
-  const serializedCategory = params.category?.replace(/_/g, " ");
-  const serializedSubcategory = params.subCategory?.replace(/_/g, " ");
-  console.log(serializedCategory, serializedSubcategory);
-
-  const { data } = await fetchSubCategory(serializedCategory, serializedSubcategory);
-  console.log(data);
+  const { data } = await fetchSubCategory(
+    removeSnakeCase(params.category),
+    removeSnakeCase(params.subCategory),
+  );
 
   return data;
 }
 
-export default function SubCategoryPage() {
+const CategoryPage = () => {
   const loaderData = useLoaderData<typeof loader>();
   const { onOpen } = useDisclosure();
   const setProduct = useSetAtom(productPreviewAtom);
@@ -48,24 +47,36 @@ export default function SubCategoryPage() {
   };
 
   const filteredProducts = useMemo(() => {
-    const normalizedData = Array.isArray(loaderData) ? loaderData.flat() : [];
+    if (!loaderData || !loaderData.docs) {
+      return {
+        totalPages: 0,
+        hasPrevious: false,
+        hasNext: false,
+        nextPage: 0,
+        prevPage: 0,
+        limit: 0,
+        products: [],
+      };
+    }
 
-    const totalItems = normalizedData.length;
-    const totalPages = Math.ceil(totalItems / limit);
-
-    const adjustedCurrentPage = Math.min(currentPage, totalPages);
-
-    const products = normalizedData.slice(
-      (adjustedCurrentPage - 1) * limit,
-      adjustedCurrentPage * limit,
-    );
+    const {
+      docs: products,
+      page,
+      limit,
+      totalItems,
+      totalPages,
+      nextPage,
+      prevPage,
+      hasNextPage,
+      hasPrevPage,
+    } = loaderData;
 
     return {
       totalPages,
-      hasPrevious: adjustedCurrentPage > 1,
-      hasNext: adjustedCurrentPage < totalPages,
-      nextPage: adjustedCurrentPage < totalPages ? adjustedCurrentPage + 1 : 0,
-      prevPage: adjustedCurrentPage > 1 ? adjustedCurrentPage - 1 : 0,
+      hasPrevious: hasPrevPage,
+      hasNext: hasNextPage,
+      nextPage: nextPage || 0,
+      prevPage: prevPage || 0,
       limit,
       products,
     };
@@ -105,17 +116,22 @@ export default function SubCategoryPage() {
             <span className="text-sm md:text-base text-primary capitalize">
               {removeSnakeCase(category || "")}
             </span>
-            <MdKeyboardDoubleArrowRight size={18} className="text-gray" />
-            <span className="text-sm md:text-base text-primary capitalize">
-              {removeSnakeCase(subCategory || "")}
-            </span>
+            {subCategory && (
+              <>
+                {" "}
+                <MdKeyboardDoubleArrowRight size={18} className="text-gray" />
+                <span className="text-sm md:text-base text-primary capitalize">
+                  {removeSnakeCase(subCategory || "")}
+                </span>
+              </>
+            )}
           </div>
         </div>
       </div>
       <div className="space-y-4 md:space-y-8">
         <div className="flex items-center justify-center">
           <span className="text-lg md:text-2xl font-semibold capitalize">
-            {removeSnakeCase(subCategory || "")}
+            {removeSnakeCase(category || "")}
           </span>
         </div>
 
@@ -168,22 +184,22 @@ export default function SubCategoryPage() {
         </div>
         <div className="flex flex-col gap-10 md:px-20 px-5 w-full">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            {filteredProducts.products.map((item) => {
+            {filteredProducts.products.map((item: ProductObject) => {
               return (
                 <ProductCard
-                  key={item?._id || item?.id}
-                  image={item.overview.heroImage}
-                  images={item.product.images}
-                  title={item.overview.name}
-                  productCode={item.overview.code}
-                  description={item.product.description}
-                  basePrice={getMinMaxPrice(
-                    item?.product?.prices?.priceGroups?.basePrice?.[0]?.base_price,
-                  )}
-                  qunatity={item.qunatity}
+                  key={item?._id}
                   handlePreviewFn={(data) => handlePreviewProd(data)}
-                  category={item.product.categorisation.productType.typeName}
-                  id={item?._id || item?.id}
+                  image={item?.overview?.heroImage}
+                  images={item?.product?.images}
+                  title={item?.overview?.name}
+                  productCode={item?.overview?.code}
+                  description={item?.product?.description}
+                  basePrice={getMinMaxPrice(item?.product?.prices?.priceGroups[0]?.basePrice)}
+                  qunatity={item?.overview?.minQty}
+                  id={item?._id}
+                  category={
+                    item?.category?.name || item?.product?.categorisation?.productType?.typeName
+                  }
                 />
               );
             })}
@@ -202,4 +218,6 @@ export default function SubCategoryPage() {
       </div>
     </div>
   );
-}
+};
+
+export default CategoryPage;
