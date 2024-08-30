@@ -1,12 +1,12 @@
-import { SetStateAction, useCallback, useMemo, useState } from "react";
-import { Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react";
+import { useCallback, useMemo, useState } from "react";
+import { Link, MetaFunction, useFetcher, useLoaderData, useParams } from "@remix-run/react";
 import { Select, SelectItem, useDisclosure } from "@nextui-org/react";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { GoVerified } from "react-icons/go";
 import { ProductCard } from "app/components/Product/ProductCard";
 import { useSetAtom } from "jotai";
 import { productPreviewAtom } from "app/atoms/product.atom";
-import { fetchProductByCategory, fetchSubCategory } from "app/api/product/products.api";
+import { fetchSubCategory } from "app/api/product/products.api";
 import { getMinMaxPrice, removeSnakeCase } from "app/utils/fn";
 import TablePagination from "app/components/TablePagination";
 import { ProductObject } from "app/api/product/product.type";
@@ -25,10 +25,12 @@ export const meta: MetaFunction = () => {
 };
 
 export async function loader({ params }: { params: { category: string; subCategory: string } }) {
-  const { data } = await fetchSubCategory(
-    removeSnakeCase(params.category),
-    removeSnakeCase(params.subCategory),
-  );
+  const serializedCategory = params.category?.replace(/_/g, " ");
+  const serializedSubcategory = params.subCategory?.replace(/_/g, " ");
+  const page = 1;
+  const limit = 10;
+
+  const { data } = await fetchSubCategory(serializedCategory, serializedSubcategory, page, limit);
 
   return data;
 }
@@ -40,6 +42,7 @@ const CategoryPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const { category, subCategory } = useParams();
+  const fetcher = useFetcher();
 
   const handlePreviewProd = (product: any) => {
     onOpen();
@@ -61,9 +64,9 @@ const CategoryPage = () => {
 
     const {
       docs: products,
-      page,
+      // page,
       limit,
-      totalItems,
+      // totalItems,
       totalPages,
       nextPage,
       prevPage,
@@ -75,34 +78,48 @@ const CategoryPage = () => {
       totalPages,
       hasPrevious: hasPrevPage,
       hasNext: hasNextPage,
-      nextPage: nextPage || 0,
-      prevPage: prevPage || 0,
+      nextPage,
+      prevPage,
       limit,
       products,
     };
-  }, [loaderData, currentPage, limit]);
+  }, [loaderData]);
 
-  const handleNext = useCallback(
-    (pageNumber: number) => {
-      if (filteredProducts.hasNext && !pageNumber) {
-        setCurrentPage(filteredProducts.nextPage);
-      } else {
-        setCurrentPage(pageNumber);
-      }
-    },
-    [filteredProducts.hasNext, filteredProducts.nextPage],
-  );
+  const handleNext = useCallback(() => {
+    if (filteredProducts.hasNext) {
+      setCurrentPage(filteredProducts.nextPage);
+      fetcher.load(
+        `/categories/${category}/${subCategory}?page=${filteredProducts.nextPage}&limit=${limit}`,
+      );
+    }
+  }, [filteredProducts.hasNext, filteredProducts.nextPage, fetcher, category, subCategory, limit]);
 
   const handlePrevious = useCallback(() => {
     if (filteredProducts.hasPrevious) {
       setCurrentPage(filteredProducts.prevPage);
+      fetcher.load(
+        `/categories/${category}/${subCategory}?page=${filteredProducts.prevPage}&limit=${limit}`,
+      );
     }
-  }, [filteredProducts.hasPrevious, filteredProducts.prevPage]);
+  }, [
+    filteredProducts.hasPrevious,
+    filteredProducts.prevPage,
+    fetcher,
+    category,
+    subCategory,
+    limit,
+  ]);
 
-  const handleChangeLimit = useCallback((newLimit: SetStateAction<number>) => {
-    setLimit(newLimit);
-    setCurrentPage(1);
-  }, []);
+  const handleChangeLimit = useCallback(
+    (newLimit: React.SetStateAction<number>) => {
+      if (newLimit > 0) {
+        setLimit(newLimit);
+        setCurrentPage(1);
+        fetcher.load(`/categories/${category}/${subCategory}?page=1&limit=${newLimit}`);
+      }
+    },
+    [category, fetcher, subCategory],
+  );
 
   return (
     <div className="space-y-6">
@@ -210,7 +227,7 @@ const CategoryPage = () => {
               totalPages={filteredProducts.totalPages}
               currentPage={currentPage}
               handlePrevious={handlePrevious}
-              handleNext={(p) => handleNext(p as number)}
+              handleNext={handleNext}
               setLimit={handleChangeLimit}
             />
           </div>
