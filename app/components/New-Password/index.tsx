@@ -29,7 +29,7 @@ export default function NewPassword({
   });
   const onSubmit = async (data: newPasswordSchema) => {
     setIsSubmitting(true);
-    console.log(data);
+
     await changePassword({
       email,
       password: data.newPassword,

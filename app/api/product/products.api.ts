@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API_BASEURL } from "../api";
 import { ProductObject } from "./product.type";
+import { PaginationItemProps } from "@nextui-org/react";
 
 type ProductFilter = {
   page?: number;
@@ -63,9 +64,22 @@ export const fetchProductByCategory = async (category: string) => {
   return res;
 };
 
-export const fetchSubCategory = async (category: string, subCategory: string) => {
-  const res = await axios.get(
-    `${API_BASEURL}/products?page1&limit=10&subCategory=${subCategory}&category=${category}`,
+export const fetchSubCategory = async (
+  category: string,
+  subCategory: string,
+  pagination: { page: number; limit: number },
+) => {
+  console.log(
+    `${API_BASEURL}/products?page=${pagination.page || 1}&limit=${
+      pagination.limit || 8
+    }&category=${category}${subCategory ? `&subCategory=${subCategory}` : ""}`,
   );
+
+  const res = await axios.get(
+    `${API_BASEURL}/products?page=${pagination.page || 1}&limit=${
+      pagination.limit || 8
+    }&category=${category}${subCategory ? `&subCategory=${subCategory}` : ""}`,
+  );
+
   return res;
 };

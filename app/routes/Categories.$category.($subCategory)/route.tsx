@@ -1,12 +1,12 @@
 import { SetStateAction, useCallback, useMemo, useState } from "react";
-import { Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react";
-import { Select, SelectItem, useDisclosure } from "@nextui-org/react";
+import { Link, MetaFunction, useLoaderData, useNavigate, useParams } from "@remix-run/react";
+import { Select, SelectItem, pagination, useDisclosure } from "@nextui-org/react";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { GoVerified } from "react-icons/go";
 import { ProductCard } from "app/components/Product/ProductCard";
 import { useSetAtom } from "jotai";
 import { productPreviewAtom } from "app/atoms/product.atom";
-import { fetchProductByCategory, fetchSubCategory } from "app/api/product/products.api";
+import { fetchSubCategory } from "app/api/product/products.api";
 import { getMinMaxPrice, removeSnakeCase } from "app/utils/fn";
 import TablePagination from "app/components/TablePagination";
 import { ProductObject } from "app/api/product/product.type";
@@ -24,10 +24,21 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export async function loader({ params }: { params: { category: string; subCategory: string } }) {
+export async function loader({
+  params,
+  request,
+}: {
+  params: { category: string; subCategory: string };
+  request: Request;
+}) {
+  const url = new URL(request.url);
+  const page = url.searchParams.get("page") || "1";
+  const limit = url.searchParams.get("limit") || "8";
+
   const { data } = await fetchSubCategory(
     removeSnakeCase(params.category),
     removeSnakeCase(params.subCategory),
+    { page: parseInt(page, 10), limit: parseInt(limit, 10) },
   );
 
   return data;
@@ -35,10 +46,11 @@ export async function loader({ params }: { params: { category: string; subCatego
 
 const CategoryPage = () => {
   const loaderData = useLoaderData<typeof loader>();
+  const navigate = useNavigate();
   const { onOpen } = useDisclosure();
   const setProduct = useSetAtom(productPreviewAtom);
   const [currentPage, setCurrentPage] = useState(1);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(8);
   const { category, subCategory } = useParams();
 
   const handlePreviewProd = (product: any) => {
@@ -80,28 +92,29 @@ const CategoryPage = () => {
       limit,
       products,
     };
-  }, [loaderData, currentPage, limit]);
+  }, [loaderData]);
 
-  const handleNext = useCallback(
-    (pageNumber: number) => {
-      if (filteredProducts.hasNext && !pageNumber) {
-        setCurrentPage(filteredProducts.nextPage);
-      } else {
-        setCurrentPage(pageNumber);
-      }
-    },
-    [filteredProducts.hasNext, filteredProducts.nextPage],
-  );
+  const updateQueryParams = (page: number, limit: number) => {
+    navigate(`?page=${page}&limit=${limit}`);
+  };
+
+  const handleNext = useCallback(() => {
+    if (filteredProducts.hasNext) {
+      updateQueryParams(filteredProducts.nextPage, limit);
+      setCurrentPage(filteredProducts.nextPage);
+    }
+  }, [filteredProducts.hasNext, filteredProducts.nextPage, limit]);
 
   const handlePrevious = useCallback(() => {
     if (filteredProducts.hasPrevious) {
+      updateQueryParams(filteredProducts.prevPage, limit);
       setCurrentPage(filteredProducts.prevPage);
     }
-  }, [filteredProducts.hasPrevious, filteredProducts.prevPage]);
+  }, [filteredProducts.hasPrevious, filteredProducts.prevPage, limit]);
 
   const handleChangeLimit = useCallback((newLimit: SetStateAction<number>) => {
     setLimit(newLimit);
-    setCurrentPage(1);
+    updateQueryParams(currentPage, newLimit as number);
   }, []);
 
   return (
@@ -210,7 +223,7 @@ const CategoryPage = () => {
               totalPages={filteredProducts.totalPages}
               currentPage={currentPage}
               handlePrevious={handlePrevious}
-              handleNext={(p) => handleNext(p as number)}
+              handleNext={handleNext}
               setLimit={handleChangeLimit}
             />
           </div>
