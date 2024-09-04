@@ -105,7 +105,9 @@ export default function SearchPage() {
                   qunatity={item.overview.minQty}
                   handlePreviewFn={(data) => handlePreviewProd(data)}
                   id={item._id || item.id}
-                  category={item.product.categorisation.productType.typeName}
+                  category={
+                    item?.category?.name || item.product.categorisation.productType.typeName
+                  }
                 />
               </div>
             );

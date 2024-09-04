@@ -8,8 +8,19 @@ function toSnakeCase(str: string): string {
 }
 
 function removeSnakeCase(str: string): string {
+  if (str) {
+    return str
+      .split("_")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  }
+  return str;
+}
+
+function toTitleCase(str: string): string {
   return str
-    .split("_")
+    .toLowerCase()
+    .split(" ")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 }
@@ -21,7 +32,7 @@ interface PriceBreak {
 
 function getMinMaxPrice(data: BasePrice): { minPrice: number; maxPrice: number } {
   // Check if price_breaks exists and is an array
-  // console.log({ xd: data });
+
   if (data && data.priceBreaks && Array.isArray(data.priceBreaks) && data.priceBreaks.length > 0) {
     const prices = data.priceBreaks.map((item) => item.price);
     const minPrice = Math.min(...prices);
@@ -34,4 +45,4 @@ function getMinMaxPrice(data: BasePrice): { minPrice: number; maxPrice: number }
   return { minPrice: 0, maxPrice: 0 };
 }
 
-export { toSnakeCase, removeSnakeCase, getMinMaxPrice };
+export { toSnakeCase, removeSnakeCase, getMinMaxPrice, toTitleCase };

@@ -825,6 +825,18 @@ const routes = {
     hasWorkerAction: false,
     module: route0
   },
+  "routes/Categories.$category.($subCategory)": {
+    id: "routes/Categories.$category.($subCategory)",
+    parentId: "root",
+    path: "Categories/:category/:subCategory?",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: true,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route1
+  },
   "routes/National-Sales-Manager": {
     id: "routes/National-Sales-Manager",
     parentId: "root",
@@ -835,7 +847,7 @@ const routes = {
     hasAction: false,
     hasWorkerLoader: false,
     hasWorkerAction: false,
-    module: route1
+    module: route2
   },
   "routes/Products.$category.$id": {
     id: "routes/Products.$category.$id",
@@ -847,24 +859,12 @@ const routes = {
     hasAction: false,
     hasWorkerLoader: false,
     hasWorkerAction: false,
-    module: route2
+    module: route3
   },
   "routes/manifest[.webmanifest]": {
     id: "routes/manifest[.webmanifest]",
     parentId: "root",
     path: "manifest.webmanifest",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: true,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route3
-  },
-  "routes/Categories.$category": {
-    id: "routes/Categories.$category",
-    parentId: "root",
-    path: "Categories/:category",
     index: void 0,
     caseSensitive: void 0,
     hasLoader: true,

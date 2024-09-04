@@ -91,7 +91,7 @@ export const ProductCard = ({
 
         <div className="overflow-visible text-left py-2">
           <div className="text-primary capitalize font-semibold  2x:text-lg">{title}</div>
-          <p className="text-black text-small mb-2 text-wrap line-clamp-4 truncate">
+          <p className="text-black text-small mb-2 text-wrap line-clamp-2 truncate">
             {description}
           </p>
           <div className="flex flex-row text-sm justify-between">

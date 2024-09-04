@@ -23,8 +23,6 @@ if ("serviceWorker" in navigator) {
       .then(() => navigator.serviceWorker.ready)
       .then(() => {
         if (navigator.serviceWorker.controller) {
-          console.log({ xman: window.__remixManifest });
-
           navigator.serviceWorker.controller.postMessage({
             type: "SYNC_REMIX_MANIFEST",
             manifest: window.__remixManifest,

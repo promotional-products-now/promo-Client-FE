@@ -167,7 +167,7 @@ export default function Index() {
                   </div>
                 </div>
 
-                <Link href="cart" className="w-56 h-36">
+                <div className="w-56 h-36">
                   <Image
                     src="https://images.pexels.com/photos/437036/pexels-photo-437036.jpeg?auto=compress&cs=tinysrgb&w=600"
                     alt="Champion Fitness Activity Tracker"
@@ -176,7 +176,7 @@ export default function Index() {
                     className="w-full h-full object-cover"
                     loading="lazy"
                   />
-                </Link>
+                </div>
               </div>
 
               <div className="bg-primary flex flex-row justify-center items-center gap-5 p-6 flex-1">
@@ -243,18 +243,21 @@ export default function Index() {
                         itemType="https://schema.org/Product"
                       >
                         <ProductCard
-                          image={item.overview.heroImage}
-                          images={item.product.images}
-                          title={item.overview.name}
-                          productCode={item.overview.code}
-                          description={item.product.description}
+                          image={item?.overview?.heroImage}
+                          images={item?.product?.images}
+                          title={item.overview?.name}
+                          productCode={item?.overview.code}
+                          description={item?.product.description}
                           basePrice={getMinMaxPrice(
                             item?.product?.prices?.priceGroups?.basePrice?.[0]?.base_price,
                           )}
                           qunatity={item.overview.minQty}
                           handlePreviewFn={(data) => handlePreviewProd(data)}
                           id={item._id || item.id}
-                          category={item.product.categorisation.productType.typeName}
+                          category={
+                            item?.category?.name ||
+                            item?.product?.categorisation?.productType?.typeName
+                          }
                         />
                       </div>
                     );
