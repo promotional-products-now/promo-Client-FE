@@ -84,6 +84,7 @@ const CategoryPage = () => {
     } = loaderData;
 
     return {
+      page,
       totalPages,
       hasPrevious: hasPrevPage,
       hasNext: hasNextPage,
@@ -221,7 +222,7 @@ const CategoryPage = () => {
           <div className="flex w-full justify-center px-5 pb-1">
             <TablePagination
               totalPages={filteredProducts.totalPages}
-              currentPage={currentPage}
+              currentPage={filteredProducts.page}
               handlePrevious={handlePrevious}
               handleNext={handleNext}
               setLimit={handleChangeLimit}

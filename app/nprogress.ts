@@ -1,6 +1,6 @@
 // app/nprogress.js
 import NProgress from "nprogress";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigation } from "@remix-run/react";
 
 NProgress.configure({
@@ -11,15 +11,43 @@ NProgress.configure({
   trickleSpeed: 800,
 });
 
+// Define the debounce function with TypeScript types
+function debounce<F extends (...args: any[]) => void>(
+  func: F,
+  wait: number,
+): (...args: Parameters<F>) => void {
+  let timeout: ReturnType<typeof setTimeout>;
+  return (...args: Parameters<F>) => {
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+    timeout = setTimeout(() => func(...args), wait);
+  };
+}
+
 export function ProgressBar() {
   const navigation = useNavigation();
+  const [isProgressActive, setIsProgressActive] = useState<boolean>(false);
+
+  // Single debounced function to handle progress
+  const debouncedHandleProgress = useRef(
+    debounce((active: boolean) => {
+      if (active) {
+        NProgress.start();
+      } else {
+        NProgress.done();
+      }
+    }, 100),
+  );
 
   useEffect(() => {
-    if (navigation.state === "idle") {
+    setIsProgressActive(navigation.state === "loading");
+    debouncedHandleProgress.current(navigation.state === "loading");
+
+    // Cleanup to ensure progress bar is completed if the component is unmounted
+    return () => {
       NProgress.done();
-    } else {
-      NProgress.start();
-    }
+    };
   }, [navigation.state]);
 
   return null;

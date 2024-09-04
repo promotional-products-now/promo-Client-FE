@@ -162,7 +162,9 @@ const ProductSection = ({
                       )}
                       qunatity={item?.overview?.minQty}
                       id={item?._id || item?.id}
-                      category={item?.product?.categorisation?.productType?.typeName}
+                      category={
+                        item?.category?.name || item?.product?.categorisation?.productType?.typeName
+                      }
                       handlePreviewFn={(data) => handlePreviewProd(data)}
                     />
                   ))}

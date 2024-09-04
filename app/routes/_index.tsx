@@ -243,18 +243,21 @@ export default function Index() {
                         itemType="https://schema.org/Product"
                       >
                         <ProductCard
-                          image={item.overview.heroImage}
-                          images={item.product.images}
-                          title={item.overview.name}
-                          productCode={item.overview.code}
-                          description={item.product.description}
+                          image={item?.overview?.heroImage}
+                          images={item?.product?.images}
+                          title={item.overview?.name}
+                          productCode={item?.overview.code}
+                          description={item?.product.description}
                           basePrice={getMinMaxPrice(
                             item?.product?.prices?.priceGroups?.basePrice?.[0]?.base_price,
                           )}
                           qunatity={item.overview.minQty}
                           handlePreviewFn={(data) => handlePreviewProd(data)}
                           id={item._id || item.id}
-                          category={item.product.categorisation.productType.typeName}
+                          category={
+                            item?.category?.name ||
+                            item?.product?.categorisation?.productType?.typeName
+                          }
                         />
                       </div>
                     );

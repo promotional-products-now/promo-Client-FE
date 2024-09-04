@@ -84,7 +84,12 @@ function CategoryList(props: any) {
                             key={sub._id}
                             className=" cursor-pointer hover:bg-primary text-zinc-500 hover:text-white p-2"
                           >
-                            <RemixLink to="#" className="">
+                            <RemixLink
+                              to={`/categories/${toSnakeCase(category.name)}/${toSnakeCase(
+                                sub.name,
+                              )}`}
+                              className=""
+                            >
                               {sub.name}
                             </RemixLink>
                           </li>
