@@ -69,11 +69,7 @@ export const fetchSubCategory = async (
   subCategory: string,
   pagination: { page: number; limit: number },
 ) => {
-  console.log(
-    `${API_BASEURL}/products?page=${pagination.page || 1}&limit=${
-      pagination.limit || 8
-    }&category=${category}${subCategory ? `&subCategory=${subCategory}` : ""}`,
-  );
+
 
   const res = await axios.get(
     `${API_BASEURL}/products?page=${pagination.page || 1}&limit=${

@@ -140,6 +140,7 @@ const ProductSection = ({
                   className="object-cover h-full w-full transition aspect-auto inset-0"
                   loading="lazy" // Lazy loading for performance
                   radius="none"
+                  fallbackSrc
                 />
               </div>
             </div>
