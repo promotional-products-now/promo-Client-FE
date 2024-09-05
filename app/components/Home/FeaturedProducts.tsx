@@ -103,10 +103,6 @@ const FeaturedProducts = ({ sectionLabel, showMore }: FeaturedProductsProps) => 
             {latestProducts &&
               latestProducts.length > 0 &&
               latestProducts.map((item: ProductObject) => {
-                console.log({
-                  bs: getMinMaxPrice(item?.product?.prices?.priceGroups[0]?.basePrice),
-                });
-
                 return (
                   <ProductCard
                     key={item?._id}

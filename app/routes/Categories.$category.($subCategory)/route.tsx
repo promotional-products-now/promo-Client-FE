@@ -1,14 +1,15 @@
 import { SetStateAction, useCallback, useMemo, useState } from "react";
-import { Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react";
-import { Select, SelectItem, useDisclosure } from "@nextui-org/react";
+import { Link, MetaFunction, useLoaderData, useNavigate, useParams } from "@remix-run/react";
+import { Select, SelectItem, pagination, useDisclosure } from "@nextui-org/react";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { GoVerified } from "react-icons/go";
 import { ProductCard } from "app/components/Product/ProductCard";
 import { useSetAtom } from "jotai";
 import { productPreviewAtom } from "app/atoms/product.atom";
-import { fetchProductByCategory } from "app/api/product/products.api";
+import { fetchSubCategory } from "app/api/product/products.api";
 import { getMinMaxPrice, removeSnakeCase } from "app/utils/fn";
 import TablePagination from "app/components/TablePagination";
+import { ProductObject } from "app/api/product/product.type";
 
 const options = [
   { value: "low-high", label: "low to high" },
@@ -23,19 +24,34 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export async function loader({ params }: { params: { category: string } }) {
-  const { data } = await fetchProductByCategory(params.category);
+export async function loader({
+  params,
+  request,
+}: {
+  params: { category: string; subCategory: string };
+  request: Request;
+}) {
+  const url = new URL(request.url);
+  const page = url.searchParams.get("page") || "1";
+  const limit = url.searchParams.get("limit") || "8";
+
+  const { data } = await fetchSubCategory(
+    removeSnakeCase(params.category),
+    removeSnakeCase(params.subCategory),
+    { page: parseInt(page, 10), limit: parseInt(limit, 10) },
+  );
 
   return data;
 }
 
 const CategoryPage = () => {
   const loaderData = useLoaderData<typeof loader>();
+  const navigate = useNavigate();
   const { onOpen } = useDisclosure();
   const setProduct = useSetAtom(productPreviewAtom);
   const [currentPage, setCurrentPage] = useState(1);
-  const [limit, setLimit] = useState(10);
-  const { category } = useParams();
+  const [limit, setLimit] = useState(8);
+  const { category, subCategory } = useParams();
 
   const handlePreviewProd = (product: any) => {
     onOpen();
@@ -43,49 +59,63 @@ const CategoryPage = () => {
   };
 
   const filteredProducts = useMemo(() => {
-    const normalizedData = Array.isArray(loaderData) ? loaderData.flat() : [];
+    if (!loaderData || !loaderData.docs) {
+      return {
+        totalPages: 0,
+        hasPrevious: false,
+        hasNext: false,
+        nextPage: 0,
+        prevPage: 0,
+        limit: 0,
+        products: [],
+      };
+    }
 
-    const totalItems = normalizedData.length;
-    const totalPages = Math.ceil(totalItems / limit);
-
-    const adjustedCurrentPage = Math.min(currentPage, totalPages);
-
-    const products = normalizedData.slice(
-      (adjustedCurrentPage - 1) * limit,
-      adjustedCurrentPage * limit,
-    );
+    const {
+      docs: products,
+      page,
+      limit,
+      totalItems,
+      totalPages,
+      nextPage,
+      prevPage,
+      hasNextPage,
+      hasPrevPage,
+    } = loaderData;
 
     return {
+      page,
       totalPages,
-      hasPrevious: adjustedCurrentPage > 1,
-      hasNext: adjustedCurrentPage < totalPages,
-      nextPage: adjustedCurrentPage < totalPages ? adjustedCurrentPage + 1 : 0,
-      prevPage: adjustedCurrentPage > 1 ? adjustedCurrentPage - 1 : 0,
+      hasPrevious: hasPrevPage,
+      hasNext: hasNextPage,
+      nextPage: nextPage || 0,
+      prevPage: prevPage || 0,
       limit,
       products,
     };
-  }, [loaderData, currentPage, limit]);
+  }, [loaderData]);
 
-  const handleNext = useCallback(
-    (pageNumber: number) => {
-      if (filteredProducts.hasNext && !pageNumber) {
-        setCurrentPage(filteredProducts.nextPage);
-      } else {
-        setCurrentPage(pageNumber);
-      }
-    },
-    [filteredProducts.hasNext, filteredProducts.nextPage],
-  );
+  const updateQueryParams = (page: number, limit: number) => {
+    navigate(`?page=${page}&limit=${limit}`);
+  };
+
+  const handleNext = useCallback(() => {
+    if (filteredProducts.hasNext) {
+      updateQueryParams(filteredProducts.nextPage, limit);
+      setCurrentPage(filteredProducts.nextPage);
+    }
+  }, [filteredProducts.hasNext, filteredProducts.nextPage, limit]);
 
   const handlePrevious = useCallback(() => {
     if (filteredProducts.hasPrevious) {
+      updateQueryParams(filteredProducts.prevPage, limit);
       setCurrentPage(filteredProducts.prevPage);
     }
-  }, [filteredProducts.hasPrevious, filteredProducts.prevPage]);
+  }, [filteredProducts.hasPrevious, filteredProducts.prevPage, limit]);
 
   const handleChangeLimit = useCallback((newLimit: SetStateAction<number>) => {
     setLimit(newLimit);
-    setCurrentPage(1);
+    updateQueryParams(currentPage, newLimit as number);
   }, []);
 
   return (
@@ -100,6 +130,15 @@ const CategoryPage = () => {
             <span className="text-sm md:text-base text-primary capitalize">
               {removeSnakeCase(category || "")}
             </span>
+            {subCategory && (
+              <>
+                {" "}
+                <MdKeyboardDoubleArrowRight size={18} className="text-gray" />
+                <span className="text-sm md:text-base text-primary capitalize">
+                  {removeSnakeCase(subCategory || "")}
+                </span>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -159,22 +198,22 @@ const CategoryPage = () => {
         </div>
         <div className="flex flex-col gap-10 md:px-20 px-5 w-full">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            {filteredProducts.products.map((item) => {
+            {filteredProducts.products.map((item: ProductObject) => {
               return (
                 <ProductCard
-                  key={item?._id || item?.id}
-                  image={item.overview.heroImage}
-                  images={item.product.images}
-                  title={item.overview.name}
-                  productCode={item.overview.code}
-                  description={item.product.description}
-                  basePrice={getMinMaxPrice(
-                    item?.product?.prices?.priceGroups?.basePrice?.[0]?.base_price,
-                  )}
-                  qunatity={item.qunatity}
+                  key={item?._id}
                   handlePreviewFn={(data) => handlePreviewProd(data)}
-                  category={item.product.categorisation.productType.typeName}
-                  id={item?._id || item?.id}
+                  image={item?.overview?.heroImage}
+                  images={item?.product?.images}
+                  title={item?.overview?.name}
+                  productCode={item?.overview?.code}
+                  description={item?.product?.description}
+                  basePrice={getMinMaxPrice(item?.product?.prices?.priceGroups[0]?.basePrice)}
+                  qunatity={item?.overview?.minQty}
+                  id={item?._id}
+                  category={
+                    item?.category?.name || item?.product?.categorisation?.productType?.typeName
+                  }
                 />
               );
             })}
@@ -183,9 +222,9 @@ const CategoryPage = () => {
           <div className="flex w-full justify-center px-5 pb-1">
             <TablePagination
               totalPages={filteredProducts.totalPages}
-              currentPage={currentPage}
+              currentPage={filteredProducts.page}
               handlePrevious={handlePrevious}
-              handleNext={(p) => handleNext(p as number)}
+              handleNext={handleNext}
               setLimit={handleChangeLimit}
             />
           </div>

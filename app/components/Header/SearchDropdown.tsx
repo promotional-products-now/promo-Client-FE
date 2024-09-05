@@ -148,18 +148,23 @@ export const SearchDropdown = () => {
                     Select one or more colours to highlight products available
                   </span>
                   <div className="grid grid-cols-4 gap-2 w-full bg-zinc-100 p-4">
-                    {colors.map((c, i) => (
-                      <Button
-                        onPress={() => handleSelectColour(c)}
-                        isIconOnly
-                        key={i}
-                        className="w-10 h-10 aspect-square rounded-full"
-                        style={{ backgroundColor: c }}
-                      />
-                    ))}
+                    {colors &&
+                      colors.map((c, i) => (
+                        <Button
+                          onPress={() => handleSelectColour(c)}
+                          isIconOnly
+                          key={i}
+                          className={
+                            colours.includes(c)
+                              ? "w-11 h-11 bg-clip-content p-1 aspect-square rounded-full shadow-md border-3 border-white bg-overlay-black"
+                              : "w-10 h-10 aspect-square rounded-full"
+                          }
+                          style={{ backgroundColor: c }}
+                        />
+                      ))}
                   </div>
                   <div>
-                    {colours.length > 0 && (
+                    {colors && colours.length > 0 && (
                       <span className="pt-2">
                         Selected Colours: {Array.from(colours).join(", ")}{" "}
                       </span>
@@ -203,6 +208,15 @@ export const SearchDropdown = () => {
           >
             <FiSearch />
           </Button>
+        </div>
+        <div className="flex gap-2 mt-1">
+          {colours.map((c, i) => (
+            <div
+              key={i}
+              className="w-12 h-4  rounded-md shadow-md border-3 border-white"
+              style={{ backgroundColor: c }}
+            ></div>
+          ))}
         </div>
       </form>
     </div>

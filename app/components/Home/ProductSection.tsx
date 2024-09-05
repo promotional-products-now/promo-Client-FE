@@ -104,7 +104,14 @@ const ProductSection = ({
                         .slice(0, 15)
                         .map((cat: IsubCategory) => (
                           <div key={cat._id} className="flex flex-col gap-2 overflow-y-hidden-">
-                            <span className="text-white">{cat.name}</span>
+                            <Link
+                              className="w-fit"
+                              to={`/categories/${toSnakeCase(categoryName)}/${toSnakeCase(
+                                cat.name,
+                              )}`}
+                            >
+                              <span className="text-white">{cat.name}</span>
+                            </Link>
                           </div>
                         ))}
 
@@ -133,6 +140,7 @@ const ProductSection = ({
                   className="object-cover h-full w-full transition aspect-auto inset-0"
                   loading="lazy" // Lazy loading for performance
                   radius="none"
+                  fallbackSrc
                 />
               </div>
             </div>
@@ -155,7 +163,9 @@ const ProductSection = ({
                       )}
                       qunatity={item?.overview?.minQty}
                       id={item?._id || item?.id}
-                      category={item?.product?.categorisation?.productType?.typeName}
+                      category={
+                        item?.category?.name || item?.product?.categorisation?.productType?.typeName
+                      }
                       handlePreviewFn={(data) => handlePreviewProd(data)}
                     />
                   ))}
