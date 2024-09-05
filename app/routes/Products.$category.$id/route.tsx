@@ -31,12 +31,13 @@ import { SendPriceModal } from "app/components/Product/SendPriceModal";
 import "../../style.css";
 import { ProductAboutCard } from "app/components/Product/ProductInfoCard";
 // import { productAtom } from "app/atoms/product.atom";
-import { getProductInfo } from "app/api/product/products.api";
+import { fetchProductStockLevelApi, getProductInfo } from "app/api/product/products.api";
 import { removeSnakeCase } from "app/utils/fn";
 import appaImg from "app/assets/appa-sponsor.png";
 import { GiPriceTag } from "react-icons/gi";
 import { TfiWrite } from "react-icons/tfi";
 import { IoMdCheckmarkCircle } from "react-icons/io";
+import { useQuery } from "@tanstack/react-query";
 
 export const meta: MetaFunction = () => {
   return [
@@ -98,10 +99,17 @@ export default function ProductDetailsRoute() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const swiperRef = useRef<SwiperInstance | null>(null);
   const productF = useLoaderData<typeof loader>();
-  const { category } = useParams();
+  const { category, id } = useParams();
   // const [currentProd, setCurrentProd] = useAtom(productAtom);
   const [isSelected, setIsSelected] = useState<boolean>(false);
+  ///check-stock-levels/
 
+  const { data: stockData } = useQuery({
+    queryKey: ["stockData"],
+    queryFn: () => fetchProductStockLevelApi(productF.meta.id as string),
+  });
+
+  console.log({ stockData });
   return (
     <>
       <div className="space-y-6 md:space-y-10">
@@ -135,7 +143,7 @@ export default function ProductDetailsRoute() {
                 </div>
               </div>
 
-              <div className="relative">
+              <div className="relative h-52">
                 <Swiper
                   onSwiper={(swiper) => (swiperRef.current = swiper)}
                   navigation={{
@@ -148,7 +156,7 @@ export default function ProductDetailsRoute() {
                     clickable: true,
                   }}
                   slidesPerView={1}
-                  spaceBetween={20}
+                  spaceBetween={10}
                   breakpoints={{
                     320: {
                       slidesPerView: 2.2,
@@ -158,25 +166,23 @@ export default function ProductDetailsRoute() {
                       slidesPerView: 3,
                     },
                     768: {
-                      slidesPerView: 4,
+                      slidesPerView: 3.2,
                     },
                     1200: {
-                      slidesPerView: 4.6,
+                      slidesPerView: 3.5,
                     },
                   }}
                   modules={[Navigation, Pagination, Parallax, A11y]}
                 >
                   {productF?.product?.images.map((img: string) => (
                     <SwiperSlide>
-                      <div key={img} className="h-20 relative rounded-sm flex items-center">
+                      <div key={img} className="h-28 w-full relative rounded-sm flex items-center">
                         <Image
                           alt=""
                           radius="md"
                           src={img}
                           removeWrapper
-                          fallbackSrc
-                          width={60}
-                          className="absolute inset-0 h-full object-cover transition-transform transform-gpu aspect-square border border-neutral-300"
+                          className=" h-full w-full object-cover border border-neutral-300"
                         />
                       </div>
                     </SwiperSlide>
