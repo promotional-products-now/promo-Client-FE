@@ -33,6 +33,13 @@ export const fetchLatestProduct = async (params?: ProductFilter): Promise<Produc
   return response.data;
 };
 
+export const fetchProductStockLevelApi = async (productId: string) => {
+  const response = await axios.get(`${API_BASEURL}/products/check-stock-levels/${productId}`);
+  console.log({ response });
+  return response.data;
+};
+
+
 export const fetchTopSellingProductsApi = async (params?: { page: number; limit: number }) => {
   const { data } = await axios.get(
     `${API_BASEURL}/products/top-selling?page=${params?.page || 1}&limit=${params?.limit || 8}`,
