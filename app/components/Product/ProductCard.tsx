@@ -11,7 +11,7 @@ export type ProductCardProps = {
   title: string;
   description: string;
   basePrice: { minPrice: number; maxPrice: number };
-  qunatity: number;
+  qty: { minQty: number; maxQty: number };
   handlePreviewFn: (data: unknown) => void;
   category: string;
   id: string;
@@ -24,7 +24,7 @@ export const ProductCard = ({
   title,
   description,
   basePrice,
-  qunatity,
+  qty,
   category,
   id,
   handlePreviewFn,
@@ -34,7 +34,7 @@ export const ProductCard = ({
     title,
     description,
     basePrice,
-    qunatity,
+    qty,
     images,
     productCode,
     category,
@@ -55,10 +55,10 @@ export const ProductCard = ({
               onClick={() => {
                 navigate(`/products/${category ? toSnakeCase(category) : "_"}/${id}`);
               }}
-              className=" border-2 border-zinc-100"
+              className=" !object-scale-down border-2 border-zinc-100"
               classNames={{
                 wrapper:
-                  "object-cover border-2 border-zinc-100 h-full w-full transition aspect-square inset-0",
+                  "!object-scale-down border-2 border-zinc-100 h-full w-full transition aspect-square inset-0",
               }}
               loading="lazy"
             />
@@ -103,6 +103,7 @@ export const ProductCard = ({
                 </span>
               </div>
             )}
+            <div> {qty && qty?.minQty} min qty</div>
           </div>
         </div>
       </div>

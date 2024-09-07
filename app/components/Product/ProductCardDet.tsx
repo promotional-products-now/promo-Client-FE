@@ -50,7 +50,7 @@ export function ProductCardDet({ product }: { product: ProductCardProps }) {
                 </p>
                 <span className="text-primary text-xs">{product.newPrice}</span>
               </div>
-              <div className="text-xs">{product.qunatity}</div>
+              <div className="text-xs">{product.qty}</div>
             </div>
           </div>
           <Button

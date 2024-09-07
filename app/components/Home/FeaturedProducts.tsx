@@ -7,7 +7,7 @@ import { ProductCard } from "app/components/Product/ProductCard";
 import { useSetAtom } from "jotai";
 import { productPreviewAtom } from "app/atoms/product.atom";
 import { PreviewProduct } from "../Product/PreviewProduct";
-import { getMinMaxPrice } from "app/utils/fn";
+import { getMinMaxPrice, getMinMaxQty } from "app/utils/fn";
 import { useQuery } from "@tanstack/react-query";
 import { fetchLatestProduct, fetchTopSellingProductsApi } from "app/api/product/products.api";
 import React from "react";
@@ -112,7 +112,7 @@ const FeaturedProducts = ({ sectionLabel, showMore }: FeaturedProductsProps) => 
                     productCode={item?.overview?.code}
                     description={item?.product?.description}
                     basePrice={getMinMaxPrice(item?.product?.prices?.priceGroups[0]?.basePrice)}
-                    qunatity={item?.overview?.minQty}
+                    qty={getMinMaxQty(item?.product?.prices?.priceGroups[0]?.basePrice)}
                     id={item?._id}
                     category={
                       item?.category?.name || item?.product?.categorisation?.productType?.typeName
@@ -138,7 +138,7 @@ const FeaturedProducts = ({ sectionLabel, showMore }: FeaturedProductsProps) => 
                   basePrice={getMinMaxPrice(
                     item?.product?.product?.prices?.priceGroups[0]?.basePrice,
                   )}
-                  qunatity={item?.product?.overview?.minQty}
+                  qty={getMinMaxQty(item?.product?.product?.prices?.priceGroups[0]?.basePrice)}
                   id={item?.product?._id}
                   category={
                     item?.product?.category?.name ||

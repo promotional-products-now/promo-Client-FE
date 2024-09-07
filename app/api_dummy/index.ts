@@ -10,7 +10,7 @@ export const items = [
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
-    qunatity: "10 min qty",
+    qty: "10 min qty",
     category: "australianMade",
   },
 
@@ -26,7 +26,7 @@ export const items = [
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
-    qunatity: "10 min qty",
+    qty: "10 min qty",
     category: "australianMade",
   },
   {
@@ -39,7 +39,7 @@ export const items = [
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
-    qunatity: "10 min qty",
+    qty: "10 min qty",
     category: "australianMade",
   },
   {
@@ -52,7 +52,7 @@ export const items = [
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
-    qunatity: "10 min qty",
+    qty: "10 min qty",
     category: "bags",
   },
   {
@@ -65,7 +65,7 @@ export const items = [
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
-    qunatity: "10 min qty",
+    qty: "10 min qty",
     category: "ballons",
   },
   {
@@ -78,7 +78,7 @@ export const items = [
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
-    qunatity: "10 min qty",
+    qty: "10 min qty",
     category: "catering",
   },
   {
@@ -91,7 +91,7 @@ export const items = [
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
-    qunatity: "10 min qty",
+    qty: "10 min qty",
     category: "catering",
   },
   {
@@ -104,7 +104,7 @@ export const items = [
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
-    qunatity: "10 min qty",
+    qty: "10 min qty",
     category: "conference",
   },
   {
@@ -117,7 +117,7 @@ export const items = [
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
-    qunatity: "10 min qty",
+    qty: "10 min qty",
     category: "cups",
   },
   {
@@ -130,7 +130,7 @@ export const items = [
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
-    qunatity: "10 min qty",
+    qty: "10 min qty",
     category: "cups",
   },
   {
@@ -143,7 +143,7 @@ export const items = [
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
-    qunatity: "10 min qty",
+    qty: "10 min qty",
     category: "cups",
   },
   {
@@ -156,7 +156,7 @@ export const items = [
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
-    qunatity: "10 min qty",
+    qty: "10 min qty",
     category: "aussie",
   },
   {
@@ -169,7 +169,7 @@ export const items = [
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
-    qunatity: "10 min qty",
+    qty: "10 min qty",
     category: "aussie",
   },
   {
@@ -182,7 +182,7 @@ export const items = [
       "Jump over the competition and crown your business a champion with these promotional PVC Jumping Ropes",
     price: "$43.72",
     newPrice: "$37.29",
-    qunatity: "10 min qty",
+    qty: "10 min qty",
     category: "aussie",
   },
 ];
