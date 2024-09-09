@@ -30,6 +30,7 @@ import { homePageSchema } from "./_index_seo";
 import { useQuery } from "@tanstack/react-query";
 import OldBanner from "app/components/OldBanner";
 import { ClientOnly } from "remix-utils/client-only";
+import { useNavigation } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -71,6 +72,8 @@ export const loader: LoaderFunction = async () => {
 };
 
 export default function Index() {
+  const navigate = useNavigation();
+
   const { data: blogs } = useQuery({
     queryKey: ["blogs"],
     queryFn: () => fetchAllBlogsApi({ limit: 6 }),
@@ -96,194 +99,200 @@ export default function Index() {
 
   return (
     <>
-      <div className="bg-white-bg px-3 md:px-6 lg:px-8 xl:px-12 lg:h-[700px]">
-        <div className="container mx-auto flex flex-col md:flex-col lg:flex-row justify-center lg:flex-grow h-full">
-          <div
-            aria-label="Link Categories"
-            className={`lg:flex flex-grow overflow-y-scroll  bg-white lg:-mt-4 lg:mb-8 hidden md:block divide-y divide-primary transition-height duration-300 ease-linear  ${
-              !isCategoryOpen ? "h-0 w-0 lg:mr-0" : "w-full lg:mr-8 lg:max-w-80"
-            } `}
-          >
-            {allCategory && <CategoryList categories={allCategory} />}
-          </div>
-          {/* banner */}
-          <ClientOnly fallback={<p>Loading</p>}>
-            {() => (
-              <OldBanner
-                clothing={getRandomData(
-                  loaderData && loaderData.productShowCase && loaderData.productShowCase
-                    ? loaderData.productShowCase["Clothing"]
-                    : {},
-                )}
-                health={getRandomData(
-                  loaderData && loaderData.productShowCase && loaderData.productShowCase
-                    ? loaderData.productShowCase["Health & Personal"]
-                    : {},
-                )}
-                home={getRandomData(
-                  loaderData && loaderData.productShowCase && loaderData.productShowCase
-                    ? loaderData.productShowCase["Home & Living"]
-                    : {},
-                )}
-              />
-            )}
-          </ClientOnly>
-        </div>
-      </div>
-
-      <div className="px-3 md:px-6 lg:px-8 xl:px-12">
-        <div className="container mx-auto space-y-8 py-4 mt-6">
-          <div className="flex items-center justify-center py-3">
-            <span className="text-primary text-center md:text-2xl text-xl lg:text-3xl font-semibold">
-              PROMOTIONAL MERCHANDISE AT GUARANTEED LOWEST PRICES
-            </span>
-          </div>
-
-          <div className="relative border-2 border-orange py-5 sm:py-2 px-2 sm:px-5 2xl:px-12 xl:pb-6">
-            <div className="bg-white  p-4 absolute top-[-1.65rem]">
-              <div className="flex justify-between gap-2 font-semibold text-orange text-2xl">
-                <ImFire />
-                <h5>WHAT&apos;S HOT</h5>
+      {navigate.state !== "loading" && (
+        <>
+          <div className="home-page bg-white-bg px-3 md:px-6 lg:px-8 xl:px-12 lg:h-[700px]">
+            <div className="container mx-auto flex flex-col md:flex-col lg:flex-row justify-center lg:flex-grow h-full">
+              <div
+                aria-label="Link Categories"
+                className={`lg:flex flex-grow overflow-y-scroll  bg-white lg:-mt-4 lg:mb-8 hidden md:block divide-y divide-primary transition-height duration-300 ease-linear  ${
+                  !isCategoryOpen ? "h-0 w-0 lg:mr-0" : "w-full lg:mr-8 lg:max-w-80"
+                } `}
+              >
+                {allCategory && <CategoryList categories={allCategory} />}
               </div>
-            </div>
-            <div className="md:pt-8">
-              <Carousel numberOfItems={4}>
-                {loaderData &&
-                  loaderData.products &&
-                  loaderData.products.map((item: any) => {
-                    return (
-                      <div
-                        key={item._id || item?.id}
-                        className="flex flex-row"
-                        itemScope
-                        itemType="https://schema.org/Product"
-                      >
-                        <ProductCard
-                          image={item?.overview?.heroImage}
-                          images={item?.product?.images}
-                          title={item.overview?.name}
-                          productCode={item?.overview.code}
-                          description={item?.product.description}
-                          basePrice={getMinMaxPrice(
-                            item?.product?.prices?.priceGroups[0]?.basePrice,
-                          )}
-                          qty={getMinMaxQty(item?.product?.prices?.priceGroups[0]?.basePrice)}
-                          handlePreviewFn={(data) => handlePreviewProd(data)}
-                          slug={item?.slug}
-                          category={
-                            item?.category?.name ||
-                            item?.product?.categorisation?.productType?.typeName
-                          }
-                        />
-                      </div>
-                    );
-                  })}
-              </Carousel>
+              {/* banner */}
+              <ClientOnly fallback={<p>Loading</p>}>
+                {() => (
+                  <OldBanner
+                    clothing={getRandomData(
+                      loaderData && loaderData.productShowCase && loaderData.productShowCase
+                        ? loaderData.productShowCase["Clothing"]
+                        : {},
+                    )}
+                    health={getRandomData(
+                      loaderData && loaderData.productShowCase && loaderData.productShowCase
+                        ? loaderData.productShowCase["Health & Personal"]
+                        : {},
+                    )}
+                    home={getRandomData(
+                      loaderData && loaderData.productShowCase && loaderData.productShowCase
+                        ? loaderData.productShowCase["Home & Living"]
+                        : {},
+                    )}
+                  />
+                )}
+              </ClientOnly>
             </div>
           </div>
-        </div>
-      </div>
 
-      <div className="md:px-0 flex flex-col space-y-10 py-20">
-        <ProductSection
-          categoryName="Health & Personal"
-          heroImage={HealthImage}
-          Icon={PiFirstAidKitLight}
-          title="Health & Fitness"
-          products={
-            loaderData && loaderData.productShowCase && loaderData.productShowCase
-              ? loaderData.productShowCase["Health & Personal"]
-              : []
-          }
-        />
-        <FeaturedProducts sectionLabel="Featured Products" gridNo={5} />
-        <ProductSection
-          heroImage={ClothingImage}
-          Icon={GiClothes}
-          title="Mens Wear"
-          categoryName="Clothing"
-          products={
-            loaderData && loaderData.productShowCase && loaderData.productShowCase
-              ? loaderData.productShowCase["Clothing"]
-              : []
-          }
-        />
-        <FeaturedProducts sectionLabel="New Arrivals" gridNo={5} />
+          <div className="px-3 md:px-6 lg:px-8 xl:px-12">
+            <div className="container mx-auto space-y-8 py-4 mt-6">
+              <div className="flex items-center justify-center py-3">
+                <span className="text-primary text-center md:text-2xl text-xl lg:text-3xl font-semibold">
+                  PROMOTIONAL MERCHANDISE AT GUARANTEED LOWEST PRICES
+                </span>
+              </div>
 
-        <ProductSection
-          heroImage={BagImage}
-          Icon={FaFemale}
-          title="Home & Living"
-          categoryName="Home & Living"
-          showmore
-          products={
-            loaderData && loaderData.productShowCase
-              ? loaderData.productShowCase["Home & Living"]
-              : []
-          }
-        />
-        <ContactUs />
-        <section className="bg-white-bg p-10">
-          <div
-            className="mt-4 flex flex-col justify-center items-center gap-4 w-full w-max-ppn"
-            itemScope
-            itemType="https://schema.org/Organization"
-          >
-            <div className="py-2">
-              <h2 className="font-bold text-2xl text-black capitalize text-center">
-                You are fully protected
-              </h2>
-              <p className="md:text-lg text-sm text-gray text-center">
-                We are bound by the code of conduct of the Australian Promotional Products
-                Association
-              </p>
-            </div>
-            <div className="w-1/2 hidden md:block overflow-hidden px-4">
-              {/* TODO: asset not ready for mobile screens */}
-              <AppaIcon />
-            </div>
-          </div>
-        </section>
-        <section className="mb-20 md:px-20 w-full flex flex-col gap-2 md:space-y-6 w-max-ppn">
-          {blogs &&
-            blogs.data.payload &&
-            blogs.data.payload.data &&
-            blogs.data.payload?.data.length > 0 && (
-              <>
-                <div className="space-y-2">
-                  <h1 className="font-bold text-2xl text-black capitalize text-center">Our Blog</h1>
-                  <h3 className="text-lg text-gray text-center">Browse Our Latest News</h3>
+              <div className="relative border-2 border-orange py-5 sm:py-2 px-2 sm:px-5 2xl:px-12 xl:pb-6">
+                <div className="bg-white  p-4 absolute top-[-1.65rem]">
+                  <div className="flex justify-between gap-2 font-semibold text-orange text-2xl">
+                    <ImFire />
+                    <h5>WHAT&apos;S HOT</h5>
+                  </div>
                 </div>
-                <div className="md:mx-4">
-                  <Carousel numberOfItems={3}>
-                    {blogs.data.payload.data.map((post: BlogCardProps) => (
-                      <div
-                        key={post._id}
-                        className="flex flex-col md:flex-row gap-1 sm:mx-2 md:mx-1"
-                      >
-                        <BlogCard
-                          title={post.title}
-                          summary={post.summary}
-                          slug={post?.slug || post?.title}
-                          description={post.description}
-                          imageSrc={post.imageSrc}
-                          _id={post._id}
-                          category={post.category}
-                          body={post.body}
-                        />
-                      </div>
-                    ))}
+                <div className="md:pt-8">
+                  <Carousel numberOfItems={4}>
+                    {loaderData &&
+                      loaderData.products &&
+                      loaderData.products.map((item: any) => {
+                        return (
+                          <div
+                            key={item._id || item?.id}
+                            className="flex flex-row"
+                            itemScope
+                            itemType="https://schema.org/Product"
+                          >
+                            <ProductCard
+                              image={item?.overview?.heroImage}
+                              images={item?.product?.images}
+                              title={item.overview?.name}
+                              productCode={item?.overview.code}
+                              description={item?.product.description}
+                              basePrice={getMinMaxPrice(
+                                item?.product?.prices?.priceGroups[0]?.basePrice,
+                              )}
+                              qty={getMinMaxQty(item?.product?.prices?.priceGroups[0]?.basePrice)}
+                              handlePreviewFn={(data) => handlePreviewProd(data)}
+                              slug={item?.slug}
+                              category={
+                                item?.category?.name ||
+                                item?.product?.categorisation?.productType?.typeName
+                              }
+                            />
+                          </div>
+                        );
+                      })}
                   </Carousel>
                 </div>
-              </>
-            )}
-        </section>
-      </div>
-      <PreviewProduct isOpen={isOpen} onOpenChange={onOpenChange} />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(homePageSchema(loaderData)) }}
-      />
+              </div>
+            </div>
+          </div>
+
+          <div className="md:px-0 flex flex-col space-y-10 py-20">
+            <ProductSection
+              categoryName="Health & Personal"
+              heroImage={HealthImage}
+              Icon={PiFirstAidKitLight}
+              title="Health & Fitness"
+              products={
+                loaderData && loaderData.productShowCase && loaderData.productShowCase
+                  ? loaderData.productShowCase["Health & Personal"]
+                  : []
+              }
+            />
+            <FeaturedProducts sectionLabel="Featured Products" gridNo={5} />
+            <ProductSection
+              heroImage={ClothingImage}
+              Icon={GiClothes}
+              title="Mens Wear"
+              categoryName="Clothing"
+              products={
+                loaderData && loaderData.productShowCase && loaderData.productShowCase
+                  ? loaderData.productShowCase["Clothing"]
+                  : []
+              }
+            />
+            <FeaturedProducts sectionLabel="New Arrivals" gridNo={5} />
+
+            <ProductSection
+              heroImage={BagImage}
+              Icon={FaFemale}
+              title="Home & Living"
+              categoryName="Home & Living"
+              showmore
+              products={
+                loaderData && loaderData.productShowCase
+                  ? loaderData.productShowCase["Home & Living"]
+                  : []
+              }
+            />
+            <ContactUs />
+            <section className="bg-white-bg p-10">
+              <div
+                className="mt-4 flex flex-col justify-center items-center gap-4 w-full w-max-ppn"
+                itemScope
+                itemType="https://schema.org/Organization"
+              >
+                <div className="py-2">
+                  <h2 className="font-bold text-2xl text-black capitalize text-center">
+                    You are fully protected
+                  </h2>
+                  <p className="md:text-lg text-sm text-gray text-center">
+                    We are bound by the code of conduct of the Australian Promotional Products
+                    Association
+                  </p>
+                </div>
+                <div className="w-1/2 hidden md:block overflow-hidden px-4">
+                  {/* TODO: asset not ready for mobile screens */}
+                  <AppaIcon />
+                </div>
+              </div>
+            </section>
+            <section className="mb-20 md:px-20 w-full flex flex-col gap-2 md:space-y-6 w-max-ppn">
+              {blogs &&
+                blogs.data.payload &&
+                blogs.data.payload.data &&
+                blogs.data.payload?.data.length > 0 && (
+                  <>
+                    <div className="space-y-2">
+                      <h1 className="font-bold text-2xl text-black capitalize text-center">
+                        Our Blog
+                      </h1>
+                      <h3 className="text-lg text-gray text-center">Browse Our Latest News</h3>
+                    </div>
+                    <div className="md:mx-4">
+                      <Carousel numberOfItems={3}>
+                        {blogs.data.payload.data.map((post: BlogCardProps) => (
+                          <div
+                            key={post._id}
+                            className="flex flex-col md:flex-row gap-1 sm:mx-2 md:mx-1"
+                          >
+                            <BlogCard
+                              title={post.title}
+                              summary={post.summary}
+                              slug={post?.slug || post?.title}
+                              description={post.description}
+                              imageSrc={post.imageSrc}
+                              _id={post._id}
+                              category={post.category}
+                              body={post.body}
+                            />
+                          </div>
+                        ))}
+                      </Carousel>
+                    </div>
+                  </>
+                )}
+            </section>
+          </div>
+          <PreviewProduct isOpen={isOpen} onOpenChange={onOpenChange} />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(homePageSchema(loaderData)) }}
+          />
+        </>
+      )}
     </>
   );
 }

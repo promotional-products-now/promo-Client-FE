@@ -100,6 +100,7 @@ export default function App() {
               __html: `window.ENV = ${JSON.stringify({ env: data && data.ENV ? data.ENV : "" })}`,
             }}
           />
+
           <Scripts />
         </QueryClientProvider>
       </body>
