@@ -14,7 +14,7 @@ export type ProductCardProps = {
   qty: { minQty: number; maxQty: number };
   handlePreviewFn: (data: unknown) => void;
   category: string;
-  id: string;
+  slug: string;
 };
 
 export const ProductCard = ({
@@ -26,7 +26,7 @@ export const ProductCard = ({
   basePrice,
   qty,
   category,
-  id,
+  slug,
   handlePreviewFn,
 }: ProductCardProps) => {
   const props = {
@@ -38,7 +38,7 @@ export const ProductCard = ({
     images,
     productCode,
     category,
-    id,
+    slug,
   };
   const navigate = useNavigate();
 
@@ -53,7 +53,7 @@ export const ProductCard = ({
               src={image}
               removeWrapper
               onClick={() => {
-                navigate(`/products/${category ? toSnakeCase(category) : "_"}/${id}`);
+                navigate(`/products/${category ? toSnakeCase(category) : "_"}/${slug}`);
               }}
               className=" !object-scale-down border-2 border-zinc-100"
               classNames={{
@@ -78,7 +78,7 @@ export const ProductCard = ({
             </Button>
             <Button
               as={Link}
-              href={`/products/${category ? toSnakeCase(category) : "_"}/${id}`}
+              href={`/products/${category ? toSnakeCase(category) : "_"}/${slug}`}
               radius="none"
               className="bg-primary text-white"
               startContent={<BsCart3 />}

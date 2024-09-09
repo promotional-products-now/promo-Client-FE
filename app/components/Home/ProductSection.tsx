@@ -159,7 +159,7 @@ const ProductSection = ({
                     // basePrice={getMinMaxPrice(item?.product?.prices?.priceGroups[0]?.basePrice)}
                     basePrice={getMinMaxPrice(item?.product?.prices?.priceGroups[0]?.basePrice)}
                     qty={getMinMaxQty(item?.product?.prices?.priceGroups[0]?.basePrice)}
-                    id={item?._id || item?.id}
+                    slug={item?.slug}
                     category={
                       item?.category?.name || item?.product?.categorisation?.productType?.typeName
                     }

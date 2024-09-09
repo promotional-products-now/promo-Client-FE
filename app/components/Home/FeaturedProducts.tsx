@@ -113,7 +113,7 @@ const FeaturedProducts = ({ sectionLabel, showMore }: FeaturedProductsProps) => 
                     description={item?.product?.description}
                     basePrice={getMinMaxPrice(item?.product?.prices?.priceGroups[0]?.basePrice)}
                     qty={getMinMaxQty(item?.product?.prices?.priceGroups[0]?.basePrice)}
-                    id={item?._id}
+                    slug={item?.slug}
                     category={
                       item?.category?.name || item?.product?.categorisation?.productType?.typeName
                     }
@@ -139,7 +139,7 @@ const FeaturedProducts = ({ sectionLabel, showMore }: FeaturedProductsProps) => 
                     item?.product?.product?.prices?.priceGroups[0]?.basePrice,
                   )}
                   qty={getMinMaxQty(item?.product?.product?.prices?.priceGroups[0]?.basePrice)}
-                  id={item?.product?._id}
+                  slug={item?.product?.slug}
                   category={
                     item?.product?.category?.name ||
                     item?.product?.product?.categorisation?.productType?.typeName

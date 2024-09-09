@@ -104,7 +104,7 @@ export default function SearchPage() {
                   )}
                   qty={getMinMaxQty(item?.product?.prices?.priceGroups[0]?.basePrice)}
                   handlePreviewFn={(data) => handlePreviewProd(data)}
-                  id={item._id || item.id}
+                  slug={item?.slug}
                   category={
                     item?.category?.name || item.product.categorisation.productType.typeName
                   }

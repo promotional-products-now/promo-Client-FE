@@ -60,8 +60,8 @@ const OldBanner: React.FC<OldBannerProps> = ({ clothing, health, home }) => {
   };
 
   // Get background color from palette
-  const getBackgroundColor = (palette: string[]): string => {
-    return nonWhiteColors(palette)?.[0] || "rgb(0,121,192)";
+  const getBackgroundColor = (palette: string[], defaultColor?: string): string => {
+    return nonWhiteColors(palette)?.[0] || defaultColor || "rgb(0,121,192)";
   };
 
   return (
@@ -74,7 +74,7 @@ const OldBanner: React.FC<OldBannerProps> = ({ clothing, health, home }) => {
       <div
         className="flex flex-col md:flex-row space-y-2 md:space-y-0 justify-center items-center w-3/5"
         style={{
-          backgroundColor: getBackgroundColor(clothingPalet.data || []),
+          backgroundColor: getBackgroundColor(clothingPalet.data || [], "rgb(56, 189, 248)"),
         }}
       >
         <div className="flex flex-col gap-2 md:gap-3 p-4">
@@ -120,7 +120,7 @@ const OldBanner: React.FC<OldBannerProps> = ({ clothing, health, home }) => {
         <div
           className="flex flex-row justify-center items-center gap-1 h-full p-5 flex-1"
           style={{
-            backgroundColor: getBackgroundColor(healtPalet.data || []),
+            backgroundColor: getBackgroundColor(healtPalet.data || [], "rgb(6 182 212)"),
           }}
         >
           <div className="flex flex-col gap-3">
@@ -173,7 +173,9 @@ const OldBanner: React.FC<OldBannerProps> = ({ clothing, health, home }) => {
             />
           </div>
           <div className="flex flex-col gap-2">
-            <h3 className="font-semibold text-sm md:text-base text-white space-y-2">BAGS</h3>
+            <h3 className="font-semibold text-sm md:text-base text-white space-y-2">
+              Home & Living
+            </h3>
             <h1 className="font-bold text-lg md:text-2xl text-white capitalize">
               {home.overview.name}
             </h1>

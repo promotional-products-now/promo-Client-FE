@@ -210,7 +210,7 @@ const CategoryPage = () => {
                   description={item?.product?.description}
                   basePrice={getMinMaxPrice(item?.product?.prices?.priceGroups[0]?.basePrice)}
                   qty={getMinMaxQty(item?.product?.prices?.priceGroups[0]?.basePrice)}
-                  id={item?._id}
+                  slug={item?.slug}
                   category={
                     item?.category?.name || item?.product?.categorisation?.productType?.typeName
                   }
