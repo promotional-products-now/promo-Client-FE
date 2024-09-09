@@ -183,23 +183,24 @@ export default function ProductDetailsRoute() {
                   }}
                   modules={[Navigation, Pagination, Parallax, A11y]}
                 >
-                  {data?.productData?.product?.images.map((img: string) => (
-                    <SwiperSlide>
-                      <div
-                        key={img}
-                        className="h-28 w-full relative rounded-sm flex items-center cursor-pointer"
-                        onClick={() => setCurrentImage(img)}
-                      >
-                        <Image
-                          alt=""
-                          radius="md"
-                          src={img}
-                          removeWrapper
-                          className=" h-full w-full object-cover border border-neutral-300"
-                        />
-                      </div>
-                    </SwiperSlide>
-                  ))}
+                  {data?.productData?.product?.images.length > 0 &&
+                    data?.productData?.product?.images.map((img: string) => (
+                      <SwiperSlide>
+                        <div
+                          key={img}
+                          className="h-28 w-full relative rounded-sm flex items-center cursor-pointer"
+                          onClick={() => setCurrentImage(img)}
+                        >
+                          <Image
+                            alt=""
+                            radius="md"
+                            src={img}
+                            removeWrapper
+                            className=" h-full w-full object-cover border border-neutral-300"
+                          />
+                        </div>
+                      </SwiperSlide>
+                    ))}
                 </Swiper>
                 <div
                   className="swiper-button-next before:!text-small after:!text-small !left-[96%] !top-2/3"
@@ -342,7 +343,7 @@ export default function ProductDetailsRoute() {
                     }
                   >
                     <RadioGroup className="pb-2">
-                      {data.productData.pricing.map}
+                      {/* {data.productData.pricing.map} */}
                       <Radio size="sm" value="dataLessThan">
                         <span className="text-sm">Data File Upload &lt; 150GB (Free)</span>
                       </Radio>
@@ -612,7 +613,7 @@ export default function ProductDetailsRoute() {
                 <div>
                   {data.productData?.product?.details &&
                   data.productData?.product?.details.length > 0 ? (
-                    data.productData?.product?.details.map(
+                    data.productData?.product?.details?.map(
                       (item: { name: string; detail: string }) => {
                         return (
                           <div className="mb-4">
