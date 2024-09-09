@@ -101,7 +101,7 @@ const CartPage = () => {
                     </div>
                   </TableCell>
                   <TableCell className="text-primary text-sm md:text-base">{item.price}</TableCell>
-                  <TableCell className="text-left text-sm md:text-base">{item.qunatity}</TableCell>
+                  <TableCell className="text-left text-sm md:text-base">{item.qty}</TableCell>
                   <TableCell className="text-left font-semibold text-sm md:text-base">
                     {item.newPrice}
                   </TableCell>

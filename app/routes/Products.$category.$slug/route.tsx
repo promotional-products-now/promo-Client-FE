@@ -38,6 +38,7 @@ import { GiPriceTag } from "react-icons/gi";
 import { TfiWrite } from "react-icons/tfi";
 import { IoMdCheckmarkCircle } from "react-icons/io";
 import { useQuery } from "@tanstack/react-query";
+import { getSession } from "../../sessions";
 
 export const meta: MetaFunction = () => {
   return [
@@ -87,18 +88,24 @@ export const colours: ColorI[] = [
 
 const cardData = ["ABOUT", "DETAILS", "ADDITIONAL INFO"];
 
-export const loader = async ({ params }: { params: { id: string } }) => {
-  const data = await getProductInfo(params.id);
+export const loader = async ({ params, request }: { params: { slug: string }; request: any }) => {
+  const session = await getSession(request.headers.get("Cookie"));
+  const uid = session.get("uid");
+
+  const data = await getProductInfo(params.slug);
   if (!data) {
-    return null;
+    return { productData: {}, user: { uid } };
   }
-  return data;
+  return { productData: data, user: { uid } };
 };
 
 export default function ProductDetailsRoute() {
+  const data = useLoaderData<typeof loader>();
+
+  const [currentImage, setCurrentImage] = useState<string>("");
+
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const swiperRef = useRef<SwiperInstance | null>(null);
-  const productF = useLoaderData<typeof loader>();
   const { category, id } = useParams();
   // const [currentProd, setCurrentProd] = useAtom(productAtom);
   const [isSelected, setIsSelected] = useState<boolean>(false);
@@ -106,7 +113,7 @@ export default function ProductDetailsRoute() {
 
   const { data: stockData } = useQuery({
     queryKey: ["stockData"],
-    queryFn: () => fetchProductStockLevelApi(productF.meta.id as string),
+    queryFn: () => fetchProductStockLevelApi(data?.productData?.meta.id as string),
   });
 
   console.log({ stockData });
@@ -123,18 +130,20 @@ export default function ProductDetailsRoute() {
               {removeSnakeCase(category || "")}
             </span>
             <MdKeyboardDoubleArrowRight size={18} className="text-gray" />
-            <span className="text-sm md:text-base text-primary">{productF?.overview?.name}</span>
+            <span className="text-sm md:text-base text-primary">
+              {data?.productData?.overview?.name}
+            </span>
           </div>
         </div>
-        <div className="w-4/5 mx-auto space-y-6 md:space-y-10">
+        <div className=" w-full mx-auto space-y-6 md:space-y-10">
           <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-3 md:gap-10">
             <div className=" w-full order-2 md:order-1 md:px-6 flex-col items-center">
               <div className="w-full text-center">
                 <div className="text-xl md:text-2xl font-semibold text-center">
-                  {productF?.overview?.name}
+                  {data?.productData?.overview?.name}
                 </div>
                 <div className="flex items-center w-fit mx-auto gap-4 mb-4">
-                  <div className="text-lg ">Product Code: {productF?.overview?.code}</div>
+                  <div className="text-lg ">Product Code: {data?.productData?.overview?.code}</div>
                   {[1, 2, 3, 4, 5].map((_, i) => (
                     <div key={i} className="flex items-center ">
                       <FaStar className="text-xs text-orange" />
@@ -174,9 +183,13 @@ export default function ProductDetailsRoute() {
                   }}
                   modules={[Navigation, Pagination, Parallax, A11y]}
                 >
-                  {productF?.product?.images.map((img: string) => (
+                  {data?.productData?.product?.images.map((img: string) => (
                     <SwiperSlide>
-                      <div key={img} className="h-28 w-full relative rounded-sm flex items-center">
+                      <div
+                        key={img}
+                        className="h-28 w-full relative rounded-sm flex items-center cursor-pointer"
+                        onClick={() => setCurrentImage(img)}
+                      >
                         <Image
                           alt=""
                           radius="md"
@@ -202,9 +215,9 @@ export default function ProductDetailsRoute() {
               <Image
                 alt=""
                 radius="sm"
-                src={productF?.overview?.heroImage}
+                src={currentImage || data?.productData?.overview?.heroImage}
                 removeWrapper
-                className="object-cover w-full h-96 transition aspect-square inset-0"
+                className=" object-scale-down w-full h-96 transition aspect-square inset-0"
               />
             </div>
           </div>
@@ -213,7 +226,7 @@ export default function ProductDetailsRoute() {
             <div className="bg-zinc-50 grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-10 p-4 md:p-8 border border-zinc-200">
               <div className="space-y-4">
                 <div className="flex items-center justify-between w-full flex-wrap space-y-2 md:space-y-0">
-                  <span className="text-lg md:text-xl font-bold text-primary">
+                  <span className="text-lg md:text-xl font-medium text-primary">
                     1.Select Product Details
                   </span>
                   <Checkbox
@@ -329,11 +342,9 @@ export default function ProductDetailsRoute() {
                     }
                   >
                     <RadioGroup className="pb-2">
+                      {data.productData.pricing.map}
                       <Radio size="sm" value="dataLessThan">
                         <span className="text-sm">Data File Upload &lt; 150GB (Free)</span>
-                      </Radio>
-                      <Radio size="sm" value="dataMoreThan">
-                        <span className="text-sm">Data File Upload 150GB-4GB ($0.5 ea)</span>
                       </Radio>
                     </RadioGroup>
                   </AccordionItem>
@@ -415,7 +426,7 @@ export default function ProductDetailsRoute() {
 
               <div className="space-y-4">
                 <div className="space-y-4">
-                  <span className="text-lg md:text-xl font-bold text-primary">
+                  <span className="text-lg md:text-xl font-medium text-primary">
                     2.Select Branding Details
                   </span>
                   <Divider />
@@ -463,22 +474,24 @@ export default function ProductDetailsRoute() {
                   {!isSelected && (
                     <>
                       <div className="flex flex-col md:flex-row md:items-center md:justify-between w-full space-y-2 md:space-y-0">
-                        <span className="text-lg md:text-xl font-bold text-primary">
+                        <span className="text-lg md:text-xl font-medium text-primary">
                           3.Pricing Details
                         </span>
-                        <div className="flex items-center flex-wrap space-x-2 space-y-2 md:space-y-0">
-                          <PiUserCircleFill className="text-primary text-3xl" />
-                          <Link to="/login">
-                            <div className="flex flex-col text-center">
-                              <span className="text-xs md:text-sm text-orange font-bold">
-                                HAVE AN ACCOUNT?
-                              </span>
-                              <span className="text-xs md:text-sm text-orange font-bold">
-                                Please log in first
-                              </span>
-                            </div>
-                          </Link>
-                        </div>
+                        {!data?.user?.uid && (
+                          <div className="flex items-center flex-wrap space-x-2 space-y-2 md:space-y-0">
+                            <PiUserCircleFill className="text-primary text-3xl" />
+                            <Link to="/login">
+                              <div className="flex flex-col text-center">
+                                <span className="text-xs md:text-sm text-orange font-bold">
+                                  HAVE AN ACCOUNT?
+                                </span>
+                                <span className="text-xs md:text-sm text-orange font-bold">
+                                  Please log in first
+                                </span>
+                              </div>
+                            </Link>
+                          </div>
+                        )}
                       </div>
                       <Divider />
                       <div className="flex justify-between items-center">
@@ -589,7 +602,52 @@ export default function ProductDetailsRoute() {
           </Form>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-10">
-            <ProductAboutCard title={cardData[0]} desc={productF?.product?.description} />
+            <ProductAboutCard
+              title={cardData[0]}
+              desc={data?.productData?.product?.description || "No Description"}
+            />
+            <ProductAboutCard
+              title={cardData[1]}
+              note={
+                <div>
+                  {data.productData?.product?.details &&
+                  data.productData?.product?.details.length > 0 ? (
+                    data.productData?.product?.details.map(
+                      (item: { name: string; detail: string }) => {
+                        return (
+                          <div className="mb-4">
+                            <div className=" font-bold">
+                              {item.name === "product_packaging_inner"
+                                ? "Product packaging"
+                                : item?.name}
+                            </div>
+                            <div className=" text-zinc-700">{item?.detail}</div>
+                          </div>
+                        );
+                      },
+                    )
+                  ) : (
+                    <>No Detail</>
+                  )}
+                </div>
+              }
+            />
+            <ProductAboutCard
+              title={cardData[2]}
+              note={
+                <ol className="list-decimal">
+                  <li className="mb-4">
+                    Prices are subject to change at any time and without prior notice.
+                  </li>
+                  <li className="mb-4">
+                    Prices show are based on client supplying suitable artwork.
+                  </li>
+                  <li className="mb-4">
+                    Fright is additional to prices shown and will be charged at cost
+                  </li>
+                </ol>
+              }
+            />
           </div>
 
           <div className="space-y-6">

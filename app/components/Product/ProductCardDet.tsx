@@ -43,15 +43,15 @@ export function ProductCardDet({ product }: { product: ProductCardProps }) {
           <div className="p-2 space-y-3 flex flex-col items-start justify-start">
             <div className=" capitalize font-semibold text-sm">{product.title}</div>
             {/* <div className="text-black text-xs">{product.description}</div> */}
-            <div className="flex text-sm justify-between">
+            {/* <div className="flex text-sm justify-between">
               <div className="text-gray-700 flex gap-1">
                 <p className="text-xs">
                   from <span className="text-orange text-xs">{product.price}</span> to
                 </p>
                 <span className="text-primary text-xs">{product.newPrice}</span>
               </div>
-              <div className="text-xs">{product.qunatity}</div>
-            </div>
+              <div className="text-xs">{product.qty}</div>
+            </div> */}
           </div>
           <Button
             as={Link}

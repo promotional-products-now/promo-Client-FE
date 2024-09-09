@@ -953,6 +953,18 @@ const routes = {
     hasWorkerAction: false,
     module: route1
   },
+  "routes/Products.$category.$slug": {
+    id: "routes/Products.$category.$slug",
+    parentId: "root",
+    path: "Products/:category/:slug",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: true,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route2
+  },
   "routes/National-Sales-Manager": {
     id: "routes/National-Sales-Manager",
     parentId: "root",
@@ -960,18 +972,6 @@ const routes = {
     index: void 0,
     caseSensitive: void 0,
     hasLoader: false,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route2
-  },
-  "routes/Products.$category.$id": {
-    id: "routes/Products.$category.$id",
-    parentId: "root",
-    path: "Products/:category/:id",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: true,
     hasAction: false,
     hasWorkerLoader: false,
     hasWorkerAction: false,

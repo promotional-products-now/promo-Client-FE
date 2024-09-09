@@ -7,7 +7,7 @@ import { ProductCard } from "app/components/Product/ProductCard";
 import { useSetAtom } from "jotai";
 import { productPreviewAtom } from "app/atoms/product.atom";
 import { fetchSubCategory } from "app/api/product/products.api";
-import { getMinMaxPrice, removeSnakeCase } from "app/utils/fn";
+import { getMinMaxPrice, getMinMaxQty, removeSnakeCase } from "app/utils/fn";
 import TablePagination from "app/components/TablePagination";
 import { ProductObject } from "app/api/product/product.type";
 
@@ -209,8 +209,8 @@ const CategoryPage = () => {
                   productCode={item?.overview?.code}
                   description={item?.product?.description}
                   basePrice={getMinMaxPrice(item?.product?.prices?.priceGroups[0]?.basePrice)}
-                  qunatity={item?.overview?.minQty}
-                  id={item?._id}
+                  qty={getMinMaxQty(item?.product?.prices?.priceGroups[0]?.basePrice)}
+                  slug={item?.slug}
                   category={
                     item?.category?.name || item?.product?.categorisation?.productType?.typeName
                   }

@@ -1,4 +1,4 @@
-import { BasePrice } from "app/api/product/product.type";
+import { BasePrice, ProductObject } from "app/api/product/product.type";
 
 function toSnakeCase(str: string): string {
   return str
@@ -45,4 +45,34 @@ function getMinMaxPrice(data: BasePrice): { minPrice: number; maxPrice: number }
   return { minPrice: 0, maxPrice: 0 };
 }
 
-export { toSnakeCase, removeSnakeCase, getMinMaxPrice, toTitleCase };
+function getMinMaxQty(data: BasePrice): { minQty: number; maxQty: number } {
+  if (data && data.priceBreaks && Array.isArray(data.priceBreaks) && data.priceBreaks.length > 0) {
+    const qty = data.priceBreaks.map((item) => item.qty);
+    const minQty = Math.min(...qty);
+    const maxQty = Math.max(...qty);
+
+    return { minQty, maxQty };
+  }
+
+  // Return default values if price_breaks is not an array or is empty
+  return { minQty: 0, maxQty: 0 };
+}
+
+function getRandomData(arr: Array<ProductObject>): ProductObject {
+  if (arr.length === 0) {
+    throw new Error("Array must contain at least one string");
+  }
+
+  const randomIndex = getRandomInt(0, arr.length - 1);
+  return arr[randomIndex];
+}
+
+function getRandomInt(min: number, max: number): number {
+  const range = max - min + 1;
+  const randomBytes = new Uint32Array(1);
+  crypto.getRandomValues(randomBytes);
+
+  return min + (randomBytes[0] % range);
+}
+
+export { toSnakeCase, removeSnakeCase, getMinMaxPrice, toTitleCase, getRandomData, getMinMaxQty };

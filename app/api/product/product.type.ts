@@ -152,6 +152,7 @@ export type ProductObject = {
   isActive: boolean;
   isHot: boolean;
   status: string;
+  slug: string;
   baseprices: any[];
 };
 

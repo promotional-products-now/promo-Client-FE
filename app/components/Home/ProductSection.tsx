@@ -7,7 +7,7 @@ import { useSetAtom } from "jotai";
 import { productPreviewAtom } from "app/atoms/product.atom";
 import { PreviewProduct } from "../Product/PreviewProduct";
 import allCategories from "app/utils/categories";
-import { getMinMaxPrice, toSnakeCase } from "app/utils/fn";
+import { getMinMaxPrice, getMinMaxQty, toSnakeCase } from "app/utils/fn";
 
 const options = [
   { value: "AUSTRALIAN MADE PRODUCTS", label: "AUSTRALIAN MADE PRODUCTS" },
@@ -148,27 +148,24 @@ const ProductSection = ({
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
               {products &&
                 products.length > 0 &&
-                products
-                  .slice(0, 9)
-                  .map((item: any) => (
-                    <ProductCard
-                      key={item._id || item.id}
-                      image={item?.overview?.heroImage}
-                      images={item?.product?.images}
-                      title={item?.overview?.name}
-                      productCode={item?.overview?.code}
-                      description={item?.product?.description}
-                      basePrice={getMinMaxPrice(
-                        item?.product?.prices?.priceGroups?.basePrice?.[0]?.base_price,
-                      )}
-                      qunatity={item?.overview?.minQty}
-                      id={item?._id || item?.id}
-                      category={
-                        item?.category?.name || item?.product?.categorisation?.productType?.typeName
-                      }
-                      handlePreviewFn={(data) => handlePreviewProd(data)}
-                    />
-                  ))}
+                products.slice(0, 9).map((item: any) => (
+                  <ProductCard
+                    key={item._id || item.id}
+                    image={item?.overview?.heroImage}
+                    images={item?.product?.images}
+                    title={item?.overview?.name}
+                    productCode={item?.overview?.code}
+                    description={item?.product?.description}
+                    // basePrice={getMinMaxPrice(item?.product?.prices?.priceGroups[0]?.basePrice)}
+                    basePrice={getMinMaxPrice(item?.product?.prices?.priceGroups[0]?.basePrice)}
+                    qty={getMinMaxQty(item?.product?.prices?.priceGroups[0]?.basePrice)}
+                    slug={item?.slug}
+                    category={
+                      item?.category?.name || item?.product?.categorisation?.productType?.typeName
+                    }
+                    handlePreviewFn={(data) => handlePreviewProd(data)}
+                  />
+                ))}
             </div>
           </div>
         </div>

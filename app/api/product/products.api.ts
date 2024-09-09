@@ -54,10 +54,11 @@ export const fetchHotProductsApi = async (params?: { page: number; limit: number
   return data;
 };
 
-export const getProductInfo = async (productId: string) => {
-  const { data } = await axios.get(`${API_BASEURL}/products/${productId}`);
+export const getProductInfo = async (slug: string) => {
+  const { data } = await axios.get(`${API_BASEURL}/products/${slug}`);
   return data;
 };
+
 
 export const fetchProductCategories = async () => {
   const res = await axios.get(`${API_BASEURL}/product-category`);
