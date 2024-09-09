@@ -1,5 +1,5 @@
-import { Form, Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react";
-import { useRef, useState } from "react";
+import { Form, Link, MetaFunction, useLoaderData, useLocation, useParams } from "@remix-run/react";
+import { Fragment, Key, useRef, useState } from "react";
 import {
   Accordion,
   AccordionItem,
@@ -31,7 +31,12 @@ import { SendPriceModal } from "app/components/Product/SendPriceModal";
 import "../../style.css";
 import { ProductAboutCard } from "app/components/Product/ProductInfoCard";
 // import { productAtom } from "app/atoms/product.atom";
-import { fetchProductStockLevelApi, getProductInfo } from "app/api/product/products.api";
+import {
+  fetchLatestProduct,
+  fetchProductStockLevelApi,
+  fetchTopSellingProductsApi,
+  getProductInfo,
+} from "app/api/product/products.api";
 import { removeSnakeCase } from "app/utils/fn";
 import appaImg from "app/assets/appa-sponsor.png";
 import { GiPriceTag } from "react-icons/gi";
@@ -39,6 +44,7 @@ import { TfiWrite } from "react-icons/tfi";
 import { IoMdCheckmarkCircle } from "react-icons/io";
 import { useQuery } from "@tanstack/react-query";
 import { getSession } from "../../sessions";
+import { ProductCardDet } from "app/components/Product/ProductCardDet";
 
 export const meta: MetaFunction = () => {
   return [
@@ -102,7 +108,10 @@ export const loader = async ({ params, request }: { params: { slug: string }; re
 export default function ProductDetailsRoute() {
   const data = useLoaderData<typeof loader>();
 
+  const { pathname } = useLocation();
+
   const [currentImage, setCurrentImage] = useState<string>("");
+  const [currentTab, setCurrentTab] = useState<string>("");
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const swiperRef = useRef<SwiperInstance | null>(null);
@@ -116,9 +125,33 @@ export default function ProductDetailsRoute() {
     queryFn: () => fetchProductStockLevelApi(data?.productData?.meta.id as string),
   });
 
+  const { data: topSellingProducts, refetch: refetchTopSellingProducts } = useQuery({
+    queryKey: ["topSellingProducts"],
+    queryFn: () => fetchTopSellingProductsApi({ page: 1, limit: 4 }),
+    refetchOnWindowFocus: false,
+    enabled: false,
+  });
+
+  const { data: latestProducts, refetch: refetchLatestProduct } = useQuery({
+    queryKey: ["latestProducts"],
+    queryFn: () => fetchLatestProduct({ page: 1, limit: 4 }),
+    refetchOnWindowFocus: false,
+    enabled: false,
+  });
+  console.log({ latestProducts, topSellingProducts });
+  const handleProductListChange = (selectedTab: Key) => {
+    if (selectedTab === "trendingProducts") {
+      refetchTopSellingProducts();
+    }
+    if (selectedTab === "latestProducts") {
+      refetchLatestProduct();
+    }
+    console.log({ key: selectedTab });
+    setCurrentTab(selectedTab as string);
+  };
   console.log({ stockData });
   return (
-    <>
+    <Fragment key={pathname}>
       <div className="space-y-6 md:space-y-10">
         <div className="flex flex-row border-b border-white-border md:px-20 px-5 py-3 md:pb-3 md:py-0">
           <div className="flex flex-row items-center">
@@ -664,6 +697,8 @@ export default function ProductDetailsRoute() {
                   radius="full"
                   aria-label="Tabs variants"
                   className="hidden md:flex flex-wrap text-lg font-medium"
+                  // selectedKey={selected}
+                  onSelectionChange={(key) => handleProductListChange(key)}
                 >
                   <Tab key="latestProducts" title="Latest Products" />
                   <Tab key="trendingProducts" title="Trending Products" />
@@ -671,7 +706,7 @@ export default function ProductDetailsRoute() {
                 </Tabs>
               </div>
 
-              <Select
+              {/* <Select
                 variant="bordered"
                 label="Sort by:"
                 labelPlacement="outside-left"
@@ -683,19 +718,31 @@ export default function ProductDetailsRoute() {
                     {animal.label}
                   </SelectItem>
                 ))}
-              </Select>
+              </Select> */}
             </div>
-            {/* Use useMemo and change listings according to selected tab and  */}
-            {/* <div className="gap-4 md:gap-8 grid grid-cols-2 sm:grid-cols-4">
-              {items.slice(1, 5).map((item, index) => (
-                <ProductCardDet product={item} key={index} />
-              ))}
-            </div> */}
+
+            {currentTab === "latestProducts" && (
+              <div className="gap-4 md:gap-8 grid grid-cols-2 sm:grid-cols-4">
+                {latestProducts &&
+                  latestProducts.length > 0 &&
+                  latestProducts.map((item, index) => (
+                    <ProductCardDet product={item} key={index} />
+                  ))}
+              </div>
+            )}
+            {/*  {currentTab === "trendingProducts" && (
+              <div className="gap-4 md:gap-8 grid grid-cols-2 sm:grid-cols-4">
+                {topSellingProducts &&
+                  topSellingProducts
+                    .slice(1, 5)
+                    .map((item, index) => <ProductCardDet product={item} key={index} />)}
+              </div>
+            )} */}
           </div>
         </div>
       </div>
 
       <SendPriceModal isOpen={isOpen} onOpenChange={onOpenChange} />
-    </>
+    </Fragment>
   );
 }
