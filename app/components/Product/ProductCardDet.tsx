@@ -3,9 +3,9 @@ import { Link } from "@remix-run/react";
 import { BsCart3 } from "react-icons/bs";
 import { FiEye } from "react-icons/fi";
 import { PreviewProduct } from "./PreviewProduct";
-import { ProductCardProps } from "./ProductCard";
+import { ProductObject } from "app/api/product/product.type";
 
-export function ProductCardDet({ product }: { product: ProductCardProps }) {
+export function ProductCardDet({ product }: { product: ProductObject }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   return (
     <>
@@ -21,10 +21,10 @@ export function ProductCardDet({ product }: { product: ProductCardProps }) {
             shadow="sm"
             radius="none"
             width="100%"
-            alt={product.title}
+            alt={product.overview.name}
             removeWrapper
-            className="w-full object-cover h-60 transition"
-            src={product.image}
+            className="w-full object-scale-down h-60 transition"
+            src={product.overview.heroImage}
           />
           <div className="absolute bottom-0 opacity-0 group-hover:opacity-100 transition w-full z-20">
             <Button
@@ -41,7 +41,7 @@ export function ProductCardDet({ product }: { product: ProductCardProps }) {
 
         <CardFooter className="p-0 flex flex-col items-start justify-start gap-3">
           <div className="p-2 space-y-3 flex flex-col items-start justify-start">
-            <div className=" capitalize font-semibold text-sm">{product.title}</div>
+            <div className=" capitalize font-semibold text-sm">{product.overview.name}</div>
             {/* <div className="text-black text-xs">{product.description}</div> */}
             {/* <div className="flex text-sm justify-between">
               <div className="text-gray-700 flex gap-1">
@@ -53,16 +53,14 @@ export function ProductCardDet({ product }: { product: ProductCardProps }) {
               <div className="text-xs">{product.qty}</div>
             </div> */}
           </div>
-          <Button
-            as={Link}
-            href={`/products/${product.title}`}
-            radius="none"
-            fullWidth
-            color="primary"
-            startContent={<BsCart3 />}
+          <Link
+            to={`/products/${
+              product?.category?.name || product?.product?.categorisation?.productType?.typeName
+            }/${product.slug}`}
+            className="bg-primary py-2 px-4 w-full flex gap-4 text-white items-center justify-center"
           >
-            View Product
-          </Button>
+            <BsCart3 /> View Product
+          </Link>
         </CardFooter>
       </Card>
 

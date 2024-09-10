@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Form, MetaFunction, useLoaderData, json } from "@remix-run/react";
+import { Link, Form, MetaFunction, useLoaderData, json, useLocation } from "@remix-run/react";
 import { Button, Image, Input, Tabs, Tab, Textarea, Tooltip, Avatar } from "@nextui-org/react";
 import { BiUser, BiChat, BiSearch, BiShareAlt } from "react-icons/bi";
 import { FaArrowRightLong } from "react-icons/fa6";
@@ -90,6 +90,8 @@ interface BlogPostType {
 }
 
 export default function BlogPost() {
+  const { pathname } = useLocation();
+
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const { blog, blogs, user, blogCategories } = useLoaderData<typeof loader>();
   const { post } = blog;
@@ -136,7 +138,10 @@ export default function BlogPost() {
   };
 
   return (
-    <div className="w-full flex flex-wrap text-gray gap-5 md:gap-10 mx-auto py-10 md:px-0 md:flex-nowrap ">
+    <div
+      key={pathname}
+      className="w-full flex flex-wrap text-gray gap-5 md:gap-10 mx-auto py-10 md:px-0 md:flex-nowrap "
+    >
       <div className="w-full flex flex-col gap-5 md:w-2/3">
         <div>
           <Image

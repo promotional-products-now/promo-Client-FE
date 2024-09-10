@@ -66,8 +66,9 @@ export function Footer() {
             <div className="grid gap-8 sm:gap-6 sm:grid-cols-4">
               <div className="mb-6 md:mb-0 space-y-4">
                 <Link to="/" className="flex items-center">
-                  <Image src={logo} className="h-12" />
+                  <Image src={logo} className="h-12 2xl:h-20" />
                 </Link>
+
                 <div>
                   <div className="space-y-3">
                     <p className="text-xs font-normal text-gray">
