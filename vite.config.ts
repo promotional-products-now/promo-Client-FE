@@ -1,3 +1,4 @@
+import basicSsl from "@vitejs/plugin-basic-ssl";
 import { vitePlugin as remix } from "@remix-run/dev";
 import { installGlobals } from "@remix-run/node";
 import { defineConfig } from "vite";
@@ -11,6 +12,7 @@ export default defineConfig({
     port: 1338,
   },
   plugins: [
+    basicSsl(),
     remix({
       ignoredRouteFiles: ["**/.*", "**/*.css"],
       appDirectory: "app",

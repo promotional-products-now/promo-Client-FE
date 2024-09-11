@@ -288,10 +288,11 @@ export default function ProductDetailsRoute() {
                     placeholder="50"
                     classNames={{
                       mainWrapper: "w-full",
+                      label: "font-bold",
                     }}
                   />
                 </div>
-                <div>
+                <div className="pl-4">
                   <Select
                     variant="bordered"
                     radius="none"
@@ -301,6 +302,7 @@ export default function ProductDetailsRoute() {
                     items={colours}
                     classNames={{
                       popoverContent: "rounded-none",
+                      label: "font-bold",
                     }}
                   >
                     {(col) => (
@@ -404,7 +406,7 @@ export default function ProductDetailsRoute() {
                                 {additions.map((price: any) => {
                                   return (
                                     <Radio size="sm" value={price?.description}>
-                                      <span className="text-sm">{price?.description}</span>
+                                      <span className="2xl:text-lg">{price?.description}</span>
                                     </Radio>
                                   );
                                 })}
@@ -496,7 +498,9 @@ export default function ProductDetailsRoute() {
                   </div>
                   <div className="flex flex-col">
                     <div className="flex items-center space-x-2">
-                      <span className="text-sm md:text-base font-semibold">Branding Positions</span>
+                      <span className="text-sm md:text-base font-semibold">
+                        #Branding Positions
+                      </span>
                       <Tooltip>
                         <BsInfoCircle className="text-green-600 text-sm" />
                       </Tooltip>
@@ -512,7 +516,7 @@ export default function ProductDetailsRoute() {
                 <div className="space-y-4">
                   {!isSelected && (
                     <>
-                      <div className="bg-yellow-300 text-center text-xl py-3 px-6 text-zinc-900">
+                      <div className="bg-yellow text-center text-xl py-3 px-6 text-zinc-900">
                         {" "}
                         Have more specific requirements?
                         <br /> Request a Qoute Below
@@ -540,7 +544,7 @@ export default function ProductDetailsRoute() {
                       <Divider />
                       <div className="flex justify-between items-center">
                         <span className="text-sm md:text-lg font-semibold">Price(ea)</span>
-                        <span className="font-semibold text-sm md:text-base text-orange">$4.5</span>
+                        <span className="font-semibold  text-lg text-orange">$4.5</span>
                       </div>
                       {/* <div className="flex justify-between items-center">
                         <span className="text-sm md:text-base font-normal">
@@ -551,9 +555,9 @@ export default function ProductDetailsRoute() {
                       <div className="flex justify-between items-center">
                         <span className="text-sm md:text-base font-normal">
                           {" "}
-                          <i>plus</i> Accessories(ea)
+                          <i className="text-[10px]">plus</i> Accessories(ea)
                         </span>
-                        <span className="font-semibold text-sm md:text-base">$4.5</span>
+                        <span className="font-semibold text-lg">$4.5</span>
                       </div>
                       {/* <div className="flex justify-between items-center">
                         <span className="text-sm md:text-base font-normal">
@@ -564,15 +568,15 @@ export default function ProductDetailsRoute() {
                       </div> */}
                       <div className="flex justify-between items-center">
                         <span className="text-sm md:text-lg font-semibold">Set-up</span>
-                        <span className="font-semibold text-sm md:text-base">$4.5</span>
+                        <span className="font-semibold text-lg">$4.5</span>
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-sm md:text-lg font-semibold">Freight</span>
-                        <span className="font-semibold text-sm md:text-base">$4.5</span>
+                        <span className="font-semibold text-lg">$4.5</span>
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-sm md:text-lg font-semibold">Total(ex. GST)</span>
-                        <span className="font-semibold text-sm md:text-base">$4.5</span>
+                        <span className="font-semibold text-lg">$4.5</span>
                       </div>
                       <div className="flex justify-between items-center">
                         <div className="flex items-center space-x-1">
@@ -583,12 +587,10 @@ export default function ProductDetailsRoute() {
                       </div>
                       <div className="bg-orange rounded-md">
                         <div className="flex justify-between items-center p-2">
-                          <span className="text-white font-semibold text-sm md:text-base">
+                          <span className="text-white font-semibold  md:text-lg">
                             Your price today(ex. GST)
                           </span>
-                          <span className="text-white font-semibold text-sm md:text-base">
-                            $240
-                          </span>
+                          <span className="text-white font-semibold italic  md:text-xl">$240</span>
                         </div>
                       </div>
                     </>
