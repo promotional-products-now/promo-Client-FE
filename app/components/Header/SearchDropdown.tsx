@@ -33,7 +33,7 @@ const typesense = new Typesense.Client({
       protocol: "https", // Use https if secure
     },
   ],
-  apiKey: "RLcC3D0fBJ3RH5Qe2o9t0YIxAQNmTDeH", // Replace with your API key
+  apiKey: "t9lh3qHxTPmTOsGkE73AY7xHJSfPaLah", // Replace with your API key
 
   // connectionTimeoutSeconds: 2,
 });
@@ -77,13 +77,12 @@ export const SearchDropdown = () => {
 
   let list = useAsyncList<any>({
     async load({ signal, filterText }) {
-      console.log({ signal, filterText });
       const searchResults = await typesense
         .collections("products") // Replace with your collection name
         .documents()
         .search({
           q: filterText,
-          query_by: "overview.name", // Replace with fields you're querying
+          query_by: "overview.name, overview.code", // Replace with fields you're querying
         });
 
       return {

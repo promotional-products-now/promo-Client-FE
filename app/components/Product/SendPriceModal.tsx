@@ -29,7 +29,9 @@ export function SendPriceModal({
         <ModalHeader className="justify-center">Send Pricing</ModalHeader>
         <ModalBody>
           <div className="flex flex-col space-y-3">
-            <span className="text-center text-sm text-gray">Fill your personal details below</span>
+            <span className="text-center text-sm text-gray">
+              Fill your personal details below to recieve the quotation
+            </span>
             <Form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Input
