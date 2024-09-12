@@ -19,6 +19,7 @@ function CategoryList(props: any) {
   const handleMouseEnter = (event: any, category: any) => {
     const rect = event.currentTarget.getBoundingClientRect();
     // setPosition({ top: rect.top, left: rect.right });
+    console.log({ rect });
     setPosition({
       top: props.top ?? 80,
       left: props.right ? rect.right - props.right - 5 : rect.right - 40,
@@ -49,7 +50,7 @@ function CategoryList(props: any) {
           </ListboxItem>
         )}
       </Listbox>
-      <div className="w-full bg-gray-100 p-4 hidden md:block ">
+      <div className="w-full bg-gray-100 p-4 hidden md:block h-full">
         <ul className="">
           {props.categories &&
             props.categories.map((category: categoryI) => (
@@ -70,32 +71,29 @@ function CategoryList(props: any) {
                 </RemixLink>
                 <hr className="my-2 h-0 border-0 border-b-1 border-zinc-200 " />
                 {category.subCategory.length > 0 && (
-                  <div className="bg-white">
-                    <ScrollShadow
-                      orientation="vertical"
-                      className="submenu absolute z-[1000] left-full top-0 right-0 bg-white border border-zinc-300 ml-4 w-64 hidden 
-                      group-hover:block h-[30.5rem] min-h-[30rem] 2xl:h-[36rem] overflow-y-auto rounded-r-lg overflow-x-hidden"
-                      style={{ top: `${position.top}px`, left: `${position.left}px` }}
-                    >
-                      <h3 className="text-lg font-bold p-4">{category.name}</h3>
-                      <ul className="mt-2 mb-12">
-                        {category.subCategory.map((sub) => (
-                          <li
-                            key={sub._id}
-                            className=" cursor-pointer hover:bg-primary text-zinc-500 hover:text-white p-2"
+                  <div
+                    className="submenu absolute z-[1000] left-full top-0 right-0 bg-white border border-zinc-300 ml-4 w-64 hidden 
+                  group-hover:block h-full overflow-y-auto rounded-r-lg overflow-x-hidden"
+                    style={{ top: `${position.top}px`, left: `${position.left}px` }}
+                  >
+                    <h3 className="text-lg font-bold p-4">{category.name}</h3>
+                    <ul className="mt-2 mb-12">
+                      {category.subCategory.map((sub) => (
+                        <li
+                          key={sub._id}
+                          className=" cursor-pointer hover:bg-primary text-zinc-500 hover:text-white p-2"
+                        >
+                          <RemixLink
+                            to={`/categories/${toSnakeCase(category.name)}/${toSnakeCase(
+                              sub.name,
+                            )}`}
+                            className=""
                           >
-                            <RemixLink
-                              to={`/categories/${toSnakeCase(category.name)}/${toSnakeCase(
-                                sub.name,
-                              )}`}
-                              className=""
-                            >
-                              {sub.name}
-                            </RemixLink>
-                          </li>
-                        ))}
-                      </ul>
-                    </ScrollShadow>
+                            {sub.name}
+                          </RemixLink>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 )}
               </li>

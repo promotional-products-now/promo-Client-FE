@@ -737,7 +737,7 @@ export default function ProductDetailsRoute() {
               <div className="gap-4 md:gap-8 grid grid-cols-2 sm:grid-cols-4">
                 {latestProducts &&
                   latestProducts.length > 0 &&
-                  latestProducts.map((item, index) => (
+                  latestProducts?.map((item, index) => (
                     <ProductCardDet product={item} key={index} />
                   ))}
               </div>
