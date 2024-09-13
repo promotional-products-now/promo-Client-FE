@@ -19,6 +19,17 @@ export const fetchProductsApi = async (params: ProductFilter) => {
   return res;
 };
 
+export const fetchProductsTextSearchApi = async (
+  params: ProductFilter,
+): Promise<ProductObject[]> => {
+  const { data } = await axios.get(
+    `${API_BASEURL}/products/product-search${params.search ? `?search=${params.search}` : ""}${
+      params.colours ? `&colours=${params.colours}` : ""
+    }`,
+  );
+  return data;
+};
+
 export const fetchProductShowCase = async (categories: string[]) => {
   const res = await axios.get(
     `${API_BASEURL}/products/product-show-case?limit=${6}&page=${1}&categories=${categories}`,
@@ -35,10 +46,8 @@ export const fetchLatestProduct = async (params?: ProductFilter): Promise<Produc
 
 export const fetchProductStockLevelApi = async (productId: string) => {
   const response = await axios.get(`${API_BASEURL}/products/check-stock-levels/${productId}`);
-  console.log({ response });
   return response.data;
 };
-
 
 export const fetchTopSellingProductsApi = async (params?: { page: number; limit: number }) => {
   const { data } = await axios.get(
@@ -59,7 +68,6 @@ export const getProductInfo = async (slug: string) => {
   return data;
 };
 
-
 export const fetchProductCategories = async () => {
   const res = await axios.get(`${API_BASEURL}/product-category`);
 
@@ -77,8 +85,6 @@ export const fetchSubCategory = async (
   subCategory: string,
   pagination: { page: number; limit: number },
 ) => {
-
-
   const res = await axios.get(
     `${API_BASEURL}/products?page=${pagination.page || 1}&limit=${
       pagination.limit || 8
