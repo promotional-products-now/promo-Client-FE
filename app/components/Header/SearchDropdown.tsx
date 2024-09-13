@@ -215,7 +215,7 @@ export const SearchDropdown = () => {
             inputValue={list.filterText || search}
             isLoading={list.isLoading}
             items={list.items}
-            size="sm"
+            size="lg"
             variant="bordered"
             placeholder="Search product catalogue"
             radius="none"

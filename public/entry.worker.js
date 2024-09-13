@@ -723,6 +723,12 @@ const route32 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePrope
 const assets = [
   "/entry.worker.js",
   "/favicon.ico",
+  "/build/css-bundle-JWUHFLIS.css",
+  "/build/_assets/Work-in-progress-SVOJ5IOE.png",
+  "/build/_assets/appa-sponsor-JPCCCPIJ.png",
+  "/build/_assets/clothing-X7BX2CVJ.jpg",
+  "/build/_assets/health-72WPRIFW.jpg",
+  "/build/_assets/logo-WVBPFR4U.svg",
   "/images/emoji/1F600.png",
   "/images/emoji/1F641.png",
   "/images/emoji/1F642.png",

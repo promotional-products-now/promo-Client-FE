@@ -1,5 +1,5 @@
 import { useAtom, useSetAtom } from "jotai";
-import { Button, Image, Link, useDisclosure } from "@nextui-org/react";
+import { useDisclosure } from "@nextui-org/react";
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { GiClothes } from "react-icons/gi";
 import { ImFire } from "react-icons/im";
@@ -15,7 +15,7 @@ import CategoryList from "app/components/CategoryList";
 import { isCategoryListOpen } from "app/atoms/category.atom";
 import { BlogCard } from "app/components/Blog/BlogCard";
 import { fetchHotProductsApi, fetchProductShowCase } from "app/api/product/products.api";
-import { json, useLoaderData } from "@remix-run/react";
+import { json, useLoaderData, useNavigation } from "@remix-run/react";
 import { PreviewProduct } from "app/components/Product/PreviewProduct";
 import { productPreviewAtom } from "app/atoms/product.atom";
 import { fetchAllBlogsApi } from "app/api/blog.api";
@@ -30,7 +30,6 @@ import { homePageSchema } from "./_index_seo";
 import { useQuery } from "@tanstack/react-query";
 import OldBanner from "app/components/OldBanner";
 import { ClientOnly } from "remix-utils/client-only";
-import { useNavigation } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return [
