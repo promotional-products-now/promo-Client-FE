@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import {
   Button,
   Card,
@@ -11,11 +11,32 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
+  Autocomplete,
+  AutocompleteItem,
+  Image,
 } from "@nextui-org/react";
 import { IoIosArrowDown } from "react-icons/io";
-import { colors } from "app/utils/searchColors";
 import { FiSearch } from "react-icons/fi";
-import { useSubmit } from "@remix-run/react";
+import { useNavigate, useSubmit } from "@remix-run/react";
+import { useAsyncList } from "@react-stately/data";
+import Typesense from "typesense";
+
+import { colors } from "app/utils/searchColors";
+import { toSnakeCase } from "app/utils/fn";
+
+// Initialize Typesense client
+const typesense = new Typesense.Client({
+  nodes: [
+    {
+      host: "x0j1ihc5k8tbey4wp-1.a1.typesense.net", // Replace with your host
+      port: 443, // Replace with your port (443 for https)
+      protocol: "https", // Use https if secure
+    },
+  ],
+  apiKey: "t9lh3qHxTPmTOsGkE73AY7xHJSfPaLah", // Replace with your API key
+
+  // connectionTimeoutSeconds: 2,
+});
 
 const sortFilter = [
   { label: "Price", value: "price" },
@@ -23,54 +44,60 @@ const sortFilter = [
 ];
 
 export const SearchDropdown = () => {
+  const navigate = useNavigate();
+
   const [values, setValues] = useState<Selection>(new Set(["price", "lowest"]));
   const [search, setSearchValue] = useState<string>("");
   const [colours, setSearchColours] = useState<string[]>([]);
   const submit = useSubmit();
 
   const onSearchChange = useCallback((value?: string) => {
-    if (value) {
-      setSearchValue(value);
-    } else {
-      setSearchValue("");
-    }
+    setSearchValue(value || "");
   }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData();
-
     if (search) {
       formData.set("q", search);
     }
-
     colours.forEach((colour) => formData.append("colours", colour));
     submit(formData, { method: "get", action: "/search" });
   };
 
   const handleSelectColour = (col: string) => {
-    setSearchColours((prevCols) => {
-      if (prevCols.includes(col)) {
-        return prevCols.filter((cc) => cc !== col);
-      } else {
-        return [...prevCols, col];
-      }
-    });
+    setSearchColours((prevCols) =>
+      prevCols.includes(col) ? prevCols.filter((cc) => cc !== col) : [...prevCols, col],
+    );
   };
 
   const handleResetFilter = () => {
     setSearchColours([]);
   };
 
-  const popContent = useMemo(() => {
-    return (
+  let list = useAsyncList<any>({
+    async load({ signal, filterText }) {
+      const searchResults = await typesense
+        .collections("products") // Replace with your collection name
+        .documents()
+        .search({
+          q: filterText,
+          query_by: "overview.name, overview.code", // Replace with fields you're querying
+        });
+
+      return {
+        items: searchResults.hits.map((hit: any) => hit.document),
+      };
+    },
+  });
+
+  console.log({ list });
+
+  const popContent = useMemo(
+    () => (
       <Popover placement="bottom-start" backdrop="transparent">
         <PopoverTrigger>
-          <Button
-            isIconOnly
-            variant="light"
-            className=" items-center rounded-none border-r border-r-zinc-200 "
-          >
+          <Button isIconOnly variant="light">
             <IoIosArrowDown />
           </Button>
         </PopoverTrigger>
@@ -176,30 +203,62 @@ export const SearchDropdown = () => {
           </Card>
         </PopoverContent>
       </Popover>
-    );
-  }, [colours, values]);
+    ),
+    [colours, values],
+  );
 
   return (
     <div className="w-full">
       <form onSubmit={handleSubmit}>
         <div className="flex items-center">
-          <Input
-            type="text"
+          <Autocomplete
+            inputValue={list.filterText || search}
+            isLoading={list.isLoading}
+            items={list.items}
             size="sm"
             variant="bordered"
             placeholder="Search product catalogue"
             radius="none"
-            className="rounded-s-sm"
-            startContent={popContent}
+            className="rounded-s-sm h-full"
             classNames={{
-              inputWrapper: ["border", "border-zinc-100", "h-12"],
-              mainWrapper: "rounded-md",
-              base: "rounded-s-md",
+              listbox: ["border", "border-zinc-100"],
+              popoverContent: "rounded-md",
+              listboxWrapper: "rounded-s-md min-h-[48px]",
+              base: "h-full",
             }}
             isClearable
-            value={search}
+            startContent={popContent}
             onValueChange={onSearchChange}
-          />
+            onInputChange={list.setFilterText}
+          >
+            {(item) => (
+              <AutocompleteItem key={item.name} className="capitalize">
+                <a
+                  href={`/products/${item.category.name ? toSnakeCase(item.category.name) : "_"}/${
+                    item.slug
+                  }`}
+                >
+                  <div className="flex gap-4 items-center">
+                    <Image
+                      alt={`Image of ${item?.overview?.name}`}
+                      radius="none"
+                      src={item?.overview?.heroImage}
+                      removeWrapper
+                      height={48}
+                      width={48}
+                      className=" !object-scale-down border-2 border-zinc-100 "
+                      classNames={{
+                        wrapper:
+                          "!object-scale-down border-2 border-zinc-100 h-12 w-12 transition aspect-square inset-0",
+                      }}
+                      loading="lazy"
+                    />{" "}
+                    <span> {item.overview.name}</span>
+                  </div>
+                </a>
+              </AutocompleteItem>
+            )}
+          </Autocomplete>
           <Button
             type="submit"
             size="lg"
@@ -209,15 +268,17 @@ export const SearchDropdown = () => {
             <FiSearch />
           </Button>
         </div>
-        <div className="flex gap-2 mt-1">
-          {colours.map((c, i) => (
-            <div
-              key={i}
-              className="w-12 h-4  rounded-md shadow-md border-3 border-white"
-              style={{ backgroundColor: c }}
-            ></div>
-          ))}
-        </div>
+        {colours.length > 0 && (
+          <div className="flex gap-2 mt-1">
+            {colours.map((c, i) => (
+              <div
+                key={i}
+                className="w-12 h-4 rounded-md shadow-md border-3 border-white"
+                style={{ backgroundColor: c }}
+              ></div>
+            ))}
+          </div>
+        )}
       </form>
     </div>
   );

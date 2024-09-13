@@ -24,7 +24,7 @@ export function SecondaryNav({ uid }: any) {
                 className="bg-transparent text-lg text-white"
               >
                 <FiMenu />
-              </Button>{" "}
+              </Button>
               ALL PRODUCT CATEGORIES
             </div>
           </div>

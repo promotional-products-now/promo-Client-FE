@@ -288,10 +288,11 @@ export default function ProductDetailsRoute() {
                     placeholder="50"
                     classNames={{
                       mainWrapper: "w-full",
+                      label: "font-bold",
                     }}
                   />
                 </div>
-                <div>
+                <div className="pl-4">
                   <Select
                     variant="bordered"
                     radius="none"
@@ -301,6 +302,7 @@ export default function ProductDetailsRoute() {
                     items={colours}
                     classNames={{
                       popoverContent: "rounded-none",
+                      label: "font-bold",
                     }}
                   >
                     {(col) => (
@@ -329,7 +331,7 @@ export default function ProductDetailsRoute() {
                   </Select>
                 </div>
 
-                <div>
+                {/* <div>
                   <Select
                     variant="bordered"
                     radius="none"
@@ -359,11 +361,11 @@ export default function ProductDetailsRoute() {
                       </SelectItem>
                     )}
                   </Select>
-                </div>
+                </div> */}
                 <Divider />
 
                 <Accordion defaultExpandedKeys={["1", "2", "3"]} selectionMode="multiple">
-                  <AccordionItem
+                  {/* <AccordionItem
                     key="1"
                     aria-label="options"
                     title={
@@ -376,12 +378,12 @@ export default function ProductDetailsRoute() {
                     }
                   >
                     <RadioGroup className="pb-2">
-                      {/* {data.productData.pricing.map} */}
+                      * {data.productData.pricing.map} *
                       <Radio size="sm" value="dataLessThan">
                         <span className="text-sm">Data File Upload &lt; 150GB (Free)</span>
                       </Radio>
                     </RadioGroup>
-                  </AccordionItem>
+                  </AccordionItem> */}
 
                   <AccordionItem
                     key="2"
@@ -396,27 +398,27 @@ export default function ProductDetailsRoute() {
                     }
                   >
                     <RadioGroup className="pb-2">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <Radio size="sm" value="Lanyard">
-                          <span className="text-sm">Lanyard ($0.20 ea)</span>
-                        </Radio>
-                        <Radio size="sm" value="miniLanyard">
-                          <span className="text-sm">Mini Lanyard ($0.25 ea)</span>
-                        </Radio>
-                        <Radio size="sm" value="spitRingChain">
-                          <span className="text-sm">Spit Ring Chain ($0.25 ea)</span>
-                        </Radio>
-                        <Radio size="sm" value="spitRing">
-                          <span className="text-sm">Spit Ring ($0.15 ea)</span>
-                        </Radio>
-                        <Radio size="sm" value="snapHook">
-                          <span className="text-sm">Snap Hook ($0.5 ea)</span>
-                        </Radio>
+                      <div className="grid grid-cols-1  gap-4">
+                        {data?.productData?.product?.prices?.priceGroups.map(
+                          ({ additions }: any) => {
+                            return (
+                              <>
+                                {additions.map((price: any) => {
+                                  return (
+                                    <Radio size="sm" value={price?.description}>
+                                      <span className="2xl:text-lg">{price?.description}</span>
+                                    </Radio>
+                                  );
+                                })}
+                              </>
+                            );
+                          },
+                        )}
                       </div>
                     </RadioGroup>
                   </AccordionItem>
 
-                  <AccordionItem
+                  {/* <AccordionItem
                     key="3"
                     aria-label="Packaging"
                     title={
@@ -435,7 +437,7 @@ export default function ProductDetailsRoute() {
                         </Radio>
                       ))}
                     </RadioGroup>
-                  </AccordionItem>
+                  </AccordionItem> */}
                 </Accordion>
                 <Divider />
                 <div className="bg-white border-2 border-dashed border-orange">
@@ -449,10 +451,15 @@ export default function ProductDetailsRoute() {
                   </div>
                 </div>
                 <div className="flex flex-col md:flex-row md:items-center md:space-x-10 space-y-2 md:space-y-0">
-                  <div className="flex flex-col">
-                    <TbTruckDelivery className="text-2xl" />
-                    <span className="font-semibold text-orange">Expected Delivery</span>
-                    <span className="font-semibold">2-3 weeks</span>
+                  <div className="flex gap-4 items-center">
+                    <div className="bg-yellow text-white">
+                      {" "}
+                      <TbTruckDelivery size={60} />
+                    </div>
+                    <div className="flex flex-col items-center justify-center">
+                      <span className="font-semibold text-orange">Expected Delivery</span>
+                      <span className="font-semibold">2-3 weeks</span>
+                    </div>
                   </div>
                   <span className="underline text-sm font-semibold">Need it faster?</span>
                 </div>
@@ -491,7 +498,9 @@ export default function ProductDetailsRoute() {
                   </div>
                   <div className="flex flex-col">
                     <div className="flex items-center space-x-2">
-                      <span className="text-sm md:text-base font-semibold">Branding Positions</span>
+                      <span className="text-sm md:text-base font-semibold">
+                        #Branding Positions
+                      </span>
                       <Tooltip>
                         <BsInfoCircle className="text-green-600 text-sm" />
                       </Tooltip>
@@ -507,6 +516,11 @@ export default function ProductDetailsRoute() {
                 <div className="space-y-4">
                   {!isSelected && (
                     <>
+                      <div className="bg-yellow text-center text-xl py-3 px-6 text-zinc-900">
+                        {" "}
+                        Have more specific requirements?
+                        <br /> Request a Qoute Below
+                      </div>
                       <div className="flex flex-col md:flex-row md:items-center md:justify-between w-full space-y-2 md:space-y-0">
                         <span className="text-lg md:text-xl font-medium text-primary">
                           3.Pricing Details
@@ -530,39 +544,39 @@ export default function ProductDetailsRoute() {
                       <Divider />
                       <div className="flex justify-between items-center">
                         <span className="text-sm md:text-lg font-semibold">Price(ea)</span>
-                        <span className="font-semibold text-sm md:text-base text-orange">$4.5</span>
+                        <span className="font-semibold  text-lg text-orange">$4.5</span>
                       </div>
-                      <div className="flex justify-between items-center">
+                      {/* <div className="flex justify-between items-center">
                         <span className="text-sm md:text-base font-normal">
                           <i>plus</i> Options(ea)
                         </span>
                         <span className="font-semibold text-sm md:text-base">$4.5</span>
-                      </div>
+                      </div> */}
                       <div className="flex justify-between items-center">
                         <span className="text-sm md:text-base font-normal">
                           {" "}
-                          <i>plus</i> Accessories(ea)
+                          <i className="text-[10px]">plus</i> Accessories(ea)
                         </span>
-                        <span className="font-semibold text-sm md:text-base">$4.5</span>
+                        <span className="font-semibold text-lg">$4.5</span>
                       </div>
-                      <div className="flex justify-between items-center">
+                      {/* <div className="flex justify-between items-center">
                         <span className="text-sm md:text-base font-normal">
                           {" "}
                           <i>plus</i> Packaging(ea)
                         </span>
                         <span className="font-semibold text-sm md:text-base">$4.5</span>
-                      </div>
+                      </div> */}
                       <div className="flex justify-between items-center">
                         <span className="text-sm md:text-lg font-semibold">Set-up</span>
-                        <span className="font-semibold text-sm md:text-base">$4.5</span>
+                        <span className="font-semibold text-lg">$4.5</span>
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-sm md:text-lg font-semibold">Freight</span>
-                        <span className="font-semibold text-sm md:text-base">$4.5</span>
+                        <span className="font-semibold text-lg">$4.5</span>
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-sm md:text-lg font-semibold">Total(ex. GST)</span>
-                        <span className="font-semibold text-sm md:text-base">$4.5</span>
+                        <span className="font-semibold text-lg">$4.5</span>
                       </div>
                       <div className="flex justify-between items-center">
                         <div className="flex items-center space-x-1">
@@ -573,12 +587,10 @@ export default function ProductDetailsRoute() {
                       </div>
                       <div className="bg-orange rounded-md">
                         <div className="flex justify-between items-center p-2">
-                          <span className="text-white font-semibold text-sm md:text-base">
+                          <span className="text-white font-semibold  md:text-lg">
                             Your price today(ex. GST)
                           </span>
-                          <span className="text-white font-semibold text-sm md:text-base">
-                            $240
-                          </span>
+                          <span className="text-white font-semibold italic  md:text-xl">$240</span>
                         </div>
                       </div>
                     </>
@@ -725,7 +737,7 @@ export default function ProductDetailsRoute() {
               <div className="gap-4 md:gap-8 grid grid-cols-2 sm:grid-cols-4">
                 {latestProducts &&
                   latestProducts.length > 0 &&
-                  latestProducts.map((item, index) => (
+                  latestProducts?.map((item, index) => (
                     <ProductCardDet product={item} key={index} />
                   ))}
               </div>

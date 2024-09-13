@@ -101,7 +101,7 @@ export default function Index() {
     <>
       {navigate.state !== "loading" && (
         <>
-          <div className="home-page bg-white-bg px-3 md:px-6 lg:px-8 xl:px-12 lg:h-[700px]">
+          <div className="home-page bg-white-bg px-3 md:px-6 lg:px-8 xl:px-12 lg:h-[550px]">
             <div className="container mx-auto flex flex-col md:flex-col lg:flex-row justify-center lg:flex-grow h-full">
               <div
                 aria-label="Link Categories"
@@ -112,27 +112,29 @@ export default function Index() {
                 {allCategory && <CategoryList categories={allCategory} />}
               </div>
               {/* banner */}
-              <ClientOnly fallback={<p>Loading</p>}>
-                {() => (
-                  <OldBanner
-                    clothing={getRandomData(
-                      loaderData && loaderData.productShowCase && loaderData.productShowCase
-                        ? loaderData.productShowCase["Clothing"]
-                        : {},
-                    )}
-                    health={getRandomData(
-                      loaderData && loaderData.productShowCase && loaderData.productShowCase
-                        ? loaderData.productShowCase["Health & Personal"]
-                        : {},
-                    )}
-                    home={getRandomData(
-                      loaderData && loaderData.productShowCase && loaderData.productShowCase
-                        ? loaderData.productShowCase["Home & Living"]
-                        : {},
-                    )}
-                  />
-                )}
-              </ClientOnly>
+              <div className="w-full h-full">
+                <ClientOnly fallback={<p>Loading</p>}>
+                  {() => (
+                    <OldBanner
+                      clothing={getRandomData(
+                        loaderData && loaderData.productShowCase && loaderData.productShowCase
+                          ? loaderData.productShowCase["Clothing"]
+                          : {},
+                      )}
+                      health={getRandomData(
+                        loaderData && loaderData.productShowCase && loaderData.productShowCase
+                          ? loaderData.productShowCase["Health & Personal"]
+                          : {},
+                      )}
+                      home={getRandomData(
+                        loaderData && loaderData.productShowCase && loaderData.productShowCase
+                          ? loaderData.productShowCase["Home & Living"]
+                          : {},
+                      )}
+                    />
+                  )}
+                </ClientOnly>
+              </div>
             </div>
           </div>
 

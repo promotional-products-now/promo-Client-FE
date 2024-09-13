@@ -52,15 +52,15 @@ export function Header({ sidebarOpen, setSidebarOpen }: HeaderT) {
 
   const SALESCONTACT = data && data.ENV ? data.ENV.SALES_CONTACT : "";
 
-  useEffect(() => {
-    fetchBannerApi().then((data) => {
-      setBanner(data?.banner);
-      setPopup(data?.popupModal);
-      if (data?.popupModal?.isActive) {
-        onOpen();
-      }
-    });
-  }, [onOpen]);
+  // useEffect(() => {
+  //   fetchBannerApi().then((data) => {
+  //     setBanner(data?.banner);
+  //     setPopup(data?.popupModal);
+  //     if (data?.popupModal?.isActive) {
+  //       onOpen();
+  //     }
+  //   });
+  // }, [onOpen]);
 
   return (
     <header className={`${location.pathname !== "/" ? "border border-white-border" : ""}`}>

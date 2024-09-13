@@ -6,10 +6,7 @@ import { Input } from "@nextui-org/react";
 import { Select, SelectItem } from "@nextui-org/react";
 import { AlternateValidId } from "./ValidId";
 
-interface AlternateAddressProps {
-  isAlternateAddressValid: boolean;
-  setIsAlternateAddressValid: (isSelected: boolean) => void;
-}
+
 
 const options = [
   { value: "low-high", label: "low to high" },
@@ -17,10 +14,7 @@ const options = [
   { value: "new", label: "New" },
 ];
 
-const AlternateAddressForm = ({
-  isAlternateAddressValid,
-  setIsAlternateAddressValid,
-}: AlternateAddressProps) => {
+const AlternateAddressForm = () => {
   const {
     handleSubmit,
     register,
@@ -45,16 +39,6 @@ const AlternateAddressForm = ({
 
   return (
     <div className="flex flex-col flex-1 w-full ">
-      <div className="flex flex-row gap-2 border-b border-gray w-full mb-5 py-4">
-        <Checkbox
-          isSelected={isAlternateAddressValid}
-          onValueChange={setIsAlternateAddressValid}
-          defaultSelected
-          size="sm"
-        ></Checkbox>
-        <h1 className="text-xl">Send Billing to Different Address</h1>
-      </div>
-
       <div className="flex flex-col gap-2">
         <div className="flex flex-row gap-1">
           <Input

@@ -66,13 +66,13 @@ const OldBanner: React.FC<OldBannerProps> = ({ clothing, health, home }) => {
 
   return (
     <div
-      className={`flex flex-col md:flex-col lg:flex-row justify-center container mx-auto py-3 lg:py-8 !m-0 transition-width duration-300 ease-linear ${
+      className={`flex h-full flex-col md:flex-col lg:flex-row justify-center container mx-auto py-3 lg:py-8 !m-0 transition-width duration-300 ease-linear ${
         isCategoryOpen ? "w-full" : ""
       }`}
     >
       {/* Clothing Section */}
       <div
-        className="flex flex-col md:flex-row space-y-2 md:space-y-0 justify-center items-center w-3/5"
+        className="flex flex-col md:flex-row space-y-2 md:space-y-0 justify-center items-center w-full md:w-3/5"
         style={{
           backgroundColor: getBackgroundColor(clothingPalet.data || [], "rgb(56, 189, 248)"),
         }}
@@ -116,7 +116,7 @@ const OldBanner: React.FC<OldBannerProps> = ({ clothing, health, home }) => {
       </div>
 
       {/* Health Section */}
-      <div className="flex flex-col align-center w-2/5">
+      <div className="flex flex-col align-center w-full md:w-2/5">
         <div
           className="flex flex-row justify-center items-center gap-1 h-full p-5 flex-1"
           style={{
