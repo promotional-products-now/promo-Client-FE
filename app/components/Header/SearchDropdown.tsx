@@ -17,8 +17,7 @@ import {
 } from "@nextui-org/react";
 import { IoIosArrowDown } from "react-icons/io";
 import { FiSearch } from "react-icons/fi";
-import { useSubmit } from "@remix-run/react";
-import { useAsyncList } from "@react-stately/data";
+import { useSubmit, Link } from "@remix-run/react";
 import { useQuery } from "@tanstack/react-query";
 
 import { colors } from "app/utils/searchColors";
@@ -31,7 +30,7 @@ const sortFilter = [
 ];
 
 export const SearchDropdown = () => {
-  const [values, setValues] = useState<Selection>(new Set(["price", "lowest"]));
+  const [values, setValues] = useState<any>(new Set(["price", "lowest"]));
   const [search, setSearchValue] = useState<string>("");
   const [colours, setSearchColours] = useState<string[]>([]);
   const submit = useSubmit();
@@ -41,9 +40,11 @@ export const SearchDropdown = () => {
     refetch,
     isLoading,
   } = useQuery({
-    queryKey: ["searchdProducts"],
+    queryKey: ["searchdProducts", search],
     queryFn: () => fetchProductsTextSearchApi({ search }),
+    enabled: false,
     refetchOnMount: false,
+    refetchOnReconnect: false,
   });
 
   const onSearchChange = useCallback((value?: string) => {
@@ -70,7 +71,7 @@ export const SearchDropdown = () => {
     setSearchColours([]);
   };
 
-  const debounceTime = 500;
+  const debounceTime = 800;
 
   React.useEffect(() => {
     const handler = setTimeout(() => {
@@ -93,7 +94,7 @@ export const SearchDropdown = () => {
           </Button>
         </PopoverTrigger>
         <PopoverContent className="p-1 rounded-none">
-          <Card shadow="none" radius="none" className=" border-none bg-transparent rounded-none">
+          <Card shadow="none" radius="none" className="border-none bg-transparent rounded-none">
             <CardBody className="p-3 rounded-none">
               <div className="flex flex-col md:flex-row space-x-4 max-w-[45rem]">
                 <div className="space-y-4 p-4">
@@ -206,7 +207,7 @@ export const SearchDropdown = () => {
             inputValue={search}
             isLoading={isLoading}
             items={products && products?.length > 0 ? products : []}
-            size="sm"
+            size="lg"
             variant="bordered"
             placeholder="Search product catalogue"
             radius="none"
@@ -223,8 +224,8 @@ export const SearchDropdown = () => {
           >
             {(item) => (
               <AutocompleteItem key={item.overview.name} className="capitalize">
-                <a
-                  href={`/products/${item.category.name ? toSnakeCase(item.category.name) : "_"}/${
+                <Link
+                  to={`/products/${item.category.name ? toSnakeCase(item.category.name) : "_"}/${
                     item.slug
                   }`}
                 >
@@ -245,7 +246,7 @@ export const SearchDropdown = () => {
                     />{" "}
                     <span> {item.overview.name}</span>
                   </div>
-                </a>
+                </Link>
               </AutocompleteItem>
             )}
           </Autocomplete>
@@ -265,7 +266,7 @@ export const SearchDropdown = () => {
                 key={i}
                 className="w-12 h-4 rounded-md shadow-md border-3 border-white"
                 style={{ backgroundColor: c }}
-              ></div>
+              />
             ))}
           </div>
         )}

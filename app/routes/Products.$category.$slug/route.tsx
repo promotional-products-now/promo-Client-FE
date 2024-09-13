@@ -45,6 +45,7 @@ import { IoMdCheckmarkCircle } from "react-icons/io";
 import { useQuery } from "@tanstack/react-query";
 import { getSession } from "../../sessions";
 import { ProductCardDet } from "app/components/Product/ProductCardDet";
+import React from "react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -138,7 +139,7 @@ export default function ProductDetailsRoute() {
     refetchOnWindowFocus: false,
     enabled: false,
   });
-  console.log({ latestProducts, topSellingProducts });
+
   const handleProductListChange = (selectedTab: Key) => {
     if (selectedTab === "trendingProducts") {
       refetchTopSellingProducts();
@@ -146,10 +147,10 @@ export default function ProductDetailsRoute() {
     if (selectedTab === "latestProducts") {
       refetchLatestProduct();
     }
-    console.log({ key: selectedTab });
+
     setCurrentTab(selectedTab as string);
   };
-  console.log({ stockData });
+
   return (
     <Fragment key={pathname}>
       <div className="space-y-6 md:space-y-10">
