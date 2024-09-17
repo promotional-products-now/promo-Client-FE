@@ -237,11 +237,11 @@ export default function ProductDetailsRoute() {
                     ))}
                 </Swiper>
                 <div
-                  className="swiper-button-next before:!text-small after:!text-small !left-[96%] !top-2/3"
+                  className="swiper-button-next before:!text-lg after:!text-lg !left-[100%] !top-2/3"
                   onClick={() => swiperRef.current && swiperRef.current.slideNext()}
                 ></div>
                 <div
-                  className="swiper-button-prev before:!text-small after:!text-small !left-[-4%] !top-2/3"
+                  className="swiper-button-prev before:!text-lg after:!text-lg !left-[-10%] !top-2/3"
                   onClick={() => swiperRef.current && swiperRef.current.slidePrev()}
                 ></div>
               </div>

@@ -9,7 +9,7 @@ import {
   useLoaderData,
   useLocation,
 } from "@remix-run/react";
-import { ManifestLink } from "@remix-pwa/sw";
+// import { ManifestLink } from "@remix-pwa/sw";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import { NextUIProvider } from "@nextui-org/react";
 import { isRouteErrorResponse, useRouteError } from "@remix-run/react";
@@ -67,7 +67,7 @@ export default function App() {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
-        <ManifestLink />
+        {/* <ManifestLink /> */}
         <Links />
       </head>
       <body>

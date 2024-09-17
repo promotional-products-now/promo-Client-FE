@@ -8,6 +8,7 @@ import { productPreviewAtom } from "app/atoms/product.atom";
 import { PreviewProduct } from "../Product/PreviewProduct";
 import allCategories from "app/utils/categories";
 import { getMinMaxPrice, getMinMaxQty, toSnakeCase } from "app/utils/fn";
+import ColorReplaceComponent from "../ColorReplaceComponent";
 
 const options = [
   { value: "AUSTRALIAN MADE PRODUCTS", label: "AUSTRALIAN MADE PRODUCTS" },
@@ -56,7 +57,7 @@ const ProductSection = ({
     setProduct(product);
   };
 
-  const initialProduct = products && products.length > 0 && products[0];
+  const initialProduct = products && products?.find((product) => product?.overview?.heroImage);
 
   return (
     <div className="relative">
@@ -78,7 +79,7 @@ const ProductSection = ({
             </div>
 
             <div className="relative md:flex flex-row justify-start items-center left-0 hidden">
-              <div className="relative w-full h-full flex-grow">
+              <div className="relative w-full md:w-[31rem] h-full flex-grow">
                 <Image
                   src={heroImage}
                   alt={`Hero image for ${title}`}
@@ -133,7 +134,7 @@ const ProductSection = ({
                 </div>
               </div>
               <div className="h-[450px] md:right-1 lg:right-1 hidden md:block flex-grow-0">
-                <Image
+                <ColorReplaceComponent
                   src={initialProduct?.overview?.heroImage}
                   alt="Background image"
                   removeWrapper
@@ -148,24 +149,25 @@ const ProductSection = ({
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
               {products &&
                 products.length > 0 &&
-                products.slice(0, 9).map((item: any) => (
-                  <ProductCard
-                    key={item._id || item.id}
-                    image={item?.overview?.heroImage}
-                    images={item?.product?.images}
-                    title={item?.overview?.name}
-                    productCode={item?.overview?.code}
-                    description={item?.product?.description}
-                    // basePrice={getMinMaxPrice(item?.product?.prices?.priceGroups[0]?.basePrice)}
-                    basePrice={getMinMaxPrice(item?.product?.prices?.priceGroups[0]?.basePrice)}
-                    qty={getMinMaxQty(item?.product?.prices?.priceGroups[0]?.basePrice)}
-                    slug={item?.slug}
-                    category={
-                      item?.category?.name || item?.product?.categorisation?.productType?.typeName
-                    }
-                    handlePreviewFn={(data) => handlePreviewProd(data)}
-                  />
-                ))}
+                products
+                  .slice(0, 9)
+                  .map((item: any) => (
+                    <ProductCard
+                      key={item._id || item.id}
+                      image={item?.overview?.heroImage}
+                      images={item?.product?.images}
+                      title={item?.overview?.name}
+                      productCode={item?.overview?.code}
+                      description={item?.product?.description}
+                      basePrice={getMinMaxPrice(item?.product?.prices?.priceGroups[0]?.basePrice)}
+                      qty={getMinMaxQty(item?.product?.prices?.priceGroups[0]?.basePrice)}
+                      slug={item?.slug}
+                      category={
+                        item?.category?.name || item?.product?.categorisation?.productType?.typeName
+                      }
+                      handlePreviewFn={(data) => handlePreviewProd(data)}
+                    />
+                  ))}
             </div>
           </div>
         </div>
