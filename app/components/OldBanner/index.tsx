@@ -30,9 +30,15 @@ const OldBanner: React.FC<OldBannerProps> = ({ clothing, health, home }) => {
   const [isCategoryOpen] = useAtom(isCategoryListOpen);
 
   // Fetch palettes for all categories
-  const healtPalet = usePalette(health.overview.heroImage, 3, "rgbString");
-  const clothingPalet = usePalette(clothing.overview.heroImage, 3, "rgbString");
-  const homePalet = usePalette(home.overview.heroImage, 3, "rgbString");
+  const healtPalet = usePalette(health.overview.heroImage, 3, "rgbString", {
+    crossOrigin: "anonymous",
+  });
+  const clothingPalet = usePalette(clothing.overview.heroImage, 3, "rgbString", {
+    crossOrigin: "anonymous",
+  });
+  const homePalet = usePalette(home.overview.heroImage, 3, "rgbString", {
+    crossOrigin: "anonymous",
+  });
 
   // Helper to convert rgb string to RGB object
   const rgbToRgb = (rgb: string): RGB => {
@@ -59,6 +65,7 @@ const OldBanner: React.FC<OldBannerProps> = ({ clothing, health, home }) => {
     });
   };
 
+  console.log({ clothingPalet });
   // Get background color from palette
   const getBackgroundColor = (palette: string[], defaultColor?: string): string => {
     return nonWhiteColors(palette)?.[0] || defaultColor || "rgb(0,121,192)";

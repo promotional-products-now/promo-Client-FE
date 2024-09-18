@@ -145,18 +145,17 @@ export default function Index() {
                 </span>
               </div>
 
-              <div className="relative border-2 border-orange py-5 sm:py-2 px-2 sm:px-5 2xl:px-12 xl:pb-6">
-                <div className="bg-white  p-4 absolute top-[-1.65rem]">
-                  <div className="flex justify-between gap-2 font-semibold text-orange text-2xl">
-                    <ImFire />
-                    <h5>WHAT&apos;S HOT</h5>
+              {loaderData && loaderData.products && loaderData.products.length > 0 && (
+                <div className="relative border-2 border-orange py-5 sm:py-2 px-2 sm:px-5 2xl:px-12 xl:pb-6">
+                  <div className="bg-white  p-4 absolute top-[-1.65rem]">
+                    <div className="flex justify-between gap-2 font-semibold text-orange text-2xl">
+                      <ImFire />
+                      <h5>WHAT&apos;S HOT</h5>
+                    </div>
                   </div>
-                </div>
-                <div className="md:pt-8">
-                  <Carousel numberOfItems={4}>
-                    {loaderData &&
-                      loaderData.products &&
-                      loaderData.products.map((item: any) => {
+                  <div className="md:pt-8">
+                    <Carousel numberOfItems={4}>
+                      {loaderData.products.map((item: any) => {
                         return (
                           <div
                             key={item._id || item?.id}
@@ -184,9 +183,10 @@ export default function Index() {
                           </div>
                         );
                       })}
-                  </Carousel>
+                    </Carousel>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
 
@@ -198,7 +198,7 @@ export default function Index() {
               title="Health & Fitness"
               products={
                 loaderData && loaderData.productShowCase && loaderData.productShowCase
-                  ? loaderData.productShowCase["Health & Personal"]
+                  ? loaderData?.productShowCase["Health & Personal"]
                   : []
               }
             />
@@ -210,7 +210,7 @@ export default function Index() {
               categoryName="Clothing"
               products={
                 loaderData && loaderData.productShowCase && loaderData.productShowCase
-                  ? loaderData.productShowCase["Clothing"]
+                  ? loaderData?.productShowCase["Clothing"]
                   : []
               }
             />
@@ -224,7 +224,7 @@ export default function Index() {
               showmore
               products={
                 loaderData && loaderData.productShowCase
-                  ? loaderData.productShowCase["Home & Living"]
+                  ? loaderData?.productShowCase["Home & Living"]
                   : []
               }
             />
@@ -266,18 +266,18 @@ export default function Index() {
                       <Carousel numberOfItems={3}>
                         {blogs.data.payload.data.map((post: BlogCardProps) => (
                           <div
-                            key={post._id}
+                            key={post?._id}
                             className="flex flex-col md:flex-row gap-1 sm:mx-2 md:mx-1"
                           >
                             <BlogCard
-                              title={post.title}
-                              summary={post.summary}
+                              title={post?.title}
+                              summary={post?.summary}
                               slug={post?.slug || post?.title}
-                              description={post.description}
-                              imageSrc={post.imageSrc}
-                              _id={post._id}
-                              category={post.category}
-                              body={post.body}
+                              description={post?.description}
+                              imageSrc={post?.imageSrc}
+                              _id={post?._id}
+                              category={post?.category}
+                              body={post?.body}
                             />
                           </div>
                         ))}

@@ -46,6 +46,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getSession } from "../../sessions";
 import { ProductCardDet } from "app/components/Product/ProductCardDet";
 import React from "react";
+import StockStatus from "app/components/Product/StockData";
 
 export const meta: MetaFunction = () => {
   return [
@@ -109,6 +110,15 @@ export const loader = async ({ params, request }: { params: { slug: string }; re
 export default function ProductDetailsRoute() {
   const data = useLoaderData<typeof loader>();
 
+  const [currentBrandingType, setBrandingType] = useState("");
+  const brandingTypes = ["Print", "Engrave", "Transfer"];
+
+  const [selectedArtColor, setArtColor] = useState("");
+  const colorInArt = ["One color Artwork", "Multi-color artwork"];
+
+  const [selectedBrandingPosition, setBrandingPosition] = useState("");
+  const brandingPosition = ["One", "Two"];
+
   const { pathname } = useLocation();
 
   const [currentImage, setCurrentImage] = useState<string>("");
@@ -122,10 +132,10 @@ export default function ProductDetailsRoute() {
   ///check-stock-levels/
 
   const { data: stockData } = useQuery({
-    queryKey: ["stockData"],
+    queryKey: ["stockData", data?.productData?.meta.id],
     queryFn: () => fetchProductStockLevelApi(data?.productData?.meta.id as string),
   });
-
+  console.log({ stockData: stockData?.data });
   const { data: topSellingProducts, refetch: refetchTopSellingProducts } = useQuery({
     queryKey: ["topSellingProducts"],
     queryFn: () => fetchTopSellingProductsApi({ page: 1, limit: 4 }),
@@ -217,20 +227,20 @@ export default function ProductDetailsRoute() {
                   }}
                   modules={[Navigation, Pagination, Parallax, A11y]}
                 >
+                  {/* {console.log({ dd: data?.productData })} */}
                   {data?.productData?.product?.images.length > 0 &&
                     data?.productData?.product?.images.map((img: string) => (
                       <SwiperSlide>
                         <div
                           key={img}
-                          className="h-28 w-full relative rounded-sm flex items-center cursor-pointer"
+                          className="h-28 w-full relative rounded-sm flex items-center cursor-pointer border border-neutral-300"
                           onClick={() => setCurrentImage(img)}
                         >
                           <Image
                             alt=""
                             radius="md"
                             src={img}
-                            removeWrapper
-                            className=" h-full w-full object-cover border border-neutral-300"
+                            className=" h-full w-full object-cover "
                           />
                         </div>
                       </SwiperSlide>
@@ -294,75 +304,14 @@ export default function ProductDetailsRoute() {
                   />
                 </div>
                 <div className="pl-4">
-                  <Select
-                    variant="bordered"
-                    radius="none"
-                    label="Colour"
-                    labelPlacement="outside-left"
-                    placeholder="Red"
-                    items={colours}
-                    classNames={{
-                      popoverContent: "rounded-none",
-                      label: "font-bold",
-                    }}
-                  >
-                    {(col) => (
-                      <SelectItem key={col.id} textValue={col.name}>
-                        <div className="flex gap-2 items-center justify-between">
-                          <div className="flex items-center space-x-1">
-                            <div
-                              className="w-3 h-3 rounded-full aspect-square"
-                              style={{ backgroundColor: col.code }}
-                            ></div>
-                            <span className="">{col.name}</span>
-                          </div>
-                          <div className="flex items-center space-x-1">
-                            <span>
-                              {col.status.includes("In Stock") ? (
-                                <IoMdCheckmarkCircle className="text-green-600" />
-                              ) : (
-                                <MdCancel className="text-red-600" />
-                              )}
-                            </span>
-                            <span className="text-sm">{col.status}</span>
-                          </div>
-                        </div>
-                      </SelectItem>
-                    )}
-                  </Select>
+                  {stockData && stockData.data && data?.productData?.product?.colours && (
+                    <StockStatus
+                      stockData={stockData?.data || {}}
+                      listData={data?.productData?.product?.colours}
+                    />
+                  )}
                 </div>
 
-                {/* <div>
-                  <Select
-                    variant="bordered"
-                    radius="none"
-                    label="Model"
-                    labelPlacement="outside-left"
-                    placeholder="Select"
-                    items={modelOptions}
-                    classNames={{
-                      popoverContent: "rounded-none",
-                    }}
-                  >
-                    {(model) => (
-                      <SelectItem key={model.id} textValue={model.name}>
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm">{model.name}</span>
-                          <div className="flex items-center space-x-1">
-                            <span>
-                              {model.status.includes("In Stock") ? (
-                                <IoMdCheckmarkCircle className="text-green-600" />
-                              ) : (
-                                <MdCancel className="text-red-600" />
-                              )}
-                            </span>
-                            <span className="text-sm">{model.status}</span>
-                          </div>
-                        </div>
-                      </SelectItem>
-                    )}
-                  </Select>
-                </div> */}
                 <Divider />
 
                 <Accordion defaultExpandedKeys={["1", "2", "3"]} selectionMode="multiple">
@@ -479,11 +428,24 @@ export default function ProductDetailsRoute() {
                         <BsInfoCircle className="text-green-600 text-sm" />
                       </Tooltip>
                     </div>
-                    <Tabs aria-label="Options" color="primary" radius="none">
-                      <Tab key="Print" title="Print"></Tab>
-                      <Tab key="Engrave" title="Engrave"></Tab>
-                      <Tab key="Transfer" title="Transfer"></Tab>
-                    </Tabs>
+
+                    <div className="flex gap-2 mt-3">
+                      {brandingTypes.map((type) => {
+                        return (
+                          <div
+                            key={type}
+                            className={` cursor-pointer w-32 text-center px-4 py-2 ${
+                              currentBrandingType === type
+                                ? " bg-primary text-white"
+                                : "border bg-white border-zinc-500"
+                            }`}
+                            onClick={() => setBrandingType(type)}
+                          >
+                            {type}
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                   <div className="flex flex-col">
                     <div className="flex items-center space-x-2">
@@ -492,10 +454,24 @@ export default function ProductDetailsRoute() {
                         <BsInfoCircle className="text-green-600 text-sm" />
                       </Tooltip>
                     </div>
-                    <Tabs aria-label="Colors in Artwork" color="primary" radius="none">
-                      <Tab key="oneColorArtwork" title="One color Artwork"></Tab>
-                      <Tab key="multiColorArtwork" title="Multi-color artwork"></Tab>
-                    </Tabs>
+
+                    <div className="flex gap-2 mt-3">
+                      {colorInArt.map((type) => {
+                        return (
+                          <div
+                            key={type}
+                            className={` cursor-pointer w-fit text-center px-4 py-2 ${
+                              selectedArtColor === type
+                                ? " bg-primary text-white"
+                                : "border bg-white border-zinc-500"
+                            }`}
+                            onClick={() => setArtColor(type)}
+                          >
+                            {type}
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                   <div className="flex flex-col">
                     <div className="flex items-center space-x-2">
@@ -506,10 +482,23 @@ export default function ProductDetailsRoute() {
                         <BsInfoCircle className="text-green-600 text-sm" />
                       </Tooltip>
                     </div>
-                    <Tabs aria-label="Branding Positions" color="primary" radius="none">
-                      <Tab key="One" title="One"></Tab>
-                      <Tab key="Two" title="Two"></Tab>
-                    </Tabs>
+                    <div className="flex gap-2 mt-3">
+                      {brandingPosition.map((type) => {
+                        return (
+                          <div
+                            key={type}
+                            className={` cursor-pointer w-32 text-center px-4 py-2 ${
+                              selectedBrandingPosition === type
+                                ? " bg-primary text-white"
+                                : "border bg-white border-zinc-500"
+                            }`}
+                            onClick={() => setBrandingPosition(type)}
+                          >
+                            {type}
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
 
@@ -572,7 +561,13 @@ export default function ProductDetailsRoute() {
                         <span className="font-semibold text-lg">$4.5</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-sm md:text-lg font-semibold">Freight</span>
+                        <div className="flex gap-2 items-center">
+                          <span className="text-sm md:text-lg font-semibold">Freight </span>
+                          <div className="flex gap-2 items-center">
+                            <div className="px-4 py-2 border bg-white text-primary">2546</div>
+                            <span className="text-zinc-700"> Delivery Postcode</span>
+                          </div>
+                        </div>
                         <span className="font-semibold text-lg">$4.5</span>
                       </div>
                       <div className="flex justify-between items-center">
@@ -682,7 +677,7 @@ export default function ProductDetailsRoute() {
             <ProductAboutCard
               title={cardData[2]}
               note={
-                <ol className="list-decimal">
+                <ol className="list-decimal px-4">
                   <li className="mb-4">
                     Prices are subject to change at any time and without prior notice.
                   </li>
