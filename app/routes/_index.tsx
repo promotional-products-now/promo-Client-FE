@@ -1,5 +1,5 @@
 import { useAtom, useSetAtom } from "jotai";
-import { Button, Image, Link, useDisclosure } from "@nextui-org/react";
+import { useDisclosure } from "@nextui-org/react";
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { GiClothes } from "react-icons/gi";
 import { ImFire } from "react-icons/im";
@@ -15,7 +15,7 @@ import CategoryList from "app/components/CategoryList";
 import { isCategoryListOpen } from "app/atoms/category.atom";
 import { BlogCard } from "app/components/Blog/BlogCard";
 import { fetchHotProductsApi, fetchProductShowCase } from "app/api/product/products.api";
-import { json, useLoaderData } from "@remix-run/react";
+import { json, useLoaderData, useNavigation } from "@remix-run/react";
 import { PreviewProduct } from "app/components/Product/PreviewProduct";
 import { productPreviewAtom } from "app/atoms/product.atom";
 import { fetchAllBlogsApi } from "app/api/blog.api";
@@ -30,7 +30,6 @@ import { homePageSchema } from "./_index_seo";
 import { useQuery } from "@tanstack/react-query";
 import OldBanner from "app/components/OldBanner";
 import { ClientOnly } from "remix-utils/client-only";
-import { useNavigation } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -101,11 +100,11 @@ export default function Index() {
     <>
       {navigate.state !== "loading" && (
         <>
-          <div className="home-page bg-white-bg px-3 md:px-6 lg:px-8 xl:px-12 lg:h-[550px]">
+          <div className="home-page bg-white-bg px-3 md:px-6 lg:px-8 xl:px-12 lg:h-[40rem]">
             <div className="container mx-auto flex flex-col md:flex-col lg:flex-row justify-center lg:flex-grow h-full">
               <div
                 aria-label="Link Categories"
-                className={`lg:flex flex-grow overflow-y-scroll  bg-white lg:-mt-4 lg:mb-8 hidden md:block divide-y divide-primary transition-height duration-300 ease-linear  ${
+                className={`lg:flex flex-grow overflow-y-auto  bg-white lg:-mt-4 lg:mb-8 hidden md:block divide-y divide-primary transition-height duration-300 ease-linear  ${
                   !isCategoryOpen ? "h-0 w-0 lg:mr-0" : "w-full lg:mr-8 lg:max-w-80"
                 } `}
               >

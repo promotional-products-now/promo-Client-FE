@@ -3,7 +3,10 @@ import { vitePlugin as remix } from "@remix-run/dev";
 import { installGlobals } from "@remix-run/node";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-import { remixPWA } from "@remix-pwa/dev";
+import { RemixVitePWA } from "@vite-pwa/remix";
+const { RemixVitePWAPlugin, RemixPWAPreset } = RemixVitePWA();
+
+// import { remixPWA } from "@remix-pwa/dev";
 
 installGlobals();
 
@@ -14,6 +17,7 @@ export default defineConfig({
   plugins: [
     // basicSsl(),
     remix({
+      presets: [RemixPWAPreset()],
       ignoredRouteFiles: ["**/.*", "**/*.css"],
       appDirectory: "app",
       buildDirectory: "build",
@@ -24,7 +28,15 @@ export default defineConfig({
         v3_throwAbortReason: true,
       },
     }),
-    remixPWA(),
+    RemixVitePWAPlugin({
+      registerType: "autoUpdate",
+      manifest: { display: "browser" },
+      devOptions: {
+        enabled: true,
+        type: "module",
+      },
+    }),
+    // remixPWA(),
 
     tsconfigPaths(),
   ],

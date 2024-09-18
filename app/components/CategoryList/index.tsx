@@ -19,7 +19,6 @@ function CategoryList(props: any) {
   const handleMouseEnter = (event: any, category: any) => {
     const rect = event.currentTarget.getBoundingClientRect();
     // setPosition({ top: rect.top, left: rect.right });
-    console.log({ rect });
     setPosition({
       top: props.top ?? 80,
       left: props.right ? rect.right - props.right - 5 : rect.right - 40,

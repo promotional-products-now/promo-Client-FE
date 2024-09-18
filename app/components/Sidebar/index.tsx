@@ -1,11 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Button, Divider, Image, ScrollShadow, useDisclosure } from "@nextui-org/react";
-import { FiChevronsLeft, FiChevronsRight, FiLink2 } from "react-icons/fi";
+import { Divider, Image, ScrollShadow, useDisclosure } from "@nextui-org/react";
 import AppLogo from "app/assets/logo.svg";
 import { sidebarLinks } from "./sideBarLinks";
 import { SidebarLink } from "./SidebarLink";
-import { CustomTooltip } from "./CustomTooltip";
 import { motion } from "framer-motion";
 import ContactDetails from "../Footer/ContactDetails";
 

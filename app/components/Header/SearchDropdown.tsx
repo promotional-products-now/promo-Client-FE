@@ -17,26 +17,12 @@ import {
 } from "@nextui-org/react";
 import { IoIosArrowDown } from "react-icons/io";
 import { FiSearch } from "react-icons/fi";
-import { useNavigate, useSubmit } from "@remix-run/react";
-import { useAsyncList } from "@react-stately/data";
-import Typesense from "typesense";
+import { useSubmit, Link } from "@remix-run/react";
+import { useQuery } from "@tanstack/react-query";
 
 import { colors } from "app/utils/searchColors";
 import { toSnakeCase } from "app/utils/fn";
-
-// Initialize Typesense client
-const typesense = new Typesense.Client({
-  nodes: [
-    {
-      host: "x0j1ihc5k8tbey4wp-1.a1.typesense.net", // Replace with your host
-      port: 443, // Replace with your port (443 for https)
-      protocol: "https", // Use https if secure
-    },
-  ],
-  apiKey: "t9lh3qHxTPmTOsGkE73AY7xHJSfPaLah", // Replace with your API key
-
-  // connectionTimeoutSeconds: 2,
-});
+import { fetchProductsTextSearchApi } from "app/api/product/products.api";
 
 const sortFilter = [
   { label: "Price", value: "price" },
@@ -44,12 +30,22 @@ const sortFilter = [
 ];
 
 export const SearchDropdown = () => {
-  const navigate = useNavigate();
-
-  const [values, setValues] = useState<Selection>(new Set(["price", "lowest"]));
+  const [values, setValues] = useState<any>(new Set(["price", "lowest"]));
   const [search, setSearchValue] = useState<string>("");
   const [colours, setSearchColours] = useState<string[]>([]);
   const submit = useSubmit();
+
+  const {
+    data: products,
+    refetch,
+    isLoading,
+  } = useQuery({
+    queryKey: ["searchdProducts", search],
+    queryFn: () => fetchProductsTextSearchApi({ search }),
+    enabled: false,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+  });
 
   const onSearchChange = useCallback((value?: string) => {
     setSearchValue(value || "");
@@ -75,23 +71,19 @@ export const SearchDropdown = () => {
     setSearchColours([]);
   };
 
-  let list = useAsyncList<any>({
-    async load({ signal, filterText }) {
-      const searchResults = await typesense
-        .collections("products") // Replace with your collection name
-        .documents()
-        .search({
-          q: filterText,
-          query_by: "overview.name, overview.code", // Replace with fields you're querying
-        });
+  const debounceTime = 800;
 
-      return {
-        items: searchResults.hits.map((hit: any) => hit.document),
-      };
-    },
-  });
+  React.useEffect(() => {
+    const handler = setTimeout(() => {
+      if (search) {
+        refetch();
+      }
+    }, debounceTime);
 
-  console.log({ list });
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [search]);
 
   const popContent = useMemo(
     () => (
@@ -102,7 +94,7 @@ export const SearchDropdown = () => {
           </Button>
         </PopoverTrigger>
         <PopoverContent className="p-1 rounded-none">
-          <Card shadow="none" radius="none" className=" border-none bg-transparent rounded-none">
+          <Card shadow="none" radius="none" className="border-none bg-transparent rounded-none">
             <CardBody className="p-3 rounded-none">
               <div className="flex flex-col md:flex-row space-x-4 max-w-[45rem]">
                 <div className="space-y-4 p-4">
@@ -212,10 +204,10 @@ export const SearchDropdown = () => {
       <form onSubmit={handleSubmit}>
         <div className="flex items-center">
           <Autocomplete
-            inputValue={list.filterText || search}
-            isLoading={list.isLoading}
-            items={list.items}
-            size="sm"
+            inputValue={search}
+            isLoading={isLoading}
+            items={products && products?.length > 0 ? products : []}
+            size="lg"
             variant="bordered"
             placeholder="Search product catalogue"
             radius="none"
@@ -229,12 +221,11 @@ export const SearchDropdown = () => {
             isClearable
             startContent={popContent}
             onValueChange={onSearchChange}
-            onInputChange={list.setFilterText}
           >
             {(item) => (
-              <AutocompleteItem key={item.name} className="capitalize">
-                <a
-                  href={`/products/${item.category.name ? toSnakeCase(item.category.name) : "_"}/${
+              <AutocompleteItem key={item.overview.name} className="capitalize">
+                <Link
+                  to={`/products/${item.category.name ? toSnakeCase(item.category.name) : "_"}/${
                     item.slug
                   }`}
                 >
@@ -255,7 +246,7 @@ export const SearchDropdown = () => {
                     />{" "}
                     <span> {item.overview.name}</span>
                   </div>
-                </a>
+                </Link>
               </AutocompleteItem>
             )}
           </Autocomplete>
@@ -275,7 +266,7 @@ export const SearchDropdown = () => {
                 key={i}
                 className="w-12 h-4 rounded-md shadow-md border-3 border-white"
                 style={{ backgroundColor: c }}
-              ></div>
+              />
             ))}
           </div>
         )}

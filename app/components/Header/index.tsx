@@ -7,7 +7,6 @@ import {
   ModalContent,
   Card,
   CardFooter,
-  Input,
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -22,8 +21,7 @@ import logo from "app/assets/logo.svg";
 import { FiLogIn, FiMenu } from "react-icons/fi";
 import { TbTruckDelivery } from "react-icons/tb";
 import { getSession } from "../../sessions";
-import { useEffect, useState, useCallback } from "react";
-import { fetchBannerApi } from "app/api/banner/banner.api";
+import { useState, useCallback } from "react";
 import { IBanner, IPopup } from "app/api/banner/types";
 import allCategory from "app/utils/categories";
 import CategoryList from "../CategoryList";

@@ -16,7 +16,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { A11y, Parallax, Navigation, Pagination } from "swiper/modules";
 import { Swiper as SwiperInstance } from "swiper";
 import "../../style.css";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { isMobile } from "react-device-detect";
 
 export function PreviewProduct({
@@ -28,13 +28,19 @@ export function PreviewProduct({
 }) {
   const swiperRef = useRef<SwiperInstance | null>(null);
   const product = useAtomValue(productPreviewAtom);
+  const [currentImage, setCurrentImage] = useState<string>("");
 
+  const handleOnOpenChange = () => {
+    setCurrentImage("");
+
+    onOpenChange();
+  };
   return (
     <Modal
       isOpen={isOpen}
       placement={isMobile ? "bottom-center" : "auto"}
       backdrop="transparent"
-      onOpenChange={onOpenChange}
+      onOpenChange={handleOnOpenChange}
       size="3xl"
     >
       <ModalContent className=" rounded-none shadow-xl">
@@ -60,7 +66,7 @@ export function PreviewProduct({
                 <Image
                   alt=""
                   radius="none"
-                  src={product?.image}
+                  src={currentImage || product?.image}
                   removeWrapper
                   className="object-cover h-full w-full transition aspect-square inset-0"
                 />
@@ -73,7 +79,7 @@ export function PreviewProduct({
                 <div className="grid grid-cols-2">
                   <Button
                     as={Link}
-                    href={`/products/${product?.category}/${product?.id}`}
+                    href={`/products/${product?.category}/${product?.slug}`}
                     radius="none"
                     className="bg-primary text-white"
                     startContent={<BsCart3 />}
@@ -123,7 +129,12 @@ export function PreviewProduct({
                     <SwiperSlide>
                       <div
                         key={`${i}_${image}`}
-                        className="h-20 relative rounded-sm flex items-center"
+                        onClick={() => setCurrentImage(image)}
+                        className={`h-20 cursor-pointer relative rounded-sm flex items-center ${
+                          image === currentImage
+                            ? "border-2 border-primary"
+                            : " border-2 border-slate-500"
+                        }`}
                       >
                         <Image
                           alt=""
@@ -132,7 +143,7 @@ export function PreviewProduct({
                           removeWrapper
                           width={60}
                           // className="object-cover transition aspect-square inset-0"
-                          className="absolute inset-0 h-full object-cover transition-transform transform-gpu aspect-square border-2 border-slate-500"
+                          className="absolute inset-0 h-full object-cover transition-transform transform-gpu aspect-square "
                         />
                       </div>
                     </SwiperSlide>

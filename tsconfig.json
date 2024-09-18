@@ -1,5 +1,6 @@
 {
   "include": [
+    ".d.ts",
     "remix.env.d.ts",
     "**/*.ts",
     "**/*.tsx",
@@ -10,10 +11,10 @@
     "app/routes/Terms-Conditions/route.mdx",
     "app/components/Blog/BlogCard",
     "app/routes/blog.$title.tsx",
-    "app/entry.worker.ts"
+    "app/____ntry.worker.ts"
   ],
 
-  "exclude": ["app/entry.worker.ts"],
+  "exclude": ["app/____ntry.worker.ts"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "isolatedModules": true,
