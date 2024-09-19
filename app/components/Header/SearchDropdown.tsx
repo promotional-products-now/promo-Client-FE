@@ -98,16 +98,19 @@ export const SearchDropdown = () => {
             <CardBody className="p-3 rounded-none">
               <div className="flex flex-col md:flex-row space-x-4 max-w-[45rem]">
                 <div className="space-y-4 p-4">
-                  <div className="space-y-1">
+                  <div className="space-y-1 flex items-center gap-4 ">
+                    <span className="text-lg font-medium">Quantity</span>
                     <Input
-                      type="text"
+                      type="number"
                       radius="none"
-                      label="Quantity"
-                      labelPlacement="outside"
                       placeholder="500"
-                      className="text-primary max-w"
+                      className="text-primary max-w font-semibold "
+                      variant="bordered"
+                      classNames={{
+                        inputWrapper: ["border-zinc-500"],
+                      }}
                     />
-                    <Checkbox size="sm">In stock now</Checkbox>
+                    {/* <Checkbox size="sm">In stock now</Checkbox> */}
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 space-x-3">
                     <div className="space-y-1">
@@ -119,7 +122,13 @@ export const SearchDropdown = () => {
                         placeholder="500"
                         className="text-primary"
                         startContent="$"
+                        variant="bordered"
+                        color="default"
                         endContent={<IoIosArrowDown />}
+                        classNames={{
+                          inputWrapper: ["border-zinc-500"],
+                          label: " font-medium",
+                        }}
                       />
                       <span className="text-xs text-gray">Plus Branding cost and Freight cost</span>
                     </div>
@@ -132,7 +141,13 @@ export const SearchDropdown = () => {
                         placeholder="500"
                         className="text-primary"
                         startContent="$"
+                        variant="bordered"
+                        color="default"
                         endContent={<IoIosArrowDown />}
+                        classNames={{
+                          inputWrapper: ["border-zinc-500"],
+                          label: " font-medium",
+                        }}
                       />
                     </div>
                   </div>
@@ -144,6 +159,15 @@ export const SearchDropdown = () => {
                       placeholder="Price, lowest first"
                       selectedKeys={values}
                       onSelectionChange={setValues}
+                      variant="bordered"
+                      radius="none"
+                      classNames={{
+                        base: "border-zinc-red",
+                        value: "border-zinc-red",
+                        mainWrapper: "border-zinc-red",
+                        listboxWrapper: "border-zinc-red",
+                        label: "font-medium",
+                      }}
                     >
                       {sortFilter.map((ss) => (
                         <SelectItem key={ss.value} value={ss.value}>

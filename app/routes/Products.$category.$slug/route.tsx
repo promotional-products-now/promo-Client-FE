@@ -37,7 +37,7 @@ import {
   fetchTopSellingProductsApi,
   getProductInfo,
 } from "app/api/product/products.api";
-import { removeSnakeCase } from "app/utils/fn";
+import { getMinMaxPrice, getMinMaxQty, removeSnakeCase } from "app/utils/fn";
 import appaImg from "app/assets/appa-sponsor.png";
 import { GiPriceTag } from "react-icons/gi";
 import { TfiWrite } from "react-icons/tfi";
@@ -47,6 +47,9 @@ import { getSession } from "../../sessions";
 import { ProductCardDet } from "app/components/Product/ProductCardDet";
 import React from "react";
 import StockStatus from "app/components/Product/StockData";
+import { PreviewProduct } from "app/components/Product/PreviewProduct";
+import { useSetAtom } from "jotai";
+import { productPreviewAtom } from "app/atoms/product.atom";
 
 export const meta: MetaFunction = () => {
   return [
@@ -109,6 +112,7 @@ export const loader = async ({ params, request }: { params: { slug: string }; re
 
 export default function ProductDetailsRoute() {
   const data = useLoaderData<typeof loader>();
+  const setProduct = useSetAtom(productPreviewAtom);
 
   const [currentBrandingType, setBrandingType] = useState("");
   const brandingTypes = ["Print", "Engrave", "Transfer"];
@@ -125,6 +129,11 @@ export default function ProductDetailsRoute() {
   const [currentTab, setCurrentTab] = useState<string>("");
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const {
+    isOpen: isPreviewOpen,
+    onOpen: onPreviewOpen,
+    onOpenChange: onPreviewOpenChange,
+  } = useDisclosure();
   const swiperRef = useRef<SwiperInstance | null>(null);
   const { category, id } = useParams();
   // const [currentProd, setCurrentProd] = useAtom(productAtom);
@@ -159,6 +168,11 @@ export default function ProductDetailsRoute() {
     }
 
     setCurrentTab(selectedTab as string);
+  };
+
+  const handlePreviewProd = (product: any) => {
+    onPreviewOpen();
+    setProduct(product);
   };
 
   return (
@@ -734,7 +748,21 @@ export default function ProductDetailsRoute() {
                 {latestProducts &&
                   latestProducts.length > 0 &&
                   latestProducts?.map((item, index) => (
-                    <ProductCardDet product={item} key={index} />
+                    <ProductCardDet
+                      key={item?._id}
+                      image={item?.overview?.heroImage}
+                      images={item?.product?.images}
+                      title={item?.overview?.name}
+                      productCode={item?.overview?.code}
+                      description={item?.product?.description}
+                      basePrice={getMinMaxPrice(item?.product?.prices?.priceGroups[0]?.basePrice)}
+                      qty={getMinMaxQty(item?.product?.prices?.priceGroups[0]?.basePrice)}
+                      slug={item?.slug}
+                      category={
+                        item?.category?.name || item?.product?.categorisation?.productType?.typeName
+                      }
+                      handlePreviewFn={handlePreviewProd}
+                    />
                   ))}
               </div>
             )}
@@ -749,6 +777,7 @@ export default function ProductDetailsRoute() {
           </div>
         </div>
       </div>
+      <PreviewProduct isOpen={isPreviewOpen} onOpenChange={onPreviewOpenChange} />
 
       <SendPriceModal isOpen={isOpen} onOpenChange={onOpenChange} />
     </Fragment>

@@ -74,7 +74,9 @@ export function PreviewProduct({
               <div className="space-y-4">
                 <div className="space-y-2">
                   <span className="text-lg md:text-xl font-medium">Description</span>
-                  <p className=" font-normal text-zinc-700">{product?.description}</p>
+                  <p className=" font-normal text-zinc-700 line-clamp-[10]">
+                    {product?.description}
+                  </p>
                 </div>
                 <div className="grid grid-cols-2">
                   <Button
