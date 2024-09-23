@@ -4,6 +4,7 @@ import { Link } from "@remix-run/react";
 import { isCategoryListOpen } from "app/atoms/category.atom";
 import { useAtom } from "jotai";
 import { usePalette } from "color-thief-react";
+import { toSnakeCase } from "app/utils/fn";
 
 interface RGB {
   r: number;
@@ -18,6 +19,8 @@ interface Overview {
 
 interface Category {
   overview: Overview;
+  category: { _id: string; name: string };
+  slug: string;
 }
 
 interface OldBannerProps {
@@ -30,9 +33,15 @@ const OldBanner: React.FC<OldBannerProps> = ({ clothing, health, home }) => {
   const [isCategoryOpen] = useAtom(isCategoryListOpen);
 
   // Fetch palettes for all categories
-  const healtPalet = usePalette(health.overview.heroImage, 3, "rgbString");
-  const clothingPalet = usePalette(clothing.overview.heroImage, 3, "rgbString");
-  const homePalet = usePalette(home.overview.heroImage, 3, "rgbString");
+  const healtPalet = usePalette(health.overview.heroImage, 3, "rgbString", {
+    crossOrigin: "anonymous",
+  });
+  const clothingPalet = usePalette(clothing.overview.heroImage, 3, "rgbString", {
+    crossOrigin: "anonymous",
+  });
+  const homePalet = usePalette(home.overview.heroImage, 3, "rgbString", {
+    crossOrigin: "anonymous",
+  });
 
   // Helper to convert rgb string to RGB object
   const rgbToRgb = (rgb: string): RGB => {
@@ -59,6 +68,7 @@ const OldBanner: React.FC<OldBannerProps> = ({ clothing, health, home }) => {
     });
   };
 
+  console.log({ clothingPalet });
   // Get background color from palette
   const getBackgroundColor = (palette: string[], defaultColor?: string): string => {
     return nonWhiteColors(palette)?.[0] || defaultColor || "rgb(0,121,192)";
@@ -82,11 +92,11 @@ const OldBanner: React.FC<OldBannerProps> = ({ clothing, health, home }) => {
           <h1 className="font-bold text-lg md:text-2xl text-white capitalize">
             {clothing.overview.name}
           </h1>
-          <h3 className="text-sm md:text-base text-white font-normal">PRICE RANGE</h3>
+          {/* <h3 className="text-sm md:text-base text-white font-normal">PRICE RANGE</h3> */}
           <div className="flex flex-col gap-3 justify-start">
             <Button
               as={Link}
-              href="#"
+              to={`/products/${toSnakeCase(clothing.category.name)}/${clothing.slug}`}
               className="bg-primary w-min p-5 rounded-md text-white text-base font-semibold hover:opacity-80 transition text-center capitalize"
               variant="solid"
             >
@@ -94,7 +104,7 @@ const OldBanner: React.FC<OldBannerProps> = ({ clothing, health, home }) => {
             </Button>
             <Button
               as={Link}
-              href="/#"
+              to={`/categories/${toSnakeCase(clothing.category.name)}`}
               className="bg-white w-max p-5 rounded-md text-black text-base font-semibold hover:opacity-80 transition text-center capitalize"
               variant="solid"
             >
@@ -131,7 +141,7 @@ const OldBanner: React.FC<OldBannerProps> = ({ clothing, health, home }) => {
             <div className="flex flex-col gap-3 justify-start">
               <Button
                 as={Link}
-                href="#"
+                to={`/products/${toSnakeCase(health.category.name)}/${clothing.slug}`}
                 className="bg-primary p-5 w-min rounded-md text-white text-base hover:opacity-80 transition text-center capitalize"
                 size="md"
                 variant="solid"
@@ -182,7 +192,7 @@ const OldBanner: React.FC<OldBannerProps> = ({ clothing, health, home }) => {
             <div className="flex flex-col gap-3 justify-start">
               <Button
                 as={Link}
-                href="#"
+                to={`/products/${toSnakeCase(home.category.name)}/${clothing.slug}`}
                 className="bg-white p-5 w-max rounded-md text-black text-base hover:opacity-80 transition text-center capitalize"
                 size="md"
                 variant="solid"

@@ -45,6 +45,7 @@ export const fetchLatestProduct = async (params?: ProductFilter): Promise<Produc
 };
 
 export const fetchProductStockLevelApi = async (productId: string) => {
+  console.log({ productId });
   const response = await axios.get(`${API_BASEURL}/products/check-stock-levels/${productId}`);
   return response.data;
 };

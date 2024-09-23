@@ -39,12 +39,14 @@ function CategoryList(props: any) {
             showDivider
             className="text-left bg-white text-zinc-800 text-xs md:font-medium  capitalize md:uppercase"
             classNames={{ title: " md:font-medium" }}
-            key={cat._id}
-            textValue={cat.name}
+            key={cat?._id}
+            textValue={cat?.name}
           >
-            <RemixLink to={`/categories/${toSnakeCase(cat.name)}`} className="w-full">
+            <RemixLink to={`/categories/${toSnakeCase(cat?.name)}`} className="w-full">
               {cat.name}
-              <span className="text-primary-400 text-sm font-normal">({cat.totalProduct})</span>
+              {cat?.totalProduct && (
+                <span className="text-primary-400 text-sm font-normal">({cat?.totalProduct})</span>
+              )}{" "}
             </RemixLink>
           </ListboxItem>
         )}
@@ -62,33 +64,35 @@ function CategoryList(props: any) {
                   to={`/categories/${toSnakeCase(category.name)}`}
                   className=" w-full flex text-left bg-white text-zinc-800 text-sm  md:font-medium  capitalize md:uppercase"
                 >
-                  {category.name}
+                  {category?.name}
                   {"  "} &nbsp;
-                  <span className="text-primary-400 text-sm font-normal">
-                    ({category.totalProduct})
-                  </span>
+                  {category?.totalProduct && (
+                    <span className="text-primary-400 text-sm font-normal">
+                      ({category.totalProduct})
+                    </span>
+                  )}
                 </RemixLink>
                 <hr className="my-2 h-0 border-0 border-b-1 border-zinc-200 " />
-                {category.subCategory.length > 0 && (
+                {category.subCategory && category.subCategory.length > 0 && (
                   <div
                     className="submenu absolute z-[1000] left-full top-0 right-0 bg-white border border-zinc-300 ml-4 w-64 hidden 
                   group-hover:block h-full overflow-y-auto rounded-r-lg overflow-x-hidden"
                     style={{ top: `${position.top}px`, left: `${position.left}px` }}
                   >
-                    <h3 className="text-lg font-bold p-4">{category.name}</h3>
+                    <h3 className="text-lg font-bold p-4">{category?.name}</h3>
                     <ul className="mt-2 mb-12">
-                      {category.subCategory.map((sub) => (
+                      {category?.subCategory.map((sub) => (
                         <li
-                          key={sub._id}
+                          key={sub?._id}
                           className=" cursor-pointer hover:bg-primary text-zinc-500 hover:text-white p-2"
                         >
                           <RemixLink
-                            to={`/categories/${toSnakeCase(category.name)}/${toSnakeCase(
+                            to={`/categories/${toSnakeCase(category?.name)}/${toSnakeCase(
                               sub.name,
                             )}`}
                             className=""
                           >
-                            {sub.name}
+                            {sub?.name}
                           </RemixLink>
                         </li>
                       ))}
