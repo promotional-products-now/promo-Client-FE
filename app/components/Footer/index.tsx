@@ -98,20 +98,18 @@ export function Footer() {
                   Copyright {new Date().getFullYear()} Promotional Products Now
                 </p>
               </div>
+              <div className="space-y-6 hidden md:block">
+                <FooterLinkComp title="About Us" links={aboutLinks} />
+                <FooterLinkComp title="Compay Information" links={companyInfo} />
+              </div>
               <div className="hidden md:block">
-                <div className="space-y-6">
-                  <FooterLinkComp title="About Us" links={aboutLinks} />
-                  <FooterLinkComp title="Compay Information" links={companyInfo} />
-                </div>
-                <div>
-                  <FooterLinkComp title="Categories" links={categoryLinks} />
-                </div>
-                <div className="space-y-6">
-                  <FooterLinkComp title="Other Information" links={otherLinks} />
-                  <FooterLinkComp title="FAQs" links={faqLinks} />
-                  {/* contact */}
-                  <ContactDetails />
-                </div>
+                <FooterLinkComp title="Categories" links={categoryLinks} />
+              </div>
+              <div className="space-y-6 hidden md:block">
+                <FooterLinkComp title="Other Information" links={otherLinks} />
+                <FooterLinkComp title="FAQs" links={faqLinks} />
+                {/* contact */}
+                <ContactDetails />
               </div>
 
               <div className="block md:hidden">
@@ -129,6 +127,7 @@ export function Footer() {
                 <ContactDetails />
               </div>
             </div>
+
             <div className="block md:hidden space-y-4">
               <h2 className="text-lg text-black font-semibold">Follow Us</h2>
               <div className="flex items-center space-x-3">
@@ -141,6 +140,10 @@ export function Footer() {
                   );
                 })}
               </div>
+              <hr className="text-gray" />
+              <p className="block md:hidden text-xs font-normal text-gray text-center space-y-4">
+                Copyright {new Date().getFullYear()} Promotional Products Now
+              </p>
             </div>
           </>
         </div>
@@ -149,8 +152,7 @@ export function Footer() {
   );
 }
 
-
-export async function loader({ request }: any) {
+export async function loader({ request }: { request: Request }) {
   const session = await getSession(request.headers.get("Cookie"));
   const uid = session.get("uid");
 
