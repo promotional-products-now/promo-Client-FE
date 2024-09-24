@@ -1,9 +1,8 @@
 import { Button, Image, Input } from "@nextui-org/react";
-import { json, Link, useLoaderData } from "@remix-run/react";
+import { json, Link } from "@remix-run/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { MdEmail } from "react-icons/md";
-import { FaHome, FaShoppingCart, FaUser, FaThList } from "react-icons/fa";
 import logo from "app/assets/logo.svg";
 import { SubscribeSchema } from "app/schema/subscribe.schema";
 import { FooterLinkComp } from "./FooterLinkComp";
@@ -28,7 +27,7 @@ export function Footer() {
 
   return (
     <footer className="bg-white dark:bg-gray-900 border border-neutral-200 dark:border-gray-700">
-      <div className="hidden md:block py-6">
+      <div className="block py-6">
         <div className="container mx-auto lg:w-11/12  px-3 md:px-6 lg:px-12 xl:px-12 lg:py-8 space-y-6 md:space-y-10">
           <div className="sm:flex sm:items-center sm:justify-between space-y-6 sm:space-y-0 w-full">
             <h1 className="text-lg md:text-3xl text-black font-semibold">Newsletter</h1>
@@ -65,7 +64,7 @@ export function Footer() {
           <>
             <div className="grid gap-8 sm:gap-6 sm:grid-cols-4">
               <div className="mb-6 md:mb-0 space-y-4">
-                <Link to="/" className="flex items-center">
+                <Link to="/" className="flex items-center justify-center md:justify-start">
                   <Image src={logo} className="h-12 2xl:h-20" />
                 </Link>
 
@@ -82,7 +81,7 @@ export function Footer() {
                     </p>
                   </div>
                 </div>
-                <div className="space-y-4">
+                <div className="hidden md:block space-y-4">
                   <h2 className="text-lg text-black font-semibold">Follow Us</h2>
                   <div className="flex items-center space-x-3">
                     {socialLinks.map((link) => {
@@ -95,71 +94,61 @@ export function Footer() {
                     })}
                   </div>
                 </div>
-                <p className="text-xs font-normal text-gray">
+                <p className="hidden md:block text-xs font-normal text-gray">
                   Copyright {new Date().getFullYear()} Promotional Products Now
                 </p>
               </div>
-
-              <div className="space-y-6">
-                <FooterLinkComp title="About Us" links={aboutLinks} />
-                <FooterLinkComp title="Compay Information" links={companyInfo} />
+              <div className="hidden md:block">
+                <div className="space-y-6">
+                  <FooterLinkComp title="About Us" links={aboutLinks} />
+                  <FooterLinkComp title="Compay Information" links={companyInfo} />
+                </div>
+                <div>
+                  <FooterLinkComp title="Categories" links={categoryLinks} />
+                </div>
+                <div className="space-y-6">
+                  <FooterLinkComp title="Other Information" links={otherLinks} />
+                  <FooterLinkComp title="FAQs" links={faqLinks} />
+                  {/* contact */}
+                  <ContactDetails />
+                </div>
               </div>
 
-              <div>
-                <FooterLinkComp title="Categories" links={categoryLinks} />
-              </div>
-              <div className="space-y-6">
-                <FooterLinkComp title="Other Information" links={otherLinks} />
-                <FooterLinkComp title="FAQs" links={faqLinks} />
-                {/* contact */}
+              <div className="block md:hidden">
+                <div className="flex justify-start gap-6">
+                  <div>
+                    <FooterLinkComp title="About Us" links={aboutLinks} />
+                    <FooterLinkComp title="Compay Information" links={companyInfo} />
+                    <FooterLinkComp title="FAQs" links={faqLinks} />
+                  </div>
+                  <div>
+                    <FooterLinkComp title="Categories" links={categoryLinks} />
+                    <FooterLinkComp title="Other Information" links={otherLinks} />
+                  </div>
+                </div>
                 <ContactDetails />
+              </div>
+            </div>
+            <div className="block md:hidden space-y-4">
+              <h2 className="text-lg text-black font-semibold">Follow Us</h2>
+              <div className="flex items-center space-x-3">
+                {socialLinks.map((link) => {
+                  const IconTag = link.icon;
+                  return (
+                    <Link to={link.pathname} key={link.id} className="">
+                      <IconTag className="text-primary text-2xl" />
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </>
         </div>
       </div>
-      <div className="block md:hidden">
-        <BottomNavigation />
-      </div>
     </footer>
   );
 }
 
-const BottomNavigation = () => {
-  let data = useLoaderData<typeof loader>();
-
-  return (
-    <div className="fixed z-[1000] bottom-0 left-0 w-full bg-white  text-zinc-600 text-xl shadow-md">
-      <div className="flex justify-around py-2">
-        <Link to="/" prefetch="none">
-          <NavItem icon={<FaHome />} label="Home" />
-        </Link>
-        <Link to="/category" prefetch="viewport">
-          <NavItem icon={<FaThList />} label="Categories" />
-        </Link>
-        <Link to="/cart" prefetch="none">
-          <NavItem icon={<FaShoppingCart />} label="Cart" />
-        </Link>
-        {data && data.user && data.user.uid ? (
-          <Link to="/account" prefetch="viewport">
-            <NavItem icon={<FaUser />} label="Account" />
-          </Link>
-        ) : (
-          <Link to="/login" prefetch="viewport">
-            <NavItem icon={<FaUser />} label="Account" />
-          </Link>
-        )}
-      </div>
-    </div>
-  );
-};
-
-const NavItem = ({ icon, label }: any) => (
-  <div className="flex flex-col items-center text-gray-700 hover:text-blue-500">
-    {icon}
-    <span className="text-xs">{label}</span>
-  </div>
-);
 
 export async function loader({ request }: any) {
   const session = await getSession(request.headers.get("Cookie"));
