@@ -33,6 +33,8 @@ export const SearchDropdown = () => {
   const [values, setValues] = useState<any>(new Set(["price", "lowest"]));
   const [search, setSearchValue] = useState<string>("");
   const [colours, setSearchColours] = useState<string[]>([]);
+  const [minPrice, setMinPrice] = useState<string>("");
+  const [maxPrice, setMaxPrice] = useState<string>("");
   const submit = useSubmit();
 
   const {
@@ -56,6 +58,12 @@ export const SearchDropdown = () => {
     const formData = new FormData();
     if (search) {
       formData.set("q", search);
+    }
+    if (minPrice) {
+      formData.set("minPrice", minPrice);
+    }
+    if (maxPrice) {
+      formData.set("maxPrice", maxPrice);
     }
     colours.forEach((colour) => formData.append("colours", colour));
     submit(formData, { method: "get", action: "/search" });
@@ -124,10 +132,12 @@ export const SearchDropdown = () => {
                         startContent="$"
                         variant="bordered"
                         color="default"
+                        // value={minPrice}
+                        onValueChange={setMinPrice}
                         endContent={<IoIosArrowDown />}
                         classNames={{
                           inputWrapper: ["border-zinc-500"],
-                          label: " font-medium",
+                          label: "font-medium",
                         }}
                       />
                       <span className="text-xs text-gray">Plus Branding cost and Freight cost</span>
@@ -143,6 +153,8 @@ export const SearchDropdown = () => {
                         startContent="$"
                         variant="bordered"
                         color="default"
+                        // value={maxPrice}
+                        onValueChange={setMaxPrice}
                         endContent={<IoIosArrowDown />}
                         classNames={{
                           inputWrapper: ["border-zinc-500"],

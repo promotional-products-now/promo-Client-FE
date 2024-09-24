@@ -1,20 +1,23 @@
 import axios from "axios";
 import { API_BASEURL } from "../api";
 import { ProductObject } from "./product.type";
-import { PaginationItemProps } from "@nextui-org/react";
 
 type ProductFilter = {
   page?: number;
   limit?: number;
   search?: string;
   colours?: string;
+  minPrice?: string;
+  maxPrice?: string;
 };
 
 export const fetchProductsApi = async (params: ProductFilter) => {
   const res = await axios.get(
     `${API_BASEURL}/products?limit=${params.limit || 8}&page=${params.page || 1}${
       params.search ? `&search=${params.search}` : ""
-    }${params.colours ? `&colours=${params.colours}` : ""}`,
+    }${params.colours ? `&colours=${params.colours}` : ""}&minPrice=${params.minPrice}&maxPrice=${
+      params.maxPrice
+    }`,
   );
   return res;
 };

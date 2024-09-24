@@ -18,11 +18,15 @@ export const loader: LoaderFunction = async ({ request }: { request: { url: stri
   const selectedColour = colours.map((colour) => `&colours=${colour}`).join("");
   const page = parseInt(url.searchParams.get("page") || "1", 1);
   const limit = parseInt(url.searchParams.get("limit") || "10", 10);
+  const minPrice = parseInt(url.searchParams.get("minPrice") || "0", 10);
+  const maxPrice = parseInt(url.searchParams.get("maxPrice") || "100000", 10);
 
   const { data } = await fetchProductsApi({
     search: searchQuery,
     page,
     limit,
+    maxPrice: String(maxPrice),
+    minPrice: String(minPrice),
     colours: selectedColour,
   });
 
