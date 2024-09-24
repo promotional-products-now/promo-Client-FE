@@ -9,16 +9,43 @@ type ProductFilter = {
   colours?: string;
   minPrice?: string;
   maxPrice?: string;
+  category?: string;
+  subCategory?: string;
+  supplier?: string;
+  filters?: Array<string>;
+  sort?: string;
 };
 
+// export const fetchProductsApi = async (params: ProductFilter) => {
+//   const res = await axios.get(
+//     `${API_BASEURL}/products?limit=${params.limit || 8}&page=${params.page || 1}${
+//       params.search ? `&search=${params.search}` : ""
+//     }${params.colours ? `&colours=${params.colours}` : ""}&minPrice=${params.minPrice}&maxPrice=${
+//       params.maxPrice
+//     }`,
+//   );
+//   return res;
+// };
+
 export const fetchProductsApi = async (params: ProductFilter) => {
-  const res = await axios.get(
-    `${API_BASEURL}/products?limit=${params.limit || 8}&page=${params.page || 1}${
-      params.search ? `&search=${params.search}` : ""
-    }${params.colours ? `&colours=${params.colours}` : ""}&minPrice=${params.minPrice}&maxPrice=${
-      params.maxPrice
-    }`,
-  );
+  const filters = params.filters?.map((filter) => `filter=${filter}`).join("&");
+
+  const queryParams = [
+    params.page ? `page=${params.page}` : "",
+    params.limit ? `limit=${params.limit}` : "limit=10",
+    params.sort ? `sort=${params.sort}` : "",
+    params.category ? `category=${params.category}` : "",
+    params.subCategory ? `subCategory=${params.subCategory}` : "",
+    params.search ? `search=${params.search}` : "",
+    filters ? filters : "",
+    params.colours ? params.colours : "",
+    params.maxPrice ? `maxPrice=${params.maxPrice}` : "",
+    params.minPrice ? `minPrice=${params.minPrice}` : "",
+  ]
+    .filter(Boolean)
+    .join("&");
+
+  const res = await axios.get(`${API_BASEURL}/products?${queryParams}`);
   return res;
 };
 

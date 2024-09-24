@@ -30,33 +30,7 @@ interface PriceBreak {
   price: number;
 }
 
-function getMinMaxPrice(data: BasePrice): { minPrice: number; maxPrice: number } {
-  // Check if price_breaks exists and is an array
 
-  if (data && data.priceBreaks && Array.isArray(data.priceBreaks) && data.priceBreaks.length > 0) {
-    const prices = data.priceBreaks.map((item) => item.price);
-    const minPrice = Math.min(...prices);
-    const maxPrice = Math.max(...prices);
-
-    return { minPrice, maxPrice };
-  }
-
-  // Return default values if price_breaks is not an array or is empty
-  return { minPrice: 0, maxPrice: 0 };
-}
-
-function getMinMaxQty(data: BasePrice): { minQty: number; maxQty: number } {
-  if (data && data.priceBreaks && Array.isArray(data.priceBreaks) && data.priceBreaks.length > 0) {
-    const qty = data.priceBreaks.map((item) => item.qty);
-    const minQty = Math.min(...qty);
-    const maxQty = Math.max(...qty);
-
-    return { minQty, maxQty };
-  }
-
-  // Return default values if price_breaks is not an array or is empty
-  return { minQty: 0, maxQty: 0 };
-}
 
 function getRandomData(arr: Array<ProductObject>): ProductObject {
   if (arr.length === 0) {
@@ -75,4 +49,4 @@ function getRandomInt(min: number, max: number): number {
   return min + (randomBytes[0] % range);
 }
 
-export { toSnakeCase, removeSnakeCase, getMinMaxPrice, toTitleCase, getRandomData, getMinMaxQty };
+export { toSnakeCase, removeSnakeCase, toTitleCase, getRandomData };

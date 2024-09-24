@@ -151,6 +151,8 @@ export type ProductObject = {
   globalProductSubCategory: string;
   isActive: boolean;
   isHot: boolean;
+  price: { min: number; max: number };
+  quantity: { min: number; max: number };
   status: string;
   slug: string;
   baseprices: any[];

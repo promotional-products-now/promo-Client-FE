@@ -37,7 +37,7 @@ import {
   fetchTopSellingProductsApi,
   getProductInfo,
 } from "app/api/product/products.api";
-import { getMinMaxPrice, getMinMaxQty, removeSnakeCase } from "app/utils/fn";
+import { removeSnakeCase } from "app/utils/fn";
 import appaImg from "app/assets/appa-sponsor.png";
 import { GiPriceTag } from "react-icons/gi";
 import { TfiWrite } from "react-icons/tfi";
@@ -755,8 +755,8 @@ export default function ProductDetailsRoute() {
                       title={item?.overview?.name}
                       productCode={item?.overview?.code}
                       description={item?.product?.description}
-                      basePrice={getMinMaxPrice(item?.product?.prices?.priceGroups[0]?.basePrice)}
-                      qty={getMinMaxQty(item?.product?.prices?.priceGroups[0]?.basePrice)}
+                      basePrice={item?.price}
+                      qty={item?.quantity}
                       slug={item?.slug}
                       category={
                         item?.category?.name || item?.product?.categorisation?.productType?.typeName

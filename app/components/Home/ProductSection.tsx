@@ -7,7 +7,7 @@ import { useSetAtom } from "jotai";
 import { productPreviewAtom } from "app/atoms/product.atom";
 import { PreviewProduct } from "../Product/PreviewProduct";
 import allCategories from "app/utils/categories";
-import { getMinMaxPrice, getMinMaxQty, toSnakeCase } from "app/utils/fn";
+import { toSnakeCase } from "app/utils/fn";
 import ColorReplaceComponent from "../ColorReplaceComponent";
 
 const options = [
@@ -159,8 +159,8 @@ const ProductSection = ({
                       title={item?.overview?.name}
                       productCode={item?.overview?.code}
                       description={item?.product?.description}
-                      basePrice={getMinMaxPrice(item?.product?.prices?.priceGroups[0]?.basePrice)}
-                      qty={getMinMaxQty(item?.product?.prices?.priceGroups[0]?.basePrice)}
+                      basePrice={item?.price}
+                      qty={item?.quantity}
                       slug={item?.slug}
                       category={
                         item?.category?.name || item?.product?.categorisation?.productType?.typeName

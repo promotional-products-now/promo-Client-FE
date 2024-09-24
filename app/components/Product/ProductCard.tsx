@@ -10,8 +10,8 @@ export type ProductCardProps = {
   productCode?: string;
   title: string;
   description: string;
-  basePrice: { minPrice: number; maxPrice: number };
-  qty: { minQty: number; maxQty: number };
+  basePrice: { min: number; max: number };
+  qty: { min: number; max: number };
   handlePreviewFn: (data: unknown) => void;
   category: string;
   slug: string;
@@ -95,15 +95,15 @@ export const ProductCard = ({
             {description}
           </p>
           <div className="flex flex-row text-sm justify-between">
-            {basePrice && (
+            {basePrice && basePrice.min && (
               <div className="text-gray-700 flex flex-row gap-1">
                 <span className="text-small">
-                  from <span className="text-orange text-small">{basePrice?.minPrice}</span> to
-                  <span className="text-primary text-small"> {basePrice?.maxPrice}</span>
+                  from <span className="text-orange text-small">{basePrice?.min}</span> to
+                  <span className="text-primary text-small"> {basePrice?.max}</span>
                 </span>
               </div>
             )}
-            <div> {qty && qty?.minQty} min qty</div>
+            {qty && qty?.min && <div> {qty?.min} min qty</div>}
           </div>
         </div>
       </div>

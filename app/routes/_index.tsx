@@ -24,7 +24,7 @@ import HealthImage from "app/assets/category/health-cat.png";
 import ClothingImage from "app/assets/category/clothes.png";
 import BagImage from "app/assets/category/bags.png";
 import axios from "axios";
-import { getMinMaxPrice, getMinMaxQty, getRandomData } from "app/utils/fn";
+import { getRandomData } from "app/utils/fn";
 import allCategory from "app/utils/categories";
 import { homePageSchema } from "./_index_seo";
 import { useQuery } from "@tanstack/react-query";
@@ -169,10 +169,8 @@ export default function Index() {
                               title={item.overview?.name}
                               productCode={item?.overview.code}
                               description={item?.product.description}
-                              basePrice={getMinMaxPrice(
-                                item?.product?.prices?.priceGroups[0]?.basePrice,
-                              )}
-                              qty={getMinMaxQty(item?.product?.prices?.priceGroups[0]?.basePrice)}
+                              basePrice={item?.price}
+                              qty={item?.quantity}
                               handlePreviewFn={(data) => handlePreviewProd(data)}
                               slug={item?.slug}
                               category={

@@ -8,7 +8,7 @@ import { fetchProductsApi } from "app/api/product/products.api";
 import { productPreviewAtom } from "app/atoms/product.atom";
 import { PreviewProduct } from "app/components/Product/PreviewProduct";
 import { ProductCard } from "app/components/Product/ProductCard";
-import { getMinMaxPrice, getMinMaxQty, removeSnakeCase } from "app/utils/fn";
+import { removeSnakeCase } from "app/utils/fn";
 import TablePagination from "app/components/TablePagination";
 
 export const loader: LoaderFunction = async ({ request }: { request: { url: string } }) => {
@@ -20,11 +20,13 @@ export const loader: LoaderFunction = async ({ request }: { request: { url: stri
   const limit = parseInt(url.searchParams.get("limit") || "10", 10);
   const minPrice = parseInt(url.searchParams.get("minPrice") || "0", 10);
   const maxPrice = parseInt(url.searchParams.get("maxPrice") || "100000", 10);
+  const sort = url.searchParams.get("sort") || "";
 
   const { data } = await fetchProductsApi({
     search: searchQuery,
     page,
     limit,
+    sort,
     maxPrice: String(maxPrice),
     minPrice: String(minPrice),
     colours: selectedColour,
@@ -103,10 +105,8 @@ export default function SearchPage() {
                   title={item.overview.name}
                   productCode={item.overview.code}
                   description={item.product.description}
-                  basePrice={getMinMaxPrice(
-                    item?.product?.prices?.priceGroups?.basePrice?.[0]?.base_price,
-                  )}
-                  qty={getMinMaxQty(item?.product?.prices?.priceGroups[0]?.basePrice)}
+                  basePrice={item?.price}
+                  qty={item?.quantity}
                   handlePreviewFn={(data) => handlePreviewProd(data)}
                   slug={item?.slug}
                   category={

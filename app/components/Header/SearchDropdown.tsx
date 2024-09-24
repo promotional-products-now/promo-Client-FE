@@ -25,12 +25,12 @@ import { toSnakeCase } from "app/utils/fn";
 import { fetchProductsTextSearchApi } from "app/api/product/products.api";
 
 const sortFilter = [
-  { label: "Price", value: "price" },
-  { label: "Lowest", value: "lowest" },
+  { label: "Higest", value: "higest-price" },
+  { label: "Lowest", value: "lowest-price" },
 ];
 
 export const SearchDropdown = () => {
-  const [values, setValues] = useState<any>(new Set(["price", "lowest"]));
+  const [priceSort, setPriceSort] = React.useState<Selection>(new Set([]));
   const [search, setSearchValue] = useState<string>("");
   const [colours, setSearchColours] = useState<string[]>([]);
   const [minPrice, setMinPrice] = useState<string>("");
@@ -64,6 +64,10 @@ export const SearchDropdown = () => {
     }
     if (maxPrice) {
       formData.set("maxPrice", maxPrice);
+    }
+    if (priceSort) {
+      const price = Array.from(priceSort)?.[0]?.toString();
+      formData.set("sort", price);
     }
     colours.forEach((colour) => formData.append("colours", colour));
     submit(formData, { method: "get", action: "/search" });
@@ -153,7 +157,6 @@ export const SearchDropdown = () => {
                         startContent="$"
                         variant="bordered"
                         color="default"
-                        // value={maxPrice}
                         onValueChange={setMaxPrice}
                         endContent={<IoIosArrowDown />}
                         classNames={{
@@ -167,10 +170,10 @@ export const SearchDropdown = () => {
                     <Select
                       label="Sort results by:"
                       labelPlacement="outside"
-                      selectionMode="multiple"
                       placeholder="Price, lowest first"
-                      selectedKeys={values}
-                      onSelectionChange={setValues}
+                      selectedKeys={priceSort}
+                      className="max-w-xs"
+                      onSelectionChange={setPriceSort}
                       variant="bordered"
                       radius="none"
                       classNames={{
@@ -232,7 +235,7 @@ export const SearchDropdown = () => {
         </PopoverContent>
       </Popover>
     ),
-    [colours, values],
+    [colours, priceSort],
   );
 
   return (
