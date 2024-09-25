@@ -1,11 +1,16 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useCallback, useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Divider, Image, ScrollShadow, useDisclosure } from "@nextui-org/react";
+import { Button, Divider, Image, ScrollShadow, useDisclosure } from "@nextui-org/react";
 import AppLogo from "app/assets/logo.svg";
 import { sidebarLinks } from "./sideBarLinks";
 import { SidebarLink } from "./SidebarLink";
 import { motion } from "framer-motion";
 import ContactDetails from "../Footer/ContactDetails";
+import CategoryList from "../CategoryList";
+import allCategory from "app/utils/categories";
+import { IoMdClose } from "react-icons/io";
 
 type SidebarProps = {
   sidebarOpen: boolean;
@@ -83,7 +88,7 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }  ${isSnapped ? "animate-sidebar-width-snap " : "animate-sidebar-width-inc"}`}
       >
-        <div className="w-full flex justify-start">
+        <div className="w-full flex justify-start gap-2">
           <div className={`flex w-full items-center justify-between px-6 py-4 `}>
             <NavLink
               to="/"
@@ -93,12 +98,26 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             >
               <Image src={AppLogo} alt="Logo" />
             </NavLink>
+            <div>
+              <Button isIconOnly variant="light" onClick={() => closeSidebar()}>
+                <IoMdClose className="text-gray text-lg" />
+              </Button>
+            </div>
           </div>
         </div>
 
         <div className="w-full flex flex-col overflow-y-auto duration-300 ease-linear">
           <ScrollShadow hideScrollBar={true} as={"nav"} className={`p-4`}>
+            <div>
+              <div className="px-4">
+                <h1 className="text-black font-semibold text-lg">ALL PRODUCTS</h1>
+              </div>
+              <CategoryList categories={allCategory} top={0} right={60} />
+            </div>
             <div className="overflow-x-hidden w-full">
+              <div className="px-4 ">
+                <h1 className="text-black font-semibold text-lg">MENU</h1>
+              </div>
               <ul className={`flex flex-col space-y-1  ${isSnapped ? "space-y-2" : ""}`}>
                 {sidebarLinks.map((link) => (
                   <li

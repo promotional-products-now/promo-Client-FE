@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
-import { Listbox, ListboxItem, ScrollShadow } from "@nextui-org/react";
+import { Listbox, ListboxItem } from "@nextui-org/react";
 import { toSnakeCase } from "app/utils/fn";
 import { Link as RemixLink } from "@remix-run/react";
 interface category {
