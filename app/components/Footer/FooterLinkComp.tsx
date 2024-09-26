@@ -4,7 +4,7 @@ import { FooterT } from "./links";
 export const FooterLinkComp = ({ title, links }: { title: string; links: Array<FooterT> }) => {
   return (
     <div>
-      <h2 className="mb-2 text-lg font-bold text-gray-900 dark:text-white">{title}</h2>
+      <h2 className="mb-2 text-base md:text-lg font-bold text-gray-900 dark:text-white">{title}</h2>
       <ul className="text-gray-500 dark:text-gray-400 font-medium">
         {links.map((link) => {
           return (

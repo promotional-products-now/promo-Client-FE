@@ -5,7 +5,7 @@ import AppLogo from "app/assets/logo.svg";
 import { sidebarLinks } from "./sideBarLinks";
 import { SidebarLink } from "./SidebarLink";
 import { motion } from "framer-motion";
-import ContactDetails from "../Footer/ContactDetails";
+// import ContactDetails from "../Footer/ContactDetails";
 
 type SidebarProps = {
   sidebarOpen: boolean;
@@ -132,7 +132,7 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             </div>
             <Divider className="my-3" />
 
-            <ContactDetails />
+            {/* <ContactDetails /> */}
           </ScrollShadow>
         </div>
       </aside>

@@ -1,4 +1,4 @@
-import { Button, Image, Input } from "@nextui-org/react";
+import { Button, Divider, Image, Input } from "@nextui-org/react";
 import { json, Link, useLoaderData } from "@remix-run/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -82,9 +82,65 @@ export function Footer() {
                     </p>
                   </div>
                 </div>
+                <div className="hidden md:block">
+                  <div className="space-y-4">
+                    <h2 className="text-lg text-black font-semibold">Follow Us</h2>
+                    <div className="flex items-center space-x-3">
+                      {socialLinks.map((link) => {
+                        const IconTag = link.icon;
+                        return (
+                          <Link to={link.pathname} key={link.id} className="">
+                            <IconTag className="text-primary text-2xl" />
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  <p className="text-xs font-normal text-gray">
+                    Copyright {new Date().getFullYear()} Promotional Products Now
+                  </p>
+                </div>
+              </div>
+
+              <div className="hidden md:contents w-full">
+                <div className="space-y-6">
+                  <FooterLinkComp title="About Us" links={aboutLinks} />
+                  <FooterLinkComp title="Compay Information" links={companyInfo} />
+                </div>
+
+                <div>
+                  <FooterLinkComp title="Categories" links={categoryLinks} />
+                </div>
+                <div className="space-y-6">
+                  <FooterLinkComp title="Other Information" links={otherLinks} />
+                  <FooterLinkComp title="FAQs" links={faqLinks} />
+                  {/* contact */}
+                  <ContactDetails />
+                </div>
+              </div>
+              {/* mobile */}
+              <div className="block md:hidden">
+                <div>
+                  <div className="flex flex-wrap gap-2 items-start">
+                    <div className="flex-col gap-y-2">
+                      <FooterLinkComp title="About Us" links={aboutLinks} />
+                      <FooterLinkComp title="Compay Information" links={companyInfo} />
+                      <FooterLinkComp title="FAQs" links={faqLinks} />
+                    </div>
+                    <div className="flex-col gap-y-2">
+                      <FooterLinkComp title="Categories" links={categoryLinks} />
+                      <FooterLinkComp title="Other Information" links={otherLinks} />
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <ContactDetails />
+                </div>
+              </div>
+              <div className="block md:hidden">
                 <div className="space-y-4">
                   <h2 className="text-lg text-black font-semibold">Follow Us</h2>
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-center gap-5">
                     {socialLinks.map((link) => {
                       const IconTag = link.icon;
                       return (
@@ -95,37 +151,12 @@ export function Footer() {
                     })}
                   </div>
                 </div>
-                <p className="text-xs font-normal text-gray">
+                <Divider className="my-2" />
+                <p className="text-xs font-normal text-gray text-center">
                   Copyright {new Date().getFullYear()} Promotional Products Now
                 </p>
               </div>
-
-              <div className="hidden md:block">
-                <div className="space-y-6 ">
-                  <FooterLinkComp title="About Us" links={aboutLinks} />
-                  <FooterLinkComp title="Compay Information" links={companyInfo} />
-                </div>
-
-                <div>
-                  <FooterLinkComp title="Categories" links={categoryLinks} />
-                </div>
-              </div>
-              <div className="block md:hidden">
-                <div className="flex flex-wrap gap-1 items-start">
-                  <FooterLinkComp title="About Us" links={aboutLinks} />
-                  <FooterLinkComp title="Categories" links={categoryLinks} />
-                </div>
-
-                <div>
-                  <FooterLinkComp title="Compay Information" links={companyInfo} />
-                </div>
-              </div>
-              <div className="space-y-6">
-                <FooterLinkComp title="Other Information" links={otherLinks} />
-                <FooterLinkComp title="FAQs" links={faqLinks} />
-                {/* contact */}
-                <ContactDetails />
-              </div>
+              {/*  */}
             </div>
           </>
         </div>
@@ -137,34 +168,34 @@ export function Footer() {
   );
 }
 
-// const BottomNavigation = () => {
-//   let data = useLoaderData<typeof loader>();
+const BottomNavigation = () => {
+  let data = useLoaderData<typeof loader>();
 
-//   return (
-//     <div className="fixed z-[1000] bottom-0 left-0 w-full bg-white  text-zinc-600 text-xl shadow-md">
-//       <div className="flex justify-around py-2">
-//         <Link to="/" prefetch="none">
-//           <NavItem icon={<FaHome />} label="Home" />
-//         </Link>
-//         <Link to="/category" prefetch="viewport">
-//           <NavItem icon={<FaThList />} label="Categories" />
-//         </Link>
-//         <Link to="/cart" prefetch="none">
-//           <NavItem icon={<FaShoppingCart />} label="Cart" />
-//         </Link>
-//         {data && data.user && data.user.uid ? (
-//           <Link to="/account" prefetch="viewport">
-//             <NavItem icon={<FaUser />} label="Account" />
-//           </Link>
-//         ) : (
-//           <Link to="/login" prefetch="viewport">
-//             <NavItem icon={<FaUser />} label="Account" />
-//           </Link>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
+  return (
+    <div className="fixed z-[1000] bottom-0 left-0 w-full bg-white  text-zinc-600 text-xl shadow-md">
+      <div className="flex justify-around py-2">
+        <Link to="/" prefetch="none">
+          <NavItem icon={<FaHome />} label="Home" />
+        </Link>
+        <Link to="/category" prefetch="viewport">
+          <NavItem icon={<FaThList />} label="Categories" />
+        </Link>
+        <Link to="/cart" prefetch="none">
+          <NavItem icon={<FaShoppingCart />} label="Cart" />
+        </Link>
+        {data && data.user && data.user.uid ? (
+          <Link to="/account" prefetch="viewport">
+            <NavItem icon={<FaUser />} label="Account" />
+          </Link>
+        ) : (
+          <Link to="/login" prefetch="viewport">
+            <NavItem icon={<FaUser />} label="Account" />
+          </Link>
+        )}
+      </div>
+    </div>
+  );
+};
 
 const NavItem = ({ icon, label }: any) => (
   <div className="flex flex-col items-center text-gray-700 hover:text-blue-500">
