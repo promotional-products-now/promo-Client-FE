@@ -21,11 +21,12 @@ import logo from "app/assets/logo.svg";
 import { FiLogIn, FiMenu } from "react-icons/fi";
 import { TbTruckDelivery } from "react-icons/tb";
 import { getSession } from "../../sessions";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { IBanner, IPopup } from "app/api/banner/types";
 import allCategory from "app/utils/categories";
 import CategoryList from "../CategoryList";
 import { SearchDropdown } from "./SearchDropdown";
+import { fetchBannerApi } from "app/api/banner/banner.api";
 
 type HeaderT = {
   sidebarOpen: string | boolean | undefined;
@@ -50,15 +51,15 @@ export function Header({ sidebarOpen, setSidebarOpen }: HeaderT) {
 
   const SALESCONTACT = data && data.ENV ? data.ENV.SALES_CONTACT : "";
 
-  // useEffect(() => {
-  //   fetchBannerApi().then((data) => {
-  //     setBanner(data?.banner);
-  //     setPopup(data?.popupModal);
-  //     if (data?.popupModal?.isActive) {
-  //       onOpen();
-  //     }
-  //   });
-  // }, [onOpen]);
+  useEffect(() => {
+    fetchBannerApi().then((data) => {
+      setBanner(data?.banner);
+      setPopup(data?.popupModal);
+      if (data?.popupModal?.isActive) {
+        onOpen();
+      }
+    });
+  }, [onOpen]);
 
   return (
     <header className={`${location.pathname !== "/" ? "border border-white-border" : ""}`}>

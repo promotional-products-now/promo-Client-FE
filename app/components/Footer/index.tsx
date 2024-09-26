@@ -28,7 +28,7 @@ export function Footer() {
 
   return (
     <footer className="bg-white dark:bg-gray-900 border border-neutral-200 dark:border-gray-700">
-      <div className="hidden md:block py-6">
+      <div className=" py-6">
         <div className="container mx-auto lg:w-11/12  px-3 md:px-6 lg:px-12 xl:px-12 lg:py-8 space-y-6 md:space-y-10">
           <div className="sm:flex sm:items-center sm:justify-between space-y-6 sm:space-y-0 w-full">
             <h1 className="text-lg md:text-3xl text-black font-semibold">Newsletter</h1>
@@ -100,13 +100,25 @@ export function Footer() {
                 </p>
               </div>
 
-              <div className="space-y-6">
-                <FooterLinkComp title="About Us" links={aboutLinks} />
-                <FooterLinkComp title="Compay Information" links={companyInfo} />
-              </div>
+              <div className="hidden md:block">
+                <div className="space-y-6 ">
+                  <FooterLinkComp title="About Us" links={aboutLinks} />
+                  <FooterLinkComp title="Compay Information" links={companyInfo} />
+                </div>
 
-              <div>
-                <FooterLinkComp title="Categories" links={categoryLinks} />
+                <div>
+                  <FooterLinkComp title="Categories" links={categoryLinks} />
+                </div>
+              </div>
+              <div className="block md:hidden">
+                <div className="flex flex-wrap gap-1 items-start">
+                  <FooterLinkComp title="About Us" links={aboutLinks} />
+                  <FooterLinkComp title="Categories" links={categoryLinks} />
+                </div>
+
+                <div>
+                  <FooterLinkComp title="Compay Information" links={companyInfo} />
+                </div>
               </div>
               <div className="space-y-6">
                 <FooterLinkComp title="Other Information" links={otherLinks} />
@@ -118,41 +130,41 @@ export function Footer() {
           </>
         </div>
       </div>
-      <div className="block md:hidden">
+      {/* <div className="block md:hidden">
         <BottomNavigation />
-      </div>
+      </div> */}
     </footer>
   );
 }
 
-const BottomNavigation = () => {
-  let data = useLoaderData<typeof loader>();
+// const BottomNavigation = () => {
+//   let data = useLoaderData<typeof loader>();
 
-  return (
-    <div className="fixed z-[1000] bottom-0 left-0 w-full bg-white  text-zinc-600 text-xl shadow-md">
-      <div className="flex justify-around py-2">
-        <Link to="/" prefetch="none">
-          <NavItem icon={<FaHome />} label="Home" />
-        </Link>
-        <Link to="/category" prefetch="viewport">
-          <NavItem icon={<FaThList />} label="Categories" />
-        </Link>
-        <Link to="/cart" prefetch="none">
-          <NavItem icon={<FaShoppingCart />} label="Cart" />
-        </Link>
-        {data && data.user && data.user.uid ? (
-          <Link to="/account" prefetch="viewport">
-            <NavItem icon={<FaUser />} label="Account" />
-          </Link>
-        ) : (
-          <Link to="/login" prefetch="viewport">
-            <NavItem icon={<FaUser />} label="Account" />
-          </Link>
-        )}
-      </div>
-    </div>
-  );
-};
+//   return (
+//     <div className="fixed z-[1000] bottom-0 left-0 w-full bg-white  text-zinc-600 text-xl shadow-md">
+//       <div className="flex justify-around py-2">
+//         <Link to="/" prefetch="none">
+//           <NavItem icon={<FaHome />} label="Home" />
+//         </Link>
+//         <Link to="/category" prefetch="viewport">
+//           <NavItem icon={<FaThList />} label="Categories" />
+//         </Link>
+//         <Link to="/cart" prefetch="none">
+//           <NavItem icon={<FaShoppingCart />} label="Cart" />
+//         </Link>
+//         {data && data.user && data.user.uid ? (
+//           <Link to="/account" prefetch="viewport">
+//             <NavItem icon={<FaUser />} label="Account" />
+//           </Link>
+//         ) : (
+//           <Link to="/login" prefetch="viewport">
+//             <NavItem icon={<FaUser />} label="Account" />
+//           </Link>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
 
 const NavItem = ({ icon, label }: any) => (
   <div className="flex flex-col items-center text-gray-700 hover:text-blue-500">
