@@ -4821,6 +4821,11 @@ const route32 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePrope
 const assets = [
   "/entry.worker.js",
   "/favicon.ico",
+  "/images/emoji/1F600.png",
+  "/images/emoji/1F641.png",
+  "/images/emoji/1F642.png",
+  "/images/emoji/2764.png",
+  "/images/emoji/LICENSE.md",
   "/images/icons/3-columns.svg",
   "/images/icons/LICENSE.md",
   "/images/icons/add-sign.svg",
@@ -4903,12 +4908,7 @@ const assets = [
   "/images/icons/type-underline.svg",
   "/images/icons/upload.svg",
   "/images/icons/user.svg",
-  "/images/icons/youtube.svg",
-  "/images/emoji/1F600.png",
-  "/images/emoji/1F641.png",
-  "/images/emoji/1F642.png",
-  "/images/emoji/2764.png",
-  "/images/emoji/LICENSE.md"
+  "/images/icons/youtube.svg"
 ];
 const routes = {
   "root": {

@@ -54,7 +54,7 @@ export function PreviewProduct({
                 <span className="font-normal">Product Code: {product?.productCode}</span>
                 <div className="flex gap-2">
                   {[1, 2, 3, 4, 5].map((_, i) => (
-                    <FaStar key={i} className=" text-orange" />
+                    <FaStar key={`s-${i}`} className=" text-orange" />
                   ))}
                 </div>
               </div>

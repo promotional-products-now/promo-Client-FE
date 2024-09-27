@@ -244,7 +244,7 @@ export default function route() {
                 >
                   {[1, 2, 4, 5, 6].map((_, i) => (
                     <SwiperSlide>
-                      <div key={i} className="h-20 relative rounded-sm flex items-center">
+                      <div key={`i-${i}`} className="h-20 relative rounded-sm flex items-center">
                         <Image
                           alt=""
                           radius="md"

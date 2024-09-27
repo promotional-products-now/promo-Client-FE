@@ -73,23 +73,23 @@ const FeaturedProducts = ({ sectionLabel, showMore }: FeaturedProductsProps) => 
                 <Tab
                   key="trendingProducts"
                   title={
-                    <button
+                    <div
                       aria-label="Trending Products"
-                      className="flex items-center text-base font-medium space-x-2"
+                      className="flex items-center text-base font-medium space-x-2 cursor-pointer"
                     >
                       <span>Trending Products</span>
-                    </button>
+                    </div>
                   }
                 />
                 <Tab
                   key="latestProducts"
                   title={
-                    <button
+                    <div
                       aria-label="Latest Products"
-                      className="flex items-center text-base font-medium space-x-2"
+                      className="flex items-center text-base font-medium space-x-2 cursor-pointer"
                     >
                       <span>Latest Products</span>
-                    </button>
+                    </div>
                   }
                 />
               </Tabs>

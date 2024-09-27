@@ -1,9 +1,11 @@
-import { Link } from "@remix-run/react";
+import { Link, useNavigate } from "@remix-run/react";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { BlogCardProps } from "../../routes/Blog/interface";
 
 export const BlogCard = ({ imageSrc, title, category, summary, slug }: BlogCardProps) => {
+  const navigate = useNavigate();
+
   return (
     <Card isPressable className="rounded-none shadow-none w-full" radius="sm">
       <CardBody className="overflow-visible p-0 relative">
@@ -24,11 +26,11 @@ export const BlogCard = ({ imageSrc, title, category, summary, slug }: BlogCardP
           {category && category?.title && (
             <div className="absolute left-0 top-0 w-full h-full z-10">
               <div className="flex p-4">
-                <Link to={`/blogs/${category.title}`} prefetch="intent">
+                <div onClick={() => navigate(`/blogs/${category.title}`)} prefetch="intent">
                   <div className="bg-yellow text-white px-2 py-1 rounded text-sm uppercase">
                     {category.title}
                   </div>
-                </Link>
+                </div>
               </div>
             </div>
           )}

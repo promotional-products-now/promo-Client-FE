@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Swiper as SwiperInstance } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { A11y, Autoplay, Parallax, Navigation } from "swiper/modules";
+import { A11y, Parallax, Navigation } from "swiper/modules";
 
 import "../../style.css";
 

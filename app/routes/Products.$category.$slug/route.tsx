@@ -1,4 +1,15 @@
-import { Form, Link, MetaFunction, useLoaderData, useLocation, useParams } from "@remix-run/react";
+import {
+  ClientLoaderFunctionArgs,
+  Form,
+  Link,
+  MetaFunction,
+  json,
+  useLoaderData,
+  useLocation,
+  useParams,
+} from "@remix-run/react";
+import { cacheClientLoader, useCachedLoaderData } from "remix-client-cache";
+
 import { Fragment, Key, useRef, useState } from "react";
 import {
   Accordion,
@@ -50,6 +61,8 @@ import StockStatus from "app/components/Product/StockData";
 import { PreviewProduct } from "app/components/Product/PreviewProduct";
 import { useSetAtom } from "jotai";
 import { productPreviewAtom } from "app/atoms/product.atom";
+import { findBySlug } from "app/service/product.server";
+import { ensureDbConnection } from "app/service/db.server";
 
 export const meta: MetaFunction = () => {
   return [
@@ -102,16 +115,22 @@ const cardData = ["ABOUT", "DETAILS", "ADDITIONAL INFO"];
 export const loader = async ({ params, request }: { params: { slug: string }; request: any }) => {
   const session = await getSession(request.headers.get("Cookie"));
   const uid = session.get("uid");
+  await ensureDbConnection();
 
-  const data = await getProductInfo(params.slug);
-  if (!data) {
-    return { productData: {}, user: { uid } };
-  }
-  return { productData: data, user: { uid } };
+  let product = await findBySlug(params.slug);
+  console.log({ product });
+
+  return json(product);
 };
 
+export const clientLoader = (args: ClientLoaderFunctionArgs) => cacheClientLoader(args);
+
+clientLoader.hydrate = true;
+
 export default function ProductDetailsRoute() {
-  const data = useLoaderData<typeof loader>();
+  // const data = useLoaderData<typeof loader>();
+  const data = useCachedLoaderData<typeof loader>();
+
   const setProduct = useSetAtom(productPreviewAtom);
 
   const [currentBrandingType, setBrandingType] = useState("");
@@ -141,8 +160,8 @@ export default function ProductDetailsRoute() {
   ///check-stock-levels/
 
   const { data: stockData } = useQuery({
-    queryKey: ["stockData", data?.productData?.meta.id],
-    queryFn: () => fetchProductStockLevelApi(data?.productData?.meta.id as string),
+    queryKey: ["stockData", data?.meta.id],
+    queryFn: () => fetchProductStockLevelApi(data?.meta.id as string),
   });
   console.log({ stockData: stockData?.data });
   const { data: topSellingProducts, refetch: refetchTopSellingProducts } = useQuery({
@@ -188,9 +207,7 @@ export default function ProductDetailsRoute() {
               {removeSnakeCase(category || "")}
             </span>
             <MdKeyboardDoubleArrowRight size={18} className="text-gray" />
-            <span className="text-sm md:text-base text-primary">
-              {data?.productData?.overview?.name}
-            </span>
+            <span className="text-sm md:text-base text-primary">{data?.overview?.name}</span>
           </div>
         </div>
         <div className=" w-full mx-auto space-y-6 md:space-y-10">
@@ -198,10 +215,10 @@ export default function ProductDetailsRoute() {
             <div className=" w-full order-2 md:order-1 md:px-6 flex-col items-center">
               <div className="w-full text-center">
                 <div className="text-xl md:text-2xl font-semibold text-center">
-                  {data?.productData?.overview?.name}
+                  {data?.overview?.name}
                 </div>
                 <div className="flex items-center w-fit mx-auto gap-4 mb-4">
-                  <div className="text-lg ">Product Code: {data?.productData?.overview?.code}</div>
+                  <div className="text-lg ">Product Code: {data?.overview?.code}</div>
                   {[1, 2, 3, 4, 5].map((_, i) => (
                     <div key={i} className="flex items-center ">
                       <FaStar className="text-xs text-orange" />
@@ -241,9 +258,8 @@ export default function ProductDetailsRoute() {
                   }}
                   modules={[Navigation, Pagination, Parallax, A11y]}
                 >
-                  {/* {console.log({ dd: data?.productData })} */}
-                  {data?.productData?.product?.images.length > 0 &&
-                    data?.productData?.product?.images.map((img: string) => (
+                  {data?.product?.images.length > 0 &&
+                    data?.product?.images.map((img: string) => (
                       <SwiperSlide>
                         <div
                           key={img}
@@ -274,8 +290,8 @@ export default function ProductDetailsRoute() {
               <Image
                 alt=""
                 radius="sm"
-                src={currentImage || data?.productData?.overview?.heroImage}
-                removeWrapper
+                src={currentImage || data?.overview?.heroImage}
+                // removeWrapper
                 className=" object-scale-down w-full h-96 transition aspect-square inset-0"
               />
             </div>
@@ -318,10 +334,10 @@ export default function ProductDetailsRoute() {
                   />
                 </div>
                 <div className="pl-4">
-                  {stockData && stockData.data && data?.productData?.product?.colours && (
+                  {stockData && stockData.data && data?.product?.colours && (
                     <StockStatus
                       stockData={stockData?.data || {}}
-                      listData={data?.productData?.product?.colours}
+                      listData={data?.product?.colours}
                     />
                   )}
                 </div>
@@ -342,7 +358,7 @@ export default function ProductDetailsRoute() {
                     }
                   >
                     <RadioGroup className="pb-2">
-                      * {data.productData.pricing.map} *
+                      * {dat.pricing.map} *
                       <Radio size="sm" value="dataLessThan">
                         <span className="text-sm">Data File Upload &lt; 150GB (Free)</span>
                       </Radio>
@@ -363,21 +379,19 @@ export default function ProductDetailsRoute() {
                   >
                     <RadioGroup className="pb-2">
                       <div className="grid grid-cols-1  gap-4">
-                        {data?.productData?.product?.prices?.priceGroups.map(
-                          ({ additions }: any) => {
-                            return (
-                              <>
-                                {additions.map((price: any) => {
-                                  return (
-                                    <Radio size="sm" value={price?.description}>
-                                      <span className="2xl:text-lg">{price?.description}</span>
-                                    </Radio>
-                                  );
-                                })}
-                              </>
-                            );
-                          },
-                        )}
+                        {data?.product?.prices?.priceGroups.map(({ additions }: any) => {
+                          return (
+                            <>
+                              {additions.map((price: any) => {
+                                return (
+                                  <Radio size="sm" value={price?.description}>
+                                    <span className="2xl:text-lg">{price?.description}</span>
+                                  </Radio>
+                                );
+                              })}
+                            </>
+                          );
+                        })}
                       </div>
                     </RadioGroup>
                   </AccordionItem>
@@ -660,28 +674,25 @@ export default function ProductDetailsRoute() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-10">
             <ProductAboutCard
               title={cardData[0]}
-              desc={data?.productData?.product?.description || "No Description"}
+              desc={data?.product?.description || "No Description"}
             />
             <ProductAboutCard
               title={cardData[1]}
               note={
                 <div>
-                  {data.productData?.product?.details &&
-                  data.productData?.product?.details.length > 0 ? (
-                    data.productData?.product?.details?.map(
-                      (item: { name: string; detail: string }) => {
-                        return (
-                          <div className="mb-4">
-                            <div className=" font-bold">
-                              {item.name === "product_packaging_inner"
-                                ? "Product packaging"
-                                : item?.name}
-                            </div>
-                            <div className=" text-zinc-700">{item?.detail}</div>
+                  {data?.product?.details && data?.product?.details.length > 0 ? (
+                    data?.product?.details?.map((item: { name: string; detail: string }) => {
+                      return (
+                        <div className="mb-4">
+                          <div className=" font-bold">
+                            {item.name === "product_packaging_inner"
+                              ? "Product packaging"
+                              : item?.name}
                           </div>
-                        );
-                      },
-                    )
+                          <div className=" text-zinc-700">{item?.detail}</div>
+                        </div>
+                      );
+                    })
                   ) : (
                     <>No Detail</>
                   )}

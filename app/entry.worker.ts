@@ -1,22 +1,7 @@
 /// <reference lib="WebWorker" />
 import { json } from "@remix-run/server-runtime";
 
-// export {};
 
-// declare let self: ServiceWorkerGlobalScope;
-
-// self.addEventListener("install", (event) => {
-//   console.log("Service worker installed");
-
-//   event.waitUntil(self.skipWaiting());
-// });
-
-// self.addEventListener("activate", (event) => {
-//   console.log("Service worker activated");
-
-//   event.waitUntil(self.clients.claim());
-// });
-//
 export type {};
 declare let self: ServiceWorkerGlobalScope;
 

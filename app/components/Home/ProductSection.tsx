@@ -69,7 +69,12 @@ const ProductSection = ({
                 <Icon size={25} className="text-primary" />
                 <h1 className="text-black-bg md:text-xl text-sm">{title}</h1>
               </div>
-              <Select label="Explore what suits" color="default" className="w-2/4 text-center">
+              <Select
+                label="Explore what suits"
+                aria-label="Explore what suits"
+                color="default"
+                className="w-2/4 text-center"
+              >
                 {options.map((option) => (
                   <SelectItem key={option.value} value={option.value}>
                     {option.label}
@@ -79,7 +84,7 @@ const ProductSection = ({
             </div>
 
             <div className="relative md:flex flex-row justify-start items-center left-0 hidden">
-              <div className="relative w-full md:w-[31rem] h-full flex-grow">
+              <div className="relative w-full md:min-w-[16rem] min-h-[50rem] h-full flex-grow">
                 <Image
                   src={heroImage}
                   alt={`Hero image for ${title}`}
@@ -133,6 +138,7 @@ const ProductSection = ({
                   </div>
                 </div>
               </div>
+
               <div className="h-[450px] md:right-1 lg:right-1 hidden md:block flex-grow-0">
                 <ColorReplaceComponent
                   src={initialProduct?.overview?.heroImage}
