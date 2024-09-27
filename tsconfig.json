@@ -13,7 +13,7 @@
     "app/routes/blog.$title.tsx",
     "app/____ntry.worker.ts"
   ],
-
+  "types": ["@remix-run/node", "vite/client", "vite-plugin-pwa/client", "@vite-pwa/remix/remix-sw"],
   "exclude": ["app/____ntry.worker.ts"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],

@@ -1,3 +1,7 @@
+/// <reference types="vite-plugin-pwa/client" />
+/// <reference types="@remix-run/dev" />
+/// <reference types="@remix-run/node/globals" />
+
 // src/colorthief.d.ts
 declare module "colorthief" {
   export default class ColorThief {
