@@ -17,970 +17,30 @@ function _mergeNamespaces(n, m) {
   }
   return Object.freeze(Object.defineProperty(n, Symbol.toStringTag, { value: "Module" }));
 }
-self.addEventListener("install", (event) => {
-  console.log("Service worker installed");
-  event.waitUntil(self.skipWaiting());
-});
-self.addEventListener("activate", (event) => {
-  console.log("Service worker activated");
-  event.waitUntil(self.clients.claim());
-});
-const entryWorker = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$w = Object.getOwnPropertyNames;
-var __commonJS$w = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$w(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$w = __commonJS$w({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$w = require_worker_runtime$w();
-const route0 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$w
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$v = Object.getOwnPropertyNames;
-var __commonJS$v = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$v(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$v = __commonJS$v({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$v = require_worker_runtime$v();
-const route1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$v
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$u = Object.getOwnPropertyNames;
-var __commonJS$u = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$u(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$u = __commonJS$u({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$u = require_worker_runtime$u();
-const route2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$u
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$t = Object.getOwnPropertyNames;
-var __commonJS$t = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$t(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$t = __commonJS$t({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$t = require_worker_runtime$t();
-const route3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$t
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$s = Object.getOwnPropertyNames;
-var __commonJS$s = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$s(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$s = __commonJS$s({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$s = require_worker_runtime$s();
-const route4 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$s
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$r = Object.getOwnPropertyNames;
-var __commonJS$r = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$r(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$r = __commonJS$r({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$r = require_worker_runtime$r();
-const route5 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$r
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$q = Object.getOwnPropertyNames;
-var __commonJS$q = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$q(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$q = __commonJS$q({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$q = require_worker_runtime$q();
-const route6 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$q
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$p = Object.getOwnPropertyNames;
-var __commonJS$p = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$p(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$p = __commonJS$p({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$p = require_worker_runtime$p();
-const route7 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$p
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$o = Object.getOwnPropertyNames;
-var __commonJS$o = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$o(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$o = __commonJS$o({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$o = require_worker_runtime$o();
-const route8 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$o
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$n = Object.getOwnPropertyNames;
-var __commonJS$n = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$n(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$n = __commonJS$n({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$n = require_worker_runtime$n();
-const route9 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$n
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$m = Object.getOwnPropertyNames;
-var __commonJS$m = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$m(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$m = __commonJS$m({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$m = require_worker_runtime$m();
-const route10 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$m
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$l = Object.getOwnPropertyNames;
-var __commonJS$l = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$l(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$l = __commonJS$l({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$l = require_worker_runtime$l();
-const route11 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$l
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$k = Object.getOwnPropertyNames;
-var __commonJS$k = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$k(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$k = __commonJS$k({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$k = require_worker_runtime$k();
-const route12 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$k
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$j = Object.getOwnPropertyNames;
-var __commonJS$j = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$j(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$j = __commonJS$j({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$j = require_worker_runtime$j();
-const route13 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$j
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$i = Object.getOwnPropertyNames;
-var __commonJS$i = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$i(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$i = __commonJS$i({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$i = require_worker_runtime$i();
-const route14 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$i
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$h = Object.getOwnPropertyNames;
-var __commonJS$h = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$h(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$h = __commonJS$h({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$h = require_worker_runtime$h();
-const route15 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$h
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$g = Object.getOwnPropertyNames;
-var __commonJS$g = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$g(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$g = __commonJS$g({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$g = require_worker_runtime$g();
-const route16 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$g
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$f = Object.getOwnPropertyNames;
-var __commonJS$f = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$f(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$f = __commonJS$f({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$f = require_worker_runtime$f();
-const route17 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$f
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$e = Object.getOwnPropertyNames;
-var __commonJS$e = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$e(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$e = __commonJS$e({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$e = require_worker_runtime$e();
-const route18 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$e
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$d = Object.getOwnPropertyNames;
-var __commonJS$d = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$d(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$d = __commonJS$d({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$d = require_worker_runtime$d();
-const route19 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$d
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$c = Object.getOwnPropertyNames;
-var __commonJS$c = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$c(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$c = __commonJS$c({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$c = require_worker_runtime$c();
-const route20 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$c
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$b = Object.getOwnPropertyNames;
-var __commonJS$b = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$b(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$b = __commonJS$b({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$b = require_worker_runtime$b();
-const route21 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$b
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$a = Object.getOwnPropertyNames;
-var __commonJS$a = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$a(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$a = __commonJS$a({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$a = require_worker_runtime$a();
-const route22 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$a
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$9 = Object.getOwnPropertyNames;
-var __commonJS$9 = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$9(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$9 = __commonJS$9({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$9 = require_worker_runtime$9();
-const route23 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$9
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$8 = Object.getOwnPropertyNames;
-var __commonJS$8 = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$8(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$8 = __commonJS$8({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$8 = require_worker_runtime$8();
-const route24 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$8
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$7 = Object.getOwnPropertyNames;
-var __commonJS$7 = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$7(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$7 = __commonJS$7({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$7 = require_worker_runtime$7();
-const route25 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$7
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$6 = Object.getOwnPropertyNames;
-var __commonJS$6 = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$6(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$6 = __commonJS$6({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$6 = require_worker_runtime$6();
-const route26 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$6
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$5 = Object.getOwnPropertyNames;
-var __commonJS$5 = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$5(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$5 = __commonJS$5({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$5 = require_worker_runtime$5();
-const route27 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$5
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$4 = Object.getOwnPropertyNames;
-var __commonJS$4 = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$4(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$4 = __commonJS$4({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$4 = require_worker_runtime$4();
-const route28 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$4
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$3 = Object.getOwnPropertyNames;
-var __commonJS$3 = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$3(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$3 = __commonJS$3({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$3 = require_worker_runtime$3();
-const route29 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$3
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$2 = Object.getOwnPropertyNames;
-var __commonJS$2 = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$2(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$2 = __commonJS$2({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$2 = require_worker_runtime$2();
-const route30 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$2
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames$1 = Object.getOwnPropertyNames;
-var __commonJS$1 = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames$1(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime$1 = __commonJS$1({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default$1 = require_worker_runtime$1();
-const route31 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default$1
-}, Symbol.toStringTag, { value: "Module" }));
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __commonJS = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var require_worker_runtime = __commonJS({
-  "@remix-pwa/worker-runtime"(exports, module) {
-    module.exports = {};
-  }
-});
-var worker_runtime_default = require_worker_runtime();
-const route32 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: worker_runtime_default
-}, Symbol.toStringTag, { value: "Module" }));
-const assets = [
-  "/entry.worker.js",
-  "/favicon.ico",
-  "/images/emoji/1F600.png",
-  "/images/emoji/1F641.png",
-  "/images/emoji/1F642.png",
-  "/images/emoji/2764.png",
-  "/images/emoji/LICENSE.md",
-  "/images/icons/3-columns.svg",
-  "/images/icons/LICENSE.md",
-  "/images/icons/add-sign.svg",
-  "/images/icons/arrow-clockwise.svg",
-  "/images/icons/arrow-counterclockwise.svg",
-  "/images/icons/bg-color.svg",
-  "/images/icons/camera.svg",
-  "/images/icons/card-checklist.svg",
-  "/images/icons/caret-right-fill.svg",
-  "/images/icons/chat-left-text.svg",
-  "/images/icons/chat-right-dots.svg",
-  "/images/icons/chat-right-text.svg",
-  "/images/icons/chat-right.svg",
-  "/images/icons/chat-square-quote.svg",
-  "/images/icons/chevron-down.svg",
-  "/images/icons/clipboard.svg",
-  "/images/icons/close.svg",
-  "/images/icons/code.svg",
-  "/images/icons/comments.svg",
-  "/images/icons/copy.svg",
-  "/images/icons/diagram-2.svg",
-  "/images/icons/download.svg",
-  "/images/icons/draggable-block-menu.svg",
-  "/images/icons/dropdown-more.svg",
-  "/images/icons/figma.svg",
-  "/images/icons/file-earmark-text.svg",
-  "/images/icons/file-image.svg",
-  "/images/icons/filetype-gif.svg",
-  "/images/icons/font-color.svg",
-  "/images/icons/font-family.svg",
-  "/images/icons/gear.svg",
-  "/images/icons/horizontal-rule.svg",
-  "/images/icons/indent.svg",
-  "/images/icons/journal-code.svg",
-  "/images/icons/journal-text.svg",
-  "/images/icons/justify.svg",
-  "/images/icons/link.svg",
-  "/images/icons/list-ol.svg",
-  "/images/icons/list-ul.svg",
-  "/images/icons/lock-fill.svg",
-  "/images/icons/lock.svg",
-  "/images/icons/markdown.svg",
-  "/images/icons/mic.svg",
-  "/images/icons/minus-sign.svg",
-  "/images/icons/outdent.svg",
-  "/images/icons/paint-bucket.svg",
-  "/images/icons/palette.svg",
-  "/images/icons/pencil-fill.svg",
-  "/images/icons/plug-fill.svg",
-  "/images/icons/plug.svg",
-  "/images/icons/plus-slash-minus.svg",
-  "/images/icons/plus.svg",
-  "/images/icons/prettier-error.svg",
-  "/images/icons/prettier.svg",
-  "/images/icons/scissors.svg",
-  "/images/icons/send.svg",
-  "/images/icons/square-check.svg",
-  "/images/icons/sticky.svg",
-  "/images/icons/success-alt.svg",
-  "/images/icons/success.svg",
-  "/images/icons/table.svg",
-  "/images/icons/text-center.svg",
-  "/images/icons/text-left.svg",
-  "/images/icons/text-paragraph.svg",
-  "/images/icons/text-right.svg",
-  "/images/icons/trash.svg",
-  "/images/icons/trash3.svg",
-  "/images/icons/tweet.svg",
-  "/images/icons/type-bold.svg",
-  "/images/icons/type-h1.svg",
-  "/images/icons/type-h2.svg",
-  "/images/icons/type-h3.svg",
-  "/images/icons/type-h4.svg",
-  "/images/icons/type-h5.svg",
-  "/images/icons/type-h6.svg",
-  "/images/icons/type-italic.svg",
-  "/images/icons/type-strikethrough.svg",
-  "/images/icons/type-subscript.svg",
-  "/images/icons/type-superscript.svg",
-  "/images/icons/type-underline.svg",
-  "/images/icons/upload.svg",
-  "/images/icons/user.svg",
-  "/images/icons/youtube.svg"
-];
-const routes = {
-  "root": {
-    id: "root",
-    parentId: void 0,
-    path: "",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: true,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route0
-  },
-  "routes/Categories.$category.($subCategory)": {
-    id: "routes/Categories.$category.($subCategory)",
-    parentId: "root",
-    path: "Categories/:category/:subCategory?",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: true,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route1
-  },
-  "routes/Products.$category.$slug": {
-    id: "routes/Products.$category.$slug",
-    parentId: "root",
-    path: "Products/:category/:slug",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: true,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route2
-  },
-  "routes/National-Sales-Manager": {
-    id: "routes/National-Sales-Manager",
-    parentId: "root",
-    path: "National-Sales-Manager",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: false,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route3
-  },
-  "routes/manifest[.webmanifest]": {
-    id: "routes/manifest[.webmanifest]",
-    parentId: "root",
-    path: "manifest.webmanifest",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: true,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route4
-  },
-  "routes/Blogs.$category.$id": {
-    id: "routes/Blogs.$category.$id",
-    parentId: "root",
-    path: "Blogs/:category/:id",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: true,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route5
-  },
-  "routes/Terms-Conditions": {
-    id: "routes/Terms-Conditions",
-    parentId: "root",
-    path: "Terms-Conditions",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: true,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route6
-  },
-  "routes/Change-Password": {
-    id: "routes/Change-Password",
-    parentId: "root",
-    path: "Change-Password",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: false,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route7
-  },
-  "routes/Forgot-Password": {
-    id: "routes/Forgot-Password",
-    parentId: "root",
-    path: "Forgot-Password",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: false,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route8
-  },
-  "routes/Privacy-Policy": {
-    id: "routes/Privacy-Policy",
-    parentId: "root",
-    path: "Privacy-Policy",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: true,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route9
-  },
-  "routes/Quote.Request": {
-    id: "routes/Quote.Request",
-    parentId: "root",
-    path: "Quote/Request",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: false,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route10
-  },
-  "routes/sitemap[.]xml": {
-    id: "routes/sitemap[.]xml",
-    parentId: "root",
-    path: "sitemap.xml",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: true,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route11
-  },
-  "routes/Edit-Account": {
-    id: "routes/Edit-Account",
-    parentId: "root",
-    path: "Edit-Account",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: true,
-    hasAction: true,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route12
-  },
-  "routes/robots[.txt]": {
-    id: "routes/robots[.txt]",
-    parentId: "root",
-    path: "robots.txt",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: true,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route13
-  },
-  "routes/Blogs.$cat": {
-    id: "routes/Blogs.$cat",
-    parentId: "root",
-    path: "Blogs/:cat",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: true,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route14
-  },
-  "routes/Guarantees": {
-    id: "routes/Guarantees",
-    parentId: "root",
-    path: "Guarantees",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: false,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route15
-  },
-  "routes/_index_seo": {
-    id: "routes/_index_seo",
-    parentId: "root",
-    path: void 0,
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: false,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route16
-  },
-  "routes/Quote.Add": {
-    id: "routes/Quote.Add",
-    parentId: "root",
-    path: "Quote/Add",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: false,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route17
-  },
-  "routes/Category": {
-    id: "routes/Category",
-    parentId: "root",
-    path: "Category",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: true,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route18
-  },
-  "routes/Checkout": {
-    id: "routes/Checkout",
-    parentId: "root",
-    path: "Checkout",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: false,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route19
-  },
-  "routes/Account": {
-    id: "routes/Account",
-    parentId: "root",
-    path: "Account",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: true,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route20
-  },
-  "routes/Contact": {
-    id: "routes/Contact",
-    parentId: "root",
-    path: "Contact",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: false,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route21
-  },
-  "routes/Offline": {
-    id: "routes/Offline",
-    parentId: "root",
-    path: "Offline",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: false,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route22
-  },
-  "routes/Quotes": {
-    id: "routes/Quotes",
-    parentId: "root",
-    path: "Quotes",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: false,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route23
-  },
-  "routes/Search": {
-    id: "routes/Search",
-    parentId: "root",
-    path: "Search",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: true,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route24
-  },
-  "routes/SignUp": {
-    id: "routes/SignUp",
-    parentId: "root",
-    path: "SignUp",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: false,
-    hasAction: true,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route25
-  },
-  "routes/_index": {
-    id: "routes/_index",
-    parentId: "root",
-    path: void 0,
-    index: true,
-    caseSensitive: void 0,
-    hasLoader: true,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route26
-  },
-  "routes/About": {
-    id: "routes/About",
-    parentId: "root",
-    path: "About",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: false,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route27
-  },
-  "routes/Login": {
-    id: "routes/Login",
-    parentId: "root",
-    path: "Login",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: false,
-    hasAction: true,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route28
-  },
-  "routes/Blog": {
-    id: "routes/Blog",
-    parentId: "root",
-    path: "Blog",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: true,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route29
-  },
-  "routes/Cart": {
-    id: "routes/Cart",
-    parentId: "root",
-    path: "Cart",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: false,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route30
-  },
-  "routes/Faq": {
-    id: "routes/Faq",
-    parentId: "root",
-    path: "Faq",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: true,
-    hasAction: false,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route31
-  },
-  "routes/otp": {
-    id: "routes/otp",
-    parentId: "root",
-    path: "otp",
-    index: void 0,
-    caseSensitive: void 0,
-    hasLoader: false,
-    hasAction: true,
-    hasWorkerLoader: false,
-    hasWorkerAction: false,
-    module: route32
-  }
-};
-const entry = { module: entryWorker };
+function getAugmentedNamespace(n) {
+  if (n.__esModule) return n;
+  var f = n.default;
+  if (typeof f == "function") {
+    var a = function a2() {
+      if (this instanceof a2) {
+        return Reflect.construct(f, arguments, this.constructor);
+      }
+      return f.apply(this, arguments);
+    };
+    a.prototype = f.prototype;
+  } else a = {};
+  Object.defineProperty(a, "__esModule", { value: true });
+  Object.keys(n).forEach(function(k) {
+    var d = Object.getOwnPropertyDescriptor(n, k);
+    Object.defineProperty(a, k, d.get ? d : {
+      enumerable: true,
+      get: function() {
+        return n[k];
+      }
+    });
+  });
+  return a;
+}
 /**
  * @remix-run/router v1.19.2
  *
@@ -1798,7 +858,7 @@ const joinPaths = (paths) => paths.join("/").replace(/\/\/+/g, "/");
 const normalizePathname = (pathname) => pathname.replace(/\/+$/, "").replace(/^\/*/, "/");
 const normalizeSearch = (search) => !search || search === "?" ? "" : search.startsWith("?") ? search : "?" + search;
 const normalizeHash = (hash) => !hash || hash === "#" ? "" : hash.startsWith("#") ? hash : "#" + hash;
-const json$1 = function json(data2, init) {
+const json$2 = function json(data2, init) {
   if (init === void 0) {
     init = {};
   }
@@ -5106,7 +4166,7 @@ const router$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProp
   isDeferredData: isDeferredData$1,
   isRouteErrorResponse,
   joinPaths,
-  json: json$1,
+  json: json$2,
   matchPath,
   matchRoutes,
   normalizePathname,
@@ -5119,30 +4179,1136 @@ const router$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProp
   stripBasename,
   unstable_data: data
 }, Symbol.toStringTag, { value: "Module" }));
-function getAugmentedNamespace(n) {
-  if (n.__esModule) return n;
-  var f = n.default;
-  if (typeof f == "function") {
-    var a = function a2() {
-      if (this instanceof a2) {
-        return Reflect.construct(f, arguments, this.constructor);
-      }
-      return f.apply(this, arguments);
-    };
-    a.prototype = f.prototype;
-  } else a = {};
-  Object.defineProperty(a, "__esModule", { value: true });
-  Object.keys(n).forEach(function(k) {
-    var d = Object.getOwnPropertyDescriptor(n, k);
-    Object.defineProperty(a, k, d.get ? d : {
-      enumerable: true,
-      get: function() {
-        return n[k];
-      }
-    });
-  });
-  return a;
+/**
+ * @remix-run/server-runtime v2.12.0
+ *
+ * Copyright (c) Remix Software Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.md file in the root directory of this source tree.
+ *
+ * @license MIT
+ */
+const json$1 = (data2, init = {}) => {
+  return json$2(data2, init);
+};
+let STATIC_ASSETS = ["/build/", "/icons/", ".css", ".scss"];
+let ASSET_CACHE = "asset-cache";
+let DATA_CACHE = "data-cache";
+let DOCUMENT_CACHE = "document-cache";
+function debug(...messages) {
+  {
+    console.debug(...messages);
+  }
 }
+async function handleInstall(event) {
+  debug("Service worker installed");
+}
+async function handleActivate(event) {
+  debug("Service worker activated");
+}
+async function handleMessage(event) {
+  let cachePromises = /* @__PURE__ */ new Map();
+  if (event.data.type === "REMIX_NAVIGATION") {
+    let { isMount, location, matches, manifest } = event.data;
+    let documentUrl = location.pathname + location.search + location.hash;
+    let [dataCache, documentCache, existingDocument] = await Promise.all([
+      caches.open(DATA_CACHE),
+      caches.open(DOCUMENT_CACHE),
+      caches.match(documentUrl)
+    ]);
+    if (!existingDocument || !isMount) {
+      debug("Caching document for", documentUrl);
+      cachePromises.set(
+        documentUrl,
+        documentCache.add(documentUrl).catch((error) => {
+          debug(`Failed to cache document for ${documentUrl}:`, error);
+        })
+      );
+    }
+    if (isMount) {
+      for (let match of matches) {
+        if (manifest.routes[match.id].hasLoader) {
+          let params = new URLSearchParams(location.search);
+          params.set("_data", match.id);
+          let search = params.toString();
+          search = search ? `?${search}` : "";
+          let url = location.pathname + search + location.hash;
+          if (!cachePromises.has(url)) {
+            debug("Caching data for", url);
+            cachePromises.set(
+              url,
+              dataCache.add(url).catch((error) => {
+                debug(`Failed to cache data for ${url}:`, error);
+              })
+            );
+          }
+        }
+      }
+    }
+  }
+  await Promise.all(cachePromises.values());
+}
+async function handleFetch(event) {
+  let url = new URL(event.request.url);
+  if (isAssetRequest(event.request)) {
+    let cached = await caches.match(event.request, {
+      cacheName: ASSET_CACHE,
+      ignoreVary: true,
+      ignoreSearch: true
+    });
+    if (cached) {
+      debug("Serving asset from cache", url.pathname);
+      return cached;
+    }
+    debug("Serving asset from network", url.pathname);
+    let response = await fetch(event.request);
+    if (response.status === 200) {
+      let cache = await caches.open(ASSET_CACHE);
+      await cache.put(event.request, response.clone());
+    }
+    return response;
+  }
+  if (isLoaderRequest$1(event.request)) {
+    try {
+      debug("Serving data from network", url.pathname + url.search);
+      let response = await fetch(event.request.clone());
+      let cache = await caches.open(DATA_CACHE);
+      await cache.put(event.request, response.clone());
+      return response;
+    } catch (error) {
+      debug("Serving data from network failed, falling back to cache", url.pathname + url.search);
+      let response = await caches.match(event.request);
+      if (response) {
+        response.headers.set("X-Remix-Worker", "yes");
+        return response;
+      }
+      return json$1(
+        { message: "Network Error" },
+        {
+          status: 500,
+          headers: { "X-Remix-Catch": "yes", "X-Remix-Worker": "yes" }
+        }
+      );
+    }
+  }
+  if (isDocumentGetRequest(event.request)) {
+    try {
+      debug("Serving document from network", url.pathname);
+      let response = await fetch(event.request);
+      let cache = await caches.open(DOCUMENT_CACHE);
+      await cache.put(event.request, response.clone());
+      return response;
+    } catch (error) {
+      debug("Serving document from network failed, falling back to cache", url.pathname);
+      let response = await caches.match(event.request);
+      if (response) {
+        return response;
+      }
+      throw error;
+    }
+  }
+  return fetch(event.request.clone());
+}
+function isMethod$1(request, methods) {
+  return methods.includes(request.method.toLowerCase());
+}
+function isAssetRequest(request) {
+  return isMethod$1(request, ["get"]) && STATIC_ASSETS.some(
+    (publicPath) => request.url.includes(publicPath) || request.destination === "style" || request.destination === "script"
+  );
+}
+function isLoaderRequest$1(request) {
+  let url = new URL(request.url);
+  return isMethod$1(request, ["get"]) && url.searchParams.get("_data");
+}
+function isDocumentGetRequest(request) {
+  return isMethod$1(request, ["get"]) && request.mode === "navigate";
+}
+self.addEventListener("install", (event) => {
+  event.waitUntil(handleInstall().then(() => self.skipWaiting()));
+});
+self.addEventListener("activate", (event) => {
+  event.waitUntil(handleActivate().then(() => self.clients.claim()));
+});
+self.addEventListener("message", (event) => {
+  event.waitUntil(handleMessage(event));
+});
+self.addEventListener("fetch", (event) => {
+  event.respondWith(
+    (async () => {
+      let result = {};
+      try {
+        result.response = await handleFetch(event);
+      } catch (error) {
+        result.error = error;
+      }
+      return appHandleFetch(event, result);
+    })()
+  );
+});
+async function appHandleFetch(event, {
+  error,
+  response
+}) {
+  return response;
+}
+const entryWorker = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$w = Object.getOwnPropertyNames;
+var __commonJS$w = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$w(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$w = __commonJS$w({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$w = require_worker_runtime$w();
+const route0 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$w
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$v = Object.getOwnPropertyNames;
+var __commonJS$v = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$v(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$v = __commonJS$v({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$v = require_worker_runtime$v();
+const route1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$v
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$u = Object.getOwnPropertyNames;
+var __commonJS$u = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$u(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$u = __commonJS$u({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$u = require_worker_runtime$u();
+const route2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$u
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$t = Object.getOwnPropertyNames;
+var __commonJS$t = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$t(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$t = __commonJS$t({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$t = require_worker_runtime$t();
+const route3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$t
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$s = Object.getOwnPropertyNames;
+var __commonJS$s = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$s(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$s = __commonJS$s({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$s = require_worker_runtime$s();
+const route4 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$s
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$r = Object.getOwnPropertyNames;
+var __commonJS$r = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$r(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$r = __commonJS$r({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$r = require_worker_runtime$r();
+const route5 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$r
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$q = Object.getOwnPropertyNames;
+var __commonJS$q = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$q(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$q = __commonJS$q({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$q = require_worker_runtime$q();
+const route6 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$q
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$p = Object.getOwnPropertyNames;
+var __commonJS$p = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$p(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$p = __commonJS$p({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$p = require_worker_runtime$p();
+const route7 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$p
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$o = Object.getOwnPropertyNames;
+var __commonJS$o = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$o(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$o = __commonJS$o({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$o = require_worker_runtime$o();
+const route8 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$o
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$n = Object.getOwnPropertyNames;
+var __commonJS$n = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$n(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$n = __commonJS$n({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$n = require_worker_runtime$n();
+const route9 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$n
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$m = Object.getOwnPropertyNames;
+var __commonJS$m = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$m(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$m = __commonJS$m({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$m = require_worker_runtime$m();
+const route10 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$m
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$l = Object.getOwnPropertyNames;
+var __commonJS$l = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$l(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$l = __commonJS$l({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$l = require_worker_runtime$l();
+const route11 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$l
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$k = Object.getOwnPropertyNames;
+var __commonJS$k = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$k(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$k = __commonJS$k({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$k = require_worker_runtime$k();
+const route12 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$k
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$j = Object.getOwnPropertyNames;
+var __commonJS$j = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$j(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$j = __commonJS$j({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$j = require_worker_runtime$j();
+const route13 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$j
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$i = Object.getOwnPropertyNames;
+var __commonJS$i = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$i(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$i = __commonJS$i({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$i = require_worker_runtime$i();
+const route14 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$i
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$h = Object.getOwnPropertyNames;
+var __commonJS$h = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$h(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$h = __commonJS$h({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$h = require_worker_runtime$h();
+const route15 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$h
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$g = Object.getOwnPropertyNames;
+var __commonJS$g = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$g(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$g = __commonJS$g({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$g = require_worker_runtime$g();
+const route16 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$g
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$f = Object.getOwnPropertyNames;
+var __commonJS$f = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$f(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$f = __commonJS$f({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$f = require_worker_runtime$f();
+const route17 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$f
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$e = Object.getOwnPropertyNames;
+var __commonJS$e = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$e(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$e = __commonJS$e({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$e = require_worker_runtime$e();
+const route18 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$e
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$d = Object.getOwnPropertyNames;
+var __commonJS$d = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$d(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$d = __commonJS$d({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$d = require_worker_runtime$d();
+const route19 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$d
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$c = Object.getOwnPropertyNames;
+var __commonJS$c = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$c(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$c = __commonJS$c({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$c = require_worker_runtime$c();
+const route20 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$c
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$b = Object.getOwnPropertyNames;
+var __commonJS$b = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$b(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$b = __commonJS$b({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$b = require_worker_runtime$b();
+const route21 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$b
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$a = Object.getOwnPropertyNames;
+var __commonJS$a = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$a(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$a = __commonJS$a({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$a = require_worker_runtime$a();
+const route22 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$a
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$9 = Object.getOwnPropertyNames;
+var __commonJS$9 = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$9(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$9 = __commonJS$9({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$9 = require_worker_runtime$9();
+const route23 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$9
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$8 = Object.getOwnPropertyNames;
+var __commonJS$8 = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$8(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$8 = __commonJS$8({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$8 = require_worker_runtime$8();
+const route24 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$8
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$7 = Object.getOwnPropertyNames;
+var __commonJS$7 = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$7(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$7 = __commonJS$7({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$7 = require_worker_runtime$7();
+const route25 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$7
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$6 = Object.getOwnPropertyNames;
+var __commonJS$6 = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$6(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$6 = __commonJS$6({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$6 = require_worker_runtime$6();
+const route26 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$6
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$5 = Object.getOwnPropertyNames;
+var __commonJS$5 = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$5(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$5 = __commonJS$5({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$5 = require_worker_runtime$5();
+const route27 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$5
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$4 = Object.getOwnPropertyNames;
+var __commonJS$4 = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$4(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$4 = __commonJS$4({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$4 = require_worker_runtime$4();
+const route28 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$4
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$3 = Object.getOwnPropertyNames;
+var __commonJS$3 = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$3(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$3 = __commonJS$3({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$3 = require_worker_runtime$3();
+const route29 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$3
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$2 = Object.getOwnPropertyNames;
+var __commonJS$2 = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$2(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$2 = __commonJS$2({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$2 = require_worker_runtime$2();
+const route30 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$2
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames$1 = Object.getOwnPropertyNames;
+var __commonJS$1 = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames$1(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime$1 = __commonJS$1({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default$1 = require_worker_runtime$1();
+const route31 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default$1
+}, Symbol.toStringTag, { value: "Module" }));
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __commonJS = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
+var require_worker_runtime = __commonJS({
+  "@remix-pwa/worker-runtime"(exports, module) {
+    module.exports = {};
+  }
+});
+var worker_runtime_default = require_worker_runtime();
+const route32 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: worker_runtime_default
+}, Symbol.toStringTag, { value: "Module" }));
+const assets = [
+  "/entry.worker.js",
+  "/favicon.ico",
+  "/images/icons/3-columns.svg",
+  "/images/icons/LICENSE.md",
+  "/images/icons/add-sign.svg",
+  "/images/icons/arrow-clockwise.svg",
+  "/images/icons/arrow-counterclockwise.svg",
+  "/images/icons/bg-color.svg",
+  "/images/icons/camera.svg",
+  "/images/icons/card-checklist.svg",
+  "/images/icons/caret-right-fill.svg",
+  "/images/icons/chat-left-text.svg",
+  "/images/icons/chat-right-dots.svg",
+  "/images/icons/chat-right-text.svg",
+  "/images/icons/chat-right.svg",
+  "/images/icons/chat-square-quote.svg",
+  "/images/icons/chevron-down.svg",
+  "/images/icons/clipboard.svg",
+  "/images/icons/close.svg",
+  "/images/icons/code.svg",
+  "/images/icons/comments.svg",
+  "/images/icons/copy.svg",
+  "/images/icons/diagram-2.svg",
+  "/images/icons/download.svg",
+  "/images/icons/draggable-block-menu.svg",
+  "/images/icons/dropdown-more.svg",
+  "/images/icons/figma.svg",
+  "/images/icons/file-earmark-text.svg",
+  "/images/icons/file-image.svg",
+  "/images/icons/filetype-gif.svg",
+  "/images/icons/font-color.svg",
+  "/images/icons/font-family.svg",
+  "/images/icons/gear.svg",
+  "/images/icons/horizontal-rule.svg",
+  "/images/icons/indent.svg",
+  "/images/icons/journal-code.svg",
+  "/images/icons/journal-text.svg",
+  "/images/icons/justify.svg",
+  "/images/icons/link.svg",
+  "/images/icons/list-ol.svg",
+  "/images/icons/list-ul.svg",
+  "/images/icons/lock-fill.svg",
+  "/images/icons/lock.svg",
+  "/images/icons/markdown.svg",
+  "/images/icons/mic.svg",
+  "/images/icons/minus-sign.svg",
+  "/images/icons/outdent.svg",
+  "/images/icons/paint-bucket.svg",
+  "/images/icons/palette.svg",
+  "/images/icons/pencil-fill.svg",
+  "/images/icons/plug-fill.svg",
+  "/images/icons/plug.svg",
+  "/images/icons/plus-slash-minus.svg",
+  "/images/icons/plus.svg",
+  "/images/icons/prettier-error.svg",
+  "/images/icons/prettier.svg",
+  "/images/icons/scissors.svg",
+  "/images/icons/send.svg",
+  "/images/icons/square-check.svg",
+  "/images/icons/sticky.svg",
+  "/images/icons/success-alt.svg",
+  "/images/icons/success.svg",
+  "/images/icons/table.svg",
+  "/images/icons/text-center.svg",
+  "/images/icons/text-left.svg",
+  "/images/icons/text-paragraph.svg",
+  "/images/icons/text-right.svg",
+  "/images/icons/trash.svg",
+  "/images/icons/trash3.svg",
+  "/images/icons/tweet.svg",
+  "/images/icons/type-bold.svg",
+  "/images/icons/type-h1.svg",
+  "/images/icons/type-h2.svg",
+  "/images/icons/type-h3.svg",
+  "/images/icons/type-h4.svg",
+  "/images/icons/type-h5.svg",
+  "/images/icons/type-h6.svg",
+  "/images/icons/type-italic.svg",
+  "/images/icons/type-strikethrough.svg",
+  "/images/icons/type-subscript.svg",
+  "/images/icons/type-superscript.svg",
+  "/images/icons/type-underline.svg",
+  "/images/icons/upload.svg",
+  "/images/icons/user.svg",
+  "/images/icons/youtube.svg",
+  "/images/emoji/1F600.png",
+  "/images/emoji/1F641.png",
+  "/images/emoji/1F642.png",
+  "/images/emoji/2764.png",
+  "/images/emoji/LICENSE.md"
+];
+const routes = {
+  "root": {
+    id: "root",
+    parentId: void 0,
+    path: "",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: true,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route0
+  },
+  "routes/Categories.$category.($subCategory)": {
+    id: "routes/Categories.$category.($subCategory)",
+    parentId: "root",
+    path: "Categories/:category/:subCategory?",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: true,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route1
+  },
+  "routes/Products.$category.$slug": {
+    id: "routes/Products.$category.$slug",
+    parentId: "root",
+    path: "Products/:category/:slug",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: true,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route2
+  },
+  "routes/National-Sales-Manager": {
+    id: "routes/National-Sales-Manager",
+    parentId: "root",
+    path: "National-Sales-Manager",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: false,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route3
+  },
+  "routes/manifest[.webmanifest]": {
+    id: "routes/manifest[.webmanifest]",
+    parentId: "root",
+    path: "manifest.webmanifest",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: true,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route4
+  },
+  "routes/Blogs.$category.$id": {
+    id: "routes/Blogs.$category.$id",
+    parentId: "root",
+    path: "Blogs/:category/:id",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: true,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route5
+  },
+  "routes/Terms-Conditions": {
+    id: "routes/Terms-Conditions",
+    parentId: "root",
+    path: "Terms-Conditions",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: true,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route6
+  },
+  "routes/Change-Password": {
+    id: "routes/Change-Password",
+    parentId: "root",
+    path: "Change-Password",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: false,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route7
+  },
+  "routes/Forgot-Password": {
+    id: "routes/Forgot-Password",
+    parentId: "root",
+    path: "Forgot-Password",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: false,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route8
+  },
+  "routes/Privacy-Policy": {
+    id: "routes/Privacy-Policy",
+    parentId: "root",
+    path: "Privacy-Policy",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: true,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route9
+  },
+  "routes/Quote.Request": {
+    id: "routes/Quote.Request",
+    parentId: "root",
+    path: "Quote/Request",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: false,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route10
+  },
+  "routes/sitemap[.]xml": {
+    id: "routes/sitemap[.]xml",
+    parentId: "root",
+    path: "sitemap.xml",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: true,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route11
+  },
+  "routes/Edit-Account": {
+    id: "routes/Edit-Account",
+    parentId: "root",
+    path: "Edit-Account",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: true,
+    hasAction: true,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route12
+  },
+  "routes/robots[.txt]": {
+    id: "routes/robots[.txt]",
+    parentId: "root",
+    path: "robots.txt",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: true,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route13
+  },
+  "routes/Blogs.$cat": {
+    id: "routes/Blogs.$cat",
+    parentId: "root",
+    path: "Blogs/:cat",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: true,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route14
+  },
+  "routes/Guarantees": {
+    id: "routes/Guarantees",
+    parentId: "root",
+    path: "Guarantees",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: false,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route15
+  },
+  "routes/_index_seo": {
+    id: "routes/_index_seo",
+    parentId: "root",
+    path: void 0,
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: false,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route16
+  },
+  "routes/Quote.Add": {
+    id: "routes/Quote.Add",
+    parentId: "root",
+    path: "Quote/Add",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: false,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route17
+  },
+  "routes/Category": {
+    id: "routes/Category",
+    parentId: "root",
+    path: "Category",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: true,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route18
+  },
+  "routes/Checkout": {
+    id: "routes/Checkout",
+    parentId: "root",
+    path: "Checkout",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: false,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route19
+  },
+  "routes/Account": {
+    id: "routes/Account",
+    parentId: "root",
+    path: "Account",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: true,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route20
+  },
+  "routes/Contact": {
+    id: "routes/Contact",
+    parentId: "root",
+    path: "Contact",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: false,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route21
+  },
+  "routes/Offline": {
+    id: "routes/Offline",
+    parentId: "root",
+    path: "Offline",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: false,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route22
+  },
+  "routes/Quotes": {
+    id: "routes/Quotes",
+    parentId: "root",
+    path: "Quotes",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: false,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route23
+  },
+  "routes/Search": {
+    id: "routes/Search",
+    parentId: "root",
+    path: "Search",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: true,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route24
+  },
+  "routes/SignUp": {
+    id: "routes/SignUp",
+    parentId: "root",
+    path: "SignUp",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: false,
+    hasAction: true,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route25
+  },
+  "routes/_index": {
+    id: "routes/_index",
+    parentId: "root",
+    path: void 0,
+    index: true,
+    caseSensitive: void 0,
+    hasLoader: true,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route26
+  },
+  "routes/About": {
+    id: "routes/About",
+    parentId: "root",
+    path: "About",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: false,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route27
+  },
+  "routes/Login": {
+    id: "routes/Login",
+    parentId: "root",
+    path: "Login",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: false,
+    hasAction: true,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route28
+  },
+  "routes/Blog": {
+    id: "routes/Blog",
+    parentId: "root",
+    path: "Blog",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: true,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route29
+  },
+  "routes/Cart": {
+    id: "routes/Cart",
+    parentId: "root",
+    path: "Cart",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: false,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route30
+  },
+  "routes/Faq": {
+    id: "routes/Faq",
+    parentId: "root",
+    path: "Faq",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: true,
+    hasAction: false,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route31
+  },
+  "routes/otp": {
+    id: "routes/otp",
+    parentId: "root",
+    path: "otp",
+    index: void 0,
+    caseSensitive: void 0,
+    hasLoader: false,
+    hasAction: true,
+    hasWorkerLoader: false,
+    hasWorkerAction: false,
+    module: route32
+  }
+};
+const entry = { module: entryWorker };
 var mode$2 = {};
 /**
  * @remix-run/server-runtime v2.12.0

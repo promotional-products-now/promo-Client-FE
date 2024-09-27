@@ -8,6 +8,7 @@ import {
   json,
   useLoaderData,
   useLocation,
+  useMatches,
 } from "@remix-run/react";
 // import { ManifestLink } from "@remix-pwa/sw";
 import { cssBundleHref } from "@remix-run/css-bundle";
@@ -18,9 +19,9 @@ import { Header } from "app/components/Header";
 import { Footer } from "app/components/Footer";
 import { Sidebar } from "app/components/Sidebar";
 
-import stylesheet from "./tailwind.css?url";
+import Stylesheet from "./tailwind.css?url";
 import SwiperStyle from "./style.css?url";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { getSession } from "./sessions";
 import nprogressStyles from "nprogress/nprogress.css?url";
@@ -42,7 +43,7 @@ interface NetworkError extends Error {
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
-  { rel: "stylesheet", href: stylesheet },
+  { rel: "stylesheet", href: Stylesheet },
   { rel: "stylesheet", href: SwiperStyle },
   { rel: "stylesheet", href: "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" },
   {
@@ -55,11 +56,47 @@ export const links: LinksFunction = () => [
   },
   { rel: "stylesheet", href: nprogressStyles },
 ];
+let isMount = true;
 
 export default function App() {
+  // useSWEffect();
+  let location = useLocation();
+  let matches = useMatches();
+
   let data = useLoaderData<typeof loader>();
-  const location = useLocation();
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    let mounted = isMount;
+    isMount = false;
+    if ("serviceWorker" in navigator) {
+      if (navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller?.postMessage({
+          type: "REMIX_NAVIGATION",
+          isMount: mounted,
+          location,
+          matches,
+          manifest: window.__remixManifest,
+        });
+      } else {
+        let listener = async () => {
+          await navigator.serviceWorker.ready;
+          navigator.serviceWorker.controller?.postMessage({
+            type: "REMIX_NAVIGATION",
+            isMount: mounted,
+            location,
+            matches,
+            manifest: window.__remixManifest,
+          });
+        };
+        navigator.serviceWorker.addEventListener("controllerchange", listener);
+        return () => {
+          navigator.serviceWorker.removeEventListener("controllerchange", listener);
+        };
+      }
+    }
+  }, [location]);
 
   return (
     <html lang="en">
@@ -100,6 +137,8 @@ export default function App() {
               __html: `window.ENV = ${JSON.stringify({ env: data && data.ENV ? data.ENV : "" })}`,
             }}
           />
+
+          <script src="//code.tidio.co/qbakac63yzzkny4nnhlttm465hmnvnak.js" />
 
           <Scripts />
         </QueryClientProvider>
