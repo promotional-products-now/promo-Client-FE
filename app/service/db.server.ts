@@ -4,6 +4,8 @@ const connectionString =
   "mongodb+srv://production_spiderMonkey:ZldLi0VKCrJZFMdO@ppn.hfq7y.mongodb.net/ppn?retryWrites=true&w=majorit" ||
   "";
 
+  console.log({ processEnv: process.env, connectionString: process.env.CONNECTION_STRING });
+  
 if (!connectionString) {
   throw new Error(
     "No connection string provided. \n\nPlease create a `.env` file in the root of this project and add a CONNECTION_STRING variable with the MongoDB connection string. \nRefer to the README.md for more information.",
