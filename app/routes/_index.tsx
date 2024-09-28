@@ -30,6 +30,7 @@ import { homePageSchema } from "./_index_seo";
 import { useQuery } from "@tanstack/react-query";
 import OldBanner from "app/components/OldBanner";
 import { ClientOnly } from "remix-utils/client-only";
+import OldBannerLoader from "app/components/OldBanner/Loader";
 
 export const meta: MetaFunction = () => {
   return [
@@ -112,7 +113,7 @@ export default function Index() {
               </div>
               {/* banner */}
               <div className="w-full h-full">
-                <ClientOnly fallback={<p>Loading</p>}>
+                <ClientOnly fallback={<OldBannerLoader />}>
                   {() => (
                     <OldBanner
                       clothing={getRandomData(

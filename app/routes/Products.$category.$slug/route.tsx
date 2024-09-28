@@ -672,7 +672,7 @@ export default function ProductDetailsRoute() {
             </div>
           </Form>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-10 px-4 md:px-0">
             <ProductAboutCard
               title={cardData[0]}
               desc={data?.product?.description || "No Description"}

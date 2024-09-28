@@ -11,6 +11,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@nextui-org/react";
+import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { Link as RemixLink, json, useLoaderData, useLocation } from "@remix-run/react";
 import { MdOutlineLocalPhone } from "react-icons/md";
 import { PiHandbagLight } from "react-icons/pi";
@@ -85,7 +86,7 @@ export function Header({ sidebarOpen, setSidebarOpen }: HeaderT) {
                 >
                   <FiMenu className="text-2xl" />
                 </button>
-                <div className="md:hidden">
+                <div className="md:hidden gap-x-1">
                   <Button
                     as={RemixLink}
                     isIconOnly
@@ -96,9 +97,30 @@ export function Header({ sidebarOpen, setSidebarOpen }: HeaderT) {
                   >
                     <MdOutlineLocalPhone className="text-2xl text-primary" />
                   </Button>
+                  <Button
+                    as={RemixLink}
+                    isIconOnly
+                    to={`/cart`}
+                    variant="ghost"
+                    aria-label="Sales Contact"
+                    className="border-0 rounded"
+                  >
+                    <HiOutlineShoppingBag className="text-2xl text-primary" />
+                  </Button>
+                  <Button
+                    as={RemixLink}
+                    prefetch="intent"
+                    to="/login"
+                    size="sm"
+                    variant="ghost"
+                    startContent={<FiLogIn className="text-xl text-primary" />}
+                    className="border border-zinc-200 rounded font-medium text-sm px-3"
+                  >
+                    Login
+                  </Button>
                 </div>
               </div>
-              <div className="ml-8 flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+              <div className="sm:ml-8 flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                 <ul className="hidden lg:flex space-x-3">
                   <li>
                     <Button
@@ -137,7 +159,7 @@ export function Header({ sidebarOpen, setSidebarOpen }: HeaderT) {
                   </li>
                 </ul>
                 <Link as={RemixLink} to="/" className="md:hidden">
-                  <Image src={logo} alt="Company Logo" className="h-12" />
+                  <Image src={logo} alt="Company Logo" className="h-12 w-[7.5rem] sm:w-36" />
                 </Link>
               </div>
               <div

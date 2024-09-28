@@ -75,8 +75,8 @@ function CategoryList(props: any) {
                 <hr className="my-2 h-0 border-0 border-b-1 border-zinc-200 " />
                 {category.subCategory && category.subCategory.length > 0 && (
                   <div
-                    className="submenu absolute z-[1000] left-full top-0 right-0 bg-white border border-zinc-300 ml-4 w-64 hidden 
-                  group-hover:block h-full overflow-y-auto rounded-r-lg overflow-x-hidden"
+                    className="absolute z-[1000] left-full top-0 right-0 bg-white border border-zinc-300 ml-4 w-64 hidden 
+                  group-hover:block h-full  2xl:h-[39rem] overflow-y-auto rounded-r-lg overflow-x-hidden"
                     style={{ top: `${position.top}px`, left: `${position.left}px` }}
                   >
                     <h3 className="text-lg font-bold p-4">{category?.name}</h3>
