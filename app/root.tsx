@@ -6,6 +6,7 @@ import {
   Scripts,
   ScrollRestoration,
   json,
+  useLoaderData,
   // useLoaderData,
   useLocation,
   useMatches,
@@ -83,7 +84,7 @@ function Document(props: { children: ReactNode; title?: string }) {
   let location = useLocation();
   let matches = useMatches();
 
-  let data = useRouteLoaderData("root");
+  let data = useLoaderData<typeof loader>();
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
