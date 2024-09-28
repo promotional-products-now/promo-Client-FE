@@ -84,7 +84,7 @@ const ProductSection = ({
             </div>
 
             <div className="relative md:flex flex-row justify-start items-center left-0 hidden">
-              <div className="relative w-full md:min-w-[16rem] min-h-[50rem] h-full flex-grow">
+              <div className="relative w-full md:min-w-[16rem] md:max-w-[17rem] min-h-[50rem] h-full flex-grow">
                 <Image
                   src={heroImage}
                   alt={`Hero image for ${title}`}
@@ -93,6 +93,7 @@ const ProductSection = ({
                   className="bg-primary h-full w-full transition aspect-auto absolute top-0 bottom-0 left-0 right-0 object-cover"
                   loading="lazy" // Lazy loading for performance
                 />
+                <div className="bg-primary h-full w-full"></div>
                 <div className="absolute z-20 top-0 bottom-0 left-0 right-0">
                   <div className="absolute flex flex-col gap-2 h-full justify-center items-left bg-primary/50 bg-blend-darken top-0 left-0 bottom-0 right-0 p-4 md:p-6">
                     <div className="w-14 h-14">

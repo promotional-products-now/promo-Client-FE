@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 
 // Use environment variable for the connection string
-const connectionString ="mongodb+srv://production_spiderMonkey:ZldLi0VKCrJZFMdO@ppn.hfq7y.mongodb.net/ppn?retryWrites=true&w=majority"// process.env.CONNECTION_STRING;
+const connectionString =
+  "mongodb+srv://production_spiderMonkey:ZldLi0VKCrJZFMdO@ppn.hfq7y.mongodb.net/ppn?retryWrites=true&w=majority"; // process.env.CONNECTION_STRING;
 
 if (!connectionString) {
   throw new Error(
@@ -9,6 +10,7 @@ if (!connectionString) {
   );
 }
 
+console.log({ prd: process.env.NODE_ENV });
 let db: typeof mongoose | undefined;
 
 declare global {
@@ -41,6 +43,7 @@ async function connect() {
   // Connect to the database
   if (process.env.NODE_ENV === "production") {
     db = await mongoose.connect(connectionString, connectionOptions);
+    // console.log(db);
   } else {
     if (!global.__db) {
       global.__db = await mongoose.connect(connectionString, connectionOptions);

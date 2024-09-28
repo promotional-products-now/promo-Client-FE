@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "build": "remix vite:build",
-    "dev": "NODE_ENV=production ; remix vite:dev",
+    "dev": "remix vite:dev",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
-    "start:prd": "PORT=8080 remix-serve ./build/server/index.js",
+    "start:prd": "PORT=1338 remix-serve ./build/server/index.js",
     "typecheck": "tsc"
   },
   "dependencies": {
