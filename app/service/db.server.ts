@@ -1,11 +1,8 @@
 import mongoose from "mongoose";
 
-const connectionString =
-  "mongodb+srv://production_spiderMonkey:ZldLi0VKCrJZFMdO@ppn.hfq7y.mongodb.net/ppn?retryWrites=true&w=majorit" ||
-  "";
+// Use environment variable for the connection string
+const connectionString ="mongodb+srv://production_spiderMonkey:ZldLi0VKCrJZFMdO@ppn.hfq7y.mongodb.net/ppn?retryWrites=true&w=majority"// process.env.CONNECTION_STRING;
 
-  console.log({ processEnv: process.env, connectionString: process.env.CONNECTION_STRING });
-  
 if (!connectionString) {
   throw new Error(
     "No connection string provided. \n\nPlease create a `.env` file in the root of this project and add a CONNECTION_STRING variable with the MongoDB connection string. \nRefer to the README.md for more information.",
@@ -28,6 +25,20 @@ async function connect() {
     socketTimeoutMS: 45000, // 45 seconds socket timeout
   };
 
+  // Register event listeners to track connection status
+  mongoose.connection.on("connected", () => {
+    console.log(`Database connected at ${mongoose.connection.host}`);
+  });
+
+  mongoose.connection.on("error", (err) => {
+    console.error("Database connection error:", err);
+  });
+
+  mongoose.connection.on("disconnected", () => {
+    console.warn("Database disconnected.");
+  });
+
+  // Connect to the database
   if (process.env.NODE_ENV === "production") {
     db = await mongoose.connect(connectionString, connectionOptions);
   } else {
@@ -40,41 +51,4 @@ async function connect() {
   return db;
 }
 
-async function ensureDbConnection() {
-  if (!db) {
-    await connect();
-  }
-}
-
-export { mongoose, connect, ensureDbConnection };
-
-//
-// if (connectionString.indexOf("appName") === -1)
-//   connectionString +=
-//     connectionString.indexOf("?") > -1
-//       ? "&appName=devrel.template.remix|"
-//       : "?appName=devrel.template.remix|";
-// else
-//   connectionString = connectionString.replace(
-//     /appName\=([a-z0-9]*)/i,
-//     (m, p) => `appName=devrel.template.remix|${p}`,
-//   );
-
-// let mongodb: MongoClient;
-
-// declare global {
-//   var __db: MongoClient | undefined;
-// }
-
-// if (process.env.NODE_ENV === "production") {
-//   mongodb = new MongoClient(connectionString);
-// } else {
-//   if (!global.__db) {
-//     global.__db = new MongoClient(connectionString);
-//   }
-//   mongodb = global.__db;
-// }
-
-// let ObjectId = BSON.ObjectId;
-
-// export { mongodb, ObjectId };
+export { mongoose, connect };

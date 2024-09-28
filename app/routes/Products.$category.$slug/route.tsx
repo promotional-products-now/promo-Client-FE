@@ -62,7 +62,7 @@ import { PreviewProduct } from "app/components/Product/PreviewProduct";
 import { useSetAtom } from "jotai";
 import { productPreviewAtom } from "app/atoms/product.atom";
 import { findBySlug } from "app/service/product.server";
-import { ensureDbConnection } from "app/service/db.server";
+import { connect } from "app/service/db.server";
 
 export const meta: MetaFunction = () => {
   return [
@@ -115,8 +115,9 @@ const cardData = ["ABOUT", "DETAILS", "ADDITIONAL INFO"];
 export const loader = async ({ params, request }: { params: { slug: string }; request: any }) => {
   const session = await getSession(request.headers.get("Cookie"));
   const uid = session.get("uid");
-  await ensureDbConnection();
+  await connect();
 
+  console.log({ slug: params.slug });
   let product = await findBySlug(params.slug);
   console.log({ product });
 

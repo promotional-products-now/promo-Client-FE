@@ -13,6 +13,7 @@ export async function findBySlug(slug: string): Promise<any> {
       .populate("subCategory")
       .lean();
 
+    console.log({ pd: product, slug });
     return product;
   }
 }
