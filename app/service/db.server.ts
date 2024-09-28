@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-import * as dotenv from "dotenv";
-dotenv.config();
 
-const connectionString = process.env.CONNECTION_STRING || "";
+const connectionString =
+  "mongodb+srv://production_spiderMonkey:ZldLi0VKCrJZFMdO@ppn.hfq7y.mongodb.net/ppn?retryWrites=true&w=majorit" ||
+  "";
 
 if (!connectionString) {
   throw new Error(
