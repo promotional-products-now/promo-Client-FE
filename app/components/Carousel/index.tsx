@@ -41,7 +41,7 @@ export default function Carousel({
           }}
           // parallax={true}
           grabCursor={true}
-          loop={true}
+          loop={false}
           mousewheel={true}
           pagination={{
             clickable: true,
