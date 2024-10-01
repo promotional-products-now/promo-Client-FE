@@ -105,6 +105,7 @@ const FeaturedProducts = ({ sectionLabel, showMore }: FeaturedProductsProps) => 
                 return (
                   <ProductCard
                     key={item?._id}
+                    labels={item?.labels || []}
                     image={item?.overview?.heroImage}
                     images={item?.product?.images}
                     title={item?.overview?.name}
@@ -129,6 +130,7 @@ const FeaturedProducts = ({ sectionLabel, showMore }: FeaturedProductsProps) => 
               trendingProducts.docs?.map((item: { count: number; product: ProductObject }) => (
                 <ProductCard
                   key={item?.product?._id}
+                  labels={item?.product.labels || []}
                   image={item?.product?.overview?.heroImage}
                   images={item?.product?.product?.images}
                   title={item?.product?.overview?.name}

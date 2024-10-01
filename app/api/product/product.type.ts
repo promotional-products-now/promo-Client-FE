@@ -141,6 +141,7 @@ export type ProductObject = {
   meta: Meta;
   __v: number;
   category: Category;
+  labels: string[];
   createdAt: string;
   overview: Overview;
   product: Product;

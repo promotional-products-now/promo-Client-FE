@@ -165,6 +165,7 @@ export default function Index() {
                             itemType="https://schema.org/Product"
                           >
                             <ProductCard
+                              labels={item?.labels || []}
                               image={item?.overview?.heroImage}
                               images={item?.product?.images}
                               title={item.overview?.name}

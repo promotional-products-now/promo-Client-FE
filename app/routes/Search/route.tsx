@@ -100,6 +100,7 @@ export default function SearchPage() {
             return (
               <div key={item._id || item?.id} className="flex flex-row">
                 <ProductCard
+                  labels={item?.labels || []}
                   image={item.overview.heroImage}
                   images={item.product.images}
                   title={item.overview.name}

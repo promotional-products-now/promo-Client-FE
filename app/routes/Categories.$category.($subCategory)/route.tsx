@@ -202,6 +202,7 @@ const CategoryPage = () => {
               return (
                 <ProductCard
                   key={item?._id}
+                  labels={item?.labels || []}
                   handlePreviewFn={(data) => handlePreviewProd(data)}
                   image={item?.overview?.heroImage}
                   images={item?.product?.images}

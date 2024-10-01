@@ -762,6 +762,7 @@ export default function ProductDetailsRoute() {
                   latestProducts?.map((item, index) => (
                     <ProductCardDet
                       key={item?._id}
+                      labels={item?.labels || []}
                       image={item?.overview?.heroImage}
                       images={item?.product?.images}
                       title={item?.overview?.name}

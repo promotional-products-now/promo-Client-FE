@@ -1,4 +1,4 @@
-import { Image, Link, Button } from "@nextui-org/react";
+import { Image, Link, Button, Chip } from "@nextui-org/react";
 import { useNavigate } from "@remix-run/react";
 import { toSnakeCase } from "app/utils/fn";
 import { BsCart3 } from "react-icons/bs";
@@ -9,6 +9,7 @@ export type ProductCardProps = {
   images?: string[];
   productCode?: string;
   title: string;
+  labels: string[];
   description: string;
   basePrice: { min: number; max: number };
   qty: { min: number; max: number };
@@ -27,6 +28,7 @@ export const ProductCard = ({
   qty,
   category,
   slug,
+  labels,
   handlePreviewFn,
 }: ProductCardProps) => {
   const props = {
@@ -65,7 +67,6 @@ export const ProductCard = ({
           ) : (
             <div className="bg-slate-100 h-full w-full"></div>
           )}
-
           <div className="hidden md:grid grid-cols-2 absolute bottom-0 opacity-0 group-hover:opacity-100 transition w-full z-20">
             <Button
               radius="none"
@@ -105,6 +106,36 @@ export const ProductCard = ({
             )}
             {qty && qty?.min && <div> {qty?.min} min qty</div>}
           </div>
+          {labels && labels.length > 0 && (
+            <div className="flex gap-1 mt-2 ">
+              {labels?.map((label, i) => {
+                if (i < 2) {
+                  return (
+                    <Chip
+                      key={label}
+                      size="sm"
+                      className={`${
+                        label === "Just Released or New"
+                          ? "bg-green-600"
+                          : label === "On Sale"
+                          ? "bg-primary"
+                          : label === "Best Buy"
+                          ? "bg-orange"
+                          : "bg-purple-600"
+                      }  text-white`}
+                    >
+                      {label}
+                    </Chip>
+                  );
+                }
+              })}
+              {labels.length > 2 && (
+                <Chip size="sm" color="default">
+                  {labels.length - 2}
+                </Chip>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </>

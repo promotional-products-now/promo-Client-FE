@@ -161,6 +161,7 @@ const ProductSection = ({
                   .map((item: any) => (
                     <ProductCard
                       key={item._id || item.id}
+                      labels={item?.labels || []}
                       image={item?.overview?.heroImage}
                       images={item?.product?.images}
                       title={item?.overview?.name}
